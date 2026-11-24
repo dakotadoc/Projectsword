@@ -289,12 +289,23 @@ export function showDialog({ title, text, content, actions = [{ label: 'Close' }
   box.setAttribute('role', 'dialog');
   box.setAttribute('aria-modal', 'true');
 
+  // Header: the title and a close button that stays at the top while the
+  // dialog scrolls, so it can always be closed (even with a phone keyboard up).
+  const header = document.createElement('div');
+  header.className = 'dialog-header';
   const heading = document.createElement('h2');
   heading.className = 'dialog-title';
   heading.id = `dialog-title-${Date.now()}`;
   heading.textContent = title;
   box.setAttribute('aria-labelledby', heading.id);
-  box.append(heading);
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'dialog-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.textContent = '×';
+  closeBtn.addEventListener('click', () => close());
+  header.append(heading, closeBtn);
+  box.append(header);
 
   if (text) {
     const p = document.createElement('p');
@@ -323,11 +334,32 @@ export function showDialog({ title, text, content, actions = [{ label: 'Close' }
   function onKey(e) {
     if (e.key === 'Escape') close();
   }
+  // Tapping anywhere that isn't a field puts a phone keyboard away.
+  box.addEventListener('pointerdown', (e) => {
+    const field = e.target.closest('input, select, textarea, label');
+    const active = document.activeElement;
+    if (!field && active && box.contains(active) && active.matches('input, textarea')) active.blur();
+  });
+  // Fit the overlay to the part of the screen the keyboard leaves visible.
+  const vv = window.visualViewport;
+  const fit = () => {
+    overlay.style.top = `${vv.offsetTop}px`;
+    overlay.style.height = `${vv.height}px`;
+  };
+  if (vv) {
+    vv.addEventListener('resize', fit);
+    vv.addEventListener('scroll', fit);
+    fit();
+  }
   let closed = false;
   function close() {
     if (closed) return;
     closed = true;
     document.removeEventListener('keydown', onKey);
+    if (vv) {
+      vv.removeEventListener('resize', fit);
+      vv.removeEventListener('scroll', fit);
+    }
     overlay.remove();
     if (previousFocus && previousFocus.isConnected) previousFocus.focus();
     onClose?.();
@@ -335,7 +367,10 @@ export function showDialog({ title, text, content, actions = [{ label: 'Close' }
 
   document.addEventListener('keydown', onKey);
   root.append(overlay);
-  (box.querySelector('textarea, input') || row.querySelector('button'))?.focus();
+  // Only a dialog with a single field (seed, import…) starts in that field;
+  // in a form with many fields that would open a phone keyboard at once.
+  const fields = box.querySelectorAll('textarea, input, select');
+  (fields.length === 1 ? fields[0] : row.querySelector('button'))?.focus();
   return close;
 }
 

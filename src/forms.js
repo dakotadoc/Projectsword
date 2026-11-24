@@ -1,6 +1,18 @@
 // Small form builders for in-page dialogs (custom runs, the debug menu).
 // Everything is built with DOM calls and textContent, never innerHTML.
 
+// The phone keyboard's Enter key says "Done" and puts the keyboard away.
+function doneKey(input) {
+  input.enterKeyHint = 'done';
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      input.blur();
+    }
+  });
+  return input;
+}
+
 export function textInput({ placeholder = '', maxLength = 100, value = '' } = {}) {
   const input = document.createElement('input');
   input.type = 'text';
@@ -8,7 +20,7 @@ export function textInput({ placeholder = '', maxLength = 100, value = '' } = {}
   input.placeholder = placeholder;
   input.maxLength = maxLength;
   input.value = value;
-  return input;
+  return doneKey(input);
 }
 
 export function numberInput({ min, max, placeholder = '', value = '' } = {}) {
@@ -20,7 +32,7 @@ export function numberInput({ min, max, placeholder = '', value = '' } = {}) {
   if (max !== undefined) input.max = String(max);
   input.placeholder = placeholder;
   input.value = value === null || value === undefined ? '' : String(value);
-  return input;
+  return doneKey(input);
 }
 
 // options: [[value, label], …]

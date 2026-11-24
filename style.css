@@ -375,6 +375,7 @@ button:disabled { opacity: 0.45; cursor: default; }
 .dialog-overlay {
   position: fixed;
   inset: 0;
+  height: 100dvh; /* replaced by the visible height when a keyboard is up (ui.js) */
   display: grid;
   place-items: center;
   padding: 16px;
@@ -384,7 +385,7 @@ button:disabled { opacity: 0.45; cursor: default; }
 }
 .dialog {
   width: min(100%, 520px);
-  max-height: calc(100vh - 32px);
+  max-height: 100%;
   overflow-y: auto;
   background: var(--panel-solid);
   border: 1px solid var(--line);
@@ -393,7 +394,29 @@ button:disabled { opacity: 0.45; cursor: default; }
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
   animation: rise 0.25s ease both;
 }
+.dialog-header {
+  position: sticky;
+  top: -20px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -20px -20px 0;
+  padding: 20px 20px 4px;
+  background: var(--panel-solid);
+}
 .dialog-title { margin: 0 0 8px; font: 600 26px/1.2 var(--serif); color: var(--gold); }
+.dialog-close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  font: 400 26px/1 var(--sans);
+  color: var(--muted);
+}
 .dialog-text { margin: 0 0 12px; font: 15px/1.5 var(--sans); }
 .dialog-note { min-height: 1.4em; margin: 6px 0 0; font: 14px/1.4 var(--sans); color: var(--muted); }
 .dialog-error { color: var(--error); }

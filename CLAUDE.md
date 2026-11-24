@@ -34,6 +34,7 @@ Pillars:
 ### Artifact sandbox limits (checked in milestone 1)
 The published page runs in a sandboxed frame. Design around these:
 - `alert`, `confirm`, `prompt`, and file downloads are blocked. All dialogs are built in-page (`ui.showDialog`, `ui.confirmDialog`); Export is a text box with a Copy button.
+- **Dialogs on phones:** every dialog has a × close button pinned to its top, and fits the part of the screen a keyboard leaves visible (`visualViewport`), so Cancel/Apply stay reachable. A dialog only opens with its field selected if it has exactly one field; form fields use a "Done" Enter key that puts the keyboard away, and tapping anywhere in the dialog outside a field does too.
 - localStorage may be missing or throw. Saves go through `storage.js` (async), which falls back to memory and warns the player. Planned: swap it for the artifact's per-person `db` capability when publishing. Export/Import is the guaranteed backup.
 - Asking Claude uses the artifact's `sample` capability (`claude.use("sample")`, which can return JSON). `ai.js` wraps it; it may return `null` (unavailable) or reject (`not_granted`, `rate_limited`), which triggers the `dialogue.json` fallback.
 - All displayed text (data files, AI replies) is set with `textContent`, never `innerHTML`.
