@@ -5,6 +5,7 @@
 import { findById, getData } from './data.js';
 import { STAT_LABELS } from './ranks.js';
 import { bondBand } from './servantTalk.js';
+import { timeOfDay } from './war.js';
 
 const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war' };
 const SERVANT_STAT_NAMES = {
@@ -31,7 +32,10 @@ function progressSection(state) {
   if (state.screen === 'life' && life && life.stage !== 'done') {
     rows.push(['Turn', `${life.turn + 1} of ${life.turns.length}`]);
   }
-  if (state.war) rows.push(['Day', String(state.war.day)]);
+  if (state.war) {
+    const days = getData('rules').war.days;
+    rows.push(['Day', `${Math.min(state.war.day, days)} of ${days}`], ['Time', timeOfDay(state)]);
+  }
   return section('Progress', [table(rows)]);
 }
 
@@ -71,6 +75,7 @@ function masterSection(state) {
       ['Money', String(m.money)],
       ['Contacts', String(m.contacts)],
       ['Catalysts', catalysts.length ? catalysts.join(', ') : 'None'],
+      ...(state.war ? [['Workshop', state.war.workshop ? `Level ${state.war.workshop}` : 'None']] : []),
     ]),
   ]);
 }

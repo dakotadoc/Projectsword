@@ -4,10 +4,12 @@
 // A data entry (event, text variant, choice…) may restrict when it appears:
 //   "from"/"to"         in-game years (see period.js)
 //   "minAge"/"maxAge"   the Master's age
-//   "conditions": { isMage, places, families, traits, sex, minMoney }
+//   "minDay"/"maxDay"   the war day (war events)
+//   "conditions": { isMage, places, families, traits, sex, minMoney, minContacts }
 //
 // Effects look like:
-//   { "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true }
+//   { "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true,
+//     "bond": 1, "servantHp": -5, "mana": -10 }
 
 import { getData, findById } from './data.js';
 import { weightedPick } from './rng.js';
@@ -18,11 +20,14 @@ export const STAT_NAMES = { body: 'Body', magecraft: 'Magecraft', mind: 'Mind', 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 
 // Facts about the current moment that conditions are checked against.
-export function makeContext(state, { age, year }) {
+export function makeContext(state, { age, year, day = null }) {
   const family = findById('families', state.master.familyId);
   return {
     age,
     year,
+    day,
+    servantName: state.servant ? findById('servants', state.servant.id).name : '',
+    contacts: state.master.contacts,
     placeId: state.world.placeId,
     placeName: findById('places', state.world.placeId).name,
     familyId: family.id,
@@ -37,6 +42,8 @@ export function fits(entry, ctx) {
   if (!fitsYear(entry, ctx.year)) return false;
   if (Number.isFinite(entry.minAge) && ctx.age < entry.minAge) return false;
   if (Number.isFinite(entry.maxAge) && ctx.age > entry.maxAge) return false;
+  if (Number.isFinite(entry.minDay) && !(ctx.day >= entry.minDay)) return false;
+  if (Number.isFinite(entry.maxDay) && !(ctx.day <= entry.maxDay)) return false;
   const c = entry.conditions;
   if (!c) return true;
   if (typeof c.isMage === 'boolean' && c.isMage !== ctx.isMage) return false;
@@ -45,6 +52,7 @@ export function fits(entry, ctx) {
   if (c.traits && !c.traits.includes(ctx.traitId)) return false;
   if (c.sex && c.sex !== ctx.sex) return false;
   if (Number.isFinite(c.minMoney) && ctx.money < c.minMoney) return false;
+  if (Number.isFinite(c.minContacts) && ctx.contacts < c.minContacts) return false;
   return true;
 }
 
@@ -55,18 +63,20 @@ export function pickText(variants, ctx) {
   return fillText(weightedPick(ok).text, ctx);
 }
 
-// Replace {place}, {year}, {age} in data text.
+// Replace {place}, {year}, {age}, {servant} in data text.
 export function fillText(text, ctx) {
   return text
+    .replaceAll('{servant}', ctx.servantName || 'your Servant')
     .replaceAll('{place}', ctx.placeName)
     .replaceAll('{year}', String(ctx.year))
     .replaceAll('{age}', String(ctx.age));
 }
 
-// Roll one event for this phase that fits the moment and hasn't been seen.
-export function rollEvent(phase, ctx, seenIds) {
+// Roll one event for this phase that fits the moment and hasn't been seen
+// (events marked "repeatable" may come up again).
+export function rollEvent(phase, ctx, seenIds, excludeIds = []) {
   const pool = getData('events').filter(
-    (e) => e.phase === phase && !seenIds.includes(e.id) && fits(e, ctx),
+    (e) => e.phase === phase && (e.repeatable || !seenIds.includes(e.id)) && !excludeIds.includes(e.id) && fits(e, ctx),
   );
   return pool.length ? weightedPick(pool) : null;
 }
@@ -91,6 +101,23 @@ export function applyEffects(state, effects, ctx) {
     const before = m.contacts;
     m.contacts = Math.max(0, m.contacts + effects.contacts);
     if (m.contacts !== before) lines.push(`Contacts ${signed(m.contacts - before)} (${m.contacts})`);
+  }
+  if (effects.mana) {
+    const before = m.mana.current;
+    m.mana.current = clamp(m.mana.current + effects.mana, 0, m.mana.max);
+    if (m.mana.current !== before) lines.push(`Mana ${signed(m.mana.current - before)} (${m.mana.current}/${m.mana.max})`);
+  }
+  const sv = state.servant;
+  if (effects.bond && sv) {
+    const before = sv.bond;
+    sv.bond = clamp(sv.bond + effects.bond, 0, 100);
+    if (sv.bond !== before) lines.push(`Bond ${signed(sv.bond - before)} (${sv.bond})`);
+  }
+  if (effects.servantHp && sv) {
+    const before = sv.hp.current;
+    sv.hp.current = clamp(sv.hp.current + effects.servantHp, 1, sv.hp.max);
+    const name = findById('servants', sv.id).name;
+    if (sv.hp.current !== before) lines.push(`${name} HP ${signed(sv.hp.current - before)} (${sv.hp.current}/${sv.hp.max})`);
   }
   if (effects.catalyst) {
     const found = findCatalyst(state, ctx);

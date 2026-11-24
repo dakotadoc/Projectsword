@@ -88,6 +88,7 @@ style.css
   places.json  eras.json  families.json  traits.json
   catalysts.json  servants.json  summon.json
   life.json    // life-phase actions, their text variants, intro, war announcement
+  war.json     // war intro, dawn/dusk texts, Day and Night actions, rumors
   events.json  rivals.json  dialogue.json
 ```
 
@@ -212,7 +213,7 @@ Keep the AI rule-based and readable. No complex simulation.
 3. **Life phase.** Turn loop, stat actions, life events, catalyst finding. *(Done. Summoning is a placeholder screen until milestone 4.)*
 4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback. *(Done, with 7 catalysts, one per Servant. The war is a placeholder screen until milestone 6.)*
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work. *(Done. Until milestone 6, the war placeholder lets you chat as often as you like for testing.)*
-6. **War loop.** Day/night slots, war events, chat available in Day slots.
+6. **War loop.** Day/night slots, war events, chat available in Day slots. *(Done. Scouting and ambushes are locked until intel exists (milestone 7); patrols find encounters but no battles until milestone 8; after day 14 there is an endgame placeholder until milestone 11.)*
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel.
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat.
 9. **Rival AI.** Daily actions, off-screen fights, news.
@@ -264,12 +265,19 @@ Keep the AI rule-based and readable. No complex simulation.
   - **Servants are agreeable roleplay partners.** They go along with the player's scenes, ideas and actions ("yes, and"), showing personality in how they agree rather than by refusing, and accept details the player adds about the world or their own life. They refuse only what the character would truly never do. Knowledge limits still hold: nothing about rivals beyond known intel (claims about rivals are treated as the Master's beliefs) and nothing after the current year. Low Bond means reserved, not uncooperative.
   - Free talks: one right after the summoning. In the war, talking uses the Day action (milestone 6).
   - Arthur's `secretName` is only put in the context once Bond reaches its `revealAtBond`.
+- **The war (milestone 6):**
+  - Lasts `rules.war.days` (14) days. Each day: dawn (heading, natural recovery of `dawnManaRegen` mana and `dawnHpRegen` Servant HP, then 0–2 war events weighted by `eventsPerDay`), one Day action, dusk, one Night action. Ending early when one pair remains comes with the rival AI.
+  - Day actions: Rest (big HP/mana recovery), Train with the Servant (small Body and Magecraft gains, Bond +1), Gather intel (rumors now; real intel in milestone 7), Prepare the workshop (levels 1–3, costs money, used by combat later), Talk (opens chat and uses the Day action).
+  - Night actions: Patrol (chance of a night encounter, phase "night" events), Scout a known location / Ambush a known Master (locked until intel exists), Stay hidden (safe, small recovery).
+  - War events (phase "war") are rolled at dawn and night encounters (phase "night") on patrol, filtered like all content (year, place, conditions, plus `minDay`/`maxDay`). They don't repeat unless marked `"repeatable": true`. Effects can also change `bond`, `servantHp` and `mana`; `{servant}` in any text is the Servant's name.
+  - `state.war` = `{ day, stage, eventQueue, eventId, eventReturn, seenEvents, seenRumors, workshop, history: [{ day, events, dayAction, nightAction, nightEvent }] }`. Every stage change is saved, so a reload or a talk resumes the day exactly where it was.
+  - The Servant's chat context includes the day, day/night, workshop level, and the last 3 days of what the player did and saw.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
 ## 12. Open questions (decide before or during the build)
 
-- War length: fixed at 14 days, or end when only one pair remains?
+- War length: 14 days for now (`rules.war.days`). Should it also end early when only one pair remains? (Decide with the rival AI, milestone 9.)
 - Can the player die in the life phase, or is it always safe?
 - Can the player ally with a rival (and betray them)?
 - Permadeath, or save-anywhere?

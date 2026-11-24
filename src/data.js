@@ -7,10 +7,10 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
-const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney'];
-const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance'];
+const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts'];
+const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana'];
 
 const data = {};
 
@@ -145,7 +145,7 @@ function validate() {
   // events.json
   for (const e of data.events) {
     const where = `events.json ${e.id}`;
-    need(['life', 'war'].includes(e.phase), `${where}: phase must be "life" or "war"`);
+    need(['life', 'war', 'night'].includes(e.phase), `${where}: phase must be "life", "war" or "night"`);
     checkRestrictions(e, where);
     checkEffects(e.effects, where);
     if (e.choices !== undefined) {
@@ -195,6 +195,29 @@ function validate() {
   need(['maxPlayerMessages', 'maxMessageLength', 'historyMessages', 'memoriesInContext', 'maxMemories'].every((k) => Number.isInteger(c[k]) && c[k] > 0), 'rules.chat needs positive whole numbers for its limits');
   need(isRange(c.bondChange), 'rules.chat.bondChange must be [min, max]');
 
+  // war.json and rules.war
+  const war = data.war || {};
+  for (const key of ['intro', 'dawn', 'dusk', 'end']) checkTexts(war[key], `war.json ${key}`);
+  const dayIds = ['rest', 'train', 'intel', 'workshop', 'talk'];
+  const nightIds = ['patrol', 'scout', 'ambush', 'hide'];
+  for (const [key, ids] of [['dayActions', dayIds], ['nightActions', nightIds]]) {
+    const list = war[key] || [];
+    need(ids.every((id) => list.some((a) => a.id === id)), `war.json ${key}: needs actions ${ids.join(', ')}`);
+    for (const a of list) {
+      need(typeof a.label === 'string' && typeof a.hint === 'string', `war.json ${key} ${a.id}: needs label and hint`);
+      if (!['talk', 'scout', 'ambush'].includes(a.id)) checkTexts(a.texts, `war.json ${key} ${a.id} texts`);
+    }
+  }
+  const intelAction = (war.dayActions || []).find((a) => a.id === 'intel') || {};
+  checkTexts(intelAction.rumors, 'war.json intel rumors');
+  checkTexts(intelAction.nothing, 'war.json intel nothing');
+  checkTexts((war.nightActions || []).find((a) => a.id === 'patrol')?.quiet, 'war.json patrol quiet');
+  const rw = r.war || {};
+  need(Number.isInteger(rw.days) && rw.days > 0, 'rules.war.days must be a positive whole number');
+  need(rw.eventsPerDay && Object.keys(rw.eventsPerDay).every((k) => /^\d+$/.test(k)), 'rules.war.eventsPerDay must map counts to weights');
+  need(Array.isArray(rw.workshop?.cost) && rw.workshop.cost.length >= rw.workshop.maxLevel, 'rules.war.workshop needs a cost for every level');
+  need(isRange(rw.train?.gain), 'rules.war.train.gain must be [min, max]');
+
   const summon = data.summon || {};
   for (const key of ['intro', 'withCatalyst', 'withoutCatalyst', 'compatibilityNote']) checkTexts(summon[key], `summon.json ${key}`);
   need(Number.isFinite(r.summon?.startingBond) && Number.isFinite(r.summon?.compatibilityTemperature), 'rules.summon needs startingBond and compatibilityTemperature');
@@ -220,7 +243,7 @@ function validate() {
 
   function checkRestrictions(entry, where) {
     checkYears(entry, where);
-    for (const k of ['minAge', 'maxAge']) need(entry[k] === undefined || Number.isInteger(entry[k]), `${where}: "${k}" must be a whole number`);
+    for (const k of ['minAge', 'maxAge', 'minDay', 'maxDay']) need(entry[k] === undefined || Number.isInteger(entry[k]), `${where}: "${k}" must be a whole number`);
     if (entry.conditions !== undefined) {
       const bad = Object.keys(entry.conditions).filter((k) => !CONDITION_KEYS.includes(k));
       need(!bad.length, `${where}: unknown condition "${bad[0]}" (use ${CONDITION_KEYS.join(', ')})`);

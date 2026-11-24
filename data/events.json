@@ -6,8 +6,24 @@
     "maxAge": 12,
     "text": "A thin black cat starts following you home from school. It sits on the wall outside your window every night, watching.",
     "choices": [
-      { "label": "Take it in", "text": "The cat moves into your room as if it always lived there. Somehow you sleep better.", "effects": { "stats": { "charisma": 2 } } },
-      { "label": "Follow it one night", "text": "It leads you through alleys you never knew existed, then vanishes. You remember every turn.", "effects": { "stats": { "mind": 3 } } }
+      {
+        "label": "Take it in",
+        "text": "The cat moves into your room as if it always lived there. Somehow you sleep better.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        }
+      },
+      {
+        "label": "Follow it one night",
+        "text": "It leads you through alleys you never knew existed, then vanishes. You remember every turn.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        }
+      }
     ]
   },
   {
@@ -16,7 +32,12 @@
     "weight": 2,
     "maxAge": 15,
     "text": "You fall ill with a high fever that lasts a week. In your fever dreams you see a city on fire, and a figure in armor standing in the flames.",
-    "effects": { "stats": { "body": -2, "magecraft": 2 } }
+    "effects": {
+      "stats": {
+        "body": -2,
+        "magecraft": 2
+      }
+    }
   },
   {
     "id": "bully",
@@ -26,9 +47,34 @@
     "maxAge": 14,
     "text": "An older child decides you are an easy target and won't leave you alone.",
     "choices": [
-      { "label": "Fight back", "text": "You lose the fight, but you never get picked on again.", "effects": { "stats": { "body": 3, "charisma": -1 } } },
-      { "label": "Talk your way out", "text": "By the end of the month, the bully is somehow running errands for you.", "effects": { "stats": { "charisma": 3 } } },
-      { "label": "Outsmart them", "text": "You work out their routine and simply make sure you are never where they are.", "effects": { "stats": { "mind": 3 } } }
+      {
+        "label": "Fight back",
+        "text": "You lose the fight, but you never get picked on again.",
+        "effects": {
+          "stats": {
+            "body": 3,
+            "charisma": -1
+          }
+        }
+      },
+      {
+        "label": "Talk your way out",
+        "text": "By the end of the month, the bully is somehow running errands for you.",
+        "effects": {
+          "stats": {
+            "charisma": 3
+          }
+        }
+      },
+      {
+        "label": "Outsmart them",
+        "text": "You work out their routine and simply make sure you are never where they are.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        }
+      }
     ]
   },
   {
@@ -37,54 +83,123 @@
     "weight": 1,
     "minAge": 8,
     "text": "An old man feeding pigeons in the park tells you stories about a war between seven mages and seven ghosts of legend. He knows far too many details for a fairy tale.",
-    "effects": { "stats": { "mind": 2 }, "contacts": 1 }
+    "effects": {
+      "stats": {
+        "mind": 2
+      },
+      "contacts": 1
+    }
   },
   {
     "id": "family_crest",
     "phase": "life",
     "weight": 2,
-    "conditions": { "isMage": true },
+    "conditions": {
+      "isMage": true
+    },
     "minAge": 9,
     "maxAge": 16,
     "text": "Your parent takes you down into the workshop and shows you the family's Magic Crest: the stored work of generations, waiting to be passed on.",
     "choices": [
-      { "label": "Study it closely", "text": "You spend months tracing every line of it in your mind.", "effects": { "stats": { "magecraft": 4 } } },
-      { "label": "Ask what it cost", "text": "Your parent is quiet for a long time, then tells you the family's real history.", "effects": { "stats": { "mind": 3, "magecraft": 1 } } }
+      {
+        "label": "Study it closely",
+        "text": "You spend months tracing every line of it in your mind.",
+        "effects": {
+          "stats": {
+            "magecraft": 4
+          }
+        }
+      },
+      {
+        "label": "Ask what it cost",
+        "text": "Your parent is quiet for a long time, then tells you the family's real history.",
+        "effects": {
+          "stats": {
+            "mind": 3,
+            "magecraft": 1
+          }
+        }
+      }
     ]
   },
   {
     "id": "elders_test",
     "phase": "life",
     "weight": 1,
-    "conditions": { "isMage": true },
+    "conditions": {
+      "isMage": true
+    },
     "minAge": 10,
     "maxAge": 15,
     "text": "The heads of several mage families gather to test the children of your generation.",
     "choices": [
-      { "label": "Show everything you can do", "text": "They whisper about you afterwards. One of them leaves a card with an address on it.", "effects": { "stats": { "magecraft": 2, "charisma": 2 }, "contacts": 1 } },
-      { "label": "Hold back", "text": "They dismiss you as average, which means nobody will see you coming.", "effects": { "stats": { "mind": 3 } } }
+      {
+        "label": "Show everything you can do",
+        "text": "They whisper about you afterwards. One of them leaves a card with an address on it.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "charisma": 2
+          },
+          "contacts": 1
+        }
+      },
+      {
+        "label": "Hold back",
+        "text": "They dismiss you as average, which means nobody will see you coming.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        }
+      }
     ]
   },
   {
     "id": "shattered_glass",
     "phase": "life",
     "weight": 2,
-    "conditions": { "isMage": false },
+    "conditions": {
+      "isMage": false
+    },
     "minAge": 9,
     "maxAge": 17,
     "text": "In a moment of anger, every glass on the table shatters at once. Nobody can explain it. You think you can.",
-    "effects": { "stats": { "magecraft": 4 } }
+    "effects": {
+      "stats": {
+        "magecraft": 4
+      }
+    }
   },
   {
     "id": "hedge_teacher",
     "phase": "life",
     "weight": 1,
-    "conditions": { "isMage": false },
+    "conditions": {
+      "isMage": false
+    },
     "minAge": 12,
     "text": "A woman who runs a herb shop notices the way lamps flicker around you. She says she was once a mage's apprentice, and offers to teach you what she knows.",
     "choices": [
-      { "label": "Accept", "text": "Her lessons are strange and unscientific, but they work.", "effects": { "stats": { "magecraft": 5 }, "contacts": 1 } },
-      { "label": "Refuse", "text": "You decide not to trust her, and spend the time with your books instead.", "effects": { "stats": { "mind": 2 } } }
+      {
+        "label": "Accept",
+        "text": "Her lessons are strange and unscientific, but they work.",
+        "effects": {
+          "stats": {
+            "magecraft": 5
+          },
+          "contacts": 1
+        }
+      },
+      {
+        "label": "Refuse",
+        "text": "You decide not to trust her, and spend the time with your books instead.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
     ]
   },
   {
@@ -93,7 +208,12 @@
     "weight": 2,
     "minAge": 14,
     "text": "You find your first real job. The pay is poor and the hours are long, but the money is yours.",
-    "effects": { "money": 30, "stats": { "body": 1 } }
+    "effects": {
+      "money": 30,
+      "stats": {
+        "body": 1
+      }
+    }
   },
   {
     "id": "inheritance",
@@ -101,7 +221,9 @@
     "weight": 1,
     "minAge": 15,
     "text": "A great-aunt you met only once dies and, to everyone's surprise, leaves something to you.",
-    "effects": { "money": 60 }
+    "effects": {
+      "money": 60
+    }
   },
   {
     "id": "festival",
@@ -109,8 +231,25 @@
     "weight": 2,
     "text": "The whole city turns out for a festival. Lanterns, music and crowds fill the streets until dawn.",
     "choices": [
-      { "label": "Go with friends", "text": "You meet half the city that night, it seems.", "effects": { "stats": { "charisma": 2 }, "contacts": 1 } },
-      { "label": "Watch the crowd", "text": "You notice a few people who seem to be watching the crowd too, and remember their faces.", "effects": { "stats": { "mind": 2 } } }
+      {
+        "label": "Go with friends",
+        "text": "You meet half the city that night, it seems.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          },
+          "contacts": 1
+        }
+      },
+      {
+        "label": "Watch the crowd",
+        "text": "You notice a few people who seem to be watching the crowd too, and remember their faces.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
     ]
   },
   {
@@ -119,7 +258,12 @@
     "weight": 1,
     "minAge": 14,
     "text": "You fall in love for the first time. It is wonderful for a while, and then it isn't.",
-    "effects": { "stats": { "charisma": 2, "mind": 1 } }
+    "effects": {
+      "stats": {
+        "charisma": 2,
+        "mind": 1
+      }
+    }
   },
   {
     "id": "antique_dealer",
@@ -128,8 +272,21 @@
     "minAge": 13,
     "text": "A nervous antique dealer pulls you aside. He has something he wants to be rid of, and he thinks you are the sort of person who would want it.",
     "choices": [
-      { "label": "Buy it (50 money)", "conditions": { "minMoney": 50 }, "text": "He takes the money without counting it and hurries away.", "effects": { "money": -50, "catalyst": true } },
-      { "label": "Walk away", "text": "You will always wonder what it was." }
+      {
+        "label": "Buy it (50 money)",
+        "conditions": {
+          "minMoney": 50
+        },
+        "text": "He takes the money without counting it and hurries away.",
+        "effects": {
+          "money": -50,
+          "catalyst": true
+        }
+      },
+      {
+        "label": "Walk away",
+        "text": "You will always wonder what it was."
+      }
     ]
   },
   {
@@ -139,7 +296,11 @@
     "from": 1922,
     "to": 1950,
     "text": "Your family buys a radio. You sit in front of it every evening, listening to voices from cities you have never seen.",
-    "effects": { "stats": { "mind": 2 } }
+    "effects": {
+      "stats": {
+        "mind": 2
+      }
+    }
   },
   {
     "id": "first_television",
@@ -148,7 +309,12 @@
     "from": 1953,
     "to": 1975,
     "text": "The first television set arrives on your street. Half the neighborhood crowds into one living room to watch it.",
-    "effects": { "stats": { "charisma": 1, "mind": 1 } }
+    "effects": {
+      "stats": {
+        "charisma": 1,
+        "mind": 1
+      }
+    }
   },
   {
     "id": "home_computer",
@@ -158,7 +324,11 @@
     "to": 1999,
     "minAge": 8,
     "text": "You get your hands on a secondhand home computer and teach yourself to program it from magazines.",
-    "effects": { "stats": { "mind": 3 } }
+    "effects": {
+      "stats": {
+        "mind": 3
+      }
+    }
   },
   {
     "id": "first_mobile",
@@ -167,7 +337,12 @@
     "from": 2009,
     "minAge": 11,
     "text": "You get your first smartphone. Suddenly you are in a dozen group chats at once.",
-    "effects": { "stats": { "charisma": 2 }, "contacts": 1 }
+    "effects": {
+      "stats": {
+        "charisma": 2
+      },
+      "contacts": 1
+    }
   },
   {
     "id": "influenza",
@@ -176,7 +351,12 @@
     "from": 1918,
     "to": 1919,
     "text": "A terrible influenza sweeps through {place}. Schools close, and there are funerals every day. You survive it, but you are never quite as strong again.",
-    "effects": { "stats": { "body": -3, "mind": 1 } }
+    "effects": {
+      "stats": {
+        "body": -3,
+        "mind": 1
+      }
+    }
   },
   {
     "id": "great_war",
@@ -184,9 +364,18 @@
     "weight": 4,
     "from": 1914,
     "to": 1918,
-    "conditions": { "places": ["london", "prague"] },
+    "conditions": {
+      "places": [
+        "london",
+        "prague"
+      ]
+    },
     "text": "The Great War drags on. Men from your street leave for the front, and not all of them come back.",
-    "effects": { "stats": { "mind": 2 } }
+    "effects": {
+      "stats": {
+        "mind": 2
+      }
+    }
   },
   {
     "id": "blitz",
@@ -194,9 +383,18 @@
     "weight": 5,
     "from": 1940,
     "to": 1941,
-    "conditions": { "places": ["london"] },
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
     "text": "Night after night, the bombers come. You spend the nights in shelters and the mornings climbing over rubble.",
-    "effects": { "stats": { "body": 2, "mind": 1 } }
+    "effects": {
+      "stats": {
+        "body": 2,
+        "mind": 1
+      }
+    }
   },
   {
     "id": "occupation",
@@ -204,8 +402,221 @@
     "weight": 5,
     "from": 1939,
     "to": 1945,
-    "conditions": { "places": ["prague"] },
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
     "text": "Soldiers patrol the old town and people speak quietly in the streets. Your family learns to hide things, and so do you.",
-    "effects": { "stats": { "mind": 2, "magecraft": 1 } }
+    "effects": {
+      "stats": {
+        "mind": 2,
+        "magecraft": 1
+      }
+    }
+  },
+  {
+    "id": "war_explosion_news",
+    "phase": "war",
+    "weight": 2,
+    "text": "The morning news is full of a \"gas explosion\" downtown last night. Two buildings are gone. Nobody was hurt, which is the strangest part.",
+    "effects": {}
+  },
+  {
+    "id": "war_radio_bulletin",
+    "phase": "war",
+    "weight": 2,
+    "from": 1925,
+    "to": 1975,
+    "text": "A radio bulletin warns residents to stay indoors after dark: a string of unexplained fires on the north side.",
+    "effects": {
+      "stats": {
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "war_tv_report",
+    "phase": "war",
+    "weight": 2,
+    "from": 1960,
+    "text": "A breathless television report shows a crater in a park, cordoned off by police. The reporter calls it a meteorite.",
+    "effects": {
+      "stats": {
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "war_phone_rumor",
+    "phase": "war",
+    "weight": 2,
+    "from": 2008,
+    "text": "Your phone buzzes all morning with friends sharing blurry photos of a \"light show\" over the river last night.",
+    "effects": {}
+  },
+  {
+    "id": "war_watcher",
+    "phase": "war",
+    "weight": 2,
+    "text": "On the way back from buying bread, you feel eyes on you. When you turn, the street is empty, but {servant} is suddenly at your side.",
+    "choices": [
+      {
+        "label": "Ask {servant} what they sensed",
+        "text": "\"Someone was watching,\" {servant} says. \"They were good. They left before I could follow.\"",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        }
+      },
+      {
+        "label": "Pretend you noticed nothing",
+        "text": "You walk on calmly. If someone was watching, let them think you are a fool.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "war_church_notice",
+    "phase": "war",
+    "weight": 1,
+    "text": "A plain envelope is slipped under your door: the overseer of the war reminds all Masters that fighting in front of ordinary people is forbidden, and that a Master who loses their Servant may seek shelter at the church.",
+    "effects": {}
+  },
+  {
+    "id": "war_bad_sleep",
+    "phase": "war",
+    "weight": 1,
+    "repeatable": true,
+    "text": "You barely slept. Every creak of the house sounded like an enemy at the door.",
+    "effects": {
+      "mana": -10
+    }
+  },
+  {
+    "id": "war_dream",
+    "phase": "war",
+    "weight": 2,
+    "text": "You dream of {servant}'s past: a moment from their life, so vivid you wake up with tears on your face. You understand them a little better.",
+    "effects": {
+      "bond": 2
+    }
+  },
+  {
+    "id": "war_contact_help",
+    "phase": "war",
+    "weight": 1,
+    "conditions": {
+      "minContacts": 1
+    },
+    "text": "One of your contacts gets in touch: they have heard you might need help, and they don't want to know why.",
+    "choices": [
+      {
+        "label": "Accept money",
+        "text": "They press an envelope into your hand and leave before you can thank them.",
+        "effects": {
+          "money": 40
+        }
+      },
+      {
+        "label": "Ask them to keep their ears open",
+        "text": "They promise to tell you if they hear anything strange.",
+        "effects": {
+          "contacts": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "war_quiet_morning",
+    "phase": "war",
+    "weight": 3,
+    "repeatable": true,
+    "text": "A quiet morning. If you didn't know better, you would never guess a war was being fought in this city.",
+    "effects": {}
+  },
+  {
+    "id": "night_distant_clash",
+    "phase": "night",
+    "weight": 3,
+    "text": "Far across the city, light flashes between the buildings, and a moment later you hear the boom. Two Servants are fighting. By the time you get there, the street is empty and scorched.",
+    "effects": {
+      "stats": {
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "night_shadow",
+    "phase": "night",
+    "weight": 3,
+    "text": "A figure watches you from the top of a bell tower. {servant} steps in front of you, and the figure is simply gone.",
+    "choices": [
+      {
+        "label": "Give chase",
+        "text": "You run until your lungs burn, but lose them in the maze of streets.",
+        "effects": {
+          "stats": {
+            "body": 1
+          },
+          "servantHp": -5
+        }
+      },
+      {
+        "label": "Hold your ground",
+        "text": "You stay where you are until the danger passes. {servant} nods in approval.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "night_familiar",
+    "phase": "night",
+    "weight": 2,
+    "text": "A crow with too many eyes follows you for three streets. Someone's familiar. {servant} deals with it.",
+    "effects": {
+      "servantHp": -3
+    }
+  },
+  {
+    "id": "night_ambushed_trap",
+    "phase": "night",
+    "weight": 2,
+    "text": "You step on a bounded field someone left in an alley. It goes off with a crack of light. You get out, singed and shaken.",
+    "effects": {
+      "mana": -15,
+      "servantHp": -8
+    }
+  },
+  {
+    "id": "night_lost_civilian",
+    "phase": "night",
+    "weight": 2,
+    "text": "You find a frightened stranger who wandered too close to a fight last night and can't stop shaking.",
+    "choices": [
+      {
+        "label": "Help them home",
+        "text": "You walk them home. It costs you the night, but {servant} looks at you differently.",
+        "effects": {
+          "bond": 2
+        }
+      },
+      {
+        "label": "Ask what they saw",
+        "text": "Between sobs, they describe a giant with a burning sword. It may even be true.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
   }
 ]

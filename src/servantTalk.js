@@ -179,9 +179,44 @@ function warSummary(state) {
   const lines = [];
   if (sv.catalystId) lines.push(`You were summoned with a catalyst: ${findById('catalysts', sv.catalystId).name}.`);
   else lines.push('You were summoned without a catalyst; the Grail matched you to this Master.');
-  lines.push(state.war ? `It is day ${state.war.day} of the war.` : 'The war has not started yet; you were summoned only recently.');
-  lines.push('Nothing is known yet about the other Masters or their Servants.');
+  const war = state.war;
+  if (!war) {
+    lines.push('The war has not started yet; you were summoned only recently.');
+  } else {
+    const days = getData('rules').war.days;
+    if (war.stage === 'over') {
+      lines.push(`The ${days} days of the war have passed.`);
+    } else {
+      const night = ['dusk', 'night', 'endNight'].includes(war.stage) || war.eventReturn === 'endNight';
+      lines.push(`It is day ${war.day} of ${days}, ${night ? 'night' : 'daytime'}.`);
+    }
+    lines.push(war.workshop ? `Your base has a workshop with defenses at level ${war.workshop} of 3.` : 'Your base has no prepared defenses yet.');
+    lines.push(...recentWarDays(state));
+  }
+  lines.push('Nothing is known yet about the identities of the other Masters or their Servants.');
   return lines;
+}
+
+// The last few days, as the Master experienced them (only what they saw).
+const DAY_ACTIONS = { rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
+const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted', ambush: 'set an ambush' };
+
+function recentWarDays(state) {
+  const place = findById('places', state.world.placeId).name;
+  const firstSentence = (id) => findById('events', id).text
+    .replaceAll('{place}', place)
+    .replaceAll('{servant}', currentServant(state).name)
+    .split(/(?<=[.!?])\s/)[0]
+    .replace(/[.!?]$/, '');
+  const days = state.war.history.slice(-3).map((h) => {
+    const parts = [];
+    for (const id of h.events) parts.push(`news: ${firstSentence(id)}`);
+    if (h.dayAction) parts.push(`by day you and your Master ${DAY_ACTIONS[h.dayAction]}`);
+    if (h.nightAction) parts.push(`by night you and your Master ${NIGHT_ACTIONS[h.nightAction]}`);
+    if (h.nightEvent) parts.push(`that night: ${firstSentence(h.nightEvent)}`);
+    return parts.length ? `- Day ${h.day}: ${parts.join('; ')}.` : null;
+  }).filter(Boolean);
+  return days.length ? ['Recent days (in quoted news and events, "you" means your Master):', ...days] : [];
 }
 
 // Recent messages from earlier conversations, for continuity.
