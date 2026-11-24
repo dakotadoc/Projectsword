@@ -75,12 +75,12 @@ style.css
 
 ### Phase 1: Birth (one screen, all random)
 Rolled once, shown as a "birth certificate" summary:
-- **Place and era.** Weighted pick from `places.json` and `eras.json`. The era sets when the war will happen (the war takes place when the player is roughly 18–25).
+- **Place and era.** Weighted pick from `places.json` and `eras.json` (modern eras only). The place is also where the war happens. The era sets when the war will happen (the war takes place when the player is roughly 18–25).
 - **Family.** Old mage lineage, minor mage family, fallen mage family, or non-mage. Sets starting stats, money, and connections.
 - **Magic Circuits.** Quantity and quality, each ranked E–A (with rare EX). Sets the mana pool and spell potential.
 - **Trait.** One random quirk (e.g. "Lucky," "Sickly," "Prodigy," "Black sheep").
 
-### Phase 2: Life (about 8–10 turns, roughly 1–2 years each)
+### Phase 2: Life (about 8–10 turns, roughly 1–2 years each, starting at age 5)
 Each turn the player picks one action:
 - **Train body.** Raises Body.
 - **Study magecraft.** Raises Magecraft (gains scale with circuit quality).
@@ -208,11 +208,17 @@ Keep the AI rule-based and readable. No complex simulation.
 
 ---
 
-## 11. Open questions (decide before or during the build)
+## 11. Decisions made
+
+- **Era range:** modern only (1900s–2000s) for v1.
+- **War location:** the war takes place in the player's birthplace. `places.json` entries serve as both birthplace and war city.
+- **Life phase:** the first life turn begins at age 5.
+- **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
+
+## 12. Open questions (decide before or during the build)
 
 - War length: fixed at 14 days, or end when only one pair remains?
 - Can the player die in the life phase, or is it always safe?
-- Era range: modern only (1900s–2000s), or older wars too?
 - Which 7 Servants for version 1?
 - Can the player ally with a rival (and betray them)?
 - Permadeath, or save-anywhere?
