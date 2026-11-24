@@ -80,7 +80,8 @@ style.css
   rivals.js      // rival generation and combat stats
   rivalAI.js     // rival Master AI: nightly actions, off-screen fights, alliances, finale
   events.js      // random event engine
-  servantTalk.js // conversation system (builds context, applies bond changes)
+  servantTalk.js // conversation system (builds context, applies bond changes, remarks)
+  bond.js        // Servant remarks after big moments, Bond milestones, the path choice
   chat.js        // the conversation screen (text box, streaming replies)
   ai.js          // the only place AI is called; real + stub modes
   ui.js          // log, buttons, tabs, dialogs, chat input
@@ -222,7 +223,7 @@ Keep the AI rule-based and readable. No complex simulation.
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel. *(Done. Ambushes end in a standoff until combat exists (milestone 8).)*
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat. *(Done. Rivals raiding the player's own base come with the rival AI (milestone 9); the epilogue screen is a placeholder until milestone 11.)*
 9. **Rival AI.** Daily actions, off-screen fights, news. *(Done, with alliances, raids, and the day-14 finale. The victory epilogue is a placeholder until milestone 11.)*
-10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines.
+10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines. *(Done, with the platonic/romantic path at Bond 60.)*
 11. **Endgame and run summary.**
 12. **Polish.** Balance pass, more events, more Servants, tune chat prompts.
 
@@ -308,6 +309,12 @@ Keep the AI rule-based and readable. No complex simulation.
   - **The war ends as soon as no rivals remain** (victory). **Day 14 is a hard stop:** on the last night all alliances end; if more than one rival is left they fight each other until one remains (`finalShowdown`), and the survivor faces the player in a **final battle**: no retreat, no Escape seal, no escape saving throws, fought until someone falls. Losing your Servant there still offers Flee to the Church or fighting on alone (a new Master-only final battle).
   - **Alliances:** rivals ally with each other (`state.alliances`), ending at random or once few remain. **The player can ally too** (Day action "Propose an alliance", needs a rival's name and base; Charisma, personality and aggression set the odds; one ally at a time). An ally won't hunt the player, may share intel at dawn, and appears in Status and the Servant's context. A scheming ally may betray the player (and come for their base). The player can betray an ally by ambushing them; each Servant reacts by its own `betrayalBond` (Arthur −5, Hector and Constantine −4, Samson −3, Solomon −1, Ishtar 0, Cleopatra +1).
   - The player only learns which rival is out if they could identify it (intel ≥ 1) or did it themselves; otherwise only the church's count changes.
+- **Bond (milestone 10):**
+  - **Bond matters in battle** (`rules.bond.tiers`): +5% attack and defense at 40, +10% at 60, +15% at 80; at 80+ a 50% chance the Servant takes a killing blow meant for the Master. (Simulation: the same battles go from 54% to 76% beaten at Bond 85 vs 10.)
+  - **Bond shapes how the Servant speaks:** the chat context carries the Bond level's guidance (`dialogue.json` `bondBands`), which from 60 up follows the chosen path; greetings warm up at 40 (`greetingsWarm`) and change on the romantic path (`greetingsRomantic`).
+  - **The path choice at Bond 60** (`rules.bond.pathAt`): the next morning, the player chooses how they see their Servant: **"As my closest comrade"** (platonic) or **"As someone I love"** (romantic). Stored as `state.servant.path`; shown in Status. Each Servant has a `friendshipStyle` and a `romanceStyle` (`servants.json` personality) that the AI follows. Romance is affectionate and in character, kept tender and never explicit; on the platonic path the Servant answers flirting warmly, as a friend. Both paths give the same combat bonuses.
+  - **The Servant speaks up on their own** after big moments, in one to three AI-written sentences (`getServantRemark`, using the full chat context), shown as "Name: “…”": after winning a battle, a narrow escape, the Master nearly dying, betraying an ally, being betrayed, reaching Bond 40 and 80, the path choice, and war events marked `"servantRemark": true`. Every moment has a prepared fallback line per Servant (`dialogue.json` `remarks`), used offline.
+  - Bond milestones remarked on are recorded in `state.servant.bondMilestones`.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
@@ -315,4 +322,3 @@ Keep the AI rule-based and readable. No complex simulation.
 
 - Can the player die in the life phase, or is it always safe?
 - Permadeath, or save-anywhere?
-- Should the Servant ever start a conversation on its own (e.g. after a big battle)?

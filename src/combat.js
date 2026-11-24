@@ -125,6 +125,14 @@ function enemyMasterName(rival) {
   return rival.intel.master >= 2 ? rival.master.name : 'the enemy Master';
 }
 
+// Bond bonuses for the player's Servant (rules.bond.tiers): small attack
+// and defense bonuses at 40/60/80, and at 80+ a chance to take a killing
+// blow meant for the Master.
+export function bondTier(state) {
+  if (!hasServant(state)) return {};
+  return [...getData('rules').bond.tiers].reverse().find((t) => state.servant.bond >= t.min) || {};
+}
+
 function effectTotal(state, side, stat) {
   return state.battle.effects.filter((e) => e.side === side && e.stat === stat).reduce((a, e) => a + e.amount, 0);
 }
@@ -394,6 +402,7 @@ function attackMultiplier(state, side) {
   if (cls.workshopAttack && me.workshop) mult += cls.workshopAttack * me.workshop;
   if (b.lastStand[side]) mult += b.lastStand[side] * (1 - me.servant.hp.current / me.servant.hp.max);
   if (knowsName(state, side)) mult += R().weaknessBonus;
+  if (side === 'you') mult += bondTier(state).attack || 0;
   return Math.max(0.2, mult);
 }
 
@@ -410,6 +419,7 @@ function servantDefense(state, side, { ignoreDefend = false, ignoreWorkshop = fa
   let red = R().endurancePerRank * rankValue(s.servant.data.stats.endurance) + (s.servant.cls.defense || 0) + effectTotal(state, side, 'defense') - b.defensePenalty[side];
   if (s.workshop && !ignoreWorkshop) red += R().workshopDefensePerLevel * s.workshop + (s.servant.cls.workshopDefense || 0) * s.workshop;
   if (b.guard[side] > 0) red += 0.25;
+  if (side === 'you') red += bondTier(state).defense || 0;
   red = clamp(red, -0.5, 0.8);
   let mult = 1 - red;
   if (!ignoreDefend && b.defending?.[side]) mult *= R().defendReduction;
@@ -461,6 +471,13 @@ function hit(state, side, target, rawDamage, opts, lines) {
     else if (opts.servantMagic) dmg *= 1 - 0.5 * (them.servant.cls.magicResist || 0);
   }
   dmg = Math.max(1, Math.round(dmg));
+  // High Bond: the player's Servant may take a killing blow meant for them.
+  if (tgt === 'master' && them.master.isPlayer && them.servant && dmg >= them.master.hp.current
+      && chance(bondTier(state).shieldChance || 0)) {
+    lines.push({ text: T().lines.bondShield.replace('{servant}', cap(them.servant.name)), kind: 'narration' });
+    tgt = 'servant';
+    dmg = Math.max(1, Math.round(dmg * servantDefense(state, other(side), opts)));
+  }
   const hpRef = tgt === 'servant' ? them.servant.hp : them.master.hp;
   hpRef.current = Math.max(0, hpRef.current - dmg);
   const targetName = tgt === 'servant' ? them.servant.name : (them.master.isPlayer ? 'you' : them.master.name);

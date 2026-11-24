@@ -67,6 +67,7 @@ export function rivalsAct(state, { playerAtHome, playerFought }) {
     state.war.ally = null;
     ally.betrayingPlayer = true;
     news(state, 'allyBetrays', { ally: rivalLabel(ally) });
+    state.war.pendingRemark = 'betrayed';
   }
 
   for (const rival of shuffle(activeRivals(state))) {

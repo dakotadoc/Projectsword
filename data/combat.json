@@ -62,7 +62,8 @@
     "enemyRetreatFail": "{label} tries to pull back, but you don't let them.",
     "timeout": "Dawn is coming. Both sides break off before anyone sees.",
     "noTarget": "{actor} has no one to attack.",
-    "allyBroken": "Your alliance with {label} is over."
+    "allyBroken": "Your alliance with {label} is over.",
+    "bondShield": "{servant} throws themself between you and the blow, taking it in your place."
   },
   "results": {
     "enemyServantDown": "{servant} falls.",

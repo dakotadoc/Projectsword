@@ -7,6 +7,7 @@ import { STAT_LABELS } from './ranks.js';
 import { bondBand } from './servantTalk.js';
 import { timeOfDay } from './war.js';
 import { knownView } from './intel.js';
+import { pathLabel } from './bond.js';
 
 const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war', battle: 'In battle', ending: 'Game over' };
 const SERVANT_STAT_NAMES = {
@@ -90,7 +91,7 @@ function servantSection(state) {
   if (!sv) return section('Servant', [para('Not yet summoned.')]);
   const s = findById('servants', sv.id);
   if (sv.status === 'lost') return section(`${s.class}: ${s.name}`, [para('Lost. You fight on alone.')]);
-  const band = bondBand(sv.bond);
+  const band = bondBand(sv.bond, sv.path);
   const np = s.noblePhantasm;
   return section(`${s.class}: ${s.name}`, [
     para(`“${s.title}”`, 'status-note'),
@@ -98,6 +99,7 @@ function servantSection(state) {
       ['True name', s.trueName],
       ['Origin', s.origin],
       ['Mood', sv.mood ? capitalize(sv.mood) : '—'],
+      ['Relationship', pathLabel(sv.path)],
     ]),
     meters([
       ['HP', sv.hp.current, sv.hp.max],

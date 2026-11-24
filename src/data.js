@@ -191,6 +191,18 @@ function validate() {
       need(Array.isArray(list) && list.length && list.every((l) => typeof l === 'string' && l), `dialogue.json: servants.${s.id}.${k} must be a non-empty list of lines`);
     }
   }
+  // Bond (milestone 10)
+  const MOMENTS = ['won', 'escaped', 'betrayal', 'betrayed', 'nearDeath', 'bondUp', 'event', 'pathPlatonic', 'pathRomantic'];
+  for (const m of MOMENTS) need(typeof dlg.moments?.[m] === 'string', `dialogue.json: moments.${m} is missing`);
+  for (const sv of data.servants) {
+    const d = dlg.servants?.[sv.id] || {};
+    for (const k of ['greetingsWarm', 'greetingsRomantic']) need(Array.isArray(d[k]) && d[k].length, `dialogue.json: servants.${sv.id}.${k} is missing`);
+    for (const m of MOMENTS) need(typeof d.remarks?.[m] === 'string', `dialogue.json: servants.${sv.id}.remarks.${m} is missing`);
+    for (const k of ['friendshipStyle', 'romanceStyle']) need(typeof sv.personality[k] === 'string', `servants.json ${sv.id}: personality.${k} is missing`);
+  }
+  need(dlg.pathChoice && dlg.pathChoice.prompt, 'dialogue.json: pathChoice is missing');
+  need(Array.isArray(r.bond?.tiers) && Number.isFinite(r.bond?.pathAt), 'rules.bond is missing or incomplete');
+
   const c = r.chat || {};
   need(['maxPlayerMessages', 'maxMessageLength', 'historyMessages', 'memoriesInContext', 'maxMemories'].every((k) => Number.isInteger(c[k]) && c[k] > 0), 'rules.chat needs positive whole numbers for its limits');
   need(isRange(c.bondChange), 'rules.chat.bondChange must be [min, max]');

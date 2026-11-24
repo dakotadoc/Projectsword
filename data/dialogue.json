@@ -23,12 +23,16 @@
     {
       "min": 60,
       "label": "close",
-      "guidance": "You care about this Master. You speak openly about your past, your regrets and your wish."
+      "guidance": "You care about this Master. You speak openly about your past, your regrets and your wish.",
+      "platonic": "You care deeply about this Master as your closest friend and comrade. You speak openly about your past, your regrets and your wish.",
+      "romantic": "You are in love with this Master, and they with you. Affection shows in how you speak to them, in your own way. You speak openly about your past, your regrets and your wish."
     },
     {
       "min": 80,
       "label": "devoted",
-      "guidance": "This Master is someone you would die for. You hold nothing back, and tell them things you have told no one."
+      "guidance": "This Master is someone you would die for. You hold nothing back, and tell them things you have told no one.",
+      "platonic": "This Master is the dearest friend you have ever had, someone you would die for. You hold nothing back, and tell them things you have told no one.",
+      "romantic": "You love this Master completely and would die for them. You hold nothing back, and tell them things you have told no one."
     }
   ],
   "servants": {
@@ -48,7 +52,26 @@
       "farewells": [
         "Go on, then. Get some rest. I'll keep watch.",
         "Good talk. Don't make it the last one."
-      ]
+      ],
+      "greetingsWarm": [
+        "There you are. I was starting to worry, which is ridiculous, since I'm the one with the sword.",
+        "Sit. Tell me about your day. The real version."
+      ],
+      "greetingsRomantic": [
+        "You came. Good. I was hoping you would.",
+        "Come here. You look tired, and I've been saving you a seat."
+      ],
+      "remarks": {
+        "won": "That's one. Don't celebrate yet. But you can smile. I'm going to.",
+        "escaped": "We're alive. That's the only part of tonight I care about. Sit down before you fall down.",
+        "betrayal": "I know what it is to be stabbed by someone who smiled at you. I didn't think I'd ever watch my own Master do it.",
+        "betrayed": "They broke their word. Good. Now I don't have to feel bad about what happens next.",
+        "nearDeath": "You nearly died tonight. Don't you dare do that again. I've buried enough people I was meant to protect.",
+        "bondUp": "You know, I think I'd follow you even without those marks on your hand.",
+        "event": "Keep your eyes open. Things like that are never as simple as they look.",
+        "pathPlatonic": "A comrade. Yes. I had a table full of them once. You'd have had a seat.",
+        "pathRomantic": "...Oh. Well. Nobody's said anything like that to me in about fifteen hundred years. Give me a moment. No, don't take it back."
+      }
     },
     "ishtar": {
       "greetings": [
@@ -66,7 +89,26 @@
       "farewells": [
         "You may go. Think of me while you're away.",
         "Leave, before I start to like you."
-      ]
+      ],
+      "greetingsWarm": [
+        "Ah, my favorite mortal. Come, sit with me. Tell me something interesting.",
+        "You're late. I was almost bored. Almost."
+      ],
+      "greetingsRomantic": [
+        "There you are, my love. Come closer. A goddess shouldn't have to wait.",
+        "Finally. Sit beside me. No, closer."
+      ],
+      "remarks": {
+        "won": "Ha! Did you see that? Of course you did. Bask in it, mortal: you're standing next to a goddess who wins.",
+        "escaped": "We are NOT talking about that. ...Are you hurt? Not that I care. Show me.",
+        "betrayal": "Ooh, ruthless. I like it. Gods have done far worse for far less.",
+        "betrayed": "How dare they. HOW DARE THEY. Nobody breaks a promise to a goddess's Master. I'll make them regret being born.",
+        "nearDeath": "You idiot. You absolute fool. If you die, who's going to build my temple? ...Don't scare me like that.",
+        "bondUp": "I've decided you're my favorite mortal. Don't let it go to your head. Or do. You've earned a little.",
+        "event": "Hmph. Mortals and their little mysteries. Still... stay close to me.",
+        "pathPlatonic": "My dearest worshipper, then. My confidant. That's a higher honor than you know.",
+        "pathRomantic": "You... love me? Of course you do, everyone does. But you mean it. ...Then you'd better be worthy of a goddess. I'll accept nothing less, and I'll give you nothing less."
+      }
     },
     "solomon": {
       "greetings": [
@@ -84,7 +126,26 @@
       "farewells": [
         "Go in peace. Sleep, if you can.",
         "Think on it. Wisdom keeps until morning."
-      ]
+      ],
+      "greetingsWarm": [
+        "Ah, my Master. Sit. The tea is already poured; I knew you would come.",
+        "Good evening. What riddle have you brought me today?"
+      ],
+      "greetingsRomantic": [
+        "You came. I find I was listening for your footsteps.",
+        "Come, sit with me. The garden is quiet tonight, and so am I."
+      ],
+      "remarks": {
+        "won": "Well fought. Remember tonight. Victories fade faster than defeats, and you will want this one later.",
+        "escaped": "We live. Wisdom is knowing when the cost of winning is too high. Rest now.",
+        "betrayal": "There is a time for every purpose under heaven. I hope this was its time, Master, and not merely yours.",
+        "betrayed": "Those who flatter you are rarely your friends. A lesson you will not need twice, I think.",
+        "nearDeath": "Your life is not a coin to spend, Master. Not even on a war. Promise me you will remember that.",
+        "bondUp": "I have known kings with less heart than you. It is a pleasure to be your Caster.",
+        "event": "Every omen has a meaning. Not every meaning is worth fearing.",
+        "pathPlatonic": "A friend, then. In all my years I had many counselors and few friends. You honor me.",
+        "pathRomantic": "I wrote songs about love once, and thought I understood it. Ask me again what I understand. ...I would like to learn it from you."
+      }
     },
     "samson": {
       "greetings": [
@@ -102,7 +163,26 @@
       "farewells": [
         "Go. I'll be here.",
         "Enough talk. Rest."
-      ]
+      ],
+      "greetingsWarm": [
+        "You. Sit. Talk. I like your voice.",
+        "Mm. You're back. Good."
+      ],
+      "greetingsRomantic": [
+        "There you are. I knew your footsteps.",
+        "Come here. Let me hear you."
+      ],
+      "remarks": {
+        "won": "HA! Good! Again tomorrow!",
+        "escaped": "...Still breathing. Both of us. Good enough.",
+        "betrayal": "Lies. I hate lies. ...You had reasons. Don't make it a habit.",
+        "betrayed": "They lied to you. Like she lied to me. ...Point me at them.",
+        "nearDeath": "You. Don't die. I can't see you. Have to hear you breathing. Keep breathing.",
+        "bondUp": "You. You're good. I trust you. Not easy for me.",
+        "event": "Strange. Stay behind me.",
+        "pathPlatonic": "Brother-in-arms. Good. I never had one I could trust.",
+        "pathRomantic": "...Me? A blind brute? ...You mean it. I can hear that you mean it. ...Then stay. And don't cut my hair."
+      }
     },
     "hector": {
       "greetings": [
@@ -120,7 +200,26 @@
       "farewells": [
         "Get some sleep. I'll keep watch on the walls.",
         "Good talk, Master. Same time tomorrow."
-      ]
+      ],
+      "greetingsWarm": [
+        "There's my Master. Come, sit, have something to eat. You always forget.",
+        "Good, you're back. Tell me everything."
+      ],
+      "greetingsRomantic": [
+        "There you are. I've been watching the door all evening, like a fool.",
+        "Come here. Let me look at you. ...Good. You're all right."
+      ],
+      "remarks": {
+        "won": "That's how it's done. Now let's get you home, before anyone else gets ideas.",
+        "escaped": "We lived to fight another day. Ten years at Troy taught me that's sometimes the best day there is.",
+        "betrayal": "I fought for a city whose prince broke faith once, and it cost us everything. I hope this was worth it, Master.",
+        "betrayed": "They broke the truce. Fine. Then we stop being polite.",
+        "nearDeath": "That was too close. I've said goodbye on a wall once already. I'm not doing it again.",
+        "bondUp": "You know, you'd have got on with my family. That's the highest praise I have.",
+        "event": "Stay sharp. I don't like the feel of this.",
+        "pathPlatonic": "Brothers in arms, then. My shield is yours, and so is my back.",
+        "pathRomantic": "I loved my wife with all my heart, and I always will. But she would have wanted me to live, even like this. If you want me, Master, then yes. Gently."
+      }
     },
     "cleopatra": {
       "greetings": [
@@ -138,7 +237,26 @@
       "farewells": [
         "You are dismissed. Graciously.",
         "Go and rest. I will be thinking."
-      ]
+      ],
+      "greetingsWarm": [
+        "Ah, my Master. Sit. I've been thinking about you. Strategically, of course.",
+        "You may approach. I'm in an excellent mood."
+      ],
+      "greetingsRomantic": [
+        "There you are. I had perfume brought in. Don't make me say it was for you.",
+        "Come, sit with me. The court is closed tonight. It's only us."
+      ],
+      "remarks": {
+        "won": "Excellent. One piece off the board. Tomorrow, we choose the next.",
+        "escaped": "A tactical withdrawal. Rome called those defeats too, until they learned better.",
+        "betrayal": "Beautifully done. Alliances are tools, Master. You're finally learning to use them.",
+        "betrayed": "They outplayed us. Once. Remember the feeling, and let me handle what comes next.",
+        "nearDeath": "You will not die in some alley before I've finished teaching you. I forbid it.",
+        "bondUp": "I don't trust many people. You may consider yourself one of three, in two thousand years.",
+        "event": "Interesting. Everything is information. Tell me exactly what you saw.",
+        "pathPlatonic": "My trusted partner, then. Not my pawn. ...I don't say that lightly.",
+        "pathRomantic": "I've been courted by two Romans who ruled the world, and survived both. You are a different matter. Very well. But I set the terms, and I expect to be adored."
+      }
     },
     "constantine": {
       "greetings": [
@@ -156,7 +274,44 @@
       "farewells": [
         "Rest well, Master. God keep you.",
         "Go on. I'll see to the doors."
-      ]
+      ],
+      "greetingsWarm": [
+        "Ah, Master. Come in, come in. How are you holding up?",
+        "Good to see you. Sit, and tell me about your day."
+      ],
+      "greetingsRomantic": [
+        "There you are. I said a prayer for you this morning. I seem to do that a lot now.",
+        "Come, sit with me. The night is long, and better shared."
+      ],
+      "remarks": {
+        "won": "Thank God. And thank you, Master. Let's not waste it.",
+        "escaped": "We held. That's what matters. Walls can be rebuilt.",
+        "betrayal": "I begged allies for help once, and none came. I never imagined being the one who broke the promise. I'll stand with you. But I won't pretend it sits well.",
+        "betrayed": "Allies who don't come, or who come with knives. I know the type well. We'll manage without them.",
+        "nearDeath": "You frightened me tonight. I've lost a city. I won't lose you.",
+        "bondUp": "My city was the last thing I loved. I find I have something new to defend.",
+        "event": "Strange times. Stay close, and keep faith.",
+        "pathPlatonic": "A friend. Truly. I had subjects and soldiers, but very few friends. Thank you.",
+        "pathRomantic": "I was married twice, and lost both before the city fell. I thought that part of me was buried with them. ...It seems it wasn't. If you'll have an old emperor, I'm yours."
+      }
     }
+  },
+  "pathChoice": {
+    "prompt": "Somewhere along the way, {servant} stopped being a weapon you were handed and became something more. How do you see them?",
+    "platonic": "As my closest comrade",
+    "platonicHint": "A deep friendship, a bond of trust between equals",
+    "romantic": "As someone I love",
+    "romanticHint": "Let it become something more"
+  },
+  "moments": {
+    "won": "you have just won a battle together",
+    "escaped": "you both barely survived a battle that went badly",
+    "betrayal": "your Master just betrayed an ally they had sworn a truce with, and ambushed them",
+    "betrayed": "your Master's ally has just broken their alliance and turned against you",
+    "nearDeath": "your Master was nearly killed in the battle just now",
+    "bondUp": "you realize your bond with your Master has grown deeper",
+    "event": "something just happened: {detail}",
+    "pathPlatonic": "your Master has just told you they see you as their closest comrade and friend",
+    "pathRomantic": "your Master has just told you that they love you, and you feel the same"
   }
 }

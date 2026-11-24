@@ -23,12 +23,16 @@ import { getData, findById } from './data.js';
 import { randInt, chance, pick, weightedPick } from './rng.js';
 import { makeContext, fits, pickText, fillText, rollEvent, applyEffects } from './events.js';
 import { openChat } from './chat.js';
+import { sayRemark, nextBondMilestone, needsPathChoice, showPathChoice } from './bond.js';
 import { generateRivals, activeRivals, ensureRivalCombatStats } from './rivals.js';
 import { gainIntel, gainRandomIntel, gatherChance, contactTip, rivalLabel } from './intel.js';
 import { startBattle, ensureMasterHp, hasServant } from './combat.js';
 import {
   ensureRivalAI, rivalsAct, finalShowdown, allyShares, alliedWith, allianceChance, proposeAlliance,
 } from './rivalAI.js';
+
+// Servant remarks queued during a synchronous step (e.g. dawn news).
+const pendingRemarks = [];
 
 export async function warScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -70,20 +74,35 @@ async function advance(state, nav) {
     switch (war.stage) {
       case 'dawn':
         startDay(state);
+        await flushRemarks(state);
         war.stage = 'events';
         break;
       case 'events': {
         if (!war.eventQueue.length) {
+          // The Servant notices a deeper bond; at Bond 60, the path choice.
+          if (nextBondMilestone(state) !== null) await sayRemark(state, 'bondUp');
+          if (needsPathChoice(state)) {
+            war.stage = 'path';
+            break;
+          }
           war.stage = 'day';
           ui.log('What will you do today?', 'system');
           break;
         }
         const waiting = showEvent(state, findById('events', war.eventQueue.shift()), 'events');
+        await flushRemarks(state);
         if (waiting) return finish(state, nav);
         break;
       }
       case 'eventChoice':
         showEventChoices(state, findById('events', war.eventId), nav);
+        return finish(state, nav, { choicesShown: true });
+      case 'path':
+        showPathChoice(state, async () => {
+          war.stage = 'day';
+          ui.log('What will you do today?', 'system');
+          await advance(state, nav);
+        });
         return finish(state, nav, { choicesShown: true });
       case 'day':
         showDayActions(state, nav);
@@ -100,6 +119,7 @@ async function advance(state, nav) {
         showNightActions(state, nav);
         return finish(state, nav, { choicesShown: true });
       case 'endNight': {
+        await flushRemarks(state);
         // The rivals act once per night, after the player.
         if (!war.rivalsActed) {
           war.rivalsActed = true;
@@ -169,6 +189,18 @@ async function finish(state, nav, { choicesShown = false } = {}) {
   await nav.autosave();
 }
 
+// Say any queued Servant remarks: 'moment' or ['moment', detail].
+async function flushRemarks(state) {
+  for (const r of pendingRemarks.splice(0)) {
+    const [moment, detail] = Array.isArray(r) ? r : [r, ''];
+    await sayRemark(state, moment, detail);
+  }
+}
+
+function firstSentence(text) {
+  return text.split(/(?<=[.!?])\s/)[0];
+}
+
 // ---- Dawn ----
 
 function startDay(state) {
@@ -203,6 +235,10 @@ function startDay(state) {
   // News of what the rivals did last night.
   for (const n of war.news || []) ui.log(n.text, n.kind);
   war.news = [];
+  if (war.pendingRemark) {
+    pendingRemarks.push(war.pendingRemark);
+    war.pendingRemark = null;
+  }
 
   // An ally may pass on something they learned.
   const shared = allyShares(state);
@@ -244,7 +280,10 @@ function showEvent(state, event, returnTo) {
   logOutcome(lines);
 
   const choices = (event.choices || []).filter((c) => fits(c, warContext(state)));
-  if (!choices.length) return false;
+  if (!choices.length) {
+    if (event.servantRemark) pendingRemarks.push(['event', firstSentence(fillText(event.text, ctx))]);
+    return false;
+  }
   war.stage = 'eventChoice';
   war.eventId = event.id;
   war.eventReturn = returnTo;
@@ -499,6 +538,7 @@ async function doNightAction(state, action, nav, target = null) {
       state.war.ally = null;
       ui.log(getData('combat').lines.allyBroken.replaceAll('{label}', rivalLabel(target)), 'system');
       const reaction = hasServant(state) ? findById('servants', state.servant.id).betrayalBond || 0 : 0;
+      await sayRemark(state, 'betrayal');
       if (reaction) logOutcome(applyEffects(state, { bond: reaction }, ctx));
       await toBattle(state, nav, target, 'betrayal');
       return;

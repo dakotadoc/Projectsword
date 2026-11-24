@@ -420,7 +420,8 @@
     "phase": "war",
     "weight": 2,
     "text": "The morning news is full of a \"gas explosion\" downtown last night. Two buildings are gone. Nobody was hurt, which is the strangest part.",
-    "effects": {}
+    "effects": {},
+    "servantRemark": true
   },
   {
     "id": "war_radio_bulletin",
@@ -445,7 +446,8 @@
       "stats": {
         "mind": 1
       }
-    }
+    },
+    "servantRemark": true
   },
   {
     "id": "war_phone_rumor",
@@ -490,7 +492,8 @@
     "phase": "war",
     "weight": 1,
     "text": "A plain envelope is slipped under your door: the overseer of the war reminds all Masters that fighting in front of ordinary people is forbidden, and that a Master who loses their Servant may seek shelter at the church.",
-    "effects": {}
+    "effects": {},
+    "servantRemark": true
   },
   {
     "id": "war_bad_sleep",
@@ -555,7 +558,8 @@
     "text": "Far across the city, light flashes between the buildings, and a moment later you hear the boom. Two Servants are fighting. By the time you get there, the street is empty and scorched.",
     "effects": {
       "intel": 1
-    }
+    },
+    "servantRemark": true
   },
   {
     "id": "night_shadow",
@@ -598,7 +602,8 @@
     },
     "conditions": {
       "hasServant": true
-    }
+    },
+    "servantRemark": true
   },
   {
     "id": "night_ambushed_trap",

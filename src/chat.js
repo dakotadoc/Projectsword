@@ -10,7 +10,7 @@
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData } from './data.js';
-import { getServantReply, endConversation, cannedLine, currentServant } from './servantTalk.js';
+import { getServantReply, endConversation, greetingLine, currentServant } from './servantTalk.js';
 import { signed } from './events.js';
 
 // Start a conversation, then come back to `returnTo`.
@@ -28,7 +28,7 @@ export async function chatScreen({ resumed = false, goTo, autosave }) {
 
   if (!resumed) {
     ui.log(`You sit down to talk with ${servant.name}.`, 'system');
-    const greeting = cannedLine(state, 'greetings');
+    const greeting = greetingLine(state);
     chat.messages.push({ role: 'servant', text: greeting });
     ui.log(`“${greeting}”`, 'speech');
   }

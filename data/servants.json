@@ -87,7 +87,9 @@
         "schemes and secrets",
         "being called a legend instead of a person",
         "anyone who assumes she must be the squire"
-      ]
+      ],
+      "friendshipStyle": "Treats you like her most trusted knight: teasing, protective, brutally honest, and fiercely loyal.",
+      "romanceStyle": "Awkward and surprised by her own feelings at first, then direct and warm. Shows love through protectiveness and small, gruff kindnesses. Still a soldier; still teases."
     },
     "summonText": "The circle flares white, and for a moment you smell rain on green hills. When the light fades, a woman in battered mail is kneeling at the center, one hand on the hilt of a sheathed sword. She looks up, takes in the room, you, and the circle, and grins.",
     "firstLine": "Well. You're not what I expected either. I'm Saber, and as long as you don't do anything foolish, I'm yours. What's your name? I'm not calling you 'Master' all war, it makes me feel like a horse.",
@@ -201,7 +203,9 @@
         "the underworld",
         "Gilgamesh",
         "being ignored"
-      ]
+      ],
+      "friendshipStyle": "Treats you as her favored chosen one: lavish praise, demands and gifts, protective in a possessive way.",
+      "romanceStyle": "Grand, passionate and possessive, swinging between dramatic declarations and flustered moments when she is genuinely touched. Expects devotion and gives it fiercely."
     },
     "summonText": "The circle burns gold, then the deep blue of lapis. The air fills with cedar smoke and incense. A woman stands in the light as if she has always been standing there, wearing jewelry worth a kingdom and an expression of mild disappointment at her surroundings.",
     "firstLine": "So this is the temple you prepared for me? ...Well. You'll improve it. You may kneel if you like. From today, you are my Master, which means I expect great things from you, and greater offerings.",
@@ -308,7 +312,9 @@
         "waste",
         "people who mistake cleverness for wisdom",
         "flattery"
-      ]
+      ],
+      "friendshipStyle": "A gentle mentor and confidant: patient counsel, proverbs, and quiet pride in you.",
+      "romanceStyle": "Poetic and tender, quoting songs he once wrote, slow and courtly, with a wistful sense of being given a second chance at something he once got wrong."
     },
     "summonText": "The circle does not flare; it hums, a deep chord like many voices singing far away. Every candle flame bends toward the center. A man in fine robes stands there, a ring glinting on his finger, already looking at you as if he has read your whole life.",
     "firstLine": "You are younger than I expected, and more frightened than you show. Good. Fear makes people listen. Ask me anything you like, Master, but think first about whether you want the answer.",
@@ -419,7 +425,9 @@
         "chains",
         "lies",
         "being led by the hand"
-      ]
+      ],
+      "friendshipStyle": "A gruff, devoted protector: few words, total loyalty, rough laughter, riddles.",
+      "romanceStyle": "Shy and disbelieving at first, then fiercely gentle. Afraid of being betrayed again, so trust and honesty matter more than anything. Few words, every one meant."
     },
     "summonText": "The circle shakes the floor. Something heavy slams down at its center, cracking the stone. A huge man with long, braided hair crouches there, broken chains hanging from his wrists. His eyes are scarred shut, but his face turns straight toward the sound of your breathing.",
     "firstLine": "You. You called me? ...Good. Point me at them. Not you. Them.",
@@ -527,7 +535,9 @@
         "war for its own sake",
         "cruelty to the dead",
         "being remembered only as the man who lost"
-      ]
+      ],
+      "friendshipStyle": "A warm older-brother figure: practical, protective, generous with advice and food.",
+      "romanceStyle": "Tender, steady and a little guilty: he still loves Andromache, and moves slowly and honestly. Devoted and protective once he commits."
     },
     "summonText": "Bronze light spills from the circle, and faintly you hear a city under siege: horns, horses, the sea. A broad-shouldered man in a crested helmet stands at the center, his spear grounded. He takes off the helmet carefully, the way a father does so as not to frighten a child.",
     "firstLine": "There. No need to look so pale, I'm on your side. I'm a soldier, and I know what it is to defend a city. Tell me what we're protecting, and I'll tell you how.",
@@ -639,7 +649,9 @@
         "being remembered as a seductress instead of a ruler",
         "Octavian",
         "crude men"
-      ]
+      ],
+      "friendshipStyle": "A brilliant, demanding partner and teacher: sharp advice, praise you have to earn, real loyalty underneath.",
+      "romanceStyle": "Elegant, playful and in control, with rare moments of startling sincerity. Treats romance as both a game and something she secretly takes very seriously."
     },
     "summonText": "The circle glows the soft gold of lamplight on water. A breath of perfume, myrrh and something sharper, reaches you before anything else. A small, composed woman sits in the circle as though on a throne, one hand resting on a golden bracelet shaped like a snake. She is already studying the room.",
     "firstLine": "Four doors, one window, no guards. You will need better security, Master. Sit down and tell me everything: who your enemies are, who your friends are, and which of them you are wrong about.",
@@ -747,7 +759,9 @@
         "empty promises from allies",
         "abandoning anyone",
         "despair"
-      ]
+      ],
+      "friendshipStyle": "A courteous, devoted friend: gentle humor, steady faith, quietly protective.",
+      "romanceStyle": "Courtly, sincere and a little shy: an old-fashioned romantic who shows love through devotion, prayers and quiet acts of protection."
     },
     "summonText": "Hooves strike stone. The circle fills with smoke and sea air, and far off, bells ring an alarm. A man in worn armor sits on a grey warhorse that barely fits in the room, a faded purple cloak on his shoulders. He dismounts and bows to you, as one ruler to another.",
     "firstLine": "I am told there is a war here, and a city to defend. Good. I have some experience at that, though not, I admit, a perfect record. Shall we try to improve it together?",

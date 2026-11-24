@@ -13,6 +13,7 @@ import {
   servantOptions, masterOptions, SEAL_OPTIONS, resolveRound, hasServant,
   battleRival, churchSave, startBattle,
 } from './combat.js';
+import { sayRemark } from './bond.js';
 
 export async function battleScreen({ goTo, autosave }) {
   const state = getState();
@@ -170,7 +171,28 @@ function showAfter(state, nav) {
     ]);
     return;
   }
-  ui.setChoices([{ label: 'Continue', style: 'primary', onSelect: () => finish(state, nav) }]);
+  showRemarkThen(state, nav, () => {
+    ui.setChoices([{ label: 'Continue', style: 'primary', onSelect: () => finish(state, nav) }]);
+  });
+}
+
+// After a battle the Servant may speak up (once): about you nearly dying,
+// a win, or a narrow escape.
+async function showRemarkThen(state, nav, next) {
+  const b = state.battle;
+  if (!b.remarked && hasServant(state) && state.servant.hp.current > 0) {
+    b.remarked = true;
+    const nearDeath = state.master.hp.current / state.master.hp.max <= getData('rules').bond.nearDeathFraction;
+    const moment = nearDeath ? 'nearDeath'
+      : b.result.outcome === 'won' ? 'won'
+        : ['lostRetreated', 'retreated'].includes(b.result.outcome) ? 'escaped' : null;
+    if (moment) {
+      ui.setChoices([]);
+      await sayRemark(state, moment);
+      await nav.autosave();
+    }
+  }
+  next();
 }
 
 // Record the battle in today's history and go back to the war.
