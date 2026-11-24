@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holy Grail War Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <span class="topbar-title">Holy Grail War</span>
+    <nav class="topbar-actions" aria-label="Game">
+      <button type="button" id="btn-export" disabled>Export</button>
+      <button type="button" id="btn-import">Import</button>
+      <button type="button" id="btn-title" disabled>Title</button>
+    </nav>
+  </header>
+
+  <main class="play">
+    <section id="log" class="log" aria-live="polite" aria-label="Story"></section>
+    <section id="choices" class="choices" aria-label="Choices"></section>
+  </main>
+
+  <footer class="statusbar">
+    <span id="status" role="status"></span>
+    <span id="seed"></span>
+  </footer>
+
+  <div id="dialog-root"></div>
+
+  <noscript><p class="noscript">This game needs JavaScript.</p></noscript>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
