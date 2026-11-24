@@ -37,10 +37,18 @@ The published page runs in a sandboxed frame. Design around these:
 - All displayed text (data files, AI replies) is set with `textContent`, never `innerHTML`.
 - Fetching the game's own files by relative path works; fetching other sites is blocked.
 
+### Period accuracy (no immersion-breaking content)
+Nothing may appear in a year where it doesn't belong: no mobile phones in 1910, no 1990s baby names on someone born in 1900.
+- Any entry in a data list (events, names, places, traits, items…) may carry optional `"from"` and `"to"` years (inclusive). No years means "fits any year in the game's range (about 1880–2025)".
+- Code filters lists with `availableIn(list, year)` from `period.js` **before** rolling. Events are filtered by the current in-game year; names by birth year.
+- Any text that mentions technology, institutions, prices, politics, place names that changed, or fashions **must** carry `from`/`to`. If a line works in most years but not all, split it into dated variants rather than writing around it.
+- Text that is always shown regardless of year (place descriptions, family texts, era descriptions) must stay period-neutral.
+- Names: `givenNames` is split into `male` and `female` lists; entries are `"Name"` or `{ "name": "Haruto", "from": 1995 }`. Family names whose form depends on sex are `{ "male": "Novák", "female": "Nováková" }`. `data.js` checks at startup that every possible birth year has names for both sexes in every place.
+
 ### Code conventions
 - UI chrome (button labels like "Export", dialog titles) may live in code. Narrative content (places, events, Servant lines, flavor text) lives in `/data`.
 - Never call `Math.random()`; use the helpers in `rng.js` (`random`, `randInt`, `chance`, `pick`, `weightedPick`, `shuffle`). The RNG's position is saved in `state.rng`, so loading continues the same sequence and the same seed replays the same rolls. (AI replies are not deterministic, so seed replay diverges once chat affects the game.)
-- `state` must stay plain JSON. Bump `SAVE_VERSION` in `state.js` when its shape changes incompatibly, and add a migration there.
+- `state` must stay plain JSON. Bump `SAVE_VERSION` in `state.js` when its shape changes incompatibly, and add a migration there. Until version 1 of the game is finished, old test-build saves may instead be retired by raising `OLDEST_SUPPORTED_VERSION` (the player is told to start a new game).
 - Every in-run screen registers in `screens` in `main.js` and receives `{ resumed }` so Continue/Import can re-enter it without repeating its intro text.
 
 Suggested structure:
@@ -54,6 +62,7 @@ style.css
   rng.js         // seeded random
   data.js        // loads and checks /data/*.json at startup
   ranks.js       // E–A/EX rank letters and their numeric values
+  period.js      // filters data entries by year (from/to)
   birth.js       // phase 1
   life.js        // phase 2
   summon.js      // phase 3
@@ -76,8 +85,8 @@ style.css
 
 ## 3. Game phases
 
-### Phase 1: Birth (one screen, all random)
-Rolled once, shown as a "birth certificate" summary:
+### Phase 1: Birth (one screen, all random except sex)
+The player first chooses to be born a boy or a girl (`master.sex`: "male"/"female"). Everything else is rolled once, shown as a "birth certificate" summary:
 - **Place and era.** Weighted pick from `places.json` and `eras.json` (modern eras only). The place is also where the war happens. The era sets when the war will happen (the war takes place when the player is roughly 18–25).
 - **Family.** Old mage lineage, minor mage family, fallen mage family, or non-mage. Sets starting stats, money, and connections.
 - **Magic Circuits.** Quantity and quality, each ranked E–A (with rare EX). Sets the mana pool and spell potential.
@@ -217,7 +226,8 @@ Keep the AI rule-based and readable. No complex simulation.
 - **War location:** the war takes place in the player's birthplace. `places.json` entries serve as both birthplace and war city.
 - **Life phase:** the first life turn begins at age 5.
 - **War age:** rolled at birth (18–25, `rules.json`). The era picks the war year; birth year = war year − war age. Life turns (milestone 3) stretch so the last one ends at the war age. Because the war year is in the era, births can fall slightly before 1900.
-- **Names:** the Master's name is rolled from the birthplace's name lists.
+- **Names:** the Master's name is rolled from the birthplace's name lists, filtered by sex and birth year.
+- **Sex:** the player picks boy or girl before the birth roll. It is not rolled.
 - **Traits** live in `traits.json`. `effects` applies stat/money/contact changes at birth; traits with no effects (e.g. Lucky) are checked by id in later systems.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.

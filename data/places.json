@@ -6,7 +6,46 @@
     "weight": 3,
     "birthText": "Temple bells carry over the rooftops of the old capital on the night you are born.",
     "description": "An old city of shrines and quiet back streets, where some families have kept the same secrets for a thousand years.",
-    "givenNames": ["Haruto", "Ren", "Aoi", "Sora", "Yui", "Kaito", "Hina", "Itsuki", "Mio", "Shun"],
+    "givenNames": {
+      "male": [
+        { "name": "Taro", "to": 1970 },
+        { "name": "Saburo", "to": 1950 },
+        { "name": "Kiyoshi", "to": 1960 },
+        { "name": "Minoru", "to": 1950 },
+        { "name": "Isamu", "to": 1950 },
+        { "name": "Ichiro", "to": 1980 },
+        { "name": "Hiroshi", "from": 1915, "to": 1980 },
+        { "name": "Takeshi", "from": 1920, "to": 1990 },
+        { "name": "Kenji", "from": 1930, "to": 1995 },
+        { "name": "Makoto", "from": 1950, "to": 2000 },
+        { "name": "Daisuke", "from": 1965, "to": 2000 },
+        { "name": "Takumi", "from": 1980 },
+        { "name": "Kaito", "from": 1990 },
+        { "name": "Ren", "from": 1990 },
+        { "name": "Haruto", "from": 1995 },
+        { "name": "Sota", "from": 1995 }
+      ],
+      "female": [
+        { "name": "Tsuru", "to": 1920 },
+        { "name": "Kiku", "to": 1930 },
+        { "name": "Shizu", "to": 1930 },
+        { "name": "Chiyo", "to": 1945 },
+        { "name": "Fumiko", "from": 1900, "to": 1955 },
+        { "name": "Toshiko", "from": 1900, "to": 1950 },
+        { "name": "Kazuko", "from": 1920, "to": 1960 },
+        { "name": "Michiko", "from": 1925, "to": 1970 },
+        { "name": "Yoko", "from": 1935, "to": 1975 },
+        { "name": "Keiko", "from": 1940, "to": 1975 },
+        { "name": "Naoko", "from": 1950, "to": 1985 },
+        { "name": "Yumi", "from": 1960, "to": 1995 },
+        { "name": "Ayumi", "from": 1970, "to": 2000 },
+        { "name": "Misaki", "from": 1980 },
+        { "name": "Yui", "from": 1985 },
+        { "name": "Sakura", "from": 1990 },
+        { "name": "Hina", "from": 1995 },
+        { "name": "Aoi", "from": 1995 }
+      ]
+    },
     "familyNames": ["Tachibana", "Kujo", "Mibu", "Asakura", "Hoshino", "Takeda", "Fujiwara", "Sakai"]
   },
   {
@@ -14,9 +53,44 @@
     "name": "London",
     "country": "England",
     "weight": 3,
-    "birthText": "Fog presses against the hospital windows as you take your first breath.",
+    "birthText": "Fog presses against the windows as you take your first breath.",
     "description": "A sprawling capital of fog and stone, home to more mage lineages than anyone outside them suspects.",
-    "givenNames": ["Arthur", "Eleanor", "Thomas", "Margaret", "Edmund", "Clara", "Henry", "Beatrice", "Oliver", "Rose"],
+    "givenNames": {
+      "male": [
+        "Thomas", "Henry", "Edward", "William", "James",
+        { "name": "Albert", "to": 1940 },
+        { "name": "Arthur", "to": 1940 },
+        { "name": "Frederick", "to": 1940 },
+        { "name": "Harold", "to": 1945 },
+        { "name": "Cyril", "from": 1890, "to": 1935 },
+        { "name": "Peter", "from": 1930, "to": 1980 },
+        { "name": "Colin", "from": 1930, "to": 1975 },
+        { "name": "Ian", "from": 1940, "to": 1985 },
+        { "name": "Gary", "from": 1955, "to": 1980 },
+        { "name": "Darren", "from": 1965, "to": 1990 },
+        { "name": "Jack", "from": 1985 },
+        { "name": "Callum", "from": 1985 },
+        { "name": "Oliver", "from": 1990 }
+      ],
+      "female": [
+        "Elizabeth", "Anne", "Catherine",
+        { "name": "Ada", "to": 1925 },
+        { "name": "Mabel", "to": 1925 },
+        { "name": "Edith", "to": 1935 },
+        { "name": "Florence", "to": 1935 },
+        { "name": "Dorothy", "from": 1900, "to": 1940 },
+        { "name": "Margaret", "to": 1955 },
+        { "name": "Susan", "from": 1940, "to": 1975 },
+        { "name": "Linda", "from": 1940, "to": 1970 },
+        { "name": "Karen", "from": 1955, "to": 1980 },
+        { "name": "Julie", "from": 1955, "to": 1985 },
+        { "name": "Emily", "from": 1980 },
+        { "name": "Jessica", "from": 1980 },
+        { "name": "Chloe", "from": 1985 },
+        { "name": "Olivia", "from": 1990 },
+        { "name": "Amelia", "from": 1995 }
+      ]
+    },
     "familyNames": ["Ashworth", "Blackwood", "Fairfax", "Holloway", "Pemberton", "Thorne", "Whitlock", "Grey"]
   },
   {
@@ -26,8 +100,49 @@
     "weight": 2,
     "birthText": "Snow falls on the hundred spires of the city the night you arrive in the world.",
     "description": "A city of alchemists' lanes and astronomical clocks, where old magic soaks into the stones.",
-    "givenNames": ["Jan", "Eliška", "Tomáš", "Anežka", "Vojtěch", "Lucie", "Matěj", "Klára", "Ondřej", "Zdenka"],
-    "familyNames": ["Novák", "Dvořák", "Kepler", "Horák", "Černý", "Rožmberk", "Veselý", "Kolář"]
+    "givenNames": {
+      "male": [
+        "Jan", "Josef", "Karel", "Jiří",
+        { "name": "Václav", "to": 1960 },
+        { "name": "František", "to": 1960 },
+        { "name": "Bohumil", "to": 1950 },
+        { "name": "Jaroslav", "to": 1965 },
+        { "name": "Zdeněk", "from": 1920, "to": 1975 },
+        { "name": "Miroslav", "from": 1930, "to": 1975 },
+        { "name": "Pavel", "from": 1940 },
+        { "name": "Tomáš", "from": 1965 },
+        { "name": "Ondřej", "from": 1970 },
+        { "name": "Lukáš", "from": 1975 },
+        { "name": "Jakub", "from": 1980 },
+        { "name": "Matěj", "from": 1990 }
+      ],
+      "female": [
+        "Marie", "Anna",
+        { "name": "Anežka", "to": 1930 },
+        { "name": "Božena", "to": 1950 },
+        { "name": "Zdenka", "to": 1950 },
+        { "name": "Ludmila", "to": 1955 },
+        { "name": "Věra", "from": 1925, "to": 1965 },
+        { "name": "Eva", "from": 1935 },
+        { "name": "Jana", "from": 1940, "to": 1985 },
+        { "name": "Hana", "from": 1940, "to": 1990 },
+        { "name": "Kateřina", "from": 1975 },
+        { "name": "Lucie", "from": 1980 },
+        { "name": "Tereza", "from": 1980 },
+        { "name": "Klára", "from": 1980 },
+        { "name": "Eliška", "from": 1995 }
+      ]
+    },
+    "familyNames": [
+      { "male": "Novák", "female": "Nováková" },
+      { "male": "Dvořák", "female": "Dvořáková" },
+      { "male": "Kepler", "female": "Keplerová" },
+      { "male": "Horák", "female": "Horáková" },
+      { "male": "Černý", "female": "Černá" },
+      { "male": "Šťastný", "female": "Šťastná" },
+      { "male": "Veselý", "female": "Veselá" },
+      { "male": "Kolář", "female": "Kolářová" }
+    ]
   },
   {
     "id": "new_orleans",
@@ -36,7 +151,41 @@
     "weight": 2,
     "birthText": "A brass band is playing somewhere down the street when you are born.",
     "description": "A humid river city of music, cemeteries above the ground, and a living folk magic that the mage world tends to underestimate.",
-    "givenNames": ["Louis", "Celeste", "Marcel", "Josephine", "Jules", "Odile", "Remy", "Claudette", "August", "Delphine"],
+    "givenNames": {
+      "male": [
+        "Louis", "Joseph", "Charles", "Henry",
+        { "name": "Octave", "to": 1925 },
+        { "name": "Alcide", "to": 1930 },
+        { "name": "Clarence", "to": 1945 },
+        { "name": "Lionel", "to": 1950 },
+        { "name": "Raymond", "from": 1915, "to": 1965 },
+        { "name": "Leroy", "from": 1920, "to": 1965 },
+        { "name": "Gary", "from": 1950, "to": 1980 },
+        { "name": "Darnell", "from": 1960, "to": 1995 },
+        { "name": "Jamal", "from": 1970 },
+        { "name": "Trey", "from": 1980 },
+        { "name": "Tyler", "from": 1985 },
+        { "name": "Mason", "from": 1995 }
+      ],
+      "female": [
+        "Marie", "Anne",
+        { "name": "Mathilde", "to": 1925 },
+        { "name": "Odile", "to": 1930 },
+        { "name": "Celeste", "to": 1930 },
+        { "name": "Delphine", "to": 1930 },
+        { "name": "Ida", "to": 1930 },
+        { "name": "Josephine", "to": 1935 },
+        { "name": "Gloria", "from": 1920, "to": 1965 },
+        { "name": "Barbara", "from": 1930, "to": 1970 },
+        { "name": "Debra", "from": 1950, "to": 1975 },
+        { "name": "Lisa", "from": 1960, "to": 1985 },
+        { "name": "Tanya", "from": 1965, "to": 1990 },
+        { "name": "Ashley", "from": 1980 },
+        { "name": "Brittany", "from": 1983, "to": 2000 },
+        { "name": "Destiny", "from": 1985 },
+        { "name": "Madison", "from": 1990 }
+      ]
+    },
     "familyNames": ["Broussard", "Laveau", "Thibodeaux", "Fontenot", "Marchand", "Delacroix", "Guidry", "Boudreaux"]
   },
   {
@@ -46,7 +195,44 @@
     "weight": 2,
     "birthText": "The river wind rattles the shutters of your family's house on the night of your birth.",
     "description": "A grand port city of wide avenues and old money, built by people from every corner of the world, each bringing their own traditions.",
-    "givenNames": ["Mateo", "Valentina", "Santiago", "Lucía", "Tomás", "Catalina", "Joaquín", "Florencia", "Ignacio", "Martina"],
+    "givenNames": {
+      "male": [
+        "Juan", "José", "Carlos",
+        { "name": "Ernesto", "to": 1950 },
+        { "name": "Alberto", "to": 1960 },
+        { "name": "Héctor", "to": 1960 },
+        { "name": "Jorge", "from": 1900, "to": 1980 },
+        { "name": "Osvaldo", "from": 1920, "to": 1960 },
+        { "name": "Ricardo", "from": 1930, "to": 1980 },
+        { "name": "Daniel", "from": 1950 },
+        { "name": "Pablo", "from": 1960 },
+        { "name": "Diego", "from": 1965 },
+        { "name": "Martín", "from": 1970 },
+        { "name": "Santiago", "from": 1985 },
+        { "name": "Tomás", "from": 1985 },
+        { "name": "Joaquín", "from": 1990 },
+        { "name": "Mateo", "from": 1995 },
+        { "name": "Thiago", "from": 2000 }
+      ],
+      "female": [
+        "María", "Ana",
+        { "name": "Amalia", "to": 1940 },
+        { "name": "Rosa", "to": 1955 },
+        { "name": "Elena", "to": 1960 },
+        { "name": "Teresa", "to": 1960 },
+        { "name": "Graciela", "from": 1935, "to": 1975 },
+        { "name": "Susana", "from": 1940, "to": 1975 },
+        { "name": "Silvia", "from": 1945, "to": 1980 },
+        { "name": "Claudia", "from": 1960, "to": 1990 },
+        { "name": "Laura", "from": 1965 },
+        { "name": "Florencia", "from": 1985 },
+        { "name": "Lucía", "from": 1985 },
+        { "name": "Valentina", "from": 1990 },
+        { "name": "Catalina", "from": 1990 },
+        { "name": "Martina", "from": 1995 },
+        { "name": "Sofía", "from": 1995 }
+      ]
+    },
     "familyNames": ["Ferreyra", "Aldana", "Quiroga", "Ibarra", "Montenegro", "Sosa", "Villalba", "Echeverría"]
   }
 ]

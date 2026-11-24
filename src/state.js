@@ -6,7 +6,9 @@
 import { bindRng, createRngState, makeSeed } from './rng.js';
 import { storage } from './storage.js';
 
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
+// Saves older than this are from test builds and can't be continued.
+const OLDEST_SUPPORTED_VERSION = 3;
 const SAVE_KEY = 'hgws.save';
 const LOG_LIMIT = 300; // keep the saved log from growing forever
 
@@ -99,9 +101,8 @@ function parseSave(text) {
   if (data.version > SAVE_VERSION) {
     throw new Error('That save is from a newer version of the game.');
   }
-  if (data.version < 2) {
-    // Version 1 saves came from the skeleton test build and hold no character.
-    throw new Error('That save is from the early test build and has no character in it. Start a new game.');
+  if (data.version < OLDEST_SUPPORTED_VERSION) {
+    throw new Error('That save is from an older test build of the game and can no longer be continued. Please start a new game.');
   }
   // Future shape changes: migrate older versions here.
   const ok =

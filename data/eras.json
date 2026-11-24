@@ -4,27 +4,27 @@
     "name": "Early twentieth century",
     "weight": 2,
     "warYears": [1905, 1935],
-    "description": "Electric light is new, empires are cracking, and the old mage families still believe the modern world will pass them by."
+    "description": "You will come of age as electric light spreads, empires crack, and the old mage families insist the modern world will pass them by."
   },
   {
     "id": "postwar",
     "name": "Postwar years",
     "weight": 2,
     "warYears": [1950, 1975],
-    "description": "The world is rebuilding after catastrophe. Old lineages are broke, and new ones are hungry."
+    "description": "You will come of age in a world rebuilding after catastrophe, where old lineages are broke and new ones are hungry."
   },
   {
     "id": "late_century",
     "name": "Late twentieth century",
     "weight": 3,
     "warYears": [1976, 1999],
-    "description": "Television, telephones and traffic everywhere. Hiding magic from ordinary people has never been harder."
+    "description": "You will come of age among televisions, telephones and traffic, when hiding magic from ordinary people has never been harder."
   },
   {
     "id": "new_millennium",
     "name": "New millennium",
     "weight": 3,
     "warYears": [2000, 2025],
-    "description": "Everyone carries a camera in their pocket. A war of mages now has to be fought between the security cameras."
+    "description": "You will come of age as mobile phones and the internet spread further every year, and fewer and fewer secrets stay hidden."
   }
 ]

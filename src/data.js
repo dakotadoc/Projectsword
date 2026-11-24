@@ -5,6 +5,7 @@
 // findById('places', id) to look up something a save refers to.
 
 import { RANKS } from './ranks.js';
+import { availableIn } from './period.js';
 
 const FILES = ['rules', 'places', 'eras', 'families', 'traits'];
 
@@ -72,12 +73,38 @@ function validate() {
       seen.add(entry.id);
       for (const f of fields) need(typeof entry[f] === 'string' && entry[f], `${where}: missing "${f}"`);
       need(entry.weight === undefined || Number.isFinite(entry.weight), `${where}: "weight" must be a number`);
+      checkYears(entry, where);
     });
   }
 
+  // Every year a character could be born in must have names for both sexes.
+  const birthYears = [
+    Math.min(...data.eras.map((e) => e.warYears?.[0])) - r.warAge?.[1],
+    Math.max(...data.eras.map((e) => e.warYears?.[1])) - r.warAge?.[0],
+  ];
   for (const p of data.places) {
-    need(Array.isArray(p.givenNames) && p.givenNames.length, `places.json ${p.id}: needs givenNames`);
     need(Array.isArray(p.familyNames) && p.familyNames.length, `places.json ${p.id}: needs familyNames`);
+    (p.familyNames || []).forEach((n, i) => need(
+      typeof n === 'string' || (typeof n?.male === 'string' && typeof n?.female === 'string'),
+      `places.json ${p.id} familyNames #${i + 1}: must be "Name" or { "male": ..., "female": ... }`,
+    ));
+    for (const sex of ['male', 'female']) {
+      const names = p.givenNames?.[sex];
+      if (!Array.isArray(names) || !names.length) {
+        problems.push(`places.json ${p.id}: needs givenNames.${sex}`);
+        continue;
+      }
+      names.forEach((n, i) => {
+        const where = `places.json ${p.id} givenNames.${sex} #${i + 1}`;
+        need(typeof n === 'string' || (typeof n?.name === 'string' && n.name), `${where}: must be "Name" or { "name": ... }`);
+        checkYears(n, where);
+      });
+      const gaps = [];
+      for (let y = birthYears[0]; y <= birthYears[1]; y++) {
+        if (!availableIn(names, y).length) gaps.push(y);
+      }
+      need(!gaps.length, `places.json ${p.id}: no ${sex} names for birth years ${gaps[0]}–${gaps[gaps.length - 1]}`);
+    }
   }
   for (const e of data.eras) need(isRange(e.warYears), `eras.json ${e.id}: warYears must be [first, last]`);
   for (const f of data.families) {
@@ -89,6 +116,14 @@ function validate() {
     const w = f.circuitWeights || {};
     need(Object.keys(w).every((k) => RANKS.includes(k)), `families.json ${f.id}: circuitWeights keys must be E, D, C, B, A, EX`);
     need(Object.values(w).some((v) => v > 0), `families.json ${f.id}: circuitWeights needs a weight above 0`);
+  }
+
+  function checkYears(entry, where) {
+    if (typeof entry !== 'object' || entry === null) return;
+    for (const k of ['from', 'to']) {
+      need(entry[k] === undefined || Number.isInteger(entry[k]), `${where}: "${k}" must be a year`);
+    }
+    need(!(entry.from > entry.to), `${where}: "from" is after "to"`);
   }
 
   if (problems.length) {

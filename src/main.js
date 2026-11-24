@@ -15,7 +15,7 @@ import { loadData } from './data.js';
 import { birthScreen } from './birth.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
-// choices. It receives { resumed, goTo }.
+// choices. It receives { resumed, goTo, autosave }.
 // Later milestones add: summon, war, combat, ending.
 const screens = {
   birth: birthScreen,
@@ -26,7 +26,7 @@ async function goTo(name) {
   const state = getState();
   if (!screens[name]) throw new Error(`Unknown screen: ${name}`);
   state.screen = name;
-  await screens[name]({ resumed: false, goTo });
+  await screens[name]({ resumed: false, goTo, autosave });
   await autosave();
 }
 
@@ -43,7 +43,7 @@ async function resume() {
     ui.log(`This save stopped on a screen this version doesn't have ("${state.screen}").`, 'system');
     return;
   }
-  await screen({ resumed: true, goTo });
+  await screen({ resumed: true, goTo, autosave });
 }
 
 async function autosave() {

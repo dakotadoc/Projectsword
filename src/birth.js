@@ -1,18 +1,24 @@
-// Phase 1: Birth. Rolls the place, era, family, Magic Circuits and trait once,
-// stores the result in state, and shows it as a birth certificate.
+// Phase 1: Birth. The player chooses to be born a boy or a girl; then the
+// place, era, family, Magic Circuits, trait and name are rolled once, stored
+// in state, and shown as a birth certificate.
 
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData, findById } from './data.js';
 import { randInt, pick, weightedPick } from './rng.js';
 import { RANKS, rankValue } from './ranks.js';
+import { availableIn, entryName } from './period.js';
+
+export const SEXES = { male: 'Boy', female: 'Girl' };
 
 const STAT_KEYS = ['body', 'magecraft', 'mind', 'charisma'];
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 const rollRange = ([min, max]) => randInt(min, max);
 
 // Rolls a new character into state.world and state.master.
-export function rollBirth(state) {
+// sex: 'male' or 'female' (chosen by the player).
+export function rollBirth(state, sex) {
+  if (!(sex in SEXES)) throw new Error(`Unknown sex: ${sex}`);
   const rules = getData('rules');
   const place = weightedPick(getData('places'));
   const era = weightedPick(getData('eras'));
@@ -36,11 +42,15 @@ export function rollBirth(state) {
   for (const key of STAT_KEYS) stats[key] = clamp(stats[key], 0, 100);
 
   const manaMax = rankValue(circuits.quantity) * rules.manaPerCircuitRank;
+  const birthYear = warYear - warAge;
+  // Only names that were in use in the birth year (see period.js).
+  const givenName = entryName(pick(availableIn(place.givenNames[sex], birthYear)));
 
   state.world = { placeId: place.id, eraId: era.id, warYear };
   state.master = {
-    name: `${pick(place.givenNames)} ${pick(place.familyNames)}`,
-    birthYear: warYear - warAge,
+    name: `${givenName} ${entryName(pick(place.familyNames), sex)}`,
+    sex,
+    birthYear,
     warAge,
     familyId: family.id,
     traitId: trait.id,
@@ -53,13 +63,30 @@ export function rollBirth(state) {
   };
 }
 
-// The birth screen. Rolls on first visit; on resume the log already holds it.
-export async function birthScreen({ resumed = false, goTo }) {
+// The birth screen. First asks boy or girl, then rolls and shows the
+// certificate. On resume the log already holds whatever was shown.
+export async function birthScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
-  if (!resumed) {
-    if (!state.master) rollBirth(state);
-    showBirth(state);
+  if (!state.master) {
+    if (!resumed) {
+      ui.log('Birth', 'heading');
+      ui.log('Will you be born a boy or a girl?', 'system');
+    }
+    ui.setChoices(Object.entries(SEXES).map(([sex, label]) => ({
+      label: `Born a ${label.toLowerCase()}`,
+      onSelect: async () => {
+        rollBirth(state, sex);
+        showBirth(state);
+        showBirthChoices(goTo);
+        await autosave();
+      },
+    })));
+    return;
   }
+  showBirthChoices(goTo);
+}
+
+function showBirthChoices(goTo) {
   ui.setChoices([
     { label: 'Begin your life', style: 'primary', onSelect: () => goTo('life') },
   ]);
@@ -73,7 +100,6 @@ function showBirth(state) {
   const trait = findById('traits', master.traitId);
   const s = master.stats;
 
-  ui.log('Birth', 'heading');
   ui.log(place.birthText);
   ui.log(family.birthText);
   ui.log(era.description);
@@ -81,6 +107,7 @@ function showBirth(state) {
     'Certificate of birth',
     `Name: ${master.name}`,
     `Born: ${place.name}, ${place.country}, ${master.birthYear}`,
+    `Sex: ${SEXES[master.sex]}`,
     `Era: ${era.name}`,
     `Family: ${family.name}`,
     `Magic Circuits: quantity ${master.circuits.quantity}, quality ${master.circuits.quality}`,
