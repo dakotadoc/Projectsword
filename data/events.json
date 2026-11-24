@@ -466,6 +466,9 @@
         "text": "\"Someone was watching,\" {servant} says. \"They were good. They left before I could follow.\"",
         "effects": {
           "intel": 1
+        },
+        "conditions": {
+          "hasServant": true
         }
       },
       {
@@ -477,7 +480,10 @@
           }
         }
       }
-    ]
+    ],
+    "conditions": {
+      "hasServant": true
+    }
   },
   {
     "id": "war_church_notice",
@@ -503,6 +509,9 @@
     "text": "You dream of {servant}'s past: a moment from their life, so vivid you wake up with tears on your face. You understand them a little better.",
     "effects": {
       "bond": 2
+    },
+    "conditions": {
+      "hasServant": true
     }
   },
   {
@@ -569,9 +578,15 @@
         "text": "You stay where you are until the danger passes. {servant} nods in approval.",
         "effects": {
           "bond": 1
+        },
+        "conditions": {
+          "hasServant": true
         }
       }
-    ]
+    ],
+    "conditions": {
+      "hasServant": true
+    }
   },
   {
     "id": "night_familiar",
@@ -580,6 +595,9 @@
     "text": "A crow with too many eyes follows you for three streets. Someone's familiar. {servant} deals with it.",
     "effects": {
       "servantHp": -3
+    },
+    "conditions": {
+      "hasServant": true
     }
   },
   {
@@ -603,6 +621,9 @@
         "text": "You walk them home. It costs you the night, but {servant} looks at you differently.",
         "effects": {
           "bond": 2
+        },
+        "conditions": {
+          "hasServant": true
         }
       },
       {

@@ -201,6 +201,7 @@ function warSummary(state) {
 
 // The last few days, as the Master experienced them (only what they saw).
 const DAY_ACTIONS = { rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
+const BATTLE_OUTCOMES = { won: 'you won; they are out of the war', enemyFled: 'they got away', retreated: 'you retreated', lostRetreated: 'you were beaten and barely escaped', draw: 'neither side won', servantLost: 'you lost' };
 const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted a rival', ambush: 'set an ambush for a rival, which ended in a standoff' };
 
 function recentWarDays(state) {
@@ -219,6 +220,10 @@ function recentWarDays(state) {
       parts.push(`by night you and your Master ${NIGHT_ACTIONS[h.nightAction]}${rival ? ` (${rivalLabel(rival)})` : ''}`);
     }
     if (h.nightEvent) parts.push(`that night: ${firstSentence(h.nightEvent)}`);
+    if (h.battle) {
+      const rival = (state.rivals || []).find((r) => r.id === h.battle.rivalId);
+      parts.push(`you fought ${rival ? rivalLabel(rival) : 'a rival'} (${BATTLE_OUTCOMES[h.battle.outcome] || 'it ended'})`);
+    }
     return parts.length ? `- Day ${h.day}: ${parts.join('; ')}.` : null;
   }).filter(Boolean);
   return days.length ? ['Recent days (in quoted news and events, "you" means your Master):', ...days] : [];

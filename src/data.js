@@ -7,10 +7,10 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
-const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts'];
-const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel'];
+const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant'];
+const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel', 'masterHp'];
 
 const data = {};
 
@@ -241,6 +241,20 @@ function validate() {
       }
     }
   }
+
+  // classes.json and combat data (milestone 8)
+  const SKILL_TYPES = ['buff', 'weaken', 'strike', 'heal', 'gamble', 'guard', 'reveal', 'stun', 'dot', 'lastStand'];
+  for (const sv of data.servants) {
+    need(data.classes.some((c) => c.id === sv.class), `classes.json: no entry for class ${sv.class} (${sv.id})`);
+    sv.skills.forEach((sk, i) => need(SKILL_TYPES.includes(sk.combat?.type), `servants.json ${sv.id} skill #${i + 1}: combat.type must be one of ${SKILL_TYPES.join(', ')}`));
+    need(sv.noblePhantasm.combat && typeof sv.noblePhantasm.combat.text === 'string', `servants.json ${sv.id}: noblePhantasm.combat is missing`);
+  }
+  for (const c of data.classes) need(Array.isArray(c.attackVerbs) && c.attackVerbs.length, `classes.json ${c.id}: needs attackVerbs`);
+  const cb = data.combat || {};
+  for (const k of ['ambush', 'spotted', 'patrol']) checkTexts(cb.start?.[k], `combat.json start.${k}`);
+  for (const k of ['church', 'churchKilled', 'masterDied']) checkTexts(cb.epilogues?.[k], `combat.json epilogues.${k}`);
+  need(cb.lines && cb.results && cb.afterLoss && cb.youLines, 'combat.json: needs lines, youLines, results and afterLoss');
+  need(r.combat && Number.isInteger(r.combat.maxRounds), 'rules.combat is missing or incomplete');
 
   const summon = data.summon || {};
   for (const key of ['intro', 'withCatalyst', 'withoutCatalyst', 'compatibilityNote']) checkTexts(summon[key], `summon.json ${key}`);

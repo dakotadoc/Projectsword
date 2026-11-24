@@ -21,24 +21,46 @@
       {
         "name": "Mantle of Kingship",
         "rank": "B",
-        "description": "Those who fight beside him find their courage. Steadies his Master and allies."
+        "description": "Those who fight beside him find their courage. Steadies his Master and allies.",
+        "combat": {
+          "type": "buff",
+          "attack": 0.2,
+          "defense": 0.2,
+          "rounds": 3,
+          "text": "{name} raises her sword, and her presence steadies everyone fighting beside her."
+        }
       },
       {
         "name": "Knight's Tactics",
         "rank": "B",
-        "description": "Reads the flow of a battle and strikes where the enemy is weakest."
+        "description": "Reads the flow of a battle and strikes where the enemy is weakest.",
+        "combat": {
+          "type": "strike",
+          "power": 1.4,
+          "ignoreDefend": true,
+          "text": "{name} reads the fight and strikes exactly where the guard is weakest."
+        }
       },
       {
         "name": "Blessing of the Lake",
         "rank": "C",
-        "description": "The Lady of the Lake's favor. His wounds slowly close, faster near water."
+        "description": "The Lady of the Lake's favor. His wounds slowly close, faster near water.",
+        "combat": {
+          "type": "heal",
+          "amount": 0.2,
+          "text": "The Lady of the Lake's blessing closes {name}'s wounds."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "Excalibur, Blade of the Lake",
       "rank": "A",
       "type": "Anti-army",
-      "description": "He raises the sword given to him by the Lady of the Lake, and its light cuts a path through an army."
+      "description": "He raises the sword given to him by the Lady of the Lake, and its light cuts a path through an army.",
+      "combat": {
+        "power": 1.0,
+        "text": "{name} raises the sword of the lake, and its light cuts a road through everything in front of her."
+      }
     },
     "weakness": "Her kingdom fell from within: her queen and her best knight betrayed her, and at Camlann she and her son Mordred killed each other. An enemy who knows her name knows she hesitates against anyone who reminds her of Mordred, and that the wound from Camlann never fully closed.",
     "personality": {
@@ -110,24 +132,48 @@
       {
         "name": "Queen of Heaven",
         "rank": "A",
-        "description": "A goddess's presence. Lesser beings hesitate before striking her."
+        "description": "A goddess's presence. Lesser beings hesitate before striking her.",
+        "combat": {
+          "type": "buff",
+          "defense": 0.3,
+          "rounds": 2,
+          "text": "{name} draws herself up, and the air around her turns heavy with divinity."
+        }
       },
       {
         "name": "Morning and Evening Star",
         "rank": "B",
-        "description": "Arrows of light from the planet that bears her name, loosed from very far away."
+        "description": "Arrows of light from the planet that bears her name, loosed from very far away.",
+        "combat": {
+          "type": "strike",
+          "power": 1.5,
+          "text": "{name} loosens an arrow of pure starlight."
+        }
       },
       {
         "name": "Capricious Favor",
         "rank": "B",
-        "description": "Her blessing can lift her Master to great heights, or vanish when she is displeased."
+        "description": "Her blessing can lift her Master to great heights, or vanish when she is displeased.",
+        "combat": {
+          "type": "gamble",
+          "chance": 0.7,
+          "attack": 0.5,
+          "fail": -0.2,
+          "rounds": 2,
+          "text": "{name} decides, on a whim, whether to bless this fight."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "Gugalanna, Bull of Heaven",
       "rank": "A",
       "type": "Anti-city",
-      "description": "She calls down the Bull of Heaven that she once loosed on Uruk when its king refused her. It tramples everything in its path."
+      "description": "She calls down the Bull of Heaven that she once loosed on Uruk when its king refused her. It tramples everything in its path.",
+      "combat": {
+        "power": 0.9,
+        "splashMaster": 0.4,
+        "text": "{name} calls down the Bull of Heaven. The street disappears under its hooves."
+      }
     },
     "weakness": "She once descended into the underworld and was stripped of a piece of her power at each of its seven gates, then killed. An enemy who knows her name can strip her protections one by one, and places of death and burial weaken her.",
     "personality": {
@@ -189,29 +235,52 @@
       "luck": "B",
       "noblePhantasm": "A"
     },
-    "hp": 90,
+    "hp": 105,
     "skills": [
       {
         "name": "Wisdom Granted at Gibeon",
         "rank": "A",
-        "description": "Wisdom given by God in a dream. Sees through lies and false appearances."
+        "description": "Wisdom given by God in a dream. Sees through lies and false appearances.",
+        "combat": {
+          "type": "weaken",
+          "attack": -0.3,
+          "rounds": 2,
+          "reveal": "servant",
+          "text": "{name} looks at the enemy and sees straight through them."
+        }
       },
       {
         "name": "Builder of the Temple",
         "rank": "B",
-        "description": "Builds strong, beautiful workshops and wards very quickly."
+        "description": "Builds strong, beautiful workshops and wards very quickly.",
+        "combat": {
+          "type": "buff",
+          "defense": 0.3,
+          "rounds": 3,
+          "text": "{name} raises wards around you in moments, stone by invisible stone."
+        }
       },
       {
         "name": "Speech of Birds and Beasts",
         "rank": "B",
-        "description": "Understands animals, who tell him what they have seen."
+        "description": "Understands animals, who tell him what they have seen.",
+        "combat": {
+          "type": "reveal",
+          "track": "master",
+          "text": "The birds tell {name} what they have seen of the enemy Master."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "The Seal of Solomon",
       "rank": "A",
       "type": "Anti-unit",
-      "description": "The signet ring that, in legend, commanded demons and spirits. It binds an enemy's power, or calls the spirits who once helped build his temple."
+      "description": "The signet ring that, in legend, commanded demons and spirits. It binds an enemy's power, or calls the spirits who once helped build his temple.",
+      "combat": {
+        "power": 0.8,
+        "stun": 1,
+        "text": "{name} raises the ring, and the enemy is bound where they stand."
+      }
     },
     "weakness": "His power is in the ring. A legend says a demon once stole it and ruled in his place while he wandered as a beggar. An enemy who knows his name knows to separate him from the ring, and that without it he is a tired old scholar.",
     "personality": {
@@ -273,29 +342,54 @@
       "luck": "E",
       "noblePhantasm": "A"
     },
-    "hp": 160,
+    "hp": 135,
     "skills": [
       {
         "name": "Nazirite's Vow",
         "rank": "A",
-        "description": "Superhuman strength, for as long as his hair stays uncut."
+        "description": "Superhuman strength, for as long as his hair stays uncut.",
+        "combat": {
+          "type": "buff",
+          "attack": 0.4,
+          "rounds": 3,
+          "text": "{name} shakes out his braids and his strength surges."
+        }
       },
       {
         "name": "Madness of the Judge",
         "rank": "B",
-        "description": "In battle, fury overtakes him. Hits harder, thinks less."
+        "description": "In battle, fury overtakes him. Hits harder, thinks less.",
+        "combat": {
+          "type": "buff",
+          "attack": 0.6,
+          "defense": -0.2,
+          "rounds": 2,
+          "text": "Fury takes {name}. He stops thinking and starts breaking things."
+        }
       },
       {
         "name": "Lion-Slayer",
         "rank": "B",
-        "description": "Tore a lion apart with his bare hands. Fights unarmed as well as armed."
+        "description": "Tore a lion apart with his bare hands. Fights unarmed as well as armed.",
+        "combat": {
+          "type": "strike",
+          "power": 1.3,
+          "text": "{name} grabs the enemy barehanded, as he once grabbed a lion."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "Fall of the House of Dagon",
       "rank": "A",
       "type": "Anti-fortress",
-      "description": "He braces himself between two pillars and brings the whole building down on his enemies, and on himself. Ignores walls and wards, at great cost."
+      "description": "He braces himself between two pillars and brings the whole building down on his enemies, and on himself. Ignores walls and wards, at great cost.",
+      "combat": {
+        "power": 1.4,
+        "splashMaster": 0.5,
+        "selfDamage": 0.25,
+        "ignoreWorkshop": true,
+        "text": "{name} braces between two pillars and brings everything down on them, and on himself."
+      }
     },
     "weakness": "His strength lives in his uncut hair, a vow to God. An enemy who knows his name knows to bind, cut or burn it, that he trusts the wrong people, and that he is blind.",
     "personality": {
@@ -362,24 +456,48 @@
       {
         "name": "Bulwark of Troy",
         "rank": "A",
-        "description": "Held a city for ten years. Strong defense, especially when protecting someone."
+        "description": "Held a city for ten years. Strong defense, especially when protecting someone.",
+        "combat": {
+          "type": "guard",
+          "defense": 0.5,
+          "rounds": 2,
+          "text": "{name} plants himself in front of you like the walls of Troy."
+        }
       },
       {
         "name": "Tactician of the Long War",
         "rank": "B",
-        "description": "A veteran commander. Good at choosing where and when to fight."
+        "description": "A veteran commander. Good at choosing where and when to fight.",
+        "combat": {
+          "type": "weaken",
+          "attack": -0.25,
+          "rounds": 2,
+          "text": "{name} picks the ground and the moment, and the enemy's attacks start landing badly."
+        }
       },
       {
         "name": "Tamer of Horses",
         "rank": "C",
-        "description": "Fights well from a chariot or on horseback, and calms any animal."
+        "description": "Fights well from a chariot or on horseback, and calms any animal.",
+        "combat": {
+          "type": "buff",
+          "speed": 2,
+          "rounds": 3,
+          "text": "{name} moves with the ease of a charioteer, always a step ahead."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "Fire on the Black Ships",
       "rank": "B",
       "type": "Anti-army",
-      "description": "The charge in which he broke through the Greek wall and set fire to their ships. A spear-throw that bursts into flame and spreads through an army."
+      "description": "The charge in which he broke through the Greek wall and set fire to their ships. A spear-throw that bursts into flame and spreads through an army.",
+      "combat": {
+        "power": 0.9,
+        "dot": 0.06,
+        "dotRounds": 3,
+        "text": "{name} hurls his spear, and it bursts into flame like the burning ships of the Greeks."
+      }
     },
     "weakness": "Achilles killed him after a goddess, disguised as his brother, promised to fight beside him and then vanished. An enemy who knows his name knows he will stand and fight to protect others when he should run, and that a trusted ally's betrayal breaks him.",
     "personality": {
@@ -445,24 +563,50 @@
       {
         "name": "Tongue of Nine Nations",
         "rank": "A",
-        "description": "Speaks to almost anyone in their own language, and earns their trust."
+        "description": "Speaks to almost anyone in their own language, and earns their trust.",
+        "combat": {
+          "type": "reveal",
+          "track": "master",
+          "text": "{name} calls out to the enemy Master in their own language, and learns more from their reaction than they meant to give."
+        }
       },
       {
         "name": "Queen's Intrigue",
         "rank": "A",
-        "description": "Gathers secrets and turns enemies against one another."
+        "description": "Gathers secrets and turns enemies against one another.",
+        "combat": {
+          "type": "stun",
+          "chance": 0.5,
+          "text": "{name} says something quiet and terrible about the enemy's Master. The enemy hesitates."
+        }
       },
       {
         "name": "Venom of the Asp",
         "rank": "B",
-        "description": "Poisons that act slowly, quietly and surely."
+        "description": "Poisons that act slowly, quietly and surely.",
+        "combat": {
+          "type": "dot",
+          "amount": 0.07,
+          "rounds": 3,
+          "text": "{name}'s blade leaves a scratch, and the scratch begins to burn."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "The Pearl Dissolved in Wine",
       "rank": "B",
       "type": "Anti-unit",
-      "description": "To win a wager with Mark Antony, she dissolved a priceless pearl and drank it. She spends her Master's money to buy an overwhelming advantage, all at once."
+      "description": "To win a wager with Mark Antony, she dissolved a priceless pearl and drank it. She spends her Master's money to buy an overwhelming advantage, all at once.",
+      "combat": {
+        "power": 0.6,
+        "moneyCost": 40,
+        "buff": {
+          "attack": 0.6,
+          "defense": 0.6,
+          "rounds": 3
+        },
+        "text": "{name} drops a priceless pearl into wine, drinks it, and smiles. Everything she needs is suddenly hers."
+      }
     },
     "weakness": "She chose death by the asp's bite over being paraded through Rome in chains. An enemy who knows her name knows she is no warrior in open battle, that she will choose death over humiliation, and that cold, patient enemies like Octavian beat her.",
     "personality": {
@@ -531,24 +675,47 @@
       {
         "name": "Last of the Caesars",
         "rank": "A",
-        "description": "The authority of a thousand-year empire. Inspires anyone defending something they love."
+        "description": "The authority of a thousand-year empire. Inspires anyone defending something they love.",
+        "combat": {
+          "type": "buff",
+          "attack": 0.2,
+          "defense": 0.2,
+          "rounds": 3,
+          "text": "{name} speaks a few words, and you suddenly feel like you are defending something worth dying for."
+        }
       },
       {
         "name": "Defender of the City",
         "rank": "B",
-        "description": "Makes any base, workshop or wall far harder to break."
+        "description": "Makes any base, workshop or wall far harder to break.",
+        "combat": {
+          "type": "guard",
+          "defense": 0.5,
+          "rounds": 2,
+          "text": "{name} turns the ground around you into a fortress."
+        }
       },
       {
         "name": "Unyielding",
         "rank": "B",
-        "description": "Fights harder the more hopeless things become."
+        "description": "Fights harder the more hopeless things become.",
+        "combat": {
+          "type": "lastStand",
+          "attack": 0.6,
+          "text": "The worse things get, the harder {name} fights."
+        }
       }
     ],
     "noblePhantasm": {
       "name": "The Emperor Casts Off His Purple",
       "rank": "A",
       "type": "Anti-army",
-      "description": "In the final hour, he threw away his imperial insignia and charged into the enemy as an ordinary soldier. He gives up all defense for one overwhelming charge on horseback."
+      "description": "In the final hour, he threw away his imperial insignia and charged into the enemy as an ordinary soldier. He gives up all defense for one overwhelming charge on horseback.",
+      "combat": {
+        "power": 1.4,
+        "defensePenalty": 0.5,
+        "text": "{name} throws off his purple cloak and charges into the enemy like an ordinary soldier."
+      }
     },
     "weakness": "His city fell and he died with it. An enemy who knows his name knows he will never abandon a place he has sworn to defend, even when retreat would save him, and that a single small gate left unguarded once undid all his walls.",
     "personality": {

@@ -131,7 +131,8 @@ function holdUntilTyped(box, controls) {
 
 // choices: [{ label, onSelect, disabled?, hint?, style?: 'primary'|'danger' }]
 // Clicking one disables all until onSelect finishes (no double actions).
-export function setChoices(choices) {
+// options.header: text pinned above the buttons (e.g. HP during a battle).
+export function setChoices(choices, { header } = {}) {
   const box = $('choices');
   newBatch = true; // whatever is logged after the player acts is a new batch
   const buttons = choices.map((choice) => {
@@ -159,7 +160,14 @@ export function setChoices(choices) {
     });
     return btn;
   });
-  box.replaceChildren(...buttons);
+  const nodes = [...buttons];
+  if (header) {
+    const h = document.createElement('div');
+    h.className = 'choices-header';
+    h.textContent = header;
+    nodes.unshift(h);
+  }
+  box.replaceChildren(...nodes);
   holdUntilTyped(box, buttons);
 }
 

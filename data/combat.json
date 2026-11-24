@@ -1,0 +1,99 @@
+{
+  "start": {
+    "ambush": [
+      {
+        "text": "{label} steps out of {base}, and you spring the ambush. Two Servants meet in the dark."
+      }
+    ],
+    "spotted": [
+      {
+        "text": "You've been seen. {label} and their Servant come for you before you can get away."
+      }
+    ],
+    "patrol": [
+      {
+        "text": "Turning a corner, you walk straight into {label}. Nobody backs down."
+      }
+    ]
+  },
+  "atTheirBase": "You are fighting on their ground. Their workshop is level {level}.",
+  "noServantStart": "Without a Servant, you face them alone.",
+  "lines": {
+    "attack": "{attacker} {verb} {target} for {damage} damage.",
+    "crit": "A critical hit!",
+    "intercept": "{defender} throws themself in the way, taking the blow meant for {target}.",
+    "defend": "{actor} takes a defensive stance.",
+    "masterBolt": "{actor} fires a bolt of magic at {target} for {damage} damage.",
+    "masterPunch": "{actor} goes for {target} with bare hands and desperation, for {damage} damage.",
+    "support": "{actor} pours mana into {target}, sharpening every strike.",
+    "heal": "{actor} works a healing spell on {target}, restoring {amount} HP.",
+    "noMana": "{actor} reaches for magic, but there isn't enough mana left.",
+    "observe": "{actor} studies the enemy carefully.",
+    "observeFail": "{actor} studies the enemy, but learns nothing new.",
+    "stunned": "{actor} hesitates, and loses the moment.",
+    "disobey": "{actor} ignores your order and attacks.",
+    "dot": "{target} suffers {damage} damage from lingering wounds.",
+    "drain": "{actor}'s madness drains {amount} mana from you.",
+    "np": "{actor} unleashes their Noble Phantasm: {np}!",
+    "npReveal": "Everyone who saw that knows exactly who {actor} is now.",
+    "selfDamage": "{actor} takes {damage} damage from their own Noble Phantasm.",
+    "sealEmpower": "A Command Seal burns away on your hand. Power floods into {servant}.",
+    "sealEscape": "A Command Seal burns away. In a flash, you and {servant} are somewhere else entirely.",
+    "sealOrder": "A Command Seal burns away: an absolute order. {servant} unleashes their Noble Phantasm.",
+    "enemySeal": "A Command Seal flares on the enemy Master's hand, and they vanish with their Servant.",
+    "retreatOk": "You break away and lose them in the streets.",
+    "retreatFail": "You try to break away, but they cut you off.",
+    "enemyRetreat": "{label} pulls back and disappears into the night.",
+    "enemyRetreatFail": "{label} tries to pull back, but you don't let them.",
+    "timeout": "Dawn is coming. Both sides break off before anyone sees.",
+    "noTarget": "{actor} has no one to attack."
+  },
+  "results": {
+    "enemyServantDown": "{servant} falls.",
+    "enemyServantEscaped": "Broken and bleeding, the enemy Servant drags itself away and escapes into the dark. It will be back.",
+    "enemyServantDestroyed": "The enemy Servant fades into motes of light and is gone. {label} is out of the war.",
+    "enemyMasterKilled": "The enemy Master falls. Without them, their Servant fades away. {label} is out of the war.",
+    "yourServantEscaped": "{servant} is struck down, but somehow drags themself away with you, barely alive.",
+    "yourServantLost": "{servant} falls, and fades into light before your eyes. Your Command Seals are nothing but scars now.",
+    "servantDeserts": "{servant} looks at the last faded Command Seal on your hand, then at you. \"We are done.\" And they are gone.",
+    "victoryBond": "Fighting side by side has brought you closer.",
+    "masterKilled": "You fall, and do not get up."
+  },
+  "afterLoss": {
+    "prompt": "You are alone, and the enemy is still out there.",
+    "church": "Flee to the Church",
+    "churchHint": "Give up the war and seek shelter. You may not make it",
+    "alone": "Fight on alone",
+    "aloneHint": "Stay in the war with only your own magic. You are far weaker now"
+  },
+  "epilogues": {
+    "church": [
+      {
+        "text": "You run until your lungs give out, and then you keep running. The doors of the church open before you knock. The overseer says nothing, only lets you in and bars the door behind you. For you, the war is over. You will spend the rest of your life wondering what would have happened if you had stayed."
+      }
+    ],
+    "churchKilled": [
+      {
+        "text": "You run for the church, but you are not fast enough. The last thing you see is the steeple, so close you could almost touch it."
+      }
+    ],
+    "masterDied": [
+      {
+        "text": "Your war ends here, in the dark streets of {place}. Somewhere, the Grail waits for someone else."
+      }
+    ]
+  },
+  "servantless": {
+    "train": "Without a Servant there is no one to train with.",
+    "talk": "There is no one left to talk to."
+  },
+  "youLines": {
+    "support": "You pour mana into {target}, sharpening every strike.",
+    "heal": "You work a healing spell on {target}, restoring {amount} HP.",
+    "masterBolt": "You fire a bolt of magic at {target} for {damage} damage.",
+    "masterPunch": "You go for {target} with bare hands and desperation, for {damage} damage.",
+    "noMana": "You reach for magic, but there isn't enough mana left.",
+    "observe": "You study the enemy carefully.",
+    "observeFail": "You study the enemy, but learn nothing new."
+  }
+}

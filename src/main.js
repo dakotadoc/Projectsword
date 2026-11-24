@@ -17,17 +17,21 @@ import { lifeScreen } from './life.js';
 import { summonScreen } from './summon.js';
 import { chatScreen } from './chat.js';
 import { warScreen } from './war.js';
+import { battleScreen } from './battle.js';
+import { endingScreen } from './ending.js';
 import { renderStatus } from './status.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
-// Later milestones add: combat, ending.
+// Later milestones add: the full endgame.
 const screens = {
   birth: birthScreen,
   life: lifeScreen,
   summon: summonScreen,
   chat: chatScreen,
   war: warScreen,
+  battle: battleScreen,
+  ending: endingScreen,
 };
 
 // resumed: true re-enters a screen without repeating its intro text (used

@@ -42,10 +42,22 @@
       "hint": "Recover HP and mana",
       "texts": [
         {
-          "text": "You spend the day resting behind locked doors while {servant} keeps watch."
+          "text": "You spend the day resting behind locked doors while {servant} keeps watch.",
+          "conditions": {
+            "hasServant": true
+          }
         },
         {
-          "text": "You sleep late and eat well. {servant} takes the chance to rest as well."
+          "text": "You sleep late and eat well. {servant} takes the chance to rest as well.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You spend the day behind locked doors, sleeping in short, frightened stretches.",
+          "conditions": {
+            "hasServant": false
+          }
         }
       ]
     },
@@ -55,10 +67,16 @@
       "hint": "Small Body and Magecraft gains, Bond +1",
       "texts": [
         {
-          "text": "{servant} puts you through a punishing day of drills. By evening you can barely lift your arms, but you are faster than you were."
+          "text": "{servant} puts you through a punishing day of drills. By evening you can barely lift your arms, but you are faster than you were.",
+          "conditions": {
+            "hasServant": true
+          }
         },
         {
-          "text": "You practice moving and fighting together with {servant}, until you can tell what they will do before they do it."
+          "text": "You practice moving and fighting together with {servant}, until you can tell what they will do before they do it.",
+          "conditions": {
+            "hasServant": true
+          }
         }
       ]
     },
@@ -124,7 +142,15 @@
         {
           "text": "Following {servant}'s advice, you fortify your base as best you can: locks, tripwires, and a few charms you barely understand.",
           "conditions": {
-            "isMage": false
+            "isMage": false,
+            "hasServant": true
+          }
+        },
+        {
+          "text": "Alone, you fortify your base as best you can: locks, tripwires, and every ward you can remember.",
+          "conditions": {
+            "isMage": false,
+            "hasServant": false
           }
         }
       ]
@@ -142,10 +168,22 @@
       "hint": "Look for enemies. Risky",
       "texts": [
         {
-          "text": "You and {servant} move through the dark streets, keeping to the shadows."
+          "text": "You and {servant} move through the dark streets, keeping to the shadows.",
+          "conditions": {
+            "hasServant": true
+          }
         },
         {
-          "text": "You patrol the rooftops and back alleys with {servant}, watching for any sign of the enemy."
+          "text": "You patrol the rooftops and back alleys with {servant}, watching for any sign of the enemy.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "Alone, you move through the dark streets, keeping to the shadows.",
+          "conditions": {
+            "hasServant": false
+          }
         }
       ],
       "quiet": [
@@ -164,7 +202,16 @@
       "requires": "knownLocation",
       "texts": [
         {
-          "text": "You and {servant} slip into {district} after dark, looking for {label}."
+          "text": "You and {servant} slip into {district} after dark, looking for {label}.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "Alone, you slip into {district} after dark, looking for {label}.",
+          "conditions": {
+            "hasServant": false
+          }
         }
       ],
       "success": [
@@ -174,7 +221,7 @@
       ],
       "spotted": [
         {
-          "text": "Something gives you away. A wave of killing intent washes over the street, and {servant} drags you out of there before it can turn into a fight."
+          "text": "Something gives you away. A wave of killing intent washes over the street."
         }
       ],
       "nothingNew": [
@@ -186,16 +233,11 @@
     {
       "id": "ambush",
       "label": "Ambush a known Master",
-      "hint": "Lie in wait for a rival at their base",
+      "hint": "Lie in wait for a rival at their base. Their workshop will help them",
       "requires": "knownMaster",
       "texts": [
         {
           "text": "You take up position near {base} in {district} and wait for {label} to come out."
-        }
-      ],
-      "standoff": [
-        {
-          "text": "They come out at last, with their Servant beside them. For a long moment, the two Servants stare each other down across the street. Then the other Master retreats inside, and the moment passes."
         }
       ]
     },
@@ -205,7 +247,10 @@
       "hint": "Safe. Small recovery",
       "texts": [
         {
-          "text": "You stay inside with the lights off while {servant} keeps watch. Nobody comes."
+          "text": "You stay inside with the lights off while {servant} keeps watch. Nobody comes.",
+          "conditions": {
+            "hasServant": true
+          }
         },
         {
           "text": "You lie low for the night. Far away, you hear something like thunder on a clear night."

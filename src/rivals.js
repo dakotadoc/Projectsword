@@ -8,6 +8,8 @@
 //             description, district, base },
 //   servant: { id, hp: { current, max } },
 //   intel: { master: 0–3, servant: 0–3 },  // what the player knows; see intel.js
+//   (combat, milestone 8) master.stats/hp/mana/commandSeals/workshop,
+//   knowsPlayerServant: true once they have seen the player's Noble Phantasm
 //   status: 'active',          // milestone 9 adds 'eliminated'
 // }]
 //
@@ -68,6 +70,34 @@ export function generateRivals(state) {
       status: 'active',
     };
   });
+  ensureRivalCombatStats(state);
+}
+
+// Combat stats for rival Masters (milestone 8): Body, Magecraft, Mind, HP,
+// mana, Command Seals and a workshop at their base. Also fills them in for
+// saves made before combat existed.
+export function ensureRivalCombatStats(state) {
+  const cfg = getData('rivals');
+  const ms = cfg.masterStats;
+  const combat = getData('rules').combat;
+  for (const rival of state.rivals || []) {
+    const m = rival.master;
+    if (m.stats) continue;
+    m.stats = {
+      body: randInt(...ms.body),
+      magecraft: randInt(...ms.magecraft[m.familyId]),
+      mind: randInt(...ms.mind),
+      charisma: randInt(...ms.charisma),
+    };
+    const hp = Math.round(combat.masterHp.base + combat.masterHp.perBody * m.stats.body);
+    m.hp = { current: hp, max: hp };
+    const mana = ms.manaBase + m.stats.magecraft;
+    m.mana = { current: mana, max: mana };
+    m.commandSeals = 3;
+    const isCaster = findById('servants', rival.servant.id).class === 'Caster';
+    m.workshop = Math.min(3, randInt(...cfg.workshop[m.personalityId]) + (isCaster ? cfg.workshop.casterBonus : 0));
+    rival.knowsPlayerServant = false; // set when the player's true name is revealed to them
+  }
 }
 
 export function activeRivals(state) {

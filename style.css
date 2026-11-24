@@ -109,6 +109,9 @@ button:disabled { opacity: 0.45; cursor: default; }
   flex: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  /* Rows fit their buttons. Without this, rows in this scrolling box shrink
+     to the 44px minimum and long hints spill into the next button. */
+  grid-auto-rows: min-content;
   gap: 8px;
   padding: 12px max(4vw, 16px) 14px;
   border-top: 1px solid var(--line);
@@ -364,3 +367,16 @@ button:disabled { opacity: 0.45; cursor: default; }
 .status-section h4.status-subheading { margin-top: 12px; }
 .meter-fill-danger { background: var(--seal); }
 .meter-ends { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; font-size: 12px; color: var(--muted); }
+
+/* Pinned above the choice buttons, e.g. HP during a battle. */
+.choices-header {
+  grid-column: 1 / -1;
+  white-space: pre-line;
+  font: 13px/1.5 var(--sans);
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--seal);
+  border-radius: 8px;
+  padding: 8px 10px;
+}

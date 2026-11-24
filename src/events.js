@@ -5,7 +5,7 @@
 //   "from"/"to"         in-game years (see period.js)
 //   "minAge"/"maxAge"   the Master's age
 //   "minDay"/"maxDay"   the war day (war events)
-//   "conditions": { isMage, places, families, traits, sex, minMoney, minContacts }
+//   "conditions": { isMage, places, families, traits, sex, minMoney, minContacts, hasServant }
 //
 // Effects look like:
 //   { "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true,
@@ -29,6 +29,7 @@ export function makeContext(state, { age, year, day = null }) {
     age,
     year,
     day,
+    hasServant: Boolean(state.servant) && state.servant.status !== 'lost',
     servantName: state.servant ? findById('servants', state.servant.id).name : '',
     contacts: state.master.contacts,
     placeId: state.world.placeId,
@@ -56,6 +57,7 @@ export function fits(entry, ctx) {
   if (c.sex && c.sex !== ctx.sex) return false;
   if (Number.isFinite(c.minMoney) && ctx.money < c.minMoney) return false;
   if (Number.isFinite(c.minContacts) && ctx.contacts < c.minContacts) return false;
+  if (typeof c.hasServant === 'boolean' && c.hasServant !== Boolean(ctx.hasServant)) return false;
   return true;
 }
 
@@ -111,7 +113,8 @@ export function applyEffects(state, effects, ctx) {
     m.mana.current = clamp(m.mana.current + effects.mana, 0, m.mana.max);
     if (m.mana.current !== before) lines.push(`Mana ${signed(m.mana.current - before)} (${m.mana.current}/${m.mana.max})`);
   }
-  const sv = state.servant;
+  // Servant effects do nothing once the Servant is gone.
+  const sv = state.servant && state.servant.status !== 'lost' ? state.servant : null;
   if (effects.bond && sv) {
     const before = sv.bond;
     sv.bond = clamp(sv.bond + effects.bond, 0, 100);
@@ -122,6 +125,11 @@ export function applyEffects(state, effects, ctx) {
     sv.hp.current = clamp(sv.hp.current + effects.servantHp, 1, sv.hp.max);
     const name = findById('servants', sv.id).name;
     if (sv.hp.current !== before) lines.push(`${name} HP ${signed(sv.hp.current - before)} (${sv.hp.current}/${sv.hp.max})`);
+  }
+  if (effects.masterHp && m.hp) {
+    const before = m.hp.current;
+    m.hp.current = clamp(m.hp.current + effects.masterHp, 1, m.hp.max);
+    if (m.hp.current !== before) lines.push(`Your HP ${signed(m.hp.current - before)} (${m.hp.current}/${m.hp.max})`);
   }
   if (effects.catalyst) {
     const found = findCatalyst(state, ctx);

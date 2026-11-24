@@ -35,6 +35,35 @@
     "scoutSpotHpLoss": [5, 15]
   },
 
+  "combat": {
+    "maxRounds": 12,
+    "masterHp": { "base": 40, "perBody": 0.8 },
+    "masterRegen": { "dawn": 0.2, "rest": 1.0 },
+    "attack": { "base": 8, "perStrength": 4, "random": 6 },
+    "noblePhantasm": { "base": 20, "perRank": 10, "random": 10, "manaBase": 15, "manaPerRank": 5 },
+    "endurancePerRank": 0.05,
+    "critBase": 0.05,
+    "critPerLuck": 0.02,
+    "critMultiplier": 1.5,
+    "skillCooldown": 3,
+    "defendReduction": 0.5,
+    "interceptChance": 0.65,
+    "interceptDamage": 0.7,
+    "weaknessBonus": 0.15,
+    "workshopDefensePerLevel": 0.05,
+    "masterSpell": { "support": { "mana": 10, "attack": 0.15, "perMagecraft": 0.003, "rounds": 2 }, "heal": { "mana": 15, "base": 5, "perMagecraft": 0.35 }, "bolt": { "mana": 8, "base": 4, "perMagecraft": 0.2, "perBody": 0.08, "random": 4 } },
+    "observe": { "base": 0.4, "perMind": 0.006 },
+    "retreat": { "base": 0.5, "perAgility": 0.08, "min": 0.1, "max": 0.95 },
+    "masterRetreat": { "base": 0.35, "perBody": 0.004 },
+    "commandSeal": { "bondCost": 3, "empower": { "attack": 1.0, "rounds": 2, "heal": 0.2 }, "desertBond": 30, "desertChance": 0.5 },
+    "escapeSave": { "base": 0.25, "perAgility": 0.05, "perLuck": 0.04, "class": { "Rider": 0.2, "Lancer": 0.1, "Assassin": 0.1 } },
+    "churchSave": { "base": 0.45, "perCalm": 0.004, "perBody": 0.002 },
+    "victoryBond": 2,
+    "patrolBattleChance": 0.25,
+    "rivalRegen": { "servantHp": 0.1, "masterHp": 0.2, "mana": 0.25 },
+    "masterOnly": { "boltBonus": 0 }
+  },
+
   "chat": {
     "maxPlayerMessages": 8,
     "maxMessageLength": 400,

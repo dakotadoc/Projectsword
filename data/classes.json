@@ -1,0 +1,112 @@
+[
+  {
+    "id": "Saber",
+    "approach": "A sturdy all-rounder who wins by fighting well up close.",
+    "attack": 0.1,
+    "defense": 0.1,
+    "speed": 0,
+    "magicResist": 0.5,
+    "retreat": 0,
+    "chase": 0,
+    "attackVerbs": [
+      "cuts at",
+      "drives a heavy blow into",
+      "lunges at"
+    ]
+  },
+  {
+    "id": "Archer",
+    "approach": "Deadly at range in the opening rounds, weaker once the enemy closes in.",
+    "rangedRounds": 2,
+    "rangedAttack": 0.4,
+    "closedAttack": -0.1,
+    "speed": 1,
+    "magicResist": 0.3,
+    "retreat": 0.1,
+    "chase": 0,
+    "attackVerbs": [
+      "looses an arrow at",
+      "fires a volley at",
+      "lets fly at"
+    ],
+    "attackStat": "agility"
+  },
+  {
+    "id": "Lancer",
+    "approach": "Fast and slippery: probes the enemy, learns their tricks, and pulls back when it suits.",
+    "speed": 2,
+    "magicResist": 0.4,
+    "retreat": 0.25,
+    "chase": 0.1,
+    "probeIntelChance": 0.3,
+    "attackVerbs": [
+      "thrusts at",
+      "sweeps a spear across",
+      "darts in at"
+    ]
+  },
+  {
+    "id": "Rider",
+    "approach": "Mobile above all: the hardest Servant to escape from, and the easiest to lose.",
+    "speed": 1,
+    "magicResist": 0.4,
+    "retreat": 0.4,
+    "chase": 0.25,
+    "attackVerbs": [
+      "rides down",
+      "charges at",
+      "wheels and strikes at"
+    ]
+  },
+  {
+    "id": "Caster",
+    "approach": "Fights with magic rather than steel: weak in an open fight against knights who resist spells, terrifying on ground they have prepared.",
+    "attack": 0.15,
+    "workshopAttack": 0.12,
+    "workshopDefense": 0.12,
+    "speed": 0,
+    "magicResist": 0,
+    "retreat": 0.1,
+    "chase": 0,
+    "attackVerbs": [
+      "hurls a spell at",
+      "lashes out with magic at",
+      "turns a curse on"
+    ],
+    "attackStat": "mana",
+    "magicAttack": true,
+    "defense": 0.15
+  },
+  {
+    "id": "Assassin",
+    "approach": "Strikes first, from hiding, and goes for the Master.",
+    "firstStrikeAttack": 0.5,
+    "masterStrike": 0.5,
+    "speed": 1,
+    "magicResist": 0,
+    "retreat": 0.2,
+    "chase": 0.1,
+    "attackVerbs": [
+      "slips in at",
+      "strikes from the shadows at",
+      "sinks a blade into"
+    ],
+    "attackStat": "agility"
+  },
+  {
+    "id": "Berserker",
+    "approach": "Hits harder than anything, but drains mana and does not always obey.",
+    "attack": 0.05,
+    "speed": 0,
+    "magicResist": 0,
+    "retreat": -0.1,
+    "chase": 0.1,
+    "manaDrain": 5,
+    "disobeyChance": 0.3,
+    "attackVerbs": [
+      "smashes into",
+      "tears at",
+      "hammers at"
+    ]
+  }
+]

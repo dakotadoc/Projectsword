@@ -184,5 +184,61 @@
     "schemer": "They prefer to let others do the fighting.",
     "honorable": "They fight openly, and expect the same.",
     "reckless": "They take risks no sane Master would."
+  },
+  "masterStats": {
+    "body": [
+      20,
+      60
+    ],
+    "mind": [
+      25,
+      75
+    ],
+    "charisma": [
+      20,
+      70
+    ],
+    "magecraft": {
+      "old_lineage": [
+        50,
+        85
+      ],
+      "minor_lineage": [
+        35,
+        70
+      ],
+      "fallen_lineage": [
+        30,
+        65
+      ],
+      "non_mage": [
+        5,
+        30
+      ]
+    },
+    "manaBase": 40
+  },
+  "workshop": {
+    "aggressive": [
+      0,
+      1
+    ],
+    "cautious": [
+      2,
+      3
+    ],
+    "schemer": [
+      1,
+      2
+    ],
+    "honorable": [
+      0,
+      2
+    ],
+    "reckless": [
+      0,
+      1
+    ],
+    "casterBonus": 1
   }
 }

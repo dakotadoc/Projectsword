@@ -73,7 +73,9 @@ style.css
   life.js        // phase 2
   summon.js      // phase 3
   war.js         // phase 4 day loop
-  combat.js      // battle system
+  combat.js      // battle engine (rules, no UI)
+  battle.js      // the battle screen
+  ending.js      // game-over epilogue screen
   intel.js       // hidden info system
   rivals.js      // rival Master AI
   events.js      // random event engine
@@ -89,7 +91,9 @@ style.css
   catalysts.json  servants.json  summon.json
   life.json    // life-phase actions, their text variants, intro, war announcement
   war.json     // war intro, dawn/dusk texts, Day and Night actions, rumors
-  events.json  rivals.json  dialogue.json   // rivals.json: personalities, bases, intel texts
+  events.json  rivals.json  dialogue.json   // rivals.json: personalities, bases, intel texts, rival Master stats
+  classes.json // how each class fights
+  combat.json  // battle text, results, after-loss choices, epilogues
 ```
 
 ---
@@ -215,7 +219,7 @@ Keep the AI rule-based and readable. No complex simulation.
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work. *(Done. Until milestone 6, the war placeholder lets you chat as often as you like for testing.)*
 6. **War loop.** Day/night slots, war events, chat available in Day slots. *(Done. Scouting and ambushes are locked until intel exists (milestone 7); patrols find encounters but no battles until milestone 8; after day 14 there is an endgame placeholder until milestone 11.)*
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel. *(Done. Ambushes end in a standoff until combat exists (milestone 8).)*
-8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat.
+8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat. *(Done. Rivals raiding the player's own base come with the rival AI (milestone 9); the epilogue screen is a placeholder until milestone 11.)*
 9. **Rival AI.** Daily actions, off-screen fights, news.
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines.
 11. **Endgame and run summary.**
@@ -282,6 +286,19 @@ Keep the AI rule-based and readable. No complex simulation.
   - Gained by: Gather intel (Mind and contacts check, `rules.intel`), contact tips at dawn, some war events and night encounters (effect `"intel": 1`), all up to level 2; and scouting (night), which raises both tracks by one and is the only way to level 3, with a risk of being spotted that grows with the rival's aggression.
   - `knownView()` in `intel.js` is the single place that turns a rival into what the player knows (unknown = null, shown as "???"). The Status tab and the AI context both use it, so neither can leak.
   - Scout/ambush let the player choose a target. Ambush is a standoff that reveals one Servant level until combat exists.
+- **Combat (milestone 8):**
+  - Both sides field a Servant (if they still have one) and a **Master**, both with HP. A Master's HP comes from Body (`rules.combat.masterHp`); spells use Magecraft and mana. Masters fight too: support spell, heal, magic attack (bare hands for non-mages), observe for intel, or a Command Seal. Attacks on a Master may be intercepted by their Servant (always, if it is defending or guarding).
+  - Each round: the player orders their Servant (attack Servant / attack Master / defend / a skill with a cooldown / Noble Phantasm / retreat), then picks a Master action (with Back). The enemy AI decides by personality, aggression and class. Everyone acts in speed order. Max `rules.combat.maxRounds` (12) rounds, then both sides break off.
+  - **Classes fight differently** (`classes.json`): Saber sturdy; Archer strong for the first 2 rounds, then weaker; Lancer fast, good at retreating, probing attacks can reveal intel; Rider best at escaping and chasing; Caster attacks with magic (Mana rank, half-resisted by knight classes) and is much stronger at its own workshop; Assassin always acts first in round 1 with bonus damage and bypasses guards to reach Masters; Berserker hits hard, drains mana, and sometimes ignores orders. Archer and Assassin attack with Agility, Caster with Mana, others with Strength.
+  - Every skill and Noble Phantasm has a `combat` block in `servants.json` (buff, weaken, strike, heal, gamble, guard, reveal, stun, dot, lastStand; NPs: power, splash on the Master, stun, burn, self-damage, money cost, defense penalty).
+  - A Noble Phantasm costs Master mana (or money, for Cleopatra), is once per battle, and reveals the true name: a rival who sees the player's NP knows their Servant (`knowsPlayerServant`); a rival's NP gives the player servant intel 3. Knowing an enemy's true name gives +15% damage (weakness).
+  - Command Seals: Empower (attack and healing), Escape (always works), Absolute Order (free Noble Phantasm). Each costs 3 Bond. With all three used and Bond below 30, the Servant may leave after the battle.
+  - Battles start from an ambush (at their base: their workshop helps them), being spotted while scouting, or a patrol run-in (`patrolBattleChance`).
+  - **After a battle:** a beaten Servant makes an escape saving throw (Agility, Luck, class), for rivals and the player alike; escaping leaves it at 1 HP. A destroyed rival Servant or a killed rival Master puts that rival out of the war (`status: 'eliminated'`). Surviving a battle gives +1 servant intel; a win gives Bond +2.
+  - **Losing your Servant:** choose **Flee to the Church** (game over with an epilogue; a saving throw decides whether you make it or are killed, easier against low-aggression rivals) or **Fight on alone** (the war continues; no training or talking; every battle is Master vs Servant and Master). If the player's Master dies, it is game over (epilogue).
+  - Text that mentions `{servant}` carries `"conditions": { "hasServant": true }` and has a servant-less variant where needed.
+  - During a battle, an HP summary is pinned above the order buttons. Enemy exact HP shows only with enough intel (servant level 2, Master level 3); otherwise "wounded", "badly hurt" etc.
+  - Balance (sensible-play simulation, 2,800 battles): every class beats its opponent 29–58% of the time. Masters die in about 1 battle in 10 if the player never defends or retreats. Revisit in the balance pass.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

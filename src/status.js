@@ -8,7 +8,7 @@ import { bondBand } from './servantTalk.js';
 import { timeOfDay } from './war.js';
 import { knownView } from './intel.js';
 
-const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war' };
+const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war', battle: 'In battle', ending: 'Game over' };
 const SERVANT_STAT_NAMES = {
   strength: 'Strength', endurance: 'Endurance', agility: 'Agility', mana: 'Mana', luck: 'Luck', noblePhantasm: 'Noble Phantasm',
 };
@@ -64,6 +64,7 @@ function masterSection(state) {
     para(trait.description, 'status-note'),
     subheading('Abilities'),
     meters([
+      ...(m.hp ? [['HP', m.hp.current, m.hp.max]] : []),
       ['Body', m.stats.body, 100],
       ['Magecraft', m.stats.magecraft, 100],
       ['Mind', m.stats.mind, 100],
@@ -85,6 +86,7 @@ function servantSection(state) {
   const sv = state.servant;
   if (!sv) return section('Servant', [para('Not yet summoned.')]);
   const s = findById('servants', sv.id);
+  if (sv.status === 'lost') return section(`${s.class}: ${s.name}`, [para('Lost. You fight on alone.')]);
   const band = bondBand(sv.bond);
   const np = s.noblePhantasm;
   return section(`${s.class}: ${s.name}`, [
@@ -131,7 +133,7 @@ const or = (v) => (v === null || v === undefined ? UNKNOWN : String(v));
 
 function rivalCard(v) {
   const card = el('div', 'rival-card');
-  card.append(el('h3', 'rival-title', v.title));
+  card.append(el('h3', 'rival-title', v.status === 'eliminated' ? `${v.title} · out of the war` : v.title));
   const m = v.master;
   card.append(
     el('h4', 'status-subheading', `Master · intel ${m.level}/3`),

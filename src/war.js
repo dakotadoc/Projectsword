@@ -20,11 +20,12 @@
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData, findById } from './data.js';
-import { randInt, chance, weightedPick } from './rng.js';
+import { randInt, chance, pick, weightedPick } from './rng.js';
 import { makeContext, fits, pickText, fillText, rollEvent, applyEffects } from './events.js';
 import { openChat } from './chat.js';
-import { generateRivals, activeRivals } from './rivals.js';
+import { generateRivals, activeRivals, ensureRivalCombatStats } from './rivals.js';
 import { gainIntel, gainRandomIntel, gatherChance, contactTip, rivalLabel } from './intel.js';
+import { startBattle, ensureMasterHp, hasServant } from './combat.js';
 
 export async function warScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -40,6 +41,8 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
   // Rivals are created once per war (also for saves that began the war
   // before rivals existed).
   if (!state.rivals) generateRivals(state);
+  ensureRivalCombatStats(state); // saves from before combat existed
+  ensureMasterHp(state);
   void resumed; // stages make re-entry safe; nothing is logged twice
   await advance(state, nav);
 }
@@ -100,6 +103,10 @@ async function advance(state, nav) {
           ui.log(pickText(getData('war').end, warContext(state)));
         }
         break;
+      case 'battle':
+        // A battle is in progress (e.g. after a reload): go back to it.
+        await nav.goTo('battle');
+        return;
       case 'over':
         showEndChoices(state, nav);
         return finish(state, nav, { choicesShown: true });
@@ -130,12 +137,23 @@ function startDay(state) {
 
   // Natural recovery overnight.
   const m = state.master;
-  const sv = state.servant;
+  const cr = getData('rules').combat;
+  ensureMasterHp(state);
   const lines = applyEffects(state, {
     mana: Math.round(m.mana.max * r.dawnManaRegen),
-    servantHp: Math.round(sv.hp.max * r.dawnHpRegen),
+    masterHp: Math.round(m.hp.max * cr.masterRegen.dawn),
+    servantHp: hasServant(state) ? Math.round(state.servant.hp.max * r.dawnHpRegen) : 0,
   }, ctx);
   logOutcome(lines);
+
+  // Rivals recover overnight too.
+  for (const rival of activeRivals(state)) {
+    const rr = cr.rivalRegen;
+    const heal = (ref, frac) => { ref.current = Math.min(ref.max, ref.current + Math.round(ref.max * frac)); };
+    heal(rival.servant.hp, rr.servantHp);
+    heal(rival.master.hp, rr.masterHp);
+    heal(rival.master.mana, rr.mana);
+  }
 
   // A contact may bring a tip.
   const tip = contactTip(state);
@@ -221,6 +239,11 @@ function showDayActions(state, nav) {
       }
     }
     if (action.id === 'talk') choice.style = 'primary';
+    if ((action.id === 'train' || action.id === 'talk') && !hasServant(state)) {
+      choice.disabled = true;
+      choice.style = undefined;
+      choice.hint = getData('combat').servantless[action.id];
+    }
     return choice;
   }));
 }
@@ -242,7 +265,8 @@ async function doDayAction(state, action, nav) {
   let effects = {};
   if (action.id === 'rest') {
     effects = {
-      servantHp: Math.round(state.servant.hp.max * r.rest.hp),
+      servantHp: hasServant(state) ? Math.round(state.servant.hp.max * r.rest.hp) : 0,
+      masterHp: Math.round(state.master.hp.max * getData('rules').combat.masterRegen.rest),
       mana: Math.round(state.master.mana.max * r.rest.mana),
     };
   } else if (action.id === 'train') {
@@ -347,6 +371,13 @@ async function doNightAction(state, action, nav, target = null) {
   ui.log(target ? targetText(action.texts, ctx, target) : pickText(action.texts, ctx));
 
   if (action.id === 'patrol') {
+    // A patrol may run into a rival (a battle), or into something stranger.
+    const cr = getData('rules').combat;
+    const rivals = activeRivals(state);
+    if (rivals.length && chance(cr.patrolBattleChance)) {
+      await toBattle(state, nav, pick(rivals), 'patrol');
+      return;
+    }
     const event = chance(r.patrolEncounterChance) ? rollEvent('night', ctx, war.seenEvents) : null;
     if (event) {
       if (!event.repeatable) war.seenEvents.push(event.id);
@@ -360,17 +391,17 @@ async function doNightAction(state, action, nav, target = null) {
       ui.log(pickText(action.quiet, ctx));
     }
   } else if (action.id === 'scout') {
-    scout(state, action, target, ctx);
+    const spotted = scout(state, action, target, ctx);
+    if (spotted) {
+      await toBattle(state, nav, target, 'spotted');
+      return;
+    }
   } else if (action.id === 'ambush') {
-    // Battles arrive in milestone 8. Until then an ambush ends in a
-    // standoff, which at least shows you their Servant.
-    ui.log(targetText(action.standoff, ctx, target));
-    ui.log('(Battles are not in the game yet. For now, an ambush ends in a standoff.)', 'system');
-    const text = gainIntel(state, target, 'servant');
-    logOutcome(Object.assign([], { intel: text ? [text] : [] }));
+    await toBattle(state, nav, target, 'ambush');
+    return;
   } else if (action.id === 'hide') {
     const lines = applyEffects(state, {
-      servantHp: Math.round(state.servant.hp.max * r.hiddenRegen.hp),
+      servantHp: hasServant(state) ? Math.round(state.servant.hp.max * r.hiddenRegen.hp) : 0,
       mana: Math.round(state.master.mana.max * r.hiddenRegen.mana),
     }, ctx);
     logOutcome(lines);
@@ -379,22 +410,26 @@ async function doNightAction(state, action, nav, target = null) {
   await advance(state, nav);
 }
 
-// Scouting: risk being spotted (likelier with an aggressive rival).
-// Unspotted, you learn one level about both the Master and the Servant,
-// and only scouting can reach level 3.
+// Start a battle with `rival`. The battle screen takes over; it sends the
+// player back to the war (at the end of the night) when it's done.
+async function toBattle(state, nav, rival, trigger) {
+  today(state).nightTarget = rival.id;
+  for (const line of startBattle(state, rival, trigger)) ui.log(line.text, line.kind);
+  state.war.stage = 'battle';
+  await nav.goTo('battle');
+}
+
+// Scouting: risk being spotted (likelier with an aggressive rival), which
+// starts a battle. Unspotted, you learn one level about both the Master and
+// the Servant; only scouting can reach level 3. Returns true if spotted.
 function scout(state, action, target, ctx) {
   const ir = getData('rules').intel;
   const spotted = chance(ir.scoutSpotBase + ir.scoutSpotPerAggression * target.master.aggression);
-  const learned = [];
   if (spotted) {
     ui.log(targetText(action.spotted, ctx, target));
-    const lines = applyEffects(state, { servantHp: -randInt(...ir.scoutSpotHpLoss) }, ctx);
-    const glimpse = gainIntel(state, target, 'servant');
-    if (glimpse) learned.push(glimpse);
-    lines.intel.push(...learned);
-    logOutcome(lines);
-    return;
+    return true;
   }
+  const learned = [];
   ui.log(targetText(action.success, ctx, target));
   for (const track of ['master', 'servant']) {
     const text = gainIntel(state, target, track);
@@ -402,6 +437,7 @@ function scout(state, action, target, ctx) {
   }
   if (!learned.length) ui.log(targetText(action.nothingNew, ctx, target));
   logOutcome(Object.assign([], { intel: learned }));
+  return false;
 }
 
 // Log what changed: the "Body +2" style line, then any new intel as story,
@@ -417,6 +453,10 @@ function logOutcome(lines) {
 // ---- End (placeholder until milestone 11) ----
 
 function showEndChoices(state, nav) {
+  if (!hasServant(state)) {
+    ui.setChoices([{ label: 'Return to title', onSelect: () => document.getElementById('btn-title').click() }]);
+    return;
+  }
   const name = findById('servants', state.servant.id).name;
   ui.setChoices([
     { label: `Talk with ${name}`, onSelect: () => openChat(nav.goTo, { returnTo: 'war', occasion: 'after the war' }) },
