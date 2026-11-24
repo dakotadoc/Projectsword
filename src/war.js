@@ -8,7 +8,7 @@
 //   eventId, eventReturn,      // event waiting for a choice, and what follows it
 //   seenEvents: [], seenRumors: [],
 //   workshop: 0,               // base defenses, 0..rules.war.workshop.maxLevel
-//   history: [{ day, events: [], dayAction, nightAction, nightEvent }],
+//   history: [{ day, events: [], dayAction, nightAction, nightTarget, nightEvent }],
 // }
 //
 // Stages: 'dawn' → 'events' → 'day' → 'dusk' → 'night' → (next day) 'dawn',
@@ -23,6 +23,8 @@ import { getData, findById } from './data.js';
 import { randInt, chance, weightedPick } from './rng.js';
 import { makeContext, fits, pickText, fillText, rollEvent, applyEffects } from './events.js';
 import { openChat } from './chat.js';
+import { generateRivals, activeRivals } from './rivals.js';
+import { gainIntel, gainRandomIntel, gatherChance, contactTip, rivalLabel } from './intel.js';
 
 export async function warScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -35,6 +37,9 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
     ui.log('The Holy Grail War', 'heading');
     ui.log(pickText(getData('war').intro, warContext(state)));
   }
+  // Rivals are created once per war (also for saves that began the war
+  // before rivals existed).
+  if (!state.rivals) generateRivals(state);
   void resumed; // stages make re-entry safe; nothing is logged twice
   await advance(state, nav);
 }
@@ -130,7 +135,14 @@ function startDay(state) {
     mana: Math.round(m.mana.max * r.dawnManaRegen),
     servantHp: Math.round(sv.hp.max * r.dawnHpRegen),
   }, ctx);
-  if (lines.length) ui.log(lines.join(' · '), 'effect');
+  logOutcome(lines);
+
+  // A contact may bring a tip.
+  const tip = contactTip(state);
+  if (tip) {
+    ui.log(pickText(getData('war').contactTip, ctx));
+    logOutcome(Object.assign([], { intel: [tip] }));
+  }
 
   // Roll today's war events now, so the day is fixed by the seed.
   const counts = Object.entries(r.eventsPerDay).map(([n, weight]) => ({ n: Number(n), weight }));
@@ -155,7 +167,7 @@ function showEvent(state, event, returnTo) {
 
   ui.log(fillText(event.text, ctx));
   const lines = applyEffects(state, event.effects, ctx);
-  if (lines.length) ui.log(lines.join(' · '), 'effect');
+  logOutcome(lines);
 
   const choices = (event.choices || []).filter((c) => fits(c, warContext(state)));
   if (!choices.length) return false;
@@ -175,7 +187,7 @@ function showEventChoices(state, event, nav) {
       ui.log(`You chose: ${fillText(choice.label, ctx)}`, 'system');
       if (choice.text) ui.log(fillText(choice.text, ctx));
       const lines = applyEffects(state, choice.effects, ctx);
-      if (lines.length) ui.log(lines.join(' · '), 'effect');
+      logOutcome(lines);
       war.stage = war.eventReturn;
       war.eventId = null;
       war.eventReturn = null;
@@ -239,22 +251,33 @@ async function doDayAction(state, action, nav) {
       bond: r.train.bond,
     };
   } else if (action.id === 'intel') {
-    const rumors = action.rumors.filter((x) => fits(x, ctx) && !war.seenRumors.includes(x.text));
-    if (rumors.length) {
-      const rumor = weightedPick(rumors);
-      war.seenRumors.push(rumor.text);
-      ui.log(fillText(rumor.text, ctx));
+    // A Mind/contacts check. Success teaches something real about a rival
+    // (up to level 2); failure still turns up a rumor for flavor.
+    const learned = chance(gatherChance(state)) ? gainRandomIntel(state, { max: 2 }) : null;
+    if (learned) {
+      effects.intelTexts = [learned];
+    } else if (!activeRivals(state).some((rv) => rv.intel.master < 2 || rv.intel.servant < 2)) {
+      ui.log(pickText(action.maxed, ctx));
     } else {
-      ui.log(pickText(action.nothing, ctx));
+      const rumors = action.rumors.filter((x) => fits(x, ctx) && !war.seenRumors.includes(x.text));
+      if (rumors.length) {
+        const rumor = weightedPick(rumors);
+        war.seenRumors.push(rumor.text);
+        ui.log(fillText(rumor.text, ctx));
+      } else {
+        ui.log(pickText(action.nothing, ctx));
+      }
     }
   } else if (action.id === 'workshop') {
     const cost = r.workshop.cost[war.workshop];
     effects = { money: -cost };
     war.workshop += 1;
   }
-  const lines = applyEffects(state, effects, ctx);
+  const { intelTexts = [], ...rest } = effects;
+  const lines = applyEffects(state, rest, ctx);
+  lines.intel.push(...intelTexts);
   if (action.id === 'workshop') lines.push(`Workshop level ${war.workshop}`);
-  if (lines.length) ui.log(lines.join(' · '), 'effect');
+  logOutcome(lines);
 
   war.stage = 'dusk';
   await advance(state, nav);
@@ -268,7 +291,7 @@ function showNightActions(state, nav) {
     const choice = {
       label: fillText(action.label, ctx),
       hint: fillText(action.hint, ctx),
-      onSelect: () => doNightAction(state, action, nav),
+      onSelect: () => (action.requires ? showTargets(state, action, nav) : doNightAction(state, action, nav)),
     };
     if (action.requires && !requirementMet(state, action.requires)) {
       choice.disabled = true;
@@ -280,20 +303,48 @@ function showNightActions(state, nav) {
   }));
 }
 
-// Scouting and ambushes need intel on a rival (milestone 7).
-function requirementMet(state, requirement) {
-  const rivals = state.rivals || [];
-  if (requirement === 'knownLocation') return rivals.some((rv) => rv.intel?.master >= 1);
-  if (requirement === 'knownMaster') return rivals.some((rv) => rv.intel?.master >= 2);
-  return true;
+// Scouting needs a rival's rough location (Master intel 1); an ambush needs
+// their base (Master intel 2).
+function targetsFor(state, requirement) {
+  const min = requirement === 'knownMaster' ? 2 : 1;
+  return activeRivals(state).filter((rv) => rv.intel.master >= min);
 }
 
-async function doNightAction(state, action, nav) {
+function requirementMet(state, requirement) {
+  return targetsFor(state, requirement).length > 0;
+}
+
+// Pick which rival to scout or ambush. (Not saved: a reload goes back to
+// the night's main choices.)
+function showTargets(state, action, nav) {
+  const choices = targetsFor(state, action.requires).map((rival) => ({
+    label: capitalize(rivalLabel(rival)),
+    hint: action.requires === 'knownMaster' ? `Base: ${rival.master.base}, ${rival.master.district}` : `Seen around ${rival.master.district}`,
+    onSelect: () => doNightAction(state, action, nav, rival),
+  }));
+  choices.push({ label: 'Back', onSelect: () => showNightActions(state, nav) });
+  ui.setChoices(choices);
+}
+
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+// Text with the target rival's details filled in.
+function targetText(variants, ctx, rival) {
+  return pickText(variants, ctx)
+    .replaceAll('{label}', rivalLabel(rival))
+    .replaceAll('{district}', rival.master.district)
+    .replaceAll('{base}', rival.master.base);
+}
+
+async function doNightAction(state, action, nav, target = null) {
   const war = state.war;
   const r = rules();
   const ctx = warContext(state);
   today(state).nightAction = action.id;
-  ui.log(pickText(action.texts, ctx));
+  if (target) today(state).nightTarget = target.id;
+  ui.log(target ? targetText(action.texts, ctx, target) : pickText(action.texts, ctx));
 
   if (action.id === 'patrol') {
     const event = chance(r.patrolEncounterChance) ? rollEvent('night', ctx, war.seenEvents) : null;
@@ -308,15 +359,59 @@ async function doNightAction(state, action, nav) {
     } else {
       ui.log(pickText(action.quiet, ctx));
     }
+  } else if (action.id === 'scout') {
+    scout(state, action, target, ctx);
+  } else if (action.id === 'ambush') {
+    // Battles arrive in milestone 8. Until then an ambush ends in a
+    // standoff, which at least shows you their Servant.
+    ui.log(targetText(action.standoff, ctx, target));
+    ui.log('(Battles are not in the game yet. For now, an ambush ends in a standoff.)', 'system');
+    const text = gainIntel(state, target, 'servant');
+    logOutcome(Object.assign([], { intel: text ? [text] : [] }));
   } else if (action.id === 'hide') {
     const lines = applyEffects(state, {
       servantHp: Math.round(state.servant.hp.max * r.hiddenRegen.hp),
       mana: Math.round(state.master.mana.max * r.hiddenRegen.mana),
     }, ctx);
-    if (lines.length) ui.log(lines.join(' · '), 'effect');
+    logOutcome(lines);
   }
   war.stage = 'endNight';
   await advance(state, nav);
+}
+
+// Scouting: risk being spotted (likelier with an aggressive rival).
+// Unspotted, you learn one level about both the Master and the Servant,
+// and only scouting can reach level 3.
+function scout(state, action, target, ctx) {
+  const ir = getData('rules').intel;
+  const spotted = chance(ir.scoutSpotBase + ir.scoutSpotPerAggression * target.master.aggression);
+  const learned = [];
+  if (spotted) {
+    ui.log(targetText(action.spotted, ctx, target));
+    const lines = applyEffects(state, { servantHp: -randInt(...ir.scoutSpotHpLoss) }, ctx);
+    const glimpse = gainIntel(state, target, 'servant');
+    if (glimpse) learned.push(glimpse);
+    lines.intel.push(...learned);
+    logOutcome(lines);
+    return;
+  }
+  ui.log(targetText(action.success, ctx, target));
+  for (const track of ['master', 'servant']) {
+    const text = gainIntel(state, target, track);
+    if (text) learned.push(text);
+  }
+  if (!learned.length) ui.log(targetText(action.nothingNew, ctx, target));
+  logOutcome(Object.assign([], { intel: learned }));
+}
+
+// Log what changed: the "Body +2" style line, then any new intel as story,
+// each followed by a short "New intel" marker.
+function logOutcome(lines) {
+  if (lines.length) ui.log(lines.join(' · '), 'effect');
+  for (const text of lines.intel || []) {
+    ui.log(text);
+    ui.log('New intel. See the Status tab.', 'effect');
+  }
 }
 
 // ---- End (placeholder until milestone 11) ----

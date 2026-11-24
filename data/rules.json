@@ -23,6 +23,18 @@
     "patrolEncounterChance": 0.4
   },
 
+  "intel": {
+    "gatherBase": 0.35,
+    "gatherPerMind": 0.005,
+    "gatherPerContact": 0.04,
+    "gatherMax": 0.9,
+    "contactTipPerContact": 0.05,
+    "contactTipMax": 0.3,
+    "scoutSpotBase": 0.2,
+    "scoutSpotPerAggression": 0.004,
+    "scoutSpotHpLoss": [5, 15]
+  },
+
   "chat": {
     "maxPlayerMessages": 8,
     "maxMessageLength": 400,

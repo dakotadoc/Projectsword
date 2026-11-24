@@ -9,12 +9,15 @@
 //
 // Effects look like:
 //   { "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true,
-//     "bond": 1, "servantHp": -5, "mana": -10 }
+//     "bond": 1, "servantHp": -5, "mana": -10, "intel": 1 }
+// "intel": n learns n new things about rivals (up to level 2). The reveal
+// texts come back on the returned array as `.intel`, to be logged as story.
 
 import { getData, findById } from './data.js';
 import { weightedPick } from './rng.js';
 import { fitsYear } from './period.js';
 import { findCatalyst } from './catalysts.js';
+import { gainRandomIntel } from './intel.js';
 
 export const STAT_NAMES = { body: 'Body', magecraft: 'Magecraft', mind: 'Mind', charisma: 'Charisma' };
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
@@ -85,6 +88,7 @@ export function rollEvent(phase, ctx, seenIds, excludeIds = []) {
 export function applyEffects(state, effects, ctx) {
   const m = state.master;
   const lines = [];
+  lines.intel = [];
   if (!effects) return lines;
   for (const [key, delta] of Object.entries(effects.stats || {})) {
     const before = m.stats[key];
@@ -122,6 +126,11 @@ export function applyEffects(state, effects, ctx) {
   if (effects.catalyst) {
     const found = findCatalyst(state, ctx);
     if (found) lines.push(`Catalyst found: ${found.name}`);
+  }
+  lines.intel = [];
+  for (let i = 0; i < (effects.intel || 0) && state.rivals; i++) {
+    const text = gainRandomIntel(state, { max: 2 });
+    if (text) lines.intel.push(text);
   }
   return lines;
 }

@@ -2,22 +2,38 @@
   "intro": [
     {
       "text": "The war begins. Somewhere in {place}, six other Masters have summoned their Servants, and every one of them is now your enemy. By day the city goes about its business. By night, it belongs to you and them.",
-      "conditions": { "isMage": true }
+      "conditions": {
+        "isMage": true
+      }
     },
     {
       "text": "The war begins. Somewhere in {place}, six other people with marks like yours have summoned their own heroes, and every one of them is now your enemy. By day the city goes about its business. By night, it belongs to you and them.",
-      "conditions": { "isMage": false }
+      "conditions": {
+        "isMage": false
+      }
     }
   ],
   "dawn": [
-    { "text": "Morning comes over {place}." },
-    { "text": "Grey light creeps over the rooftops of {place}." },
-    { "text": "You wake early. The city is already stirring." }
+    {
+      "text": "Morning comes over {place}."
+    },
+    {
+      "text": "Grey light creeps over the rooftops of {place}."
+    },
+    {
+      "text": "You wake early. The city is already stirring."
+    }
   ],
   "dusk": [
-    { "text": "The sun goes down, and the streets of {place} empty out." },
-    { "text": "Night falls. Somewhere out there, the others are moving too." },
-    { "text": "Lamps come on one by one as darkness settles over {place}." }
+    {
+      "text": "The sun goes down, and the streets of {place} empty out."
+    },
+    {
+      "text": "Night falls. Somewhere out there, the others are moving too."
+    },
+    {
+      "text": "Lamps come on one by one as darkness settles over {place}."
+    }
   ],
   "dayActions": [
     {
@@ -25,8 +41,12 @@
       "label": "Rest",
       "hint": "Recover HP and mana",
       "texts": [
-        { "text": "You spend the day resting behind locked doors while {servant} keeps watch." },
-        { "text": "You sleep late and eat well. {servant} takes the chance to rest as well." }
+        {
+          "text": "You spend the day resting behind locked doors while {servant} keeps watch."
+        },
+        {
+          "text": "You sleep late and eat well. {servant} takes the chance to rest as well."
+        }
       ]
     },
     {
@@ -34,29 +54,60 @@
       "label": "Train with {servant}",
       "hint": "Small Body and Magecraft gains, Bond +1",
       "texts": [
-        { "text": "{servant} puts you through a punishing day of drills. By evening you can barely lift your arms, but you are faster than you were." },
-        { "text": "You practice moving and fighting together with {servant}, until you can tell what they will do before they do it." }
+        {
+          "text": "{servant} puts you through a punishing day of drills. By evening you can barely lift your arms, but you are faster than you were."
+        },
+        {
+          "text": "You practice moving and fighting together with {servant}, until you can tell what they will do before they do it."
+        }
       ]
     },
     {
       "id": "intel",
       "label": "Gather intel",
-      "hint": "Search the city for signs of the other Masters",
+      "hint": "Mind and contacts help. Rumors can tell you a lot, but not everything",
       "texts": [
-        { "text": "You spend the day walking the city, listening, watching, and asking careful questions." },
-        { "text": "You check on your contacts and go through the local news for anything strange." }
+        {
+          "text": "You spend the day walking the city, listening, watching, and asking careful questions."
+        },
+        {
+          "text": "You check on your contacts and go through the local news for anything strange."
+        }
       ],
       "rumors": [
-        { "text": "Someone at a café swears they saw a man in armor on a rooftop at midnight. Their friends laugh at them." },
-        { "text": "Three people in the old district have reported the same strange dream: a field of burning spears." },
-        { "text": "A night watchman found scorch marks on a wall that no fire could have made. He was told to forget it." },
-        { "text": "A stranger has been asking around about old houses with deep cellars." },
-        { "text": "Birds have stopped roosting in one particular park. Nobody can say why." },
-        { "text": "The local paper reports a gas leak on the east side. You have seen gas leaks. That was not one.", "from": 1900 },
-        { "text": "A grainy video online shows a flash of light over the river. It already has thousands of views.", "from": 2006 }
+        {
+          "text": "Someone at a café swears they saw a man in armor on a rooftop at midnight. Their friends laugh at them."
+        },
+        {
+          "text": "Three people in the old district have reported the same strange dream: a field of burning spears."
+        },
+        {
+          "text": "A night watchman found scorch marks on a wall that no fire could have made. He was told to forget it."
+        },
+        {
+          "text": "A stranger has been asking around about old houses with deep cellars."
+        },
+        {
+          "text": "Birds have stopped roosting in one particular park. Nobody can say why."
+        },
+        {
+          "text": "The local paper reports a gas leak on the east side. You have seen gas leaks. That was not one.",
+          "from": 1900
+        },
+        {
+          "text": "A grainy video online shows a flash of light over the river. It already has thousands of views.",
+          "from": 2006
+        }
       ],
       "nothing": [
-        { "text": "Whatever the other Masters are doing, they are being careful. You find nothing useful." }
+        {
+          "text": "Whatever the other Masters are doing, they are being careful. You find nothing useful."
+        }
+      ],
+      "maxed": [
+        {
+          "text": "Every rumor you hear is one you already know. To learn more about the others, you will have to see them for yourself."
+        }
       ]
     },
     {
@@ -64,8 +115,18 @@
       "label": "Prepare your workshop",
       "hint": "Build up wards and traps at your base",
       "texts": [
-        { "text": "You spend the day laying wards around your base: bounded fields at the doors, alarms on the windows, and a few nastier surprises.", "conditions": { "isMage": true } },
-        { "text": "Following {servant}'s advice, you fortify your base as best you can: locks, tripwires, and a few charms you barely understand.", "conditions": { "isMage": false } }
+        {
+          "text": "You spend the day laying wards around your base: bounded fields at the doors, alarms on the windows, and a few nastier surprises.",
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "Following {servant}'s advice, you fortify your base as best you can: locks, tripwires, and a few charms you barely understand.",
+          "conditions": {
+            "isMage": false
+          }
+        }
       ]
     },
     {
@@ -80,37 +141,86 @@
       "label": "Patrol the city",
       "hint": "Look for enemies. Risky",
       "texts": [
-        { "text": "You and {servant} move through the dark streets, keeping to the shadows." },
-        { "text": "You patrol the rooftops and back alleys with {servant}, watching for any sign of the enemy." }
+        {
+          "text": "You and {servant} move through the dark streets, keeping to the shadows."
+        },
+        {
+          "text": "You patrol the rooftops and back alleys with {servant}, watching for any sign of the enemy."
+        }
       ],
       "quiet": [
-        { "text": "The night passes without incident. Whatever is out there, it doesn't show itself." },
-        { "text": "You see nothing but a stray dog and a few late drinkers heading home." }
+        {
+          "text": "The night passes without incident. Whatever is out there, it doesn't show itself."
+        },
+        {
+          "text": "You see nothing but a stray dog and a few late drinkers heading home."
+        }
       ]
     },
     {
       "id": "scout",
       "label": "Scout a known location",
-      "hint": "Requires intel on a rival's location",
-      "requires": "knownLocation"
+      "hint": "Watch a rival's territory up close. They may spot you",
+      "requires": "knownLocation",
+      "texts": [
+        {
+          "text": "You and {servant} slip into {district} after dark, looking for {label}."
+        }
+      ],
+      "success": [
+        {
+          "text": "You watch from the shadows for hours. They never notice you."
+        }
+      ],
+      "spotted": [
+        {
+          "text": "Something gives you away. A wave of killing intent washes over the street, and {servant} drags you out of there before it can turn into a fight."
+        }
+      ],
+      "nothingNew": [
+        {
+          "text": "You watch for hours, but learn nothing you didn't already know."
+        }
+      ]
     },
     {
       "id": "ambush",
       "label": "Ambush a known Master",
-      "hint": "Requires intel on a rival Master",
-      "requires": "knownMaster"
+      "hint": "Lie in wait for a rival at their base",
+      "requires": "knownMaster",
+      "texts": [
+        {
+          "text": "You take up position near {base} in {district} and wait for {label} to come out."
+        }
+      ],
+      "standoff": [
+        {
+          "text": "They come out at last, with their Servant beside them. For a long moment, the two Servants stare each other down across the street. Then the other Master retreats inside, and the moment passes."
+        }
+      ]
     },
     {
       "id": "hide",
       "label": "Stay hidden",
       "hint": "Safe. Small recovery",
       "texts": [
-        { "text": "You stay inside with the lights off while {servant} keeps watch. Nobody comes." },
-        { "text": "You lie low for the night. Far away, you hear something like thunder on a clear night." }
+        {
+          "text": "You stay inside with the lights off while {servant} keeps watch. Nobody comes."
+        },
+        {
+          "text": "You lie low for the night. Far away, you hear something like thunder on a clear night."
+        }
       ]
     }
   ],
   "end": [
-    { "text": "The fourteenth night ends. The war is not over, but this is as far as the story goes for now: the endgame is still being built." }
+    {
+      "text": "The fourteenth night ends. The war is not over, but this is as far as the story goes for now: the endgame is still being built."
+    }
+  ],
+  "contactTip": [
+    {
+      "text": "A message arrives from one of your contacts, with something they thought you should know."
+    }
   ]
 }

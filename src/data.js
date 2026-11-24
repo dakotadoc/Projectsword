@@ -7,10 +7,10 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
 const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts'];
-const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana'];
+const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel'];
 
 const data = {};
 
@@ -217,6 +217,30 @@ function validate() {
   need(rw.eventsPerDay && Object.keys(rw.eventsPerDay).every((k) => /^\d+$/.test(k)), 'rules.war.eventsPerDay must map counts to weights');
   need(Array.isArray(rw.workshop?.cost) && rw.workshop.cost.length >= rw.workshop.maxLevel, 'rules.war.workshop needs a cost for every level');
   need(isRange(rw.train?.gain), 'rules.war.train.gain must be [min, max]');
+
+  // rivals.json: every war has all Servants, so there must be exactly one
+  // rival per other Servant.
+  const rv = data.rivals || {};
+  need(rv.count === data.servants.length - 1, `rivals.json: count must be ${data.servants.length - 1} (one rival for each Servant except the player's)`);
+  need(isRange(rv.age), 'rivals.json: age must be [min, max]');
+  need(Object.keys(rv.familyWeights || {}).every((k) => data.families.some((f) => f.id === k)), 'rivals.json: familyWeights must use family ids');
+  need(Array.isArray(rv.personalities) && rv.personalities.length, 'rivals.json: needs personalities');
+  for (const p of rv.personalities || []) {
+    need(isRange(p.aggression) && p.aggression[0] >= 0 && p.aggression[1] <= 100, `rivals.json personality ${p.id}: aggression must be [min, max] within 0–100`);
+    need(Array.isArray(p.descriptions) && p.descriptions.length, `rivals.json personality ${p.id}: needs descriptions`);
+    need(typeof rv.personalityNotes?.[p.id] === 'string', `rivals.json: personalityNotes.${p.id} is missing`);
+  }
+  checkTexts(rv.bases, 'rivals.json bases');
+  for (const key of ['master1', 'master2', 'master3', 'servant1', 'servant2', 'servant3']) checkTexts(rv.intelTexts?.[key], `rivals.json intelTexts.${key}`);
+  for (const p of data.places) {
+    need(Array.isArray(p.districts) && p.districts.length >= 1, `places.json ${p.id}: needs districts`);
+    for (const e of data.eras) {
+      for (const y of e.warYears) {
+        const ctx = { year: y, placeId: p.id };
+        need((rv.bases || []).some((b) => (b.from ?? 0) <= y && y <= (b.to ?? 9999) && (!b.conditions?.places || b.conditions.places.includes(ctx.placeId))), `rivals.json bases: none fit ${p.name} in ${y}`);
+      }
+    }
+  }
 
   const summon = data.summon || {};
   for (const key of ['intro', 'withCatalyst', 'withoutCatalyst', 'compatibilityNote']) checkTexts(summon[key], `summon.json ${key}`);

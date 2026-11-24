@@ -89,7 +89,7 @@ style.css
   catalysts.json  servants.json  summon.json
   life.json    // life-phase actions, their text variants, intro, war announcement
   war.json     // war intro, dawn/dusk texts, Day and Night actions, rumors
-  events.json  rivals.json  dialogue.json
+  events.json  rivals.json  dialogue.json   // rivals.json: personalities, bases, intel texts
 ```
 
 ---
@@ -214,7 +214,7 @@ Keep the AI rule-based and readable. No complex simulation.
 4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback. *(Done, with 7 catalysts, one per Servant. The war is a placeholder screen until milestone 6.)*
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work. *(Done. Until milestone 6, the war placeholder lets you chat as often as you like for testing.)*
 6. **War loop.** Day/night slots, war events, chat available in Day slots. *(Done. Scouting and ambushes are locked until intel exists (milestone 7); patrols find encounters but no battles until milestone 8; after day 14 there is an endgame placeholder until milestone 11.)*
-7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel.
+7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel. *(Done. Ambushes end in a standoff until combat exists (milestone 8).)*
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat.
 9. **Rival AI.** Daily actions, off-screen fights, news.
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines.
@@ -272,6 +272,16 @@ Keep the AI rule-based and readable. No complex simulation.
   - War events (phase "war") are rolled at dawn and night encounters (phase "night") on patrol, filtered like all content (year, place, conditions, plus `minDay`/`maxDay`). They don't repeat unless marked `"repeatable": true`. Effects can also change `bond`, `servantHp` and `mana`; `{servant}` in any text is the Servant's name.
   - `state.war` = `{ day, stage, eventQueue, eventId, eventReturn, seenEvents, seenRumors, workshop, history: [{ day, events, dayAction, nightAction, nightEvent }] }`. Every stage change is saved, so a reload or a talk resumes the day exactly where it was.
   - The Servant's chat context includes the day, day/night, workshop level, and the last 3 days of what the player did and saw.
+- **Rivals (milestone 7):**
+  - **Every war has all seven Servants, no repeats:** the player's Servant, plus one for each of the six rivals (`rivals.json` `count` must equal the number of Servants − 1, checked at startup). When the Servant pool grows, this rule will need revisiting.
+  - Each rival Master has: name (from their origin city's name lists, fitting their birth year; 30% come from another city), sex, age (18–55), family (weighted toward mage families), personality (aggressive, cautious, schemer, honorable, reckless), a short description, a home district (from the city's `districts`, all different) and a base (all different, filtered by city and year).
+  - **Aggression meter (0–100):** random within the personality's range (aggressive 65–95, cautious 0–35, …). 0 means they stay inside their bounded field; 100 means they hunt other Masters. Milestone 9's rival AI uses it.
+  - `state.rivals` = `[{ id, master: {…, aggression, district, base}, servant: { id, hp }, intel: { master, servant }, status }]`.
+- **Intel (milestone 7):**
+  - Two tracks per rival, each 0–3. Master: 1 = description + district (unlocks scouting), 2 = name + base (unlocks ambush), 3 = family, age, origin, personality, aggression. Servant: 1 = class, 2 = stat ranks, 3 = true name, Noble Phantasm, weakness.
+  - Gained by: Gather intel (Mind and contacts check, `rules.intel`), contact tips at dawn, some war events and night encounters (effect `"intel": 1`), all up to level 2; and scouting (night), which raises both tracks by one and is the only way to level 3, with a risk of being spotted that grows with the rival's aggression.
+  - `knownView()` in `intel.js` is the single place that turns a rival into what the player knows (unknown = null, shown as "???"). The Status tab and the AI context both use it, so neither can leak.
+  - Scout/ambush let the player choose a target. Ambush is a standoff that reveals one Servant level until combat exists.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

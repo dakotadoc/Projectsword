@@ -6,6 +6,7 @@ import { findById, getData } from './data.js';
 import { STAT_LABELS } from './ranks.js';
 import { bondBand } from './servantTalk.js';
 import { timeOfDay } from './war.js';
+import { knownView } from './intel.js';
 
 const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war' };
 const SERVANT_STAT_NAMES = {
@@ -108,18 +109,80 @@ function servantSection(state) {
   ]);
 }
 
-// Rival Masters and Servants: only what the player has learned.
+// Rival Masters and Servants: only what the player has learned, through
+// knownView() in intel.js. Unknowns show as "???".
 function rivalsSection(state) {
   const rivals = state.rivals || [];
   if (!rivals.length) {
     return section('Other Masters and Servants', [
-      para(state.war
-        ? 'You know nothing about the other Masters yet.'
-        : 'The other Masters have not shown themselves. When the war begins, anything you learn about them will appear here.'),
+      para('The other Masters have not shown themselves. When the war begins, anything you learn about them will appear here.'),
     ]);
   }
-  // Milestone 7 fills this in with intel levels and "???" for unknowns.
-  return section('Other Masters and Servants', [para(`${rivals.length} rivals.`)]);
+  const known = rivals.filter((r) => r.intel.master || r.intel.servant).length;
+  const cards = rivals.map((r) => rivalCard(knownView(r)));
+  return section('Other Masters and Servants', [
+    para(`${rivals.length} rival Masters. You know something about ${known} of them.`, 'status-note'),
+    ...cards,
+  ]);
+}
+
+const UNKNOWN = '???';
+const or = (v) => (v === null || v === undefined ? UNKNOWN : String(v));
+
+function rivalCard(v) {
+  const card = el('div', 'rival-card');
+  card.append(el('h3', 'rival-title', v.title));
+  const m = v.master;
+  card.append(
+    el('h4', 'status-subheading', `Master · intel ${m.level}/3`),
+    table([
+      ['Name', or(m.name)],
+      ['Seen around', or(m.district)],
+      ['Base', or(m.base)],
+      ['Family', or(m.family)],
+      ['Age', or(m.age)],
+      ['From', or(m.origin)],
+      ['Personality', or(m.personality)],
+    ]),
+  );
+  if (m.description) card.append(para(m.description, 'status-note'));
+  card.append(m.aggression === null
+    ? table([['Aggression', UNKNOWN]])
+    : aggressionMeter(m.aggression));
+
+  const s = v.servant;
+  card.append(
+    el('h4', 'status-subheading', `Servant · intel ${s.level}/3`),
+    table([
+      ['Class', or(s.class)],
+      ['True name', or(s.trueName)],
+    ]),
+    rankGrid(s.stats || {}),
+  );
+  if (s.noblePhantasm) {
+    card.append(list([[`${s.noblePhantasm.name} (${s.noblePhantasm.rank}, ${s.noblePhantasm.type})`, s.noblePhantasm.description]]));
+  } else {
+    card.append(table([['Noble Phantasm', UNKNOWN]]));
+  }
+  card.append(table([['Weakness', or(s.weakness)]]));
+  return card;
+}
+
+// 0 = stays inside their bounded field, 100 = hunts other Masters.
+function aggressionMeter(value) {
+  const box = el('div', 'status-meters');
+  const row = el('div', 'meter');
+  const head = el('div', 'meter-head');
+  head.append(el('span', 'meter-label', 'Aggression'), el('span', 'meter-value', String(value)));
+  const bar = el('div', 'meter-bar');
+  const fill = el('div', 'meter-fill meter-fill-danger');
+  fill.style.width = `${value}%`;
+  bar.append(fill);
+  const ends = el('div', 'meter-ends');
+  ends.append(el('span', '', 'Stays in their bounded field'), el('span', '', 'Hunts others'));
+  row.append(head, bar, ends);
+  box.append(row);
+  return box;
 }
 
 // ---- Helpers ----

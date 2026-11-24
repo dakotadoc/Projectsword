@@ -1,0 +1,188 @@
+{
+  "count": 6,
+  "age": [
+    18,
+    55
+  ],
+  "foreignChance": 0.3,
+  "familyWeights": {
+    "old_lineage": 3,
+    "minor_lineage": 3,
+    "fallen_lineage": 2,
+    "non_mage": 1
+  },
+  "personalities": [
+    {
+      "id": "aggressive",
+      "name": "Aggressive",
+      "weight": 2,
+      "aggression": [
+        65,
+        95
+      ],
+      "descriptions": [
+        "Restless and quick to anger, the kind of person who settles every argument by winning it.",
+        "Carries themselves like a fighter, and looks at everyone as a possible opponent.",
+        "Impatient, loud, and utterly certain they will win."
+      ]
+    },
+    {
+      "id": "cautious",
+      "name": "Cautious",
+      "weight": 2,
+      "aggression": [
+        0,
+        35
+      ],
+      "descriptions": [
+        "Careful to the point of paranoia. Never goes anywhere without at least three ways out.",
+        "Quiet and watchful, and very hard to find when they don't want to be found.",
+        "Plans everything twice and trusts no one, least of all their own Servant."
+      ]
+    },
+    {
+      "id": "schemer",
+      "name": "Schemer",
+      "weight": 2,
+      "aggression": [
+        20,
+        60
+      ],
+      "descriptions": [
+        "Charming, smiling, and always three moves ahead. Prefers others do their fighting for them.",
+        "Collects secrets the way some people collect stamps.",
+        "Polite to everyone, and has a plan for how to get rid of each of them."
+      ]
+    },
+    {
+      "id": "honorable",
+      "name": "Honorable",
+      "weight": 2,
+      "aggression": [
+        35,
+        70
+      ],
+      "descriptions": [
+        "Proud and old-fashioned. Believes a war should have rules, and keeps them.",
+        "Fights openly and expects others to do the same. Despises tricks.",
+        "Stiff-backed and formal, with a strong sense of what a Master should be."
+      ]
+    },
+    {
+      "id": "reckless",
+      "name": "Reckless",
+      "weight": 1,
+      "aggression": [
+        55,
+        100
+      ],
+      "descriptions": [
+        "Treats the war like a game, and seems to be enjoying it far too much.",
+        "Young, wild, and convinced nothing bad can happen to them.",
+        "Takes every risk, and so far has got away with all of them."
+      ]
+    }
+  ],
+  "bases": [
+    {
+      "text": "an old Western-style mansion on a hill",
+      "conditions": {
+        "places": [
+          "kyoto"
+        ]
+      }
+    },
+    {
+      "text": "the back buildings of a quiet temple",
+      "conditions": {
+        "places": [
+          "kyoto"
+        ]
+      }
+    },
+    {
+      "text": "an old mansion behind high walls",
+      "conditions": {
+        "places": [
+          "london",
+          "prague",
+          "new_orleans",
+          "buenos_aires"
+        ]
+      }
+    },
+    {
+      "text": "the disused crypt beneath a church",
+      "conditions": {
+        "places": [
+          "london",
+          "prague",
+          "new_orleans",
+          "buenos_aires"
+        ]
+      }
+    },
+    {
+      "text": "a rented room above a shop"
+    },
+    {
+      "text": "the back rooms of a closed-down hotel"
+    },
+    {
+      "text": "a warehouse by the water"
+    },
+    {
+      "text": "a run-down house that everyone on the street says is haunted"
+    },
+    {
+      "text": "a suite in an expensive hotel, paid for in cash"
+    },
+    {
+      "text": "an apartment high up in a new tower block",
+      "from": 1960
+    },
+    {
+      "text": "a shuttered cinema",
+      "from": 1915
+    }
+  ],
+  "intelTexts": {
+    "master1": [
+      {
+        "text": "You learn that a Master is operating around {district}. Those who have seen them say: {description}"
+      }
+    ],
+    "master2": [
+      {
+        "text": "You track {label} to their base in {district}: {base}. Their name is {name}."
+      }
+    ],
+    "master3": [
+      {
+        "text": "You piece together who {name} really is. Family: {family}. Age: {age}. From: {origin}. {personalityNote}"
+      }
+    ],
+    "servant1": [
+      {
+        "text": "Witnesses describe the Servant serving {label} clearly enough: it is a {class}."
+      }
+    ],
+    "servant2": [
+      {
+        "text": "You get a good look at the {class} in action, and can judge exactly how strong it is."
+      }
+    ],
+    "servant3": [
+      {
+        "text": "You finally recognize the {class}: from its weapon, its words and its Noble Phantasm, it can only be {trueName}."
+      }
+    ]
+  },
+  "personalityNotes": {
+    "aggressive": "They are hungry for a fight.",
+    "cautious": "They will not leave their bounded field unless they have to.",
+    "schemer": "They prefer to let others do the fighting.",
+    "honorable": "They fight openly, and expect the same.",
+    "reckless": "They take risks no sane Master would."
+  }
+}

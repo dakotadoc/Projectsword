@@ -8,6 +8,7 @@
 
 import { getData, findById } from './data.js';
 import { askText, askJson, AiError } from './ai.js';
+import { knownSummaryLines, rivalLabel } from './intel.js';
 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 
@@ -193,13 +194,14 @@ function warSummary(state) {
     lines.push(war.workshop ? `Your base has a workshop with defenses at level ${war.workshop} of 3.` : 'Your base has no prepared defenses yet.');
     lines.push(...recentWarDays(state));
   }
-  lines.push('Nothing is known yet about the identities of the other Masters or their Servants.');
+  // Rivals: ONLY what the player knows (intel.js).
+  lines.push(...knownSummaryLines(state));
   return lines;
 }
 
 // The last few days, as the Master experienced them (only what they saw).
 const DAY_ACTIONS = { rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
-const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted', ambush: 'set an ambush' };
+const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted a rival', ambush: 'set an ambush for a rival, which ended in a standoff' };
 
 function recentWarDays(state) {
   const place = findById('places', state.world.placeId).name;
@@ -212,7 +214,10 @@ function recentWarDays(state) {
     const parts = [];
     for (const id of h.events) parts.push(`news: ${firstSentence(id)}`);
     if (h.dayAction) parts.push(`by day you and your Master ${DAY_ACTIONS[h.dayAction]}`);
-    if (h.nightAction) parts.push(`by night you and your Master ${NIGHT_ACTIONS[h.nightAction]}`);
+    if (h.nightAction) {
+      const rival = h.nightTarget && (state.rivals || []).find((r) => r.id === h.nightTarget);
+      parts.push(`by night you and your Master ${NIGHT_ACTIONS[h.nightAction]}${rival ? ` (${rivalLabel(rival)})` : ''}`);
+    }
     if (h.nightEvent) parts.push(`that night: ${firstSentence(h.nightEvent)}`);
     return parts.length ? `- Day ${h.day}: ${parts.join('; ')}.` : null;
   }).filter(Boolean);

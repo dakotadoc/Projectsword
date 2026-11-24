@@ -465,9 +465,7 @@
         "label": "Ask {servant} what they sensed",
         "text": "\"Someone was watching,\" {servant} says. \"They were good. They left before I could follow.\"",
         "effects": {
-          "stats": {
-            "mind": 1
-          }
+          "intel": 1
         }
       },
       {
@@ -527,7 +525,8 @@
         "label": "Ask them to keep their ears open",
         "text": "They promise to tell you if they hear anything strange.",
         "effects": {
-          "contacts": 1
+          "contacts": 1,
+          "intel": 1
         }
       }
     ]
@@ -546,9 +545,7 @@
     "weight": 3,
     "text": "Far across the city, light flashes between the buildings, and a moment later you hear the boom. Two Servants are fighting. By the time you get there, the street is empty and scorched.",
     "effects": {
-      "stats": {
-        "mind": 1
-      }
+      "intel": 1
     }
   },
   {
@@ -610,11 +607,9 @@
       },
       {
         "label": "Ask what they saw",
-        "text": "Between sobs, they describe a giant with a burning sword. It may even be true.",
+        "text": "Between sobs, they tell you everything they saw. Most of it is terror, but some of it is useful.",
         "effects": {
-          "stats": {
-            "mind": 2
-          }
+          "intel": 1
         }
       }
     ]
