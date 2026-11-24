@@ -84,6 +84,7 @@ button:disabled { opacity: 0.45; cursor: default; }
 }
 
 .log {
+  position: relative; /* entries' offsetTop is measured from here (ui.js) */
   flex: 1;
   overflow-y: auto;
   padding: 20px max(4vw, 16px) 12px;
@@ -185,6 +186,9 @@ button:disabled { opacity: 0.45; cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .log { scroll-behavior: auto; }
 }
+
+/* Stat changes etc. after an action or event. */
+.entry-effect { font: 600 14px/1.5 var(--sans); color: var(--gold); margin-top: -0.4em; }
 
 /* Multi-line block in the log, e.g. the birth certificate. First line is its title. */
 .entry-card {

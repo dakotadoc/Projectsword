@@ -13,13 +13,15 @@ import {
 import { storage } from './storage.js';
 import { loadData } from './data.js';
 import { birthScreen } from './birth.js';
+import { lifeScreen } from './life.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
-// Later milestones add: summon, war, combat, ending.
+// Later milestones add: summon (real), war, combat, ending.
 const screens = {
   birth: birthScreen,
-  life: lifePlaceholderScreen,
+  life: lifeScreen,
+  summon: summonPlaceholderScreen,
 };
 
 async function goTo(name) {
@@ -218,10 +220,10 @@ async function returnToTitle() {
   await showTitle();
 }
 
-// ---- Placeholder until milestone 3 ----
+// ---- Placeholder until milestone 4 ----
 
-async function lifePlaceholderScreen({ resumed = false } = {}) {
-  if (!resumed) ui.log('The life phase is not built yet (milestone 3). Your character is saved.', 'system');
+async function summonPlaceholderScreen({ resumed = false } = {}) {
+  if (!resumed) ui.log('The summoning is not built yet (milestone 4). Your character is saved.', 'system');
   ui.setChoices([{ label: 'Return to title', onSelect: returnToTitle }]);
 }
 

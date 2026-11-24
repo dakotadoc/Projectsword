@@ -43,13 +43,16 @@ Nothing may appear in a year where it doesn't belong: no mobile phones in 1910, 
 - Code filters lists with `availableIn(list, year)` from `period.js` **before** rolling. Events are filtered by the current in-game year; names by birth year.
 - Any text that mentions technology, institutions, prices, politics, place names that changed, or fashions **must** carry `from`/`to`. If a line works in most years but not all, split it into dated variants rather than writing around it.
 - Text that is always shown regardless of year (place descriptions, family texts, era descriptions) must stay period-neutral.
+- Besides years, entries may also be limited by `"minAge"`/`"maxAge"` (the Master's age) and `"conditions"`: `isMage`, `places`, `families`, `traits`, `sex`, `minMoney`. A 6-year-old never gets a text about a job; a non-mage family never gets one about the family workshop. `fits(entry, ctx)` in `events.js` checks all of it.
 - Names: `givenNames` is split into `male` and `female` lists; entries are `"Name"` or `{ "name": "Haruto", "from": 1995 }`. Family names whose form depends on sex are `{ "male": "Novák", "female": "Nováková" }`. `data.js` checks at startup that every possible birth year has names for both sexes in every place.
 
 ### Code conventions
 - UI chrome (button labels like "Export", dialog titles) may live in code. Narrative content (places, events, Servant lines, flavor text) lives in `/data`.
 - Never call `Math.random()`; use the helpers in `rng.js` (`random`, `randInt`, `chance`, `pick`, `weightedPick`, `shuffle`). The RNG's position is saved in `state.rng`, so loading continues the same sequence and the same seed replays the same rolls. (AI replies are not deterministic, so seed replay diverges once chat affects the game.)
 - `state` must stay plain JSON. Bump `SAVE_VERSION` in `state.js` when its shape changes incompatibly, and add a migration there. Until version 1 of the game is finished, old test-build saves may instead be retired by raising `OLDEST_SUPPORTED_VERSION` (the player is told to start a new game).
-- Every in-run screen registers in `screens` in `main.js` and receives `{ resumed }` so Continue/Import can re-enter it without repeating its intro text.
+- Every in-run screen registers in `screens` in `main.js` and receives `{ resumed, goTo, autosave }` so Continue/Import can re-enter it without repeating its intro text.
+- Effects in data are `{ "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true }`, applied by `applyEffects` in `events.js`, which also writes the "Body +2 (24)" lines.
+- An event's choices may carry conditions, but at least one choice must have none, so the player is never stuck (checked at startup).
 
 Suggested structure:
 ```
@@ -63,6 +66,7 @@ style.css
   data.js        // loads and checks /data/*.json at startup
   ranks.js       // E–A/EX rank letters and their numeric values
   period.js      // filters data entries by year (from/to)
+  catalysts.js   // finding catalysts (search chance, weighted pick)
   birth.js       // phase 1
   life.js        // phase 2
   summon.js      // phase 3
@@ -78,6 +82,7 @@ style.css
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json
   catalysts.json  servants.json
+  life.json    // life-phase actions, their text variants, intro, war announcement
   events.json  rivals.json  dialogue.json
 ```
 
@@ -197,7 +202,7 @@ Keep the AI rule-based and readable. No complex simulation.
 
 1. **Skeleton.** Screens, text log, buttons, state object, save/load/export, seeded RNG. *(Done. Includes a temporary "Skeleton test" screen in `main.js` that milestone 2 replaces with the birth screen.)*
 2. **Birth.** Data files for places, eras, and families; the birth screen. *(Done. Life phase is a placeholder screen until milestone 3.)*
-3. **Life phase.** Turn loop, stat actions, life events, catalyst finding.
+3. **Life phase.** Turn loop, stat actions, life events, catalyst finding. *(Done. Summoning is a placeholder screen until milestone 4.)*
 4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback.
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work.
 6. **War loop.** Day/night slots, war events, chat available in Day slots.
@@ -229,6 +234,10 @@ Keep the AI rule-based and readable. No complex simulation.
 - **Names:** the Master's name is rolled from the birthplace's name lists, filtered by sex and birth year.
 - **Sex:** the player picks boy or girl before the birth roll. It is not rolled.
 - **Traits** live in `traits.json`. `effects` applies stat/money/contact changes at birth; traits with no effects (e.g. Lucky) are checked by id in later systems.
+- **Life turns:** 8–10 turns of 1–2 years, planned at the start so they end exactly at the war age (`rules.lifeTurns`). Every turn has one action and one life event; events never repeat in a run. The life phase is safe: no death.
+- **Stat gains:** each action gives `rules.lifeGainPerYear` (3–6) per year of the turn; Magecraft gains are multiplied by circuit quality (`rules.magecraftQualityMultiplier`). Socializing may add a contact.
+- **Catalysts:** `catalysts.json`, each with optional `placeWeights`/`familyWeights`. Search chance comes from `rules.relicSearch` plus contacts, Mind, a family's `relicChance` and a trait's `effects.relicChance` (Lucky). Some events can also give one. Milestone 4 maps each catalyst to its Servant(s).
+- **Life history:** `state.life.history` records each turn's age, year, action, event and choice, for the run summary and the Servant's knowledge of the Master's past.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "temple_bell_shard",
+    "name": "Shard of a temple bell",
+    "weight": 1,
+    "placeWeights": { "kyoto": 5 },
+    "description": "A curved piece of bronze, green with age. When struck, it still rings with a sound that makes dogs howl.",
+    "findText": "In the grounds of a ruined mountain temple, you find a curved shard of ancient bronze. When your fingers touch it, you hear a bell toll that nobody else can hear."
+  },
+  {
+    "id": "rusted_hilt",
+    "name": "Rusted sword hilt",
+    "weight": 1,
+    "placeWeights": { "london": 4, "prague": 1.5 },
+    "description": "The hilt of a sword whose blade was lost long ago, wrapped in leather that should have rotted centuries ago.",
+    "findText": "At the bottom of a box of junk at an estate sale, you find the hilt of a sword with no blade. Its grip is warm, as if someone has only just let go of it."
+  },
+  {
+    "id": "cracked_vial",
+    "name": "Alchemist's cracked vial",
+    "weight": 1,
+    "placeWeights": { "prague": 5 },
+    "description": "A small glass vial with a hairline crack. A drop of silver liquid inside never evaporates.",
+    "findText": "Behind a loose brick in an old cellar, you find a cracked glass vial. A single drop of quicksilver inside moves to follow your finger."
+  },
+  {
+    "id": "ivory_die",
+    "name": "Gambler's ivory die",
+    "weight": 1,
+    "placeWeights": { "new_orleans": 5, "buenos_aires": 1.5 },
+    "description": "A yellowed ivory die. Whenever someone holding it is in danger, it lands on six.",
+    "findText": "A card dealer on a riverboat loses a bet to you and pays with an ivory die. You roll it a hundred times that night. It never lands on anything but six."
+  },
+  {
+    "id": "obsidian_arrowhead",
+    "name": "Black stone arrowhead",
+    "weight": 1,
+    "placeWeights": { "buenos_aires": 4, "new_orleans": 1.5 },
+    "description": "A finely worked arrowhead of black volcanic glass, still sharp enough to draw blood.",
+    "findText": "In a dusty museum storeroom, a tired curator lets you take a box marked for disposal. Inside, wrapped in newspaper, is an arrowhead of black glass that cuts your thumb the moment you touch it."
+  }
+]

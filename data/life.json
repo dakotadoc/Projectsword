@@ -1,0 +1,77 @@
+{
+  "intro": [
+    { "text": "The years of your childhood stretch out ahead of you. How you spend them is up to you." }
+  ],
+  "actions": [
+    {
+      "id": "train_body",
+      "label": "Train your body",
+      "stat": "body",
+      "texts": [
+        { "text": "You run, climb and wrestle with the other children until your legs stop complaining.", "maxAge": 12 },
+        { "text": "You take up a sport and train until your hands blister.", "minAge": 10 },
+        { "text": "You take work hauling crates at the market, and your shoulders broaden.", "minAge": 14 },
+        { "text": "You swim in the river every morning, whatever the weather." }
+      ]
+    },
+    {
+      "id": "study_magecraft",
+      "label": "Study magecraft",
+      "stat": "magecraft",
+      "texts": [
+        { "text": "Your parents drill you on circuit control until you can light a candle without looking at it.", "conditions": { "isMage": true }, "maxAge": 12 },
+        { "text": "You spend long nights in the family workshop, copying formulas from books older than the house.", "conditions": { "isMage": true }, "minAge": 10 },
+        { "text": "You copy strange diagrams from a book nobody else in the family can read. Once, briefly, a candle flame bends toward you.", "conditions": { "isMage": false } },
+        { "text": "You practice the only exercise you know: breathing until something warm runs through your arms like a current.", "conditions": { "isMage": false } }
+      ]
+    },
+    {
+      "id": "study_world",
+      "label": "Study the world",
+      "stat": "mind",
+      "texts": [
+        { "text": "You read everything you can find, from encyclopedias to old newspapers left on park benches." },
+        { "text": "You spend afternoons at the library until the librarian knows you by name.", "minAge": 8 },
+        { "text": "You fill notebooks with maps, languages and history, and argue with your teachers about all of it.", "minAge": 11 },
+        { "text": "You lose whole nights to online encyclopedias, following one link after another.", "from": 2002, "minAge": 10 }
+      ]
+    },
+    {
+      "id": "socialize",
+      "label": "Make friends and connections",
+      "stat": "charisma",
+      "texts": [
+        { "text": "You play with every child on your street and soon know every family on it.", "maxAge": 11 },
+        { "text": "You join clubs, go to every party, and learn who knows whom.", "minAge": 12 },
+        { "text": "You fall in with an older crowd who know the city's back rooms.", "minAge": 15 }
+      ]
+    },
+    {
+      "id": "search_relics",
+      "label": "Search for relics",
+      "stat": null,
+      "texts": [
+        { "text": "You dig through attics, junk shops and flea markets looking for anything old and strange.", "maxAge": 13 },
+        { "text": "You visit antique dealers, estate sales and museum basements, asking careful questions.", "minAge": 14 }
+      ],
+      "failTexts": [
+        { "text": "You find old buttons, a cracked mirror and a great deal of dust, but nothing with any power in it." },
+        { "text": "A dealer swears his dagger belonged to a king. It turns out to be a letter opener." },
+        { "text": "You follow a rumor across the city, only to find the item was sold the week before." }
+      ]
+    }
+  ],
+  "quietYear": [
+    { "text": "The time passes quietly." }
+  ],
+  "warAnnouncement": [
+    {
+      "text": "In {year}, you wake with a burning pain in your right hand. Three red marks have appeared on it, interlocking like a crest. You know what they are: Command Seals. The Grail has chosen you. A Holy Grail War is about to begin in {place}.",
+      "conditions": { "isMage": true }
+    },
+    {
+      "text": "In {year}, you wake with a burning pain in your right hand. Three red marks have appeared on it, like a tattoo you never got. By that evening, a stranger in black has found you and explained what they are: Command Seals. You have been chosen for a Holy Grail War, and it begins soon, here in {place}.",
+      "conditions": { "isMage": false }
+    }
+  ]
+}

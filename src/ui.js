@@ -12,19 +12,30 @@ const $ = (id) => document.getElementById(id);
 // ---- Log ----
 
 // kind: 'narration' (default), 'heading', 'system', 'roll'
+// The first entry added since the player last got choices. When new choices
+// appear, the log scrolls so this entry is at the top: the player reads the
+// new text from its start, however long it is.
+let firstUnread = null;
+
 export function log(text, kind = 'narration') {
   addLogEntry(text, kind);
-  $('log').append(makeEntry({ text, kind }));
-  scrollLogToEnd();
+  const entry = makeEntry({ text, kind });
+  $('log').append(entry);
+  firstUnread ??= entry;
 }
 
 export function renderLog(entries) {
   $('log').replaceChildren(...entries.map(makeEntry));
-  scrollLogToEnd();
+  firstUnread = null;
+  const el = $('log');
+  el.style.scrollBehavior = 'auto';
+  el.scrollTop = el.scrollHeight;
+  el.style.scrollBehavior = '';
 }
 
 export function clearLog() {
   $('log').replaceChildren();
+  firstUnread = null;
 }
 
 function makeEntry({ text, kind }) {
@@ -34,9 +45,15 @@ function makeEntry({ text, kind }) {
   return p;
 }
 
-function scrollLogToEnd() {
+function scrollToUnread() {
   const el = $('log');
-  el.scrollTop = el.scrollHeight;
+  if (firstUnread?.isConnected) {
+    const gap = parseFloat(getComputedStyle(firstUnread).marginTop) || 0;
+    el.scrollTop = firstUnread.offsetTop - gap - 8; // .log is position: relative
+  } else {
+    el.scrollTop = el.scrollHeight;
+  }
+  firstUnread = null;
 }
 
 // ---- Choices ----
@@ -45,6 +62,8 @@ function scrollLogToEnd() {
 // Clicking one disables all until onSelect finishes (no double actions).
 export function setChoices(choices) {
   const box = $('choices');
+  // Wait a frame so the choices' height is known before scrolling the log.
+  requestAnimationFrame(scrollToUnread);
   const buttons = choices.map((choice) => {
     const btn = document.createElement('button');
     btn.type = 'button';

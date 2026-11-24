@@ -7,7 +7,10 @@
 import { RANKS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts'];
+const STATS = ['body', 'magecraft', 'mind', 'charisma'];
+const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney'];
+const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance'];
 
 const data = {};
 
@@ -58,6 +61,8 @@ function validate() {
     eras: ['name', 'description'],
     families: ['name', 'birthText', 'description'],
     traits: ['name', 'description'],
+    events: ['phase', 'text'],
+    catalysts: ['name', 'description', 'findText'],
   };
   for (const [file, fields] of Object.entries(lists)) {
     const list = data[file];
@@ -116,6 +121,77 @@ function validate() {
     const w = f.circuitWeights || {};
     need(Object.keys(w).every((k) => RANKS.includes(k)), `families.json ${f.id}: circuitWeights keys must be E, D, C, B, A, EX`);
     need(Object.values(w).some((v) => v > 0), `families.json ${f.id}: circuitWeights needs a weight above 0`);
+  }
+
+  for (const r2 of ['lifeTurns', 'lifeGainPerYear']) need(isRange(r[r2]), `rules.${r2} must be [min, max]`);
+  for (const k of ['socializeContactChance', 'relicSearch']) need(r[k] && typeof r[k] === 'object', `rules.${k} is missing`);
+  need(RANKS.every((k) => Number.isFinite(r.magecraftQualityMultiplier?.[k])), 'rules.magecraftQualityMultiplier needs E, D, C, B, A, EX');
+
+  for (const t of data.traits) checkEffects(t.effects, `traits.json ${t.id}`);
+
+  // life.json: action and text lists
+  const life = data.life || {};
+  for (const key of ['intro', 'quietYear', 'warAnnouncement']) checkTexts(life[key], `life.json ${key}`);
+  need(Array.isArray(life.actions) && life.actions.length, 'life.json: needs actions');
+  for (const a of life.actions || []) {
+    const where = `life.json action ${a.id || '?'}`;
+    need(typeof a.id === 'string' && typeof a.label === 'string', `${where}: needs id and label`);
+    need(a.stat === null || STATS.includes(a.stat), `${where}: stat must be one of ${STATS.join(', ')} or null`);
+    checkTexts(a.texts, `${where} texts`);
+    if (a.failTexts) checkTexts(a.failTexts, `${where} failTexts`);
+  }
+
+  // events.json
+  for (const e of data.events) {
+    const where = `events.json ${e.id}`;
+    need(['life', 'war'].includes(e.phase), `${where}: phase must be "life" or "war"`);
+    checkRestrictions(e, where);
+    checkEffects(e.effects, where);
+    if (e.choices !== undefined) {
+      need(Array.isArray(e.choices) && e.choices.length, `${where}: choices must be a non-empty list`);
+      (e.choices || []).forEach((c, i) => {
+        const cw = `${where} choice #${i + 1}`;
+        need(typeof c.label === 'string' && c.label, `${cw}: needs a label`);
+        checkRestrictions(c, cw);
+        checkEffects(c.effects, cw);
+      });
+      need((e.choices || []).some((c) => !c.conditions), `${where}: at least one choice must have no conditions, so the player is never stuck`);
+    }
+  }
+
+  for (const c of data.catalysts) {
+    for (const k of ['placeWeights', 'familyWeights']) {
+      need(c[k] === undefined || Object.values(c[k]).every(Number.isFinite), `catalysts.json ${c.id}: ${k} values must be numbers`);
+    }
+  }
+
+  function checkTexts(list, where) {
+    if (!Array.isArray(list) || !list.length) {
+      problems.push(`${where}: must be a non-empty list of { "text": ... }`);
+      return;
+    }
+    list.forEach((t, i) => {
+      need(typeof t?.text === 'string' && t.text, `${where} #${i + 1}: missing "text"`);
+      checkRestrictions(t, `${where} #${i + 1}`);
+    });
+  }
+
+  function checkRestrictions(entry, where) {
+    checkYears(entry, where);
+    for (const k of ['minAge', 'maxAge']) need(entry[k] === undefined || Number.isInteger(entry[k]), `${where}: "${k}" must be a whole number`);
+    if (entry.conditions !== undefined) {
+      const bad = Object.keys(entry.conditions).filter((k) => !CONDITION_KEYS.includes(k));
+      need(!bad.length, `${where}: unknown condition "${bad[0]}" (use ${CONDITION_KEYS.join(', ')})`);
+    }
+  }
+
+  function checkEffects(fx, where) {
+    if (fx === undefined) return;
+    const bad = Object.keys(fx).filter((k) => !EFFECT_KEYS.includes(k));
+    need(!bad.length, `${where}: unknown effect "${bad[0]}" (use ${EFFECT_KEYS.join(', ')})`);
+    for (const [k, v] of Object.entries(fx.stats || {})) {
+      need(STATS.includes(k) && Number.isFinite(v), `${where}: stats.${k} must be a known stat and a number`);
+    }
   }
 
   function checkYears(entry, where) {

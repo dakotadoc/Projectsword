@@ -60,6 +60,7 @@ export function rollBirth(state, sex) {
     money: Math.max(0, rollRange(family.money) + (fx.money || 0)),
     contacts: Math.max(0, rollRange(family.contacts) + (fx.contacts || 0)),
     commandSeals: 0, // the three seals appear when the war is announced
+    catalysts: [], // catalyst ids found during the life phase
   };
 }
 
