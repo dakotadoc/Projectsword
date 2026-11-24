@@ -9,5 +9,16 @@
   "socializeContactChance": { "base": 0.25, "perCharisma": 0.004, "max": 0.7 },
   "relicSearch": { "base": 0.12, "perExtraYear": 0.08, "perContact": 0.03, "perMind": 0.002, "max": 0.6 },
 
-  "summon": { "startingBond": 10, "compatibilityBondBonus": 5, "compatibilityTemperature": 8 }
+  "summon": { "startingBond": 10, "compatibilityBondBonus": 5, "compatibilityTemperature": 8 },
+
+  "chat": {
+    "maxPlayerMessages": 8,
+    "maxMessageLength": 400,
+    "historyMessages": 10,
+    "memoriesInContext": 5,
+    "maxMemories": 40,
+    "bondChange": [-5, 5],
+    "replyModelTier": "quick",
+    "verdictModelTier": "quick"
+  }
 }

@@ -2,6 +2,7 @@
   {
     "id": "arthur",
     "trueName": "Arthur Pendragon",
+    "name": "Arthur",
     "class": "Saber",
     "title": "The Once and Future King",
     "sex": "female",
@@ -81,11 +82,16 @@
         "old_lineage": 5
       }
     },
-    "secretName": "Her birth name, which she has not spoken since the day she took the sword. She tells it only to a Master she trusts completely."
+    "secretName": {
+      "name": "Elen",
+      "revealAtBond": 80,
+      "description": "Her birth name, which she has not spoken since the day she took the sword. She tells it only to a Master she trusts completely."
+    }
   },
   {
     "id": "ishtar",
     "trueName": "Ishtar",
+    "name": "Ishtar",
     "class": "Archer",
     "title": "Queen of Heaven, Goddess of Love and War",
     "sex": "female",
@@ -169,6 +175,7 @@
   {
     "id": "solomon",
     "trueName": "Solomon",
+    "name": "Solomon",
     "class": "Caster",
     "title": "King of Wisdom",
     "sex": "male",
@@ -252,6 +259,7 @@
   {
     "id": "samson",
     "trueName": "Samson",
+    "name": "Samson",
     "class": "Berserker",
     "title": "Judge of Israel, the Strong",
     "sex": "male",
@@ -335,6 +343,7 @@
   {
     "id": "hector",
     "trueName": "Hector",
+    "name": "Hector",
     "class": "Lancer",
     "title": "Prince of Troy, Tamer of Horses",
     "sex": "male",
@@ -417,6 +426,7 @@
   {
     "id": "cleopatra",
     "trueName": "Cleopatra VII Philopator",
+    "name": "Cleopatra",
     "class": "Assassin",
     "title": "Last Queen of Egypt",
     "sex": "female",
@@ -502,6 +512,7 @@
   {
     "id": "constantine",
     "trueName": "Constantine XI Palaiologos",
+    "name": "Constantine",
     "class": "Rider",
     "title": "Last Emperor of the Romans",
     "sex": "male",

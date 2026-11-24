@@ -1,0 +1,117 @@
+{
+  "notices": {
+    "stub": "Chat is in offline test mode: {name} answers with prepared lines instead of live replies.",
+    "offline": "Chat is offline right now, so {name} answers with a few prepared lines.",
+    "busy": "Chat is busy right now. {name} answers briefly; try again in a little while for a real reply."
+  },
+  "bondBands": [
+    { "min": 0, "label": "wary", "guidance": "You barely know this Master. You are guarded, test them, and keep personal matters to yourself." },
+    { "min": 20, "label": "cautious", "guidance": "You are starting to form an opinion of this Master. You are civil and sometimes open up a little, but you still hold back." },
+    { "min": 40, "label": "trusting", "guidance": "You trust this Master. You speak freely, joke in your own way, and will share some of your past if asked." },
+    { "min": 60, "label": "close", "guidance": "You care about this Master. You speak openly about your past, your regrets and your wish." },
+    { "min": 80, "label": "devoted", "guidance": "This Master is someone you would die for. You hold nothing back, and tell them things you have told no one." }
+  ],
+  "servants": {
+    "arthur": {
+      "greetings": [
+        "Here I am. Talk, then. I've got nowhere better to be until something tries to kill us.",
+        "You look like you've got something on your mind. Out with it.",
+        "Sit. I'll listen. I was a terrible listener as a queen, so you're getting the improved version."
+      ],
+      "replies": [
+        "Hm. That's fair. I've heard worse ideas from better-dressed people.",
+        "I'll think on that. Not everything needs an answer the moment it's asked.",
+        "You remind me of a knight I knew. He also asked hard questions at bad moments. I liked him.",
+        "Saint David's teeth, you don't make anything easy. Good. Easy things are usually traps.",
+        "I'll tell you what I told my knights: say what you mean, and I'll do the same."
+      ],
+      "farewells": ["Go on, then. Get some rest. I'll keep watch.", "Good talk. Don't make it the last one."]
+    },
+    "ishtar": {
+      "greetings": [
+        "Oh? You've come to see me. Good. You may begin by telling me how magnificent I look.",
+        "I was wondering when you'd remember you have a goddess in the house.",
+        "Speak, mortal. I'm in a generous mood. It won't last."
+      ],
+      "replies": [
+        "Hmph. Interesting. You may continue, but try to be more impressive.",
+        "That is the sort of thing a mortal would say. Lucky for you, I find mortals amusing.",
+        "Bring me something shiny and I'll consider it.",
+        "You're bolder than you look. I approve, a little.",
+        "I've heard prayers more eloquent than that, but not many more sincere."
+      ],
+      "farewells": ["You may go. Think of me while you're away.", "Leave, before I start to like you."]
+    },
+    "solomon": {
+      "greetings": [
+        "Ah. A question is coming. I can see it on your face.",
+        "Sit with me a while. The birds outside have been gossiping about you.",
+        "What troubles you, Master? Ask, and we will see whether the answer is worth having."
+      ],
+      "replies": [
+        "There is nothing new under the sun. Which is not to say that what you say is not worth hearing.",
+        "A wise person hears and increases in learning. You are doing well.",
+        "Consider: is that a question you want answered, or one you want agreed with?",
+        "Hm. I once judged a harder case than this, and the answer was simpler than anyone expected.",
+        "Patience is better than pride. Let us not decide this tonight."
+      ],
+      "farewells": ["Go in peace. Sleep, if you can.", "Think on it. Wisdom keeps until morning."]
+    },
+    "samson": {
+      "greetings": ["You. Talk.", "Mm. You came. Good.", "Speak. I'm listening. I hear everything."],
+      "replies": [
+        "Hah. Good.",
+        "Riddle me something, Master. Words are cheap. Riddles cost.",
+        "I don't like it. But I'll do it.",
+        "Out of the strong came something sweet. Remember that.",
+        "Hm. Fine. Who do I hit?"
+      ],
+      "farewells": ["Go. I'll be here.", "Enough talk. Rest."]
+    },
+    "hector": {
+      "greetings": [
+        "Come in, come in. Sit down before you fall down.",
+        "Something on your mind? I've got time. Soldiers always have time, until suddenly they don't.",
+        "There you are. Talk to me, Master."
+      ],
+      "replies": [
+        "That's honest. I'd rather have honest than clever, most days.",
+        "My wife would have liked you, I think. She liked people who worried about the right things.",
+        "In ten years of war you learn one thing: plan for the bad day, and enjoy the good ones.",
+        "Hah. Fair point. I'll remember that.",
+        "Let's take it one day at a time. That's how you hold a city."
+      ],
+      "farewells": ["Get some sleep. I'll keep watch on the walls.", "Good talk, Master. Same time tomorrow."]
+    },
+    "cleopatra": {
+      "greetings": [
+        "You may approach. Tell me what you've learned today.",
+        "Ah, my Master. Sit. I've been thinking about our position.",
+        "Come. A queen holds court every evening, even in exile."
+      ],
+      "replies": [
+        "Interesting. Tell me more, and leave nothing out.",
+        "That is either very clever or very foolish. Let us find out which.",
+        "In Alexandria we had a word for that. Several, in fact, in several languages.",
+        "Hm. I'll remember you said that. I remember everything.",
+        "Never show the enemy what you want. Show them what you want them to think you want."
+      ],
+      "farewells": ["You are dismissed. Graciously.", "Go and rest. I will be thinking."]
+    },
+    "constantine": {
+      "greetings": [
+        "Master. Please, sit. Tell me how you are holding up.",
+        "Ah, good, company. A long night is shorter with someone to talk to.",
+        "What can I do for you? Besides the obvious, that is."
+      ],
+      "replies": [
+        "I understand. I've had nights like that. Most of them, in fact.",
+        "We will manage. We always do, until the one day we don't, and that day is not today.",
+        "That's a kind thing to say. Thank you.",
+        "My city taught me patience. Five hundred years of walls will do that.",
+        "Let us not give up just yet. I have a reputation to keep."
+      ],
+      "farewells": ["Rest well, Master. God keep you.", "Go on. I'll see to the doors."]
+    }
+  }
+}

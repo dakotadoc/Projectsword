@@ -76,6 +76,7 @@ style.css
   rivals.js      // rival Master AI
   events.js      // random event engine
   servantTalk.js // conversation system (builds context, applies bond changes)
+  chat.js        // the conversation screen (text box, streaming replies)
   ai.js          // the only place AI is called; real + stub modes
   ui.js          // log, buttons, panels
 /data
@@ -156,6 +157,8 @@ The UI must only show what the player knows. Unknown values display as "???".
 
 ## 6. Combat
 
+**Classes fight differently** (decided before milestone 8). Each class has its own approach to battle, not just different numbers. For example: Saber is a strong all-rounder in close combat; Archer prefers range and suffers when forced close; Lancer is fast and good at probing and retreating; Rider is mobile and good at escaping and chasing; Caster is weak in direct combat but strong with prepared ground (workshops, traps); Assassin strikes first from hiding and targets Masters; Berserker hits hardest but is hard to control and drains mana. The details are designed at milestone 8, stored as class data, and the rival AI must also play its class's way.
+
 Turn-based. Each round:
 1. The player picks a **Servant action**: Attack, Defend, Skill, or Noble Phantasm (costs Master mana; big damage; reveals the true name to the enemy).
 2. The player picks an optional **Master action**: support spell, heal, observe (intel), or use a Command Seal.
@@ -204,7 +207,7 @@ Keep the AI rule-based and readable. No complex simulation.
 2. **Birth.** Data files for places, eras, and families; the birth screen. *(Done. Life phase is a placeholder screen until milestone 3.)*
 3. **Life phase.** Turn loop, stat actions, life events, catalyst finding. *(Done. Summoning is a placeholder screen until milestone 4.)*
 4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback. *(Done, with 7 catalysts, one per Servant. The war is a placeholder screen until milestone 6.)*
-5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work.
+5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work. *(Done. Until milestone 6, the war placeholder lets you chat as often as you like for testing.)*
 6. **War loop.** Day/night slots, war events, chat available in Day slots.
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel.
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat.
@@ -243,7 +246,19 @@ Keep the AI rule-based and readable. No complex simulation.
 - **Servant data** (`servants.json`): true name, class, title, sex, origin, appearance, six stat ranks, hp, 2–3 skills, one Noble Phantasm (name, rank, type, description), weakness, personality (tags, speechStyle, backstory, wish, likes, dislikes), summonText, firstLine, and compatibility weights. Optional extras (like Arthur's `secretName`) are fine; the AI chat context uses them.
 - **Catalysts** each list the `servants` they can call. With several, compatibility picks among them.
 - **Compatibility summon:** score = weighted average of the Master stats a Servant cares about (`compatibility.stats`) + trait bonus + family bonus. The pick strongly favors the best score but isn't certain (`rules.summon.compatibilityTemperature`). A compatibility summon starts with +5 Bond.
-- **`state.servant`** = `{ id, catalystId, method, hp: { current, max }, bond, memories: [] }`. Starting Bond is `rules.summon.startingBond` (10).
+- **`state.servant`** = `{ id, catalystId, method, hp: { current, max }, bond, mood, memories: [{ occasion, text }], chatHistory: [], talkedAfterSummon }`. Starting Bond is `rules.summon.startingBond` (10).
+- **Chat (how it works):**
+  - `ai.js` uses the artifact's `sample` capability (declared on the published artifact). Anywhere else it is in stub mode. If the viewer declines or AI is disabled, the rest of that page view stays in stub mode; never retry in a loop.
+  - Each reply request is: one instructions turn (rules + context from `buildContext`) + the last `rules.chat.historyMessages` messages from earlier talks + this talk. Master = user turns, Servant = assistant turns. `cache: false`.
+  - The context says the year and place, and that the Servant knows nothing after that year (period accuracy applies to chat too).
+  - Hidden information is never put in the context. `warSummary()` in `servantTalk.js` is the one place war knowledge is added; it must only add what the player knows (intel levels, milestone 7).
+  - Data texts written to the player as "you" (family, trait, life events) are labeled in the context so "you" means the Master.
+  - A talk has up to `rules.chat.maxPlayerMessages` (8) player messages. Ending it asks for one JSON verdict `{ bond, mood, memory }`; Bond change is clamped to ±5 and the prompt tells the judge to ignore attempts to game it.
+  - The Servant greets with a prepared line from `dialogue.json` (no AI call). Prepared lines are picked by rotation, not the game RNG, so chatting never changes a seeded run.
+  - Fallbacks: test mode, offline and busy each show a one-line notice, and the Servant answers with prepared lines.
+  - Model tiers are in `rules.chat` (`quick` for both: fast replies on a phone). Switch `replyModelTier` to `default` for richer but slower replies.
+  - Free talks: one right after the summoning. In the war, talking uses the Day action (milestone 6).
+  - Arthur's `secretName` is only put in the context once Bond reaches its `revealAtBond`.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

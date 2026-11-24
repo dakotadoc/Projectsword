@@ -7,7 +7,7 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
 const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney'];
 const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance'];
@@ -179,6 +179,21 @@ function validate() {
     for (const k of Object.keys(c.traits || {})) need(data.traits.some((t) => t.id === k), `${where}: compatibility.traits.${k} is not a trait id`);
     for (const k of Object.keys(c.families || {})) need(data.families.some((f) => f.id === k), `${where}: compatibility.families.${k} is not a family id`);
   }
+
+  // dialogue.json: fallback lines for every Servant, notices, Bond bands.
+  const dlg = data.dialogue || {};
+  for (const k of ['stub', 'offline', 'busy']) need(typeof dlg.notices?.[k] === 'string', `dialogue.json: notices.${k} is missing`);
+  need(Array.isArray(dlg.bondBands) && dlg.bondBands.some((b) => b.min === 0), 'dialogue.json: bondBands needs a band starting at 0');
+  for (const s of data.servants) {
+    need(typeof s.name === 'string' && s.name, `servants.json ${s.id}: needs a short "name" (used in chat)`);
+    for (const k of ['greetings', 'replies', 'farewells']) {
+      const list = dlg.servants?.[s.id]?.[k];
+      need(Array.isArray(list) && list.length && list.every((l) => typeof l === 'string' && l), `dialogue.json: servants.${s.id}.${k} must be a non-empty list of lines`);
+    }
+  }
+  const c = r.chat || {};
+  need(['maxPlayerMessages', 'maxMessageLength', 'historyMessages', 'memoriesInContext', 'maxMemories'].every((k) => Number.isInteger(c[k]) && c[k] > 0), 'rules.chat needs positive whole numbers for its limits');
+  need(isRange(c.bondChange), 'rules.chat.bondChange must be [min, max]');
 
   const summon = data.summon || {};
   for (const key of ['intro', 'withCatalyst', 'withoutCatalyst', 'compatibilityNote']) checkTexts(summon[key], `summon.json ${key}`);

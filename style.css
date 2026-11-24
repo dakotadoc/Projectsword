@@ -209,3 +209,34 @@ button:disabled { opacity: 0.45; cursor: default; }
   padding: 14px 16px;
 }
 .entry-card::first-line { font: 600 18px/2 var(--serif); color: var(--gold); }
+
+/* ---- Chat ---- */
+
+/* The Master's own words in a conversation. */
+.entry-player {
+  font: 16px/1.5 var(--sans);
+  margin-left: auto;
+  width: fit-content;
+  max-width: 85%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 4px 14px;
+  padding: 8px 12px;
+  white-space: pre-line;
+}
+.entry-speech { white-space: pre-line; }
+.entry-pending { color: var(--muted); }
+
+.chat-form { display: grid; gap: 8px; grid-column: 1 / -1; }
+.chat-input {
+  width: 100%;
+  font: 16px/1.4 var(--sans);
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  resize: none;
+}
+.chat-buttons { display: flex; justify-content: space-between; gap: 8px; }
+.chat-buttons button { flex: 1; }

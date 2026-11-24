@@ -15,6 +15,8 @@ import { loadData } from './data.js';
 import { birthScreen } from './birth.js';
 import { lifeScreen } from './life.js';
 import { summonScreen } from './summon.js';
+import { chatScreen, openChat } from './chat.js';
+import { currentServant } from './servantTalk.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
@@ -23,14 +25,17 @@ const screens = {
   birth: birthScreen,
   life: lifeScreen,
   summon: summonScreen,
+  chat: chatScreen,
   war: warPlaceholderScreen,
 };
 
-async function goTo(name) {
+// resumed: true re-enters a screen without repeating its intro text (used
+// when coming back from a conversation).
+async function goTo(name, { resumed = false } = {}) {
   const state = getState();
   if (!screens[name]) throw new Error(`Unknown screen: ${name}`);
   state.screen = name;
-  await screens[name]({ resumed: false, goTo, autosave });
+  await screens[name]({ resumed, goTo, autosave });
   await autosave();
 }
 
@@ -224,9 +229,13 @@ async function returnToTitle() {
 
 // ---- Placeholder until milestone 6 ----
 
-async function warPlaceholderScreen({ resumed = false } = {}) {
-  if (!resumed) ui.log('The war is not built yet (milestone 6). Your Master and Servant are saved.', 'system');
-  ui.setChoices([{ label: 'Return to title', onSelect: returnToTitle }]);
+async function warPlaceholderScreen({ resumed = false, goTo } = {}) {
+  if (!resumed) ui.log('The war is not built yet (milestone 6). Your Master and Servant are saved. Until then, you can talk with your Servant as often as you like, to test the chat.', 'system');
+  const name = currentServant(getState()).name;
+  ui.setChoices([
+    { label: `Talk with ${name}`, hint: 'Test chat (in the war this uses your Day action)', style: 'primary', onSelect: () => openChat(goTo, { returnTo: 'war', occasion: 'before the war' }) },
+    { label: 'Return to title', onSelect: returnToTitle },
+  ]);
 }
 
 // ---- Boot ----

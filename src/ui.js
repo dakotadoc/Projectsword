@@ -38,6 +38,37 @@ export function clearLog() {
   firstUnread = null;
 }
 
+// A log entry whose text arrives bit by bit (a streamed AI reply).
+// Shows a placeholder, update(text) replaces the text as it grows, and
+// commit(text) saves the final version to the log in state.
+export function beginEntry(kind, placeholder = '…') {
+  const entry = makeEntry({ text: placeholder, kind });
+  entry.classList.add('entry-pending');
+  $('log').append(entry);
+  keepInView(entry);
+  return {
+    update(text) {
+      entry.textContent = text;
+      keepInView(entry);
+    },
+    commit(text) {
+      entry.textContent = text;
+      entry.classList.remove('entry-pending');
+      addLogEntry(text, kind);
+      keepInView(entry);
+    },
+  };
+}
+
+// Scroll so the end of `entry` is visible, but never past its start.
+function keepInView(entry) {
+  const el = $('log');
+  const bottom = el.scrollHeight - el.clientHeight;
+  const entryTop = entry.offsetTop - 16;
+  el.scrollTop = Math.min(bottom, Math.max(entryTop, el.scrollTop));
+  firstUnread = null;
+}
+
 function makeEntry({ text, kind }) {
   const p = document.createElement('p');
   p.className = `entry entry-${kind || 'narration'}`;
@@ -90,6 +121,87 @@ export function setChoices(choices) {
     return btn;
   });
   box.replaceChildren(...buttons);
+}
+
+// ---- Chat input ----
+
+// Replaces the choice buttons with a message box and Send / End buttons.
+// onSend(text) and onEnd() may be async; the controls are disabled while
+// they run. Returns { focus(), setEnabled(bool), setPlaceholder(text) }.
+export function setChatInput({ placeholder, maxLength = 400, onSend, onEnd, endLabel = 'End conversation', canSend = true }) {
+  const box = $('choices');
+  requestAnimationFrame(scrollToUnread);
+
+  const form = document.createElement('form');
+  form.className = 'chat-form';
+  const input = document.createElement('textarea');
+  input.className = 'chat-input';
+  input.rows = 2;
+  input.maxLength = maxLength;
+  input.placeholder = placeholder;
+  input.setAttribute('aria-label', 'Your message');
+  input.disabled = !canSend;
+
+  const send = document.createElement('button');
+  send.type = 'submit';
+  send.className = 'choice-primary';
+  send.textContent = 'Send';
+  send.disabled = !canSend;
+
+  const end = document.createElement('button');
+  end.type = 'button';
+  end.textContent = endLabel;
+
+  const row = document.createElement('div');
+  row.className = 'chat-buttons';
+  row.append(end, send);
+  form.append(input, row);
+  box.replaceChildren(form);
+
+  let busy = false;
+  let sendable = canSend;
+  const setBusy = (b) => {
+    busy = b;
+    input.disabled = b || !sendable;
+    send.disabled = b || !sendable;
+    end.disabled = b;
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text || busy || !sendable) return;
+    input.value = '';
+    setBusy(true);
+    try {
+      await onSend(text);
+    } finally {
+      if (form.isConnected) setBusy(false);
+      if (form.isConnected && !input.disabled) input.focus();
+    }
+  });
+  // Enter sends; Shift+Enter makes a new line.
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      form.requestSubmit();
+    }
+  });
+  end.addEventListener('click', async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      await onEnd();
+    } finally {
+      if (form.isConnected) setBusy(false);
+    }
+  });
+
+  return {
+    focus: () => input.focus(),
+    setPlaceholder: (text) => { input.placeholder = text; },
+    setCanSend: (b) => { sendable = b; setBusy(busy); },
+  };
 }
 
 // ---- Dialogs (built in-page: alert/confirm/prompt are blocked in artifacts) ----

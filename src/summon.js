@@ -13,6 +13,7 @@ import { getData, findById } from './data.js';
 import { weightedPick } from './rng.js';
 import { makeContext, pickText } from './events.js';
 import { STAT_LABELS } from './ranks.js';
+import { openChat } from './chat.js';
 
 export async function summonScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -67,7 +68,10 @@ async function doSummon(state, catalyst, { goTo, autosave }) {
     method: catalyst ? 'catalyst' : 'compatibility',
     hp: { current: servant.hp, max: servant.hp },
     bond: rules.startingBond + (catalyst ? 0 : rules.compatibilityBondBonus),
-    memories: [],
+    mood: null,
+    memories: [], // [{ occasion, text }] summaries of past conversations
+    chatHistory: [], // the last few chat messages, across conversations
+    talkedAfterSummon: false,
   };
 
   ui.log(servant.summonText);
@@ -132,8 +136,20 @@ function lowerFirst(text) {
   return text.charAt(0).toLowerCase() + text.slice(1);
 }
 
+// After the summoning, the Master gets one free conversation (a major event).
 function showContinue(goTo) {
-  ui.setChoices([
-    { label: 'The war begins', style: 'primary', onSelect: () => goTo('war') },
-  ]);
+  const state = getState();
+  const choices = [];
+  if (!state.servant.talkedAfterSummon) {
+    choices.push({
+      label: `Talk with ${findById('servants', state.servant.id).name}`,
+      hint: 'Get to know your Servant before the war begins',
+      onSelect: () => {
+        state.servant.talkedAfterSummon = true;
+        return openChat(goTo, { returnTo: 'summon', occasion: 'just after the summoning' });
+      },
+    });
+  }
+  choices.push({ label: 'The war begins', style: 'primary', onSelect: () => goTo('war') });
+  ui.setChoices(choices);
 }
