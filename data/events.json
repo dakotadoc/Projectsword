@@ -1989,6 +1989,1392 @@
     ]
   },
   {
+    "id": "life_lost_in_market",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 8,
+    "text": "You let go of a hand in a crowded market and suddenly every face is a stranger's.",
+    "choices": [
+      {
+        "label": "Stand still and wait",
+        "text": "A stall-keeper sits you on a crate and gives you a sweet until your family finds you. You learn that staying calm works.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      },
+      {
+        "label": "Go looking on your own",
+        "text": "You find your own way home by following the smell of the bakery on your street. Nobody believes you did it alone.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_night_terrors",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 9,
+    "text": "For a whole winter you dream of a burning city you have never seen. You wake with the smell of smoke in your hair.",
+    "choices": [
+      {
+        "label": "Tell your family",
+        "text": "They sit up with you, night after night, until the dreams fade. Some of them exchange looks you don't understand.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "mind": 1
+          }
+        }
+      },
+      {
+        "label": "Keep the dreams to yourself",
+        "text": "You start drawing the city instead. By spring you know its streets better than your own.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Try to dream it on purpose",
+        "text": "One night you walk into the fire in your dream and it does not burn you. You wake feeling strangely awake.",
+        "effects": {
+          "stats": {
+            "magecraft": 2
+          }
+        },
+        "shows": [
+          "curiosity"
+        ],
+        "conditions": {
+          "isMage": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_grandmother_stories",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 10,
+    "text": "An old relative comes to stay and fills the evenings with stories about kings, saints and monsters.",
+    "choices": [
+      {
+        "label": "Ask for the frightening ones",
+        "text": "You learn every ghost and devil by name. None of them seem quite as frightening afterwards.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Ask about the family",
+        "text": "The stories turn quieter: who married whom, who left, who never came home. You remember all of it.",
+        "effects": {
+          "stats": {
+            "mind": 1,
+            "charisma": 1
+          },
+          "contacts": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_first_friend",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 7,
+    "text": "On your first day among other children, a child with scraped knees offers to share their lunch with you.",
+    "effects": {
+      "stats": {
+        "charisma": 2
+      }
+    }
+  },
+  {
+    "id": "life_broken_arm",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 11,
+    "text": "You fall from the highest branch of the tree everyone tells you not to climb.",
+    "choices": [
+      {
+        "label": "Climb it again once you heal",
+        "text": "The second time you reach the top and see the whole neighbourhood spread out below.",
+        "effects": {
+          "stats": {
+            "body": 3
+          }
+        },
+        "shows": [
+          "courage",
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Find something else to do",
+        "text": "With one arm in a sling you discover books, and a slower kind of adventure.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_snow_day",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 12,
+    "text": "The heaviest snow in years buries the streets, and for three days the whole neighbourhood plays like children, adults included.",
+    "effects": {
+      "stats": {
+        "body": 1,
+        "charisma": 1
+      }
+    }
+  },
+  {
+    "id": "life_stolen_sweets",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 6,
+    "maxAge": 10,
+    "text": "A friend dares you to steal sweets from the corner shop, and the shopkeeper's back is turned.",
+    "choices": [
+      {
+        "label": "Take them",
+        "text": "You get away with it, and the sweets taste wonderful. The guilt arrives later, and lasts longer.",
+        "effects": {
+          "stats": {
+            "body": 1
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Refuse",
+        "text": "Your friend calls you a baby. The shopkeeper, who saw everything, gives you a sweet for free the next day.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "honesty"
+        ]
+      },
+      {
+        "label": "Talk your friend out of it",
+        "text": "Somehow you make not stealing sound like the bigger adventure. Your friend follows you instead.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_familiar_bird",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 10,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "A crow lands on your windowsill every morning and stares at you as if it is waiting for something.",
+    "choices": [
+      {
+        "label": "Feed it and talk to it",
+        "text": "It starts bringing you things: buttons, a ring, a key that fits no lock in the house. Your family's elders seem pleased.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Ignore it",
+        "text": "After a month it gives up and goes. You can't shake the feeling you failed a test.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_shadow_puppets",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 9,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "You discover that if you stare at your shadow long enough on the wall, it moves a heartbeat after you do.",
+    "choices": [
+      {
+        "label": "Tell your parents",
+        "text": "Your parent goes pale, then very calm, then explains that this is what your blood can do, and that you must never show anyone.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "mind": 1
+          }
+        }
+      },
+      {
+        "label": "Practice in secret",
+        "text": "By the end of the year you can make it wave on its own. You also get very bad headaches.",
+        "effects": {
+          "stats": {
+            "magecraft": 3,
+            "body": -1
+          }
+        },
+        "shows": [
+          "curiosity",
+          "recklessness"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_new_sibling",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 12,
+    "text": "A new baby arrives in the family, and suddenly nobody has time for you.",
+    "choices": [
+      {
+        "label": "Help with the baby",
+        "text": "You learn patience, and the baby learns your face before anyone else's.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Make your own fun",
+        "text": "Left alone, you roam further than you ever have and come back with scraped knees and stories.",
+        "effects": {
+          "stats": {
+            "body": 2
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_church_choir",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 6,
+    "maxAge": 12,
+    "text": "A choirmaster hears you humming and insists you join the choir.",
+    "choices": [
+      {
+        "label": "Join",
+        "text": "Every week you stand in the cold stone hall and sing. You learn to breathe, to listen, and to be heard.",
+        "effects": {
+          "stats": {
+            "charisma": 2,
+            "body": 1
+          }
+        },
+        "shows": [
+          "faith"
+        ]
+      },
+      {
+        "label": "Make excuses",
+        "text": "You spend those mornings outside instead, and nobody misses you as much as you hoped.",
+        "effects": {
+          "stats": {
+            "body": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_secret_den",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 13,
+    "text": "You and your friends build a secret den in an abandoned yard, with a password and a flag.",
+    "choices": [
+      {
+        "label": "Be the leader",
+        "text": "You draw up the rules, hand out jobs and settle the arguments. It is exhausting and you love it.",
+        "effects": {
+          "stats": {
+            "charisma": 3
+          }
+        },
+        "shows": [
+          "ambition"
+        ]
+      },
+      {
+        "label": "Be the one who builds it",
+        "text": "Your roof is the only one in the neighbourhood that doesn't leak.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "mind": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_chess_master",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 16,
+    "text": "An old man on a park bench offers to teach you a strategy game, as long as you promise to come back every week.",
+    "choices": [
+      {
+        "label": "Try to beat him",
+        "check": {
+          "stat": "mind",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "After a year of losing, you win. He laughs until he cries and gives you his oldest piece.",
+          "effects": {
+            "stats": {
+              "mind": 4
+            }
+          }
+        },
+        "failure": {
+          "text": "You never beat him, but you learn to lose slowly.",
+          "effects": {
+            "stats": {
+              "mind": 2
+            }
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Just enjoy the games",
+        "text": "The games become a quiet hour you look forward to all week.",
+        "effects": {
+          "stats": {
+            "mind": 2,
+            "charisma": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_fight_at_school",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 15,
+    "text": "A bigger child picks a fight with your friend in the schoolyard while everyone watches.",
+    "choices": [
+      {
+        "label": "Step in",
+        "check": {
+          "stat": "body",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "You stand your ground and the bully backs off. People look at you differently after that.",
+          "effects": {
+            "stats": {
+              "body": 2,
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "You end up on the ground with a split lip. Your friend helps you up, and never forgets it.",
+          "effects": {
+            "stats": {
+              "body": 1
+            },
+            "contacts": 1
+          }
+        },
+        "shows": [
+          "courage",
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Fetch a teacher",
+        "text": "The fight is broken up quickly. Some call you a tattletale; your friend calls you clever.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_runaway_horse",
+    "phase": "life",
+    "weight": 2,
+    "to": 1945,
+    "minAge": 8,
+    "maxAge": 18,
+    "text": "A horse bolts down the street, dragging its cart, scattering people in every direction.",
+    "choices": [
+      {
+        "label": "Grab the reins",
+        "check": {
+          "stat": "body",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "You get it under control and the grateful owner presses coins into your hand.",
+          "effects": {
+            "stats": {
+              "body": 2
+            },
+            "money": 20
+          }
+        },
+        "failure": {
+          "text": "The horse drags you halfway down the street before you let go. You limp for a week.",
+          "effects": {
+            "stats": {
+              "body": -1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Pull a small child out of the way",
+        "text": "You never see the horse stopped, only the child's mother, crying and thanking you.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_library_card",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 14,
+    "text": "You find the town library, and the librarian lets you borrow more books than the rules allow.",
+    "effects": {
+      "stats": {
+        "mind": 3
+      }
+    }
+  },
+  {
+    "id": "life_school_play",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 15,
+    "text": "Your class is putting on a play, and the teacher asks who wants the lead.",
+    "choices": [
+      {
+        "label": "Raise your hand",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "On the night, the whole hall goes quiet when you speak. You will remember that silence for years.",
+          "effects": {
+            "stats": {
+              "charisma": 4
+            }
+          }
+        },
+        "failure": {
+          "text": "You forget your lines halfway through. The audience is kind; you are not, to yourself.",
+          "effects": {
+            "stats": {
+              "charisma": 1
+            }
+          }
+        },
+        "shows": [
+          "ambition",
+          "pride"
+        ]
+      },
+      {
+        "label": "Paint the scenery instead",
+        "text": "Your painted castle gets its own round of applause.",
+        "effects": {
+          "stats": {
+            "mind": 1,
+            "charisma": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_sick_parent",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 17,
+    "text": "One of your parents falls badly ill, and for months the house is quiet and frightened.",
+    "choices": [
+      {
+        "label": "Take over the chores",
+        "text": "You learn to cook, to clean, and to be tired. Your parent recovers, and looks at you as if you've grown a foot.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Read everything about the illness",
+        "text": "You end up correcting the doctor once. He is annoyed, then impressed.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_wandering_magus",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 18,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "A shabby traveller stops at your family's door, asks for the head of the house by an old title, and stays for supper.",
+    "choices": [
+      {
+        "label": "Listen at the door",
+        "text": "You hear a story of a war fought over a cup, long ago, and a city that still remembers. Nobody notices you there.",
+        "effects": {
+          "stats": {
+            "mind": 2,
+            "magecraft": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Ask the traveller to teach you a trick",
+        "text": "He shows you how to light a candle with a word. Your family is not pleased he did.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "ambition"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_circuit_burn",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 10,
+    "maxAge": 18,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "During practice your Magic Circuits flare too hot, and for a terrifying minute your arm glows from the inside.",
+    "choices": [
+      {
+        "label": "Push through it",
+        "text": "When it fades, the paths feel wider, as if something was forced open. It hurts for weeks.",
+        "effects": {
+          "stats": {
+            "magecraft": 4,
+            "body": -2
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Stop and rest",
+        "text": "You lose a month of practice but learn exactly where your limits are.",
+        "effects": {
+          "stats": {
+            "magecraft": 1,
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_star_chart",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 16,
+    "text": "On a clear summer night someone shows you how to find your way by the stars.",
+    "effects": {
+      "stats": {
+        "mind": 2
+      }
+    }
+  },
+  {
+    "id": "life_apprentice_offer",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 11,
+    "maxAge": 16,
+    "conditions": {
+      "isMage": false
+    },
+    "text": "A local craftsman offers to take you on as an apprentice after school.",
+    "choices": [
+      {
+        "label": "Accept",
+        "text": "Your hands learn things your head never could, and you earn a little of your own.",
+        "effects": {
+          "stats": {
+            "body": 2
+          },
+          "money": 25
+        }
+      },
+      {
+        "label": "Turn it down for your studies",
+        "text": "The craftsman shrugs and tells you the offer stands.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_rival_student",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 12,
+    "maxAge": 18,
+    "text": "Someone your age is better than you at everything that matters, and everyone keeps comparing you.",
+    "choices": [
+      {
+        "label": "Outwork them",
+        "text": "You train harder than you ever have. By the end of the year, the comparisons stop.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 2
+          }
+        },
+        "shows": [
+          "ambition",
+          "pride"
+        ]
+      },
+      {
+        "label": "Make friends with them",
+        "text": "It turns out they were tired of the comparisons too.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "generosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_runaway_night",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 13,
+    "maxAge": 18,
+    "text": "After a terrible argument at home, you pack a bag and walk out into the night.",
+    "choices": [
+      {
+        "label": "Keep walking until morning",
+        "text": "You see the city as few do: the night workers, the drunks, the bakers lighting their ovens. You go home at dawn, changed.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 2
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Turn back at the corner",
+        "text": "Your family is waiting up. Nobody says much, but something gets mended.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_mentor_death",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 13,
+    "maxAge": 22,
+    "text": "Someone who taught you a great deal dies suddenly, and leaves you a box of their things.",
+    "choices": [
+      {
+        "label": "Open it right away",
+        "text": "Inside are notes, letters and an old object wrapped in cloth. The notes alone take you a year to understand.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        }
+      },
+      {
+        "label": "Keep it closed for now",
+        "text": "You put it away until you are ready. Grief, it turns out, is also a kind of training.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "body": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_city_flood",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 10,
+    "maxAge": 25,
+    "text": "Days of rain swell the river until it spills into the low streets.",
+    "choices": [
+      {
+        "label": "Help with the sandbags",
+        "text": "You work through the night beside strangers. By morning, half of them know your name.",
+        "effects": {
+          "stats": {
+            "body": 2
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "generosity",
+          "courage"
+        ]
+      },
+      {
+        "label": "Help your own family first",
+        "text": "Your home stays dry. You hear later what happened two streets down.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "loyalty",
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_debate",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 25,
+    "text": "You are drawn into a heated argument at a public meeting, with half the room watching.",
+    "choices": [
+      {
+        "label": "Make your case",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "By the end, people are nodding at you, and someone asks your name afterwards.",
+          "effects": {
+            "stats": {
+              "charisma": 3
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "You lose the room, and your temper. You go home rehearsing what you should have said.",
+          "effects": {
+            "stats": {
+              "mind": 1
+            }
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Listen and say nothing",
+        "text": "You learn more about the room than anyone talking does.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_occult_shop",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 13,
+    "maxAge": 25,
+    "text": "A narrow shop with no name sells candles, bones and books that make your blood prickle.",
+    "choices": [
+      {
+        "label": "Buy a book",
+        "text": "Most of it is nonsense. One chapter is not.",
+        "effects": {
+          "stats": {
+            "magecraft": 2
+          },
+          "money": -10
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Ask the owner what they really sell",
+        "text": "The owner looks at you for a long time and then tells you about people in this city who are not what they seem.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          },
+          "contacts": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_wrong_crowd",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 20,
+    "text": "A group of older youths take a liking to you. They are exciting, and they are trouble.",
+    "choices": [
+      {
+        "label": "Run with them for a while",
+        "text": "You learn how the city works from underneath, and leave before it costs you anything you can't pay.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "charisma": 1
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Keep your distance",
+        "text": "They forget you within the month. You don't forget what you saw.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_long_walk",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 15,
+    "maxAge": 25,
+    "text": "You spend a summer walking from one end of the region to the other, sleeping in barns and fields.",
+    "effects": {
+      "stats": {
+        "body": 3,
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "life_bound_field_test",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 22,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "Your family asks you to raise a bounded field around the house by yourself, overnight.",
+    "choices": [
+      {
+        "label": "Do it properly",
+        "check": {
+          "stat": "magecraft",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "At dawn, a cat walks into the edge of your field and turns away, confused. Your family says nothing, which is high praise.",
+          "effects": {
+            "stats": {
+              "magecraft": 4
+            }
+          }
+        },
+        "failure": {
+          "text": "Your field collapses at midnight with a sound like a slammed door. The neighbours complain.",
+          "effects": {
+            "stats": {
+              "magecraft": 1
+            }
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Cut a few corners",
+        "text": "It holds, mostly. You learn the corners matter.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_leaving_home",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 17,
+    "maxAge": 25,
+    "text": "You move into a cramped room of your own, with a window that won't close and a door that won't lock.",
+    "effects": {
+      "stats": {
+        "body": 1,
+        "charisma": 1
+      },
+      "money": -15
+    }
+  },
+  {
+    "id": "life_borrowed_money",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 16,
+    "maxAge": 25,
+    "conditions": {
+      "minMoney": 30
+    },
+    "text": "A friend needs money urgently and swears they'll pay you back.",
+    "choices": [
+      {
+        "label": "Lend it",
+        "text": "Half a year later they pay you back with interest, and a favour you'll be able to call in.",
+        "effects": {
+          "money": 10,
+          "contacts": 1
+        },
+        "shows": [
+          "generosity",
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Refuse",
+        "text": "They manage somehow. Things are cooler between you after that.",
+        "effects": {
+          "money": 5
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_night_watchman",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 17,
+    "maxAge": 25,
+    "text": "You take a job watching an empty building at night. Most nights nothing happens. One night, something does.",
+    "choices": [
+      {
+        "label": "Investigate the noise",
+        "text": "In the basement you find a circle drawn in chalk, still warm, and footprints leading nowhere.",
+        "effects": {
+          "stats": {
+            "mind": 2,
+            "body": 1
+          },
+          "money": 15
+        },
+        "shows": [
+          "courage",
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Lock yourself in the office",
+        "text": "Morning comes. The building is fine. You never quite believe it.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          },
+          "money": 15
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_stranger_letter",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 16,
+    "maxAge": 25,
+    "text": "A letter arrives with no return address. Inside is a single line: \"The city will need you soon.\"",
+    "choices": [
+      {
+        "label": "Try to trace it",
+        "text": "The paper and ink lead you to a stationer who remembers the buyer: someone with a strange mark on the back of their hand.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Burn it",
+        "text": "It burns green. You decide not to think about that.",
+        "effects": {
+          "stats": {
+            "magecraft": 1,
+            "body": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_old_flame",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 18,
+    "maxAge": 25,
+    "text": "Someone you once cared for comes back into your life, older and changed.",
+    "choices": [
+      {
+        "label": "Give it another chance",
+        "text": "It is different this time, gentler. Whatever comes of it, you are glad.",
+        "effects": {
+          "stats": {
+            "charisma": 3
+          }
+        }
+      },
+      {
+        "label": "Let it stay in the past",
+        "text": "You part kindly. Some doors are better left closed.",
+        "effects": {
+          "stats": {
+            "mind": 1,
+            "charisma": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_mage_association",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 17,
+    "maxAge": 25,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "A polite, cold letter from the mage world's governing body summons you to an interview.",
+    "choices": [
+      {
+        "label": "Impress them",
+        "check": {
+          "stat": "magecraft",
+          "difficulty": 45
+        },
+        "success": {
+          "text": "They make a note of your name in a ledger that very few names enter.",
+          "effects": {
+            "stats": {
+              "magecraft": 2
+            },
+            "contacts": 2
+          }
+        },
+        "failure": {
+          "text": "They thank you for your time in a way that makes it clear they won't need any more of it.",
+          "effects": {
+            "stats": {
+              "mind": 1
+            }
+          }
+        },
+        "shows": [
+          "ambition"
+        ]
+      },
+      {
+        "label": "Answer only what's asked",
+        "text": "You give them nothing to hold on to, which seems to disappoint them.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution",
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_workshop_fire",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 25,
+    "conditions": {
+      "isMage": true
+    },
+    "text": "A careless experiment sets the corner of your workroom on fire.",
+    "choices": [
+      {
+        "label": "Put it out with magecraft",
+        "text": "The flames bend away from your hand. You did it, and you are shaking for an hour.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      },
+      {
+        "label": "Grab a bucket like anyone would",
+        "text": "Wet, sooty and safe. Sometimes the simple way is the right one.",
+        "effects": {
+          "stats": {
+            "body": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_feast_day",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 25,
+    "text": "The whole city turns out for a feast day, and every street smells of roasting food and smoke.",
+    "choices": [
+      {
+        "label": "Dance until morning",
+        "text": "You dance with strangers, with friends, with someone you'll never see again.",
+        "effects": {
+          "stats": {
+            "charisma": 2,
+            "body": 1
+          }
+        }
+      },
+      {
+        "label": "Watch from a rooftop",
+        "text": "From up there you see the whole city lit up, and for a moment it feels like yours.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_injury_training",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 16,
+    "maxAge": 25,
+    "text": "You push yourself too hard and injure your back. For weeks, getting out of bed is a battle.",
+    "choices": [
+      {
+        "label": "Rest properly",
+        "text": "You heal fully, and come back stronger and more careful.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      },
+      {
+        "label": "Keep going through the pain",
+        "text": "You never quite heal right, but you learn exactly how much pain you can ignore.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "mind": -1
+          }
+        },
+        "shows": [
+          "recklessness",
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
     "id": "war_shopkeeper",
     "phase": "war",
     "weight": 2,

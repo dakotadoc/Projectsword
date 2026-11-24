@@ -5,7 +5,7 @@
 // The player can skip (show everything now) at any time. With "reduce
 // motion" turned on in the device's settings, text appears instantly.
 
-const BASE_CPS = 110; // characters per second for normal narration
+const BASE_CPS = 82; // characters per second for normal narration (25% slower than the first 110)
 // Bigger, less "spoken" blocks type faster.
 const KIND_SPEED = { card: 4, effect: 2, system: 1.6, heading: 1.6, player: 3 };
 

@@ -44,7 +44,7 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
       seenEvents: [], seenRumors: [], workshop: 0, history: [],
     };
     const place = findById('places', state.world.placeId).name;
-    await playScene('warStart', { place, year: state.world.warYear });
+    await playScene('warStart', { place, year: state.world.warYear }, { gate: false });
     ui.log('The Holy Grail War', 'heading');
     ui.log(pickText(getData('war').intro, warContext(state)));
   }

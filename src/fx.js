@@ -7,6 +7,7 @@
 // All text from data goes in with textContent.
 
 import { icon, medallion, summoningCircle, CLASSES, CLASS_COLORS } from './emblems.js';
+import * as ui from './ui.js';
 
 const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 const root = () => document.getElementById('fx-root');
@@ -130,9 +131,24 @@ const SCENES = {
   },
 };
 
-export function playScene(name, data = {}) {
+// Scenes never start on their own: once the text above has finished typing,
+// a Continue button appears, and the scene plays when the player taps it.
+// { gate: false } skips that step when the tap that led here was just made
+// (e.g. choosing to be born a boy or a girl).
+export async function playScene(name, data = {}, { gate = true } = {}) {
   const make = SCENES[name];
-  if (!make || reducedMotion() || !root()) return Promise.resolve();
+  if (!make || reducedMotion() || !root()) return;
+  if (gate) await waitForTap();
+  await runScene(make, name, data);
+}
+
+function waitForTap() {
+  return ui.afterTyping().then(() => new Promise((resolve) => {
+    ui.setChoices([{ label: 'Continue', style: 'primary', onSelect: () => { ui.setChoices([]); resolve(); } }]);
+  }));
+}
+
+function runScene(make, name, data) {
   return new Promise((resolve) => {
     const { node, duration } = make(data);
     node.classList.add('fx-scene', `fx-${name}`);

@@ -79,7 +79,7 @@ export async function birthScreen({ resumed = false, goTo, autosave }) {
       onSelect: async () => {
         rollBirth(state, sex);
         const place = findById('places', state.world.placeId);
-        await playScene('birth', { year: state.master.birthYear, place: `${place.name}, ${place.country}` });
+        await playScene('birth', { year: state.master.birthYear, place: `${place.name}, ${place.country}` }, { gate: false });
         showBirth(state);
         showBirthChoices(goTo);
         await autosave();
