@@ -16,15 +16,22 @@
     </nav>
   </header>
 
-  <main class="play">
+  <main id="panel-text" class="play" role="tabpanel" aria-labelledby="tab-text">
     <section id="log" class="log" aria-live="polite" aria-label="Story"></section>
     <section id="choices" class="choices" aria-label="Choices"></section>
   </main>
+
+  <section id="panel-status" class="status-panel" role="tabpanel" aria-labelledby="tab-status" hidden></section>
 
   <footer class="statusbar">
     <span id="status" role="status"></span>
     <span id="seed"></span>
   </footer>
+
+  <nav class="tabbar" role="tablist" aria-label="View">
+    <button type="button" role="tab" id="tab-text" aria-controls="panel-text" aria-selected="true">Text</button>
+    <button type="button" role="tab" id="tab-status" aria-controls="panel-status" aria-selected="false">Status</button>
+  </nav>
 
   <div id="dialog-root"></div>
 

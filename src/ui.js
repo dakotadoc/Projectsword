@@ -287,6 +287,53 @@ export function confirmDialog(title, text, yesLabel = 'Yes', noLabel = 'Cancel')
   });
 }
 
+// ---- Tabs (Text / Status) ----
+
+const TABS = { text: 'tab-text', status: 'tab-status' };
+let currentTab = 'text';
+let savedLogScroll = 0;
+let renderStatusTab = () => {};
+
+// renderStatus(panelElement) is called each time the Status tab opens.
+export function setupTabs(renderStatus) {
+  renderStatusTab = renderStatus;
+  for (const [name, id] of Object.entries(TABS)) {
+    $(id).addEventListener('click', () => showTab(name));
+  }
+  // Left/right arrows move between tabs, as screen readers expect.
+  document.querySelector('.tabbar').addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const next = currentTab === 'text' ? 'status' : 'text';
+    showTab(next);
+    $(TABS[next]).focus();
+  });
+}
+
+export function showTab(name) {
+  if (name === currentTab) {
+    if (name === 'status') renderStatusTab($('panel-status'));
+    return;
+  }
+  const log = $('log');
+  if (currentTab === 'text') savedLogScroll = log.scrollTop;
+  currentTab = name;
+  for (const [tab, id] of Object.entries(TABS)) {
+    const selected = tab === name;
+    $(id).setAttribute('aria-selected', String(selected));
+    $(id).tabIndex = selected ? 0 : -1;
+  }
+  $('panel-text').hidden = name !== 'text';
+  $('panel-status').hidden = name !== 'status';
+  if (name === 'status') {
+    renderStatusTab($('panel-status'));
+    $('panel-status').scrollTop = 0;
+  } else {
+    log.style.scrollBehavior = 'auto';
+    log.scrollTop = savedLogScroll;
+    log.style.scrollBehavior = '';
+  }
+}
+
 // ---- Status bar ----
 
 export function setStatus(text, kind = '') {

@@ -26,6 +26,7 @@ Pillars:
 - Randomness goes through one seeded RNG function (`rng.js`), so a run can be replayed from its seed for debugging.
 - Keep files small and focused: one system per file in `/src/`.
 - Text-first UI: a scrolling log of narration, plus buttons for the current choices. Mobile-friendly.
+- **Two tabs at the bottom of the screen:** **Text** (the story log and choices) and **Status** (an overview: progress, the Master's details, stats and resources, the Servant's profile, Bond and HP, and what is known about other Masters and Servants). Status is rebuilt from `state` each time it opens (`status.js`) and, like the AI context, shows only what the player knows: unknown rival details show as "???".
 - **AI servant chat is a core feature.** The game will be published as a Claude artifact, where the page can ask Claude directly (no API key or server needed). All AI calls go through one module, `ai.js`. For local testing, `ai.js` must have a stub mode that returns canned in-character replies, so the rest of the game can be built and tested without AI access.
 - **Run locally:** from the repo folder, `python3 -m http.server`, then open http://localhost:8000. (ES modules don't load from `file://`.)
 
@@ -78,7 +79,8 @@ style.css
   servantTalk.js // conversation system (builds context, applies bond changes)
   chat.js        // the conversation screen (text box, streaming replies)
   ai.js          // the only place AI is called; real + stub modes
-  ui.js          // log, buttons, panels
+  ui.js          // log, buttons, tabs, dialogs, chat input
+  status.js      // the Status tab
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json

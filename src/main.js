@@ -17,6 +17,7 @@ import { lifeScreen } from './life.js';
 import { summonScreen } from './summon.js';
 import { chatScreen, openChat } from './chat.js';
 import { currentServant } from './servantTalk.js';
+import { renderStatus } from './status.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
@@ -43,6 +44,7 @@ async function goTo(name, { resumed = false } = {}) {
 // intro text (the log is restored from the save instead).
 async function resume() {
   const state = getState();
+  ui.showTab('text');
   ui.renderLog(state.log);
   ui.setSeedLabel(state.rng.seed);
   ui.setGameButtonsEnabled(true);
@@ -65,6 +67,7 @@ async function autosave() {
 
 async function showTitle() {
   clearState();
+  ui.showTab('text');
   ui.clearLog();
   ui.setSeedLabel('');
   ui.setGameButtonsEnabled(false);
@@ -246,6 +249,7 @@ function boot() {
   document.getElementById('btn-title').addEventListener('click', returnToTitle);
   window.addEventListener('error', (e) => ui.setStatus(`Error: ${e.message}`, 'error'));
   window.addEventListener('unhandledrejection', (e) => ui.setStatus(`Error: ${e.reason?.message || e.reason}`, 'error'));
+  ui.setupTabs((panel) => renderStatus(panel, getState()));
   loadData().then(showTitle, showDataError);
 }
 
