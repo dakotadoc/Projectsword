@@ -1,0 +1,268 @@
+[
+  {
+    "id": "arthur",
+    "trueName": "Arthur Pendragon",
+    "class": "Saber",
+    "title": "The Once and Future King",
+    "sex": "male",
+    "origin": "Britain, the age of legend (around the 5th–6th century)",
+    "appearance": "A tall man in plain, battle-worn armor and a deep blue cloak, with tired grey eyes and close-cut fair hair. He carries a sheathed sword he rarely draws.",
+    "stats": { "strength": "B", "endurance": "B", "agility": "B", "mana": "B", "luck": "B", "noblePhantasm": "A" },
+    "hp": 120,
+    "skills": [
+      { "name": "Mantle of Kingship", "rank": "B", "description": "Those who fight beside him find their courage. Steadies his Master and allies." },
+      { "name": "Knight's Tactics", "rank": "B", "description": "Reads the flow of a battle and strikes where the enemy is weakest." },
+      { "name": "Blessing of the Lake", "rank": "C", "description": "The Lady of the Lake's favor. His wounds slowly close, faster near water." }
+    ],
+    "noblePhantasm": {
+      "name": "Excalibur, Blade of the Lake",
+      "rank": "A",
+      "type": "Anti-army",
+      "description": "He raises the sword given to him by the Lady of the Lake, and its light cuts a path through an army."
+    },
+    "weakness": "His kingdom fell from within: betrayed by his queen and his best knight, killed by his own son Mordred at Camlann. An enemy who knows his name knows he hesitates against those who claim old loyalty, and that the wound from Camlann never fully closed.",
+    "personality": {
+      "tags": ["honorable", "dutiful", "reserved", "melancholy"],
+      "speechStyle": "Formal and measured, slightly old-fashioned but never theatrical. Short, considered sentences. Calls the Master 'Master' until trust is earned, then uses their name. Rarely jokes, and when he does it is very dry.",
+      "backstory": "As a boy he drew a sword from a stone that no one else could move, and became king. He united quarrelling kingdoms, drove back invaders, and gathered the finest knights at a round table where no one sat above anyone else. His reign ended in civil war: his queen Guinevere and his friend Lancelot betrayed him, and he and his son Mordred killed each other at the battle of Camlann. He was carried to the isle of Avalon, and legend says he will return when Britain needs him.",
+      "wish": "To learn whether his kingdom's fall was his own failure, and if it was, whether someone better could have ruled in his place. He is ashamed of this wish and will not admit it easily.",
+      "likes": ["simple food eaten in good company", "honest advice", "horses", "people who keep their word"],
+      "dislikes": ["cruelty to the weak", "flattery", "schemes and secrets", "being treated as a legend instead of a man"]
+    },
+    "summonText": "The circle flares white, and for a moment you smell rain on green hills. When the light fades, a tall man in plain, battered armor kneels at the center, one hand resting on the hilt of a sheathed sword. He rises, and the room suddenly feels smaller.",
+    "firstLine": "I have answered your call. Tell me your name, and tell me what you would fight for. The rest, I will judge for myself.",
+    "compatibility": {
+      "stats": { "body": 1, "charisma": 1, "mind": 0.5 },
+      "traits": { "iron_constitution": 8, "silver_tongue": 4 },
+      "families": { "old_lineage": 5 }
+    }
+  },
+  {
+    "id": "ishtar",
+    "trueName": "Ishtar",
+    "class": "Archer",
+    "title": "Queen of Heaven, Goddess of Love and War",
+    "sex": "female",
+    "origin": "Mesopotamia, worshipped in Uruk and across Sumer, Akkad, Assyria and Babylon",
+    "appearance": "A woman of overwhelming beauty, crowned with gold, draped in lapis lazuli and carnelian. An eight-pointed star shines behind her when she is angry. She carries a bow of gold.",
+    "stats": { "strength": "C", "endurance": "C", "agility": "B", "mana": "A", "luck": "D", "noblePhantasm": "A" },
+    "hp": 100,
+    "skills": [
+      { "name": "Queen of Heaven", "rank": "A", "description": "A goddess's presence. Lesser beings hesitate before striking her." },
+      { "name": "Morning and Evening Star", "rank": "B", "description": "Arrows of light from the planet that bears her name, loosed from very far away." },
+      { "name": "Capricious Favor", "rank": "B", "description": "Her blessing can lift her Master to great heights, or vanish when she is displeased." }
+    ],
+    "noblePhantasm": {
+      "name": "Gugalanna, Bull of Heaven",
+      "rank": "A",
+      "type": "Anti-city",
+      "description": "She calls down the Bull of Heaven that she once loosed on Uruk when its king refused her. It tramples everything in its path."
+    },
+    "weakness": "She once descended into the underworld and was stripped of a piece of her power at each of its seven gates, then killed. An enemy who knows her name can strip her protections one by one, and places of death and burial weaken her.",
+    "personality": {
+      "tags": ["proud", "passionate", "capricious", "vain", "generous to favorites"],
+      "speechStyle": "Grand and confident, often teasing. Swings suddenly between warmth and fury. Calls the Master 'mortal' or a pet name until she grows fond of them. Expects praise and gifts, and says so.",
+      "backstory": "Goddess of love, war, fertility and the morning star, worshipped for thousands of years. She proposed marriage to Gilgamesh, the hero-king of Uruk; he refused her and listed the terrible fates of her past lovers. In her rage she sent the Bull of Heaven against his city, but Gilgamesh and his friend Enkidu killed it. She descended into the underworld to take her sister Ereshkigal's realm, passed through seven gates losing her power at each, and was killed. She was revived only when someone else was sent down to take her place.",
+      "wish": "To be worshipped again: not as a statue in a museum, but as a living goddess. Secretly, and she would never say it, to be loved by someone who isn't afraid of her.",
+      "likes": ["gold and jewels", "lapis lazuli", "compliments", "festivals", "bold people"],
+      "dislikes": ["being refused", "cowardice", "the underworld", "Gilgamesh", "being ignored"]
+    },
+    "summonText": "The circle burns gold, then the deep blue of lapis. The air fills with cedar smoke and incense. A woman stands in the light as if she has always been standing there, wearing jewelry worth a kingdom and an expression of mild disappointment at her surroundings.",
+    "firstLine": "So this is the temple you prepared for me? ...Well. You'll improve it. You may kneel if you like. From today, you are my Master, which means I expect great things from you, and greater offerings.",
+    "compatibility": {
+      "stats": { "charisma": 1.5, "magecraft": 0.5 },
+      "traits": { "lucky": 6, "silver_tongue": 8 },
+      "families": { "old_lineage": 3 }
+    }
+  },
+  {
+    "id": "solomon",
+    "trueName": "Solomon",
+    "class": "Caster",
+    "title": "King of Wisdom",
+    "sex": "male",
+    "origin": "Kingdom of Israel, 10th century BC",
+    "appearance": "A man who seems both young and very old, dark-haired, in fine embroidered robes. A plain signet ring on his right hand catches the light more than it should.",
+    "stats": { "strength": "E", "endurance": "D", "agility": "D", "mana": "A", "luck": "B", "noblePhantasm": "A" },
+    "hp": 90,
+    "skills": [
+      { "name": "Wisdom Granted at Gibeon", "rank": "A", "description": "Wisdom given by God in a dream. Sees through lies and false appearances." },
+      { "name": "Builder of the Temple", "rank": "B", "description": "Builds strong, beautiful workshops and wards very quickly." },
+      { "name": "Speech of Birds and Beasts", "rank": "B", "description": "Understands animals, who tell him what they have seen." }
+    ],
+    "noblePhantasm": {
+      "name": "The Seal of Solomon",
+      "rank": "A",
+      "type": "Anti-unit",
+      "description": "The signet ring that, in legend, commanded demons and spirits. It binds an enemy's power, or calls the spirits who once helped build his temple."
+    },
+    "weakness": "His power is in the ring. A legend says a demon once stole it and ruled in his place while he wandered as a beggar. An enemy who knows his name knows to separate him from the ring, and that without it he is a tired old scholar.",
+    "personality": {
+      "tags": ["wise", "weary", "judicious", "poetic", "gently humorous"],
+      "speechStyle": "Calm and unhurried. Often answers a question with a proverb or with another question. Sometimes echoes his own sayings ('There is nothing new under the sun'). Gentle, dry humor. Never raises his voice.",
+      "backstory": "Son of King David and Bathsheba. When God offered him anything, he asked for wisdom instead of riches or long life, and was given all three. He judged the famous case of two women who both claimed the same baby, built the First Temple in Jerusalem, welcomed the Queen of Sheba, and wrote proverbs and songs. Later legends said he commanded demons with a ring and understood the language of animals. In old age his heart turned away from his god, and after his death his kingdom split in two.",
+      "wish": "He claims to have no wish, since everything is vanity. In truth he wants to know whether anything a person builds can last.",
+      "likes": ["riddles", "music", "gardens", "honest questions", "birdsong"],
+      "dislikes": ["arrogance", "waste", "people who mistake cleverness for wisdom", "flattery"]
+    },
+    "summonText": "The circle does not flare; it hums, a deep chord like many voices singing far away. Every candle flame bends toward the center. A man in fine robes stands there, a ring glinting on his finger, already looking at you as if he has read your whole life.",
+    "firstLine": "You are younger than I expected, and more frightened than you show. Good. Fear makes people listen. Ask me anything you like, Master, but think first about whether you want the answer.",
+    "compatibility": {
+      "stats": { "mind": 1.5, "magecraft": 1 },
+      "traits": { "prodigy": 8, "sickly": 4 },
+      "families": { "old_lineage": 2, "minor_lineage": 3 }
+    }
+  },
+  {
+    "id": "samson",
+    "trueName": "Samson",
+    "class": "Berserker",
+    "title": "Judge of Israel, the Strong",
+    "sex": "male",
+    "origin": "Israel, the age of the Judges (around the 11th century BC)",
+    "appearance": "A huge man with seven long braids of matted hair, broken chains on his wrists, and eyes scarred shut. He turns his face toward sounds with unnerving accuracy.",
+    "stats": { "strength": "EX", "endurance": "A", "agility": "C", "mana": "E", "luck": "E", "noblePhantasm": "A" },
+    "hp": 160,
+    "skills": [
+      { "name": "Nazirite's Vow", "rank": "A", "description": "Superhuman strength, for as long as his hair stays uncut." },
+      { "name": "Madness of the Judge", "rank": "B", "description": "In battle, fury overtakes him. Hits harder, thinks less." },
+      { "name": "Lion-Slayer", "rank": "B", "description": "Tore a lion apart with his bare hands. Fights unarmed as well as armed." }
+    ],
+    "noblePhantasm": {
+      "name": "Fall of the House of Dagon",
+      "rank": "A",
+      "type": "Anti-fortress",
+      "description": "He braces himself between two pillars and brings the whole building down on his enemies, and on himself. Ignores walls and wards, at great cost."
+    },
+    "weakness": "His strength lives in his uncut hair, a vow to God. An enemy who knows his name knows to bind, cut or burn it, that he trusts the wrong people, and that he is blind.",
+    "personality": {
+      "tags": ["wrathful", "impulsive", "loyal", "grieving", "devout"],
+      "speechStyle": "Short, blunt sentences, sometimes only a few words. Quick to anger, quick to laugh. Loves riddles. When his madness rises he speaks in broken fragments. Never uses fancy words. Can hold a conversation, but prefers short ones.",
+      "backstory": "Born after an angel promised a son to a woman who could not have children, he was dedicated to God from birth: no wine, and no razor on his head. He tore a lion apart with his bare hands, killed a thousand Philistines with the jawbone of a donkey, and carried away a city's gates on his shoulders. He loved Delilah, who was paid to learn the secret of his strength; she had his hair cut while he slept. The Philistines blinded him and set him to grind grain in prison. At a great feast in the temple of their god Dagon, his hair grown back, he pushed apart the pillars and died with his enemies.",
+      "wish": "To see again, just once. And to have been able to trust Delilah. He does not say her name easily.",
+      "likes": ["honey", "riddles", "feasts", "honest fights", "the sound of rain"],
+      "dislikes": ["scissors and razors", "being mocked", "chains", "lies", "being led by the hand"]
+    },
+    "summonText": "The circle shakes the floor. Something heavy slams down at its center, cracking the stone. A huge man with long, braided hair crouches there, broken chains hanging from his wrists. His eyes are scarred shut, but his face turns straight toward the sound of your breathing.",
+    "firstLine": "You. You called me? ...Good. Point me at them. Not you. Them.",
+    "compatibility": {
+      "stats": { "body": 1.5 },
+      "traits": { "iron_constitution": 8, "black_sheep": 6 },
+      "families": { "non_mage": 3, "fallen_lineage": 3 }
+    }
+  },
+  {
+    "id": "hector",
+    "trueName": "Hector",
+    "class": "Lancer",
+    "title": "Prince of Troy, Tamer of Horses",
+    "sex": "male",
+    "origin": "Troy, the Bronze Age (the Trojan War)",
+    "appearance": "A broad-shouldered man in bronze armor with a tall horsehair-crested helmet, which he takes off when talking to friends. Kind, tired eyes and a soldier's easy stance.",
+    "stats": { "strength": "B", "endurance": "A", "agility": "B", "mana": "D", "luck": "D", "noblePhantasm": "B" },
+    "hp": 130,
+    "skills": [
+      { "name": "Bulwark of Troy", "rank": "A", "description": "Held a city for ten years. Strong defense, especially when protecting someone." },
+      { "name": "Tactician of the Long War", "rank": "B", "description": "A veteran commander. Good at choosing where and when to fight." },
+      { "name": "Tamer of Horses", "rank": "C", "description": "Fights well from a chariot or on horseback, and calms any animal." }
+    ],
+    "noblePhantasm": {
+      "name": "Fire on the Black Ships",
+      "rank": "B",
+      "type": "Anti-army",
+      "description": "The charge in which he broke through the Greek wall and set fire to their ships. A spear-throw that bursts into flame and spreads through an army."
+    },
+    "weakness": "Achilles killed him after a goddess, disguised as his brother, promised to fight beside him and then vanished. An enemy who knows his name knows he will stand and fight to protect others when he should run, and that a trusted ally's betrayal breaks him.",
+    "personality": {
+      "tags": ["honorable", "protective", "dutiful", "warm", "fatalistic"],
+      "speechStyle": "Warm and down-to-earth, like an older brother. Practical advice, very little boasting. Talks about his wife and son with open love. Tells hard truths kindly.",
+      "backstory": "Eldest son of King Priam and the greatest warrior of Troy. He never wanted the war his brother Paris started by taking Helen, but he fought it for ten years to protect his city. He said goodbye to his wife Andromache and baby son Astyanax on the city walls, knowing he might not come back. He killed Patroclus, the dearest friend of Achilles, and Achilles killed him in revenge before the gates and dragged his body around the city. His old father crept into the enemy camp at night to beg for the body back.",
+      "wish": "That his wife and son had lived. After his death Troy fell, his son was thrown from the walls, and Andromache was taken as a slave.",
+      "likes": ["family", "horses", "quiet evenings", "fair fights", "people who protect others"],
+      "dislikes": ["heroes who fight only for glory", "war for its own sake", "cruelty to the dead", "being remembered only as the man who lost"]
+    },
+    "summonText": "Bronze light spills from the circle, and faintly you hear a city under siege: horns, horses, the sea. A broad-shouldered man in a crested helmet stands at the center, his spear grounded. He takes off the helmet carefully, the way a father does so as not to frighten a child.",
+    "firstLine": "There. No need to look so pale, I'm on your side. I'm a soldier, and I know what it is to defend a city. Tell me what we're protecting, and I'll tell you how.",
+    "compatibility": {
+      "stats": { "body": 1, "charisma": 1 },
+      "traits": { "iron_constitution": 5 },
+      "families": { "minor_lineage": 3, "fallen_lineage": 2 }
+    }
+  },
+  {
+    "id": "cleopatra",
+    "trueName": "Cleopatra VII Philopator",
+    "class": "Assassin",
+    "title": "Last Queen of Egypt",
+    "sex": "female",
+    "origin": "Ptolemaic Egypt, 1st century BC",
+    "appearance": "A small, composed woman with sharp dark eyes and a scholar's ink-stained fingers, dressed in fine linen. A golden bracelet shaped like a coiled snake circles her wrist.",
+    "stats": { "strength": "D", "endurance": "D", "agility": "B", "mana": "B", "luck": "C", "noblePhantasm": "B" },
+    "hp": 95,
+    "skills": [
+      { "name": "Tongue of Nine Nations", "rank": "A", "description": "Speaks to almost anyone in their own language, and earns their trust." },
+      { "name": "Queen's Intrigue", "rank": "A", "description": "Gathers secrets and turns enemies against one another." },
+      { "name": "Venom of the Asp", "rank": "B", "description": "Poisons that act slowly, quietly and surely." }
+    ],
+    "noblePhantasm": {
+      "name": "The Pearl Dissolved in Wine",
+      "rank": "B",
+      "type": "Anti-unit",
+      "description": "To win a wager with Mark Antony, she dissolved a priceless pearl and drank it. She spends her Master's money to buy an overwhelming advantage, all at once."
+    },
+    "weakness": "She chose death by the asp's bite over being paraded through Rome in chains. An enemy who knows her name knows she is no warrior in open battle, that she will choose death over humiliation, and that cold, patient enemies like Octavian beat her.",
+    "personality": {
+      "tags": ["brilliant", "calculating", "charming", "proud", "scholarly"],
+      "speechStyle": "Polished, witty and precise. Slips a word of Greek, Egyptian or Latin into her speech now and then. Always several steps ahead, and asks probing questions. Warm when it serves her, and sometimes when it doesn't.",
+      "backstory": "The last active ruler of the Ptolemaic kingdom of Egypt, a Macedonian Greek dynasty, and the first of her family to learn the Egyptian language. She spoke many languages, studied science and philosophy, and ruled through famine and civil war. She allied with Julius Caesar and bore him a son, Caesarion, then allied with Mark Antony against Caesar's heir Octavian. After their defeat at Actium, Antony died in her arms, and she took her own life, by tradition with the bite of an asp, rather than be led through Rome as a prisoner.",
+      "wish": "That Egypt had stayed free, and that her son Caesarion had lived to rule. She is far too proud to let the wish sound sentimental.",
+      "likes": ["libraries", "mathematics", "perfume", "clever conversation", "cats"],
+      "dislikes": ["Roman arrogance", "being underestimated", "being remembered as a seductress instead of a ruler", "Octavian", "crude men"]
+    },
+    "summonText": "The circle glows the soft gold of lamplight on water. A breath of perfume, myrrh and something sharper, reaches you before anything else. A small, composed woman sits in the circle as though on a throne, one hand resting on a golden bracelet shaped like a snake. She is already studying the room.",
+    "firstLine": "Four doors, one window, no guards. You will need better security, Master. Sit down and tell me everything: who your enemies are, who your friends are, and which of them you are wrong about.",
+    "compatibility": {
+      "stats": { "mind": 1, "charisma": 1.5 },
+      "traits": { "silver_tongue": 8, "black_sheep": 3 },
+      "families": { "old_lineage": 3, "fallen_lineage": 3 }
+    }
+  },
+  {
+    "id": "constantine",
+    "trueName": "Constantine XI Palaiologos",
+    "class": "Rider",
+    "title": "Last Emperor of the Romans",
+    "sex": "male",
+    "origin": "Constantinople, Eastern Roman (Byzantine) Empire, 15th century",
+    "appearance": "A lean, grey-bearded man in worn armor under a faded purple cloak, riding a grey warhorse. He bows like a courtier and stands like a soldier.",
+    "stats": { "strength": "C", "endurance": "B", "agility": "C", "mana": "C", "luck": "E", "noblePhantasm": "A" },
+    "hp": 125,
+    "skills": [
+      { "name": "Last of the Caesars", "rank": "A", "description": "The authority of a thousand-year empire. Inspires anyone defending something they love." },
+      { "name": "Defender of the City", "rank": "B", "description": "Makes any base, workshop or wall far harder to break." },
+      { "name": "Unyielding", "rank": "B", "description": "Fights harder the more hopeless things become." }
+    ],
+    "noblePhantasm": {
+      "name": "The Emperor Casts Off His Purple",
+      "rank": "A",
+      "type": "Anti-army",
+      "description": "In the final hour, he threw away his imperial insignia and charged into the enemy as an ordinary soldier. He gives up all defense for one overwhelming charge on horseback."
+    },
+    "weakness": "His city fell and he died with it. An enemy who knows his name knows he will never abandon a place he has sworn to defend, even when retreat would save him, and that a single small gate left unguarded once undid all his walls.",
+    "personality": {
+      "tags": ["dutiful", "stubborn", "devout", "gentle", "unbowed"],
+      "speechStyle": "Courteous and sincere, a little formal, with the tired humor of a man who has run out of good options many times. Speaks of his city with deep love. Never despairs out loud.",
+      "backstory": "The last emperor of the Eastern Roman Empire, ruling a city that had shrunk to little more than its great walls. He tried everything, from appeals to the West to church union and diplomacy, while the young Sultan Mehmed II prepared to take Constantinople. In 1453, with about seven thousand defenders against an army of tens of thousands, he refused every offer to surrender or flee. On the last day, as the walls were breached, he threw off his imperial insignia and charged into the fighting. His body was never found, and legend says he sleeps, turned to marble, waiting to return.",
+      "wish": "That the city had not fallen, or, if it had to, that its people had been spared the sack.",
+      "likes": ["his city", "prayer", "his fellow soldiers", "history", "small kindnesses"],
+      "dislikes": ["surrender", "empty promises from allies", "abandoning anyone", "despair"]
+    },
+    "summonText": "Hooves strike stone. The circle fills with smoke and sea air, and far off, bells ring an alarm. A man in worn armor sits on a grey warhorse that barely fits in the room, a faded purple cloak on his shoulders. He dismounts and bows to you, as one ruler to another.",
+    "firstLine": "I am told there is a war here, and a city to defend. Good. I have some experience at that, though not, I admit, a perfect record. Shall we try to improve it together?",
+    "compatibility": {
+      "stats": { "charisma": 1, "mind": 0.5, "body": 0.5 },
+      "traits": { "black_sheep": 3 },
+      "families": { "fallen_lineage": 8, "minor_lineage": 2 }
+    }
+  }
+]
