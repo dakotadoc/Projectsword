@@ -408,6 +408,30 @@ button:disabled { opacity: 0.45; cursor: default; }
 }
 .dialog-textarea { min-height: 160px; resize: vertical; }
 .dialog-input { font: 16px/1.4 var(--sans); min-height: 44px; }
+
+/* Forms in dialogs (custom run, debug menu) */
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; margin-bottom: 12px; }
+.form-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.form-wide { grid-column: 1 / -1; margin-bottom: 12px; }
+.form-label { font: 600 12px/1.2 var(--sans); color: var(--muted); letter-spacing: 0.02em; }
+.form-input {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font: 16px/1.3 var(--sans);
+}
+.form-input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+select.form-input option { background: var(--panel-solid); color: var(--ink); }
+.form-checks { display: flex; flex-direction: column; gap: 6px; }
+.form-check { display: flex; align-items: center; gap: 10px; font: 15px/1.3 var(--sans); min-height: 32px; }
+.form-check input { width: 20px; height: 20px; accent-color: var(--seal-hi); }
+.form-heading { margin: 16px 0 8px; font: 600 19px/1.2 var(--serif); color: var(--gold); }
+.form-heading:first-child { margin-top: 0; }
+.dialog:has(.form-grid) .dialog-actions { position: sticky; bottom: -20px; padding: 12px 0 4px; margin-bottom: -4px; background: var(--panel-solid); }
 .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 
 .noscript { padding: 20px; }

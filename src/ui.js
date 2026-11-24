@@ -417,6 +417,7 @@ export function setSeedLabel(seed) {
 export function setGameButtonsEnabled(enabled) {
   $('btn-export').disabled = !enabled;
   $('btn-title').disabled = !enabled;
+  $('btn-debug').disabled = !enabled;
 }
 
 // ---- Skipping text ----

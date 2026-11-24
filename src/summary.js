@@ -15,6 +15,10 @@ export function buildSummary(state) {
   const war = state.war;
   const days = getData('rules').war.days;
   const lines = ['Your war'];
+  if (state.custom || state.debugUsed) {
+    const note = [state.custom ? 'a custom run' : null, state.debugUsed ? 'edited with the debug menu' : null].filter(Boolean).join(', ');
+    lines.push(`${note.charAt(0).toUpperCase()}${note.slice(1)}.`);
+  }
 
   // Life
   lines.push(`${m.name}, born in ${place.name}, ${place.country}, in ${m.birthYear}. ${family.name}. Trait: ${trait.name}.`);

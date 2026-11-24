@@ -22,6 +22,8 @@ import { endingScreen } from './ending.js';
 import { renderStatus } from './status.js';
 import { updateChrome } from './hud.js';
 import { icon, medallion, summoningCircle, CLASSES } from './emblems.js';
+import { openCustomRun } from './custom.js';
+import { openDebug } from './debug.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
@@ -91,6 +93,7 @@ async function showTitle() {
   choices.push(
     { label: 'New game', style: saved ? '' : 'primary', onSelect: () => startNewGame() },
     { label: 'New game from a seed', onSelect: askForSeed },
+    { label: 'Custom run', hint: 'Choose your birth by hand', onSelect: () => openCustomRun(({ seed, custom }) => startNewGame(seed, custom)) },
     { label: 'Import a save', onSelect: openImport },
   );
   ui.setChoices(choices);
@@ -106,7 +109,8 @@ async function continueGame() {
   await resume();
 }
 
-async function startNewGame(seed) {
+// custom: choices from the custom run form (custom.js), or undefined.
+async function startNewGame(seed, custom) {
   if (await hasSave()) {
     const ok = await ui.confirmDialog(
       'Start a new game?',
@@ -116,6 +120,7 @@ async function startNewGame(seed) {
     if (!ok) return;
   }
   const state = newState(seed);
+  if (custom) state.custom = custom;
   ui.clearLog();
   ui.setSeedLabel(state.rng.seed);
   ui.setGameButtonsEnabled(true);
@@ -150,6 +155,17 @@ function askForSeed() {
       },
     ],
   });
+}
+
+// ---- Debug ----
+
+// After the debug menu changes the run: save, and redraw the summoning
+// choices if the catalysts changed there. Other screens read the new values
+// the next time they need them; the HUD and Status update on their own.
+async function afterDebug() {
+  const state = getState();
+  await autosave();
+  if (state.screen === 'summon' && !state.servant) await goTo('summon', { resumed: true });
 }
 
 // ---- Export / import ----
@@ -240,6 +256,7 @@ function boot() {
   document.getElementById('btn-export').addEventListener('click', openExport);
   document.getElementById('btn-import').addEventListener('click', openImport);
   document.getElementById('btn-title').addEventListener('click', returnToTitle);
+  document.getElementById('btn-debug').addEventListener('click', () => openDebug(afterDebug));
   window.addEventListener('error', (e) => ui.setStatus(`Error: ${e.message}`, 'error'));
   window.addEventListener('unhandledrejection', (e) => ui.setStatus(`Error: ${e.reason?.message || e.reason}`, 'error'));
   ui.setupTabs((panel) => renderStatus(panel, getState()));

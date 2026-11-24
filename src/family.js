@@ -73,7 +73,15 @@ export function birthReaction(state, ctx) {
   const ok = texts.filter((t) => fits(t, ctx));
   const text = ok.length ? fillFamily(weightedPick(ok).text, state, ctx) : null;
   const family = findById('families', state.master.familyId);
-  const effects = family.isMage ? cfg().reactionEffects[fam.standing] : null;
+  let effects = family.isMage ? cfg().reactionEffects[fam.standing] : null;
+  // In a custom run, values typed by hand stay exactly as typed (custom.js).
+  const c = state.custom;
+  if (effects && c) {
+    effects = JSON.parse(JSON.stringify(effects));
+    if (Number.isFinite(c.money)) delete effects.money;
+    if (Number.isFinite(c.contacts)) delete effects.contacts;
+    for (const k of Object.keys(c.stats || {})) delete effects.stats?.[k];
+  }
   const lines = applyEffects(state, effects, ctx);
   return { text, lines };
 }

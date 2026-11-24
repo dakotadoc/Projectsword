@@ -92,6 +92,9 @@ style.css
   fx.js          // full-screen animated scenes and day/night banners
   hud.js         // the war HUD strip and the page theme (phase, day/night)
   family.js      // circuit reactions, siblings, the heir decision, war preparations
+  custom.js      // the custom run form (choose your birth by hand)
+  debug.js       // the debug menu (edit the current run)
+  forms.js       // small form builders for dialogs
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json
@@ -351,6 +354,10 @@ Keep the AI rule-based and readable. No complex simulation.
   - **New event conditions:** `standing` (list of bands), `hasSibling`, `siblingRival`, `heir` (true/false). `{sibling}` and `{siblingRelation}` fill in the sibling's given name and "brother"/"sister".
   - **War preparations:** effect `"prep": { "workshop", "intel", "manaMax" }` in family events. When the war begins, the workshop starts at that level, the family's intelligence reveals something about that many rivals, and max mana rises.
   - **Family events:** 23 life events (old lineage: ledger comparisons, the war chronicle, war drills, a workshop wing, the overheard heir talk, a betrothal; minor: a patron, war savings; fallen: the locked room, the last heirloom, an old debt; non-mage: a strange child, a witch ancestor; siblings: hideout, bullies, a quarrel, a promise), plus 5 war events (a letter from the rival sibling, a glimpse in the street, the remembered promise, supplies for the heir, a letter for the passed-over Master).
+- **Custom runs and the debug menu (milestone 12):**
+  - **Custom run** (title menu): a form where the player can choose the seed, name, boy or girl, birthplace, birth year (1880–2007), age at the war, family, trait, circuit quantity and quality, the four stats, money, contacts and starting catalysts. Anything left blank is rolled. The choices are stored as `state.custom` and passed to `rollBirth`; the run then starts at birth as usual (the sex question is skipped). A custom birth year sets the war year (birth year + war age) and the era is the one that year falls in (or the nearest). The war year is kept within the eras' range (1905–2025): ages that would break it are refused, and an unchosen age is rolled among the valid ones. Typed values stay exact: the family's circuit reaction doesn't add to stats, money or contacts set by hand. With no custom choices, `rollBirth` makes exactly the same rolls as before, so old seeds are unchanged.
+  - **Debug menu** (Debug button in the top bar, in every run): edit the four stats, money, contacts, mana and max mana, Command Seals, the Master's HP, the Servant's Bond and HP, the catalysts held, and reveal everything about every rival. Values are validated before anything is written; changes are noted in the story log ("Debug: …") and saved. At the summoning, the catalyst choices are redrawn. `state.debugUsed` marks the run.
+  - The run summary notes a custom run and/or use of the debug menu.
 - **Circuit ranks** are rolled from each family's `circuitWeights`, which form a bell curve: C is the most common rank, and each step away from it is rarer (overall about E 7%, D 21%, C 47%, B 18%, A 6%, EX 1%). The family only shifts the curve a little (old lineages toward B, non-mages toward D). Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
