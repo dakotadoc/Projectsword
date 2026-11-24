@@ -5,11 +5,31 @@
     "busy": "Chat is busy right now. {name} answers briefly; try again in a little while for a real reply."
   },
   "bondBands": [
-    { "min": 0, "label": "wary", "guidance": "You barely know this Master. You are guarded, test them, and keep personal matters to yourself." },
-    { "min": 20, "label": "cautious", "guidance": "You are starting to form an opinion of this Master. You are civil and sometimes open up a little, but you still hold back." },
-    { "min": 40, "label": "trusting", "guidance": "You trust this Master. You speak freely, joke in your own way, and will share some of your past if asked." },
-    { "min": 60, "label": "close", "guidance": "You care about this Master. You speak openly about your past, your regrets and your wish." },
-    { "min": 80, "label": "devoted", "guidance": "This Master is someone you would die for. You hold nothing back, and tell them things you have told no one." }
+    {
+      "min": 0,
+      "label": "wary",
+      "guidance": "You barely know this Master. You are reserved about your own past and feelings, but you are cooperative and go along with what they ask."
+    },
+    {
+      "min": 20,
+      "label": "cautious",
+      "guidance": "You are starting to form an opinion of this Master. You are friendly enough, cooperative, and sometimes open up a little about yourself."
+    },
+    {
+      "min": 40,
+      "label": "trusting",
+      "guidance": "You trust this Master. You speak freely, joke in your own way, and will share some of your past if asked."
+    },
+    {
+      "min": 60,
+      "label": "close",
+      "guidance": "You care about this Master. You speak openly about your past, your regrets and your wish."
+    },
+    {
+      "min": 80,
+      "label": "devoted",
+      "guidance": "This Master is someone you would die for. You hold nothing back, and tell them things you have told no one."
+    }
   ],
   "servants": {
     "arthur": {
@@ -25,7 +45,10 @@
         "Saint David's teeth, you don't make anything easy. Good. Easy things are usually traps.",
         "I'll tell you what I told my knights: say what you mean, and I'll do the same."
       ],
-      "farewells": ["Go on, then. Get some rest. I'll keep watch.", "Good talk. Don't make it the last one."]
+      "farewells": [
+        "Go on, then. Get some rest. I'll keep watch.",
+        "Good talk. Don't make it the last one."
+      ]
     },
     "ishtar": {
       "greetings": [
@@ -40,7 +63,10 @@
         "You're bolder than you look. I approve, a little.",
         "I've heard prayers more eloquent than that, but not many more sincere."
       ],
-      "farewells": ["You may go. Think of me while you're away.", "Leave, before I start to like you."]
+      "farewells": [
+        "You may go. Think of me while you're away.",
+        "Leave, before I start to like you."
+      ]
     },
     "solomon": {
       "greetings": [
@@ -55,10 +81,17 @@
         "Hm. I once judged a harder case than this, and the answer was simpler than anyone expected.",
         "Patience is better than pride. Let us not decide this tonight."
       ],
-      "farewells": ["Go in peace. Sleep, if you can.", "Think on it. Wisdom keeps until morning."]
+      "farewells": [
+        "Go in peace. Sleep, if you can.",
+        "Think on it. Wisdom keeps until morning."
+      ]
     },
     "samson": {
-      "greetings": ["You. Talk.", "Mm. You came. Good.", "Speak. I'm listening. I hear everything."],
+      "greetings": [
+        "You. Talk.",
+        "Mm. You came. Good.",
+        "Speak. I'm listening. I hear everything."
+      ],
       "replies": [
         "Hah. Good.",
         "Riddle me something, Master. Words are cheap. Riddles cost.",
@@ -66,7 +99,10 @@
         "Out of the strong came something sweet. Remember that.",
         "Hm. Fine. Who do I hit?"
       ],
-      "farewells": ["Go. I'll be here.", "Enough talk. Rest."]
+      "farewells": [
+        "Go. I'll be here.",
+        "Enough talk. Rest."
+      ]
     },
     "hector": {
       "greetings": [
@@ -81,7 +117,10 @@
         "Hah. Fair point. I'll remember that.",
         "Let's take it one day at a time. That's how you hold a city."
       ],
-      "farewells": ["Get some sleep. I'll keep watch on the walls.", "Good talk, Master. Same time tomorrow."]
+      "farewells": [
+        "Get some sleep. I'll keep watch on the walls.",
+        "Good talk, Master. Same time tomorrow."
+      ]
     },
     "cleopatra": {
       "greetings": [
@@ -96,7 +135,10 @@
         "Hm. I'll remember you said that. I remember everything.",
         "Never show the enemy what you want. Show them what you want them to think you want."
       ],
-      "farewells": ["You are dismissed. Graciously.", "Go and rest. I will be thinking."]
+      "farewells": [
+        "You are dismissed. Graciously.",
+        "Go and rest. I will be thinking."
+      ]
     },
     "constantine": {
       "greetings": [
@@ -111,7 +153,10 @@
         "My city taught me patience. Five hundred years of walls will do that.",
         "Let us not give up just yet. I have a reputation to keep."
       ],
-      "farewells": ["Rest well, Master. God keep you.", "Go on. I'll see to the doors."]
+      "farewells": [
+        "Rest well, Master. God keep you.",
+        "Go on. I'll see to the doors."
+      ]
     }
   }
 }

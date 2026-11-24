@@ -26,6 +26,7 @@ Pillars:
 - Randomness goes through one seeded RNG function (`rng.js`), so a run can be replayed from its seed for debugging.
 - Keep files small and focused: one system per file in `/src/`.
 - Text-first UI: a scrolling log of narration, plus buttons for the current choices. Mobile-friendly.
+- **All new text types itself out** (`typer.js`), including streamed AI replies, which are smoothed out rather than shown in lumps. Choice buttons stay dimmed until the text above them finishes. Tapping the story (or the dimmed choices), or pressing Space, shows everything at once. Big cards type faster. Loading a save shows the log instantly, and "reduce motion" in device settings turns typing off. All log text must go through `ui.log` or `ui.beginEntry` so it types.
 - **Two tabs at the bottom of the screen:** **Text** (the story log and choices) and **Status** (an overview: progress, the Master's details, stats and resources, the Servant's profile, Bond and HP, and what is known about other Masters and Servants). Status is rebuilt from `state` each time it opens (`status.js`) and, like the AI context, shows only what the player knows: unknown rival details show as "???".
 - **AI servant chat is a core feature.** The game will be published as a Claude artifact, where the page can ask Claude directly (no API key or server needed). All AI calls go through one module, `ai.js`. For local testing, `ai.js` must have a stub mode that returns canned in-character replies, so the rest of the game can be built and tested without AI access.
 - **Run locally:** from the repo folder, `python3 -m http.server`, then open http://localhost:8000. (ES modules don't load from `file://`.)
@@ -80,6 +81,7 @@ style.css
   chat.js        // the conversation screen (text box, streaming replies)
   ai.js          // the only place AI is called; real + stub modes
   ui.js          // log, buttons, tabs, dialogs, chat input
+  typer.js       // typewriter effect for new text
   status.js      // the Status tab
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
@@ -259,6 +261,7 @@ Keep the AI rule-based and readable. No complex simulation.
   - The Servant greets with a prepared line from `dialogue.json` (no AI call). Prepared lines are picked by rotation, not the game RNG, so chatting never changes a seeded run.
   - Fallbacks: test mode, offline and busy each show a one-line notice, and the Servant answers with prepared lines.
   - Model tiers are in `rules.chat` (`quick` for both: fast replies on a phone). Switch `replyModelTier` to `default` for richer but slower replies.
+  - **Servants are agreeable roleplay partners.** They go along with the player's scenes, ideas and actions ("yes, and"), showing personality in how they agree rather than by refusing, and accept details the player adds about the world or their own life. They refuse only what the character would truly never do. Knowledge limits still hold: nothing about rivals beyond known intel (claims about rivals are treated as the Master's beliefs) and nothing after the current year. Low Bond means reserved, not uncooperative.
   - Free talks: one right after the summoning. In the war, talking uses the Day action (milestone 6).
   - Arthur's `secretName` is only put in the context once Bond reaches its `revealAtBond`.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.

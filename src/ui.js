@@ -6,68 +6,100 @@
 // AI replies later) can't inject markup.
 
 import { addLogEntry } from './state.js';
+import * as typer from './typer.js';
 
 const $ = (id) => document.getElementById(id);
 
 // ---- Log ----
 
-// kind: 'narration' (default), 'heading', 'system', 'roll'
-// The first entry added since the player last got choices. When new choices
-// appear, the log scrolls so this entry is at the top: the player reads the
-// new text from its start, however long it is.
-let firstUnread = null;
+// kind: 'narration' (default), 'heading', 'system', 'roll', 'card',
+// 'effect', 'speech', 'player'.
+//
+// New text types itself out (typer.js). The log follows the text being
+// typed, but never scrolls past the first line of the current "batch" (the
+// text produced since the player last acted), so a long passage is read
+// from its start. Tapping the log, or pressing Space, shows everything.
+
+let batchStart = null; // first entry of the current batch
+let newBatch = true; // the next logged entry starts a new batch
 
 export function log(text, kind = 'narration') {
   addLogEntry(text, kind);
-  const entry = makeEntry({ text, kind });
+  const entry = makeEntry({ text: '', kind });
   $('log').append(entry);
-  firstUnread ??= entry;
+  markBatch(entry);
+  typer.type(entry, text, kind);
 }
 
 export function renderLog(entries) {
+  typer.clear();
   $('log').replaceChildren(...entries.map(makeEntry));
-  firstUnread = null;
+  batchStart = null;
+  newBatch = true;
   const el = $('log');
-  el.style.scrollBehavior = 'auto';
   el.scrollTop = el.scrollHeight;
-  el.style.scrollBehavior = '';
 }
 
 export function clearLog() {
+  typer.clear();
   $('log').replaceChildren();
-  firstUnread = null;
+  batchStart = null;
+  newBatch = true;
 }
 
 // A log entry whose text arrives bit by bit (a streamed AI reply).
-// Shows a placeholder, update(text) replaces the text as it grows, and
-// commit(text) saves the final version to the log in state.
+// Shows a placeholder, update(text) gives the text so far, and
+// commit(text) gives the final text and saves it to the log in state.
 export function beginEntry(kind, placeholder = '…') {
   const entry = makeEntry({ text: placeholder, kind });
   entry.classList.add('entry-pending');
   $('log').append(entry);
-  keepInView(entry);
+  markBatch(entry);
+  const job = typer.type(entry, '', kind, { open: true });
+  follow(entry);
   return {
     update(text) {
-      entry.textContent = text;
-      keepInView(entry);
+      job.setTarget(text);
     },
     commit(text) {
-      entry.textContent = text;
-      entry.classList.remove('entry-pending');
+      job.close(text);
       addLogEntry(text, kind);
-      keepInView(entry);
     },
   };
 }
 
-// Scroll so the end of `entry` is visible, but never past its start.
-function keepInView(entry) {
-  const el = $('log');
-  const bottom = el.scrollHeight - el.clientHeight;
-  const entryTop = entry.offsetTop - 16;
-  el.scrollTop = Math.min(bottom, Math.max(entryTop, el.scrollTop));
-  firstUnread = null;
+// Show all text that is still being typed.
+export function skipTyping() {
+  typer.skip();
 }
+
+function markBatch(entry) {
+  if (newBatch) {
+    batchStart = entry;
+    newBatch = false;
+  }
+}
+
+// Keep the bottom of `node` in view, without scrolling past the start of
+// the current batch, and never scrolling back up.
+function follow(node) {
+  const el = $('log');
+  if (!node?.isConnected || el.offsetParent === null) return; // tab hidden
+  const wanted = node.offsetTop + node.offsetHeight + 12 - el.clientHeight;
+  let limit = Infinity;
+  if (batchStart?.isConnected) {
+    const gap = parseFloat(getComputedStyle(batchStart).marginTop) || 0;
+    limit = batchStart.offsetTop - gap - 8; // .log is position: relative
+  }
+  const target = Math.min(wanted, limit);
+  if (target > el.scrollTop) el.scrollTop = target;
+}
+
+function followLast() {
+  follow($('log').lastElementChild);
+}
+
+typer.setFollow(follow);
 
 function makeEntry({ text, kind }) {
   const p = document.createElement('p');
@@ -76,15 +108,23 @@ function makeEntry({ text, kind }) {
   return p;
 }
 
-function scrollToUnread() {
-  const el = $('log');
-  if (firstUnread?.isConnected) {
-    const gap = parseFloat(getComputedStyle(firstUnread).marginTop) || 0;
-    el.scrollTop = firstUnread.offsetTop - gap - 8; // .log is position: relative
-  } else {
-    el.scrollTop = el.scrollHeight;
+// Buttons wait (dimmed) until the text above them has finished typing.
+// Tapping the dimmed area skips the typing.
+function holdUntilTyped(box, controls) {
+  if (!typer.isBusy()) {
+    requestAnimationFrame(followLast);
+    return;
   }
-  firstUnread = null;
+  box.classList.add('waiting');
+  const wasDisabled = controls.map((c) => c.disabled);
+  controls.forEach((c) => (c.disabled = true));
+  typer.whenIdle(() => {
+    box.classList.remove('waiting');
+    controls.forEach((c, i) => {
+      if (c.isConnected) c.disabled = wasDisabled[i];
+    });
+    requestAnimationFrame(followLast);
+  });
 }
 
 // ---- Choices ----
@@ -93,8 +133,7 @@ function scrollToUnread() {
 // Clicking one disables all until onSelect finishes (no double actions).
 export function setChoices(choices) {
   const box = $('choices');
-  // Wait a frame so the choices' height is known before scrolling the log.
-  requestAnimationFrame(scrollToUnread);
+  newBatch = true; // whatever is logged after the player acts is a new batch
   const buttons = choices.map((choice) => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -121,6 +160,7 @@ export function setChoices(choices) {
     return btn;
   });
   box.replaceChildren(...buttons);
+  holdUntilTyped(box, buttons);
 }
 
 // ---- Chat input ----
@@ -130,7 +170,8 @@ export function setChoices(choices) {
 // they run. Returns { focus(), setEnabled(bool), setPlaceholder(text) }.
 export function setChatInput({ placeholder, maxLength = 400, onSend, onEnd, endLabel = 'End conversation', canSend = true }) {
   const box = $('choices');
-  requestAnimationFrame(scrollToUnread);
+  newBatch = true;
+  requestAnimationFrame(followLast);
 
   const form = document.createElement('form');
   form.className = 'chat-form';
@@ -172,6 +213,7 @@ export function setChatInput({ placeholder, maxLength = 400, onSend, onEnd, endL
     const text = input.value.trim();
     if (!text || busy || !sendable) return;
     input.value = '';
+    newBatch = true; // follow the reply from this message on
     setBusy(true);
     try {
       await onSend(text);
@@ -350,3 +392,20 @@ export function setGameButtonsEnabled(enabled) {
   $('btn-export').disabled = !enabled;
   $('btn-title').disabled = !enabled;
 }
+
+// ---- Skipping text ----
+
+// Tap the story, or the dimmed choices, to show all text at once. Space does
+// the same when not typing in a text box.
+$('log').addEventListener('click', () => typer.skip());
+// Capture phase: check "waiting" BEFORE a button's own handler runs, or the
+// click that picks a choice (which starts new text) would also skip it.
+$('choices').addEventListener('click', (e) => {
+  if (e.currentTarget.classList.contains('waiting')) typer.skip();
+}, { capture: true });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== ' ' || !typer.isBusy()) return;
+  if (e.target.closest?.('input, textarea, button, [contenteditable]')) return;
+  e.preventDefault();
+  typer.skip();
+});
