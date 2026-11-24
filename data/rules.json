@@ -79,6 +79,12 @@
     "nearDeathFraction": 0.25
   },
 
+  "checks": { "base": 0.55, "perPoint": 0.012, "min": 0.1, "max": 0.95, "valueBond": 2 },
+  "lifeWorkPerYear": [8, 18],
+  "warWork": [30, 60],
+  "servantEventAtDawn": 0.25,
+  "spendTimeBond": 1,
+
   "chat": {
     "maxPlayerMessages": 8,
     "maxMessageLength": 400,

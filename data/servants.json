@@ -111,7 +111,17 @@
       "revealAtBond": 80,
       "description": "Her birth name, which she has not spoken since the day she took the sword. She tells it only to a Master she trusts completely."
     },
-    "betrayalBond": -5
+    "betrayalBond": -5,
+    "values": [
+      "courage",
+      "honesty",
+      "mercy",
+      "loyalty"
+    ],
+    "scorns": [
+      "cruelty",
+      "cunning"
+    ]
   },
   {
     "id": "ishtar",
@@ -222,7 +232,16 @@
         "old_lineage": 3
       }
     },
-    "betrayalBond": 0
+    "betrayalBond": 0,
+    "values": [
+      "pride",
+      "ambition",
+      "courage",
+      "generosity"
+    ],
+    "scorns": [
+      "caution"
+    ]
   },
   {
     "id": "solomon",
@@ -332,7 +351,17 @@
         "minor_lineage": 3
       }
     },
-    "betrayalBond": -1
+    "betrayalBond": -1,
+    "values": [
+      "curiosity",
+      "mercy",
+      "honesty",
+      "faith"
+    ],
+    "scorns": [
+      "pride",
+      "cruelty"
+    ]
   },
   {
     "id": "samson",
@@ -444,7 +473,16 @@
         "fallen_lineage": 3
       }
     },
-    "betrayalBond": -3
+    "betrayalBond": -3,
+    "values": [
+      "courage",
+      "honesty",
+      "loyalty"
+    ],
+    "scorns": [
+      "cunning",
+      "caution"
+    ]
   },
   {
     "id": "hector",
@@ -554,7 +592,17 @@
         "fallen_lineage": 2
       }
     },
-    "betrayalBond": -4
+    "betrayalBond": -4,
+    "values": [
+      "loyalty",
+      "mercy",
+      "caution",
+      "courage"
+    ],
+    "scorns": [
+      "cruelty",
+      "pride"
+    ]
   },
   {
     "id": "cleopatra",
@@ -669,7 +717,16 @@
         "fallen_lineage": 3
       }
     },
-    "betrayalBond": 1
+    "betrayalBond": 1,
+    "values": [
+      "cunning",
+      "ambition",
+      "curiosity",
+      "pride"
+    ],
+    "scorns": [
+      "recklessness"
+    ]
   },
   {
     "id": "constantine",
@@ -779,6 +836,15 @@
         "minor_lineage": 2
       }
     },
-    "betrayalBond": -4
+    "betrayalBond": -4,
+    "values": [
+      "faith",
+      "loyalty",
+      "courage",
+      "mercy"
+    ],
+    "scorns": [
+      "cruelty"
+    ]
   }
 ]

@@ -1,6 +1,8 @@
 {
   "intro": [
-    { "text": "The years of your childhood stretch out ahead of you. How you spend them is up to you." }
+    {
+      "text": "The years of your childhood stretch out ahead of you. How you spend them is up to you."
+    }
   ],
   "actions": [
     {
@@ -8,10 +10,72 @@
       "label": "Train your body",
       "stat": "body",
       "texts": [
-        { "text": "You run, climb and wrestle with the other children until your legs stop complaining.", "maxAge": 12 },
-        { "text": "You take up a sport and train until your hands blister.", "minAge": 10 },
-        { "text": "You take work hauling crates at the market, and your shoulders broaden.", "minAge": 14 },
-        { "text": "You swim in the river every morning, whatever the weather." }
+        {
+          "text": "You run, climb and wrestle with the other children until your legs stop complaining.",
+          "maxAge": 12
+        },
+        {
+          "text": "You take up a sport and train until your hands blister.",
+          "minAge": 10
+        },
+        {
+          "text": "You take work hauling crates at the market, and your shoulders broaden.",
+          "minAge": 14
+        },
+        {
+          "text": "You swim in the river every morning, whatever the weather."
+        },
+        {
+          "text": "You race the other children up and down the riverbank until you win more often than you lose.",
+          "maxAge": 11
+        },
+        {
+          "text": "You climb every wall, tree and rooftop in the neighborhood, and fall off most of them at least once.",
+          "maxAge": 12
+        },
+        {
+          "text": "An old boxer at the local gym takes a liking to you and teaches you to keep your guard up.",
+          "minAge": 12
+        },
+        {
+          "text": "You walk everywhere, miles every day, until your legs are as hard as wood.",
+          "minAge": 9
+        },
+        {
+          "text": "You practice the sword forms your family keeps from the old days, morning and night.",
+          "minAge": 10,
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "You train in the temple grounds at dawn, copying the monks' slow, careful exercises.",
+          "conditions": {
+            "places": [
+              "kyoto"
+            ]
+          }
+        },
+        {
+          "text": "You play football in the streets until dark, every single day.",
+          "minAge": 7,
+          "conditions": {
+            "places": [
+              "buenos_aires",
+              "london"
+            ]
+          }
+        },
+        {
+          "text": "You row on the river with a club of older boys and girls who think you're too small, until you prove them wrong.",
+          "minAge": 12,
+          "conditions": {
+            "places": [
+              "london",
+              "prague"
+            ]
+          }
+        }
       ]
     },
     {
@@ -19,10 +83,88 @@
       "label": "Study magecraft",
       "stat": "magecraft",
       "texts": [
-        { "text": "Your parents drill you on circuit control until you can light a candle without looking at it.", "conditions": { "isMage": true }, "maxAge": 12 },
-        { "text": "You spend long nights in the family workshop, copying formulas from books older than the house.", "conditions": { "isMage": true }, "minAge": 10 },
-        { "text": "You copy strange diagrams from a book nobody else in the family can read. Once, briefly, a candle flame bends toward you.", "conditions": { "isMage": false } },
-        { "text": "You practice the only exercise you know: breathing until something warm runs through your arms like a current.", "conditions": { "isMage": false } }
+        {
+          "text": "Your parents drill you on circuit control until you can light a candle without looking at it.",
+          "conditions": {
+            "isMage": true
+          },
+          "maxAge": 12
+        },
+        {
+          "text": "You spend long nights in the family workshop, copying formulas from books older than the house.",
+          "conditions": {
+            "isMage": true
+          },
+          "minAge": 10
+        },
+        {
+          "text": "You copy strange diagrams from a book nobody else in the family can read. Once, briefly, a candle flame bends toward you.",
+          "conditions": {
+            "isMage": false
+          }
+        },
+        {
+          "text": "You practice the only exercise you know: breathing until something warm runs through your arms like a current.",
+          "conditions": {
+            "isMage": false
+          }
+        },
+        {
+          "text": "You practice reinforcement on twigs and teacups until they stop shattering in your hands.",
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "Your family makes you memorize the names of every element and spirit until you can recite them in your sleep.",
+          "maxAge": 11,
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "You sneak into the family workshop at night and read the books you aren't allowed to read yet.",
+          "minAge": 11,
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "A visiting mage gives a lecture to the children of the old families. You understand more of it than you let on.",
+          "minAge": 13,
+          "conditions": {
+            "families": [
+              "old_lineage",
+              "minor_lineage"
+            ]
+          }
+        },
+        {
+          "text": "With no one to teach you, you work through your family's last remaining grimoire, page by stubborn page.",
+          "conditions": {
+            "families": [
+              "fallen_lineage"
+            ]
+          }
+        },
+        {
+          "text": "You meditate in the dark until you can feel your circuits, warm threads running under your skin.",
+          "minAge": 9
+        },
+        {
+          "text": "You learn that a drawn circle and a spoken word can make a candle flame stand still. You do it a hundred times to be sure.",
+          "minAge": 10,
+          "conditions": {
+            "isMage": false
+          }
+        },
+        {
+          "text": "You collect old books on alchemy and astrology from junk shops, and slowly separate the nonsense from what actually works.",
+          "minAge": 12,
+          "conditions": {
+            "isMage": false
+          }
+        }
       ]
     },
     {
@@ -30,10 +172,55 @@
       "label": "Study the world",
       "stat": "mind",
       "texts": [
-        { "text": "You read everything you can find, from encyclopedias to old newspapers left on park benches." },
-        { "text": "You spend afternoons at the library until the librarian knows you by name.", "minAge": 8 },
-        { "text": "You fill notebooks with maps, languages and history, and argue with your teachers about all of it.", "minAge": 11 },
-        { "text": "You lose whole nights to online encyclopedias, following one link after another.", "from": 2002, "minAge": 10 }
+        {
+          "text": "You read everything you can find, from encyclopedias to old newspapers left on park benches."
+        },
+        {
+          "text": "You spend afternoons at the library until the librarian knows you by name.",
+          "minAge": 8
+        },
+        {
+          "text": "You fill notebooks with maps, languages and history, and argue with your teachers about all of it.",
+          "minAge": 11
+        },
+        {
+          "text": "You lose whole nights to online encyclopedias, following one link after another.",
+          "from": 2002,
+          "minAge": 10
+        },
+        {
+          "text": "You pester every adult you know with questions until they start avoiding you at dinner.",
+          "maxAge": 10
+        },
+        {
+          "text": "You learn a second language from a neighbor, then a third from a book.",
+          "minAge": 10
+        },
+        {
+          "text": "You take apart a clock to see how it works, and eventually manage to put it back together.",
+          "minAge": 8
+        },
+        {
+          "text": "You study the city's maps until you know every alley and shortcut by heart.",
+          "minAge": 11
+        },
+        {
+          "text": "You listen to the radio every evening, news and dramas and lectures alike.",
+          "from": 1925,
+          "to": 1970
+        },
+        {
+          "text": "You spend your evenings in front of documentaries and the evening news, taking notes.",
+          "from": 1960
+        },
+        {
+          "text": "You study for school harder than anyone expects, and top your class twice.",
+          "minAge": 10
+        },
+        {
+          "text": "You read the history of {place} until you can tell its whole story from the beginning.",
+          "minAge": 12
+        }
       ]
     },
     {
@@ -41,9 +228,73 @@
       "label": "Make friends and connections",
       "stat": "charisma",
       "texts": [
-        { "text": "You play with every child on your street and soon know every family on it.", "maxAge": 11 },
-        { "text": "You join clubs, go to every party, and learn who knows whom.", "minAge": 12 },
-        { "text": "You fall in with an older crowd who know the city's back rooms.", "minAge": 15 }
+        {
+          "text": "You play with every child on your street and soon know every family on it.",
+          "maxAge": 11
+        },
+        {
+          "text": "You join clubs, go to every party, and learn who knows whom.",
+          "minAge": 12
+        },
+        {
+          "text": "You fall in with an older crowd who know the city's back rooms.",
+          "minAge": 15
+        },
+        {
+          "text": "You become the one the other children come to when they need a plan, a secret kept, or an argument settled.",
+          "maxAge": 12
+        },
+        {
+          "text": "You help at every market, wedding and funeral in the neighborhood, and everyone comes to know your face.",
+          "minAge": 11
+        },
+        {
+          "text": "You fall in with a group of students who argue about everything late into the night.",
+          "minAge": 16
+        },
+        {
+          "text": "You learn to listen more than you talk, and people start telling you things.",
+          "minAge": 13
+        },
+        {
+          "text": "You attend the gatherings of the mage families and learn who hates whom.",
+          "minAge": 14,
+          "conditions": {
+            "families": [
+              "old_lineage",
+              "minor_lineage"
+            ]
+          }
+        },
+        {
+          "text": "You spend your evenings in the tango halls, where everyone knows everyone.",
+          "minAge": 16,
+          "from": 1905,
+          "conditions": {
+            "places": [
+              "buenos_aires"
+            ]
+          }
+        },
+        {
+          "text": "You make friends with the musicians who play on street corners, and through them, half the city.",
+          "minAge": 14,
+          "conditions": {
+            "places": [
+              "new_orleans"
+            ]
+          }
+        },
+        {
+          "text": "You become a regular in a corner café, where the same faces argue over the same newspapers every afternoon.",
+          "minAge": 15,
+          "conditions": {
+            "places": [
+              "prague",
+              "buenos_aires"
+            ]
+          }
+        }
       ]
     },
     {
@@ -51,27 +302,108 @@
       "label": "Search for relics",
       "stat": null,
       "texts": [
-        { "text": "You dig through attics, junk shops and flea markets looking for anything old and strange.", "maxAge": 13 },
-        { "text": "You visit antique dealers, estate sales and museum basements, asking careful questions.", "minAge": 14 }
+        {
+          "text": "You dig through attics, junk shops and flea markets looking for anything old and strange.",
+          "maxAge": 13
+        },
+        {
+          "text": "You visit antique dealers, estate sales and museum basements, asking careful questions.",
+          "minAge": 14
+        },
+        {
+          "text": "You follow up every story of haunted houses and cursed heirlooms you can find.",
+          "minAge": 10
+        },
+        {
+          "text": "You befriend an old collector who lets you rummage through his shelves of oddities.",
+          "minAge": 12
+        },
+        {
+          "text": "You dig in the riverbank and in old foundations, looking for anything buried long ago.",
+          "maxAge": 14
+        }
       ],
       "failTexts": [
-        { "text": "You find old buttons, a cracked mirror and a great deal of dust, but nothing with any power in it." },
-        { "text": "A dealer swears his dagger belonged to a king. It turns out to be a letter opener." },
-        { "text": "You follow a rumor across the city, only to find the item was sold the week before." }
+        {
+          "text": "You find old buttons, a cracked mirror and a great deal of dust, but nothing with any power in it."
+        },
+        {
+          "text": "A dealer swears his dagger belonged to a king. It turns out to be a letter opener."
+        },
+        {
+          "text": "You follow a rumor across the city, only to find the item was sold the week before."
+        },
+        {
+          "text": "A box of 'ancient relics' turns out to be someone's grandmother's costume jewelry."
+        },
+        {
+          "text": "You find a genuinely old coin, worth something to a collector, but with no power in it at all."
+        },
+        {
+          "text": "An antique dealer tells you that you're the third person this year to ask about strange old weapons. That's worrying."
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "label": "Work and earn money",
+      "stat": null,
+      "texts": [
+        {
+          "text": "You run errands for the neighbors for a few coins at a time.",
+          "maxAge": 11
+        },
+        {
+          "text": "You help out at a relative's shop after school.",
+          "maxAge": 14
+        },
+        {
+          "text": "You deliver newspapers before dawn, in every kind of weather.",
+          "minAge": 9,
+          "maxAge": 16
+        },
+        {
+          "text": "You take a job in a workshop and learn to work with your hands.",
+          "minAge": 14
+        },
+        {
+          "text": "You wait tables in a busy café and save every tip.",
+          "minAge": 15
+        },
+        {
+          "text": "You work in an office, filing papers for people who never learn your name.",
+          "minAge": 16
+        },
+        {
+          "text": "You help in the family business, whatever it is this year.",
+          "minAge": 12
+        }
       ]
     }
   ],
   "quietYear": [
-    { "text": "The time passes quietly." }
+    {
+      "text": "The time passes quietly."
+    },
+    {
+      "text": "Nothing much happens, which is its own kind of gift."
+    },
+    {
+      "text": "The seasons turn. You grow a little taller and a little wiser."
+    }
   ],
   "warAnnouncement": [
     {
       "text": "In {year}, you wake with a burning pain in your right hand. Three red marks have appeared on it, interlocking like a crest. You know what they are: Command Seals. The Grail has chosen you. A Holy Grail War is about to begin in {place}.",
-      "conditions": { "isMage": true }
+      "conditions": {
+        "isMage": true
+      }
     },
     {
       "text": "In {year}, you wake with a burning pain in your right hand. Three red marks have appeared on it, like a tattoo you never got. By that evening, a stranger in black has found you and explained what they are: Command Seals. You have been chosen for a Holy Grail War, and it begins soon, here in {place}.",
-      "conditions": { "isMage": false }
+      "conditions": {
+        "isMage": false
+      }
     }
   ]
 }

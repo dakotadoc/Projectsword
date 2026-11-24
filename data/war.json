@@ -22,6 +22,129 @@
     },
     {
       "text": "You wake early. The city is already stirring."
+    },
+    {
+      "text": "Temple bells ring across Kyoto, as they have every morning for a thousand years.",
+      "conditions": {
+        "places": [
+          "kyoto"
+        ]
+      }
+    },
+    {
+      "text": "Fog lies thick on the river, and London wakes slowly underneath it.",
+      "conditions": {
+        "places": [
+          "london"
+        ]
+      }
+    },
+    {
+      "text": "The astronomical clock strikes the hour as Prague wakes.",
+      "conditions": {
+        "places": [
+          "prague"
+        ]
+      }
+    },
+    {
+      "text": "The morning is already hot and heavy in New Orleans, and somewhere a trumpet is practicing scales.",
+      "conditions": {
+        "places": [
+          "new_orleans"
+        ]
+      }
+    },
+    {
+      "text": "Ship horns sound from the port as Buenos Aires wakes.",
+      "conditions": {
+        "places": [
+          "buenos_aires"
+        ]
+      }
+    },
+    {
+      "text": "Milk carts rattle down the street outside your window.",
+      "to": 1960
+    },
+    {
+      "text": "The first trams of the day clatter past.",
+      "from": 1900,
+      "to": 1960,
+      "conditions": {
+        "places": [
+          "prague",
+          "london",
+          "buenos_aires",
+          "new_orleans"
+        ]
+      }
+    },
+    {
+      "text": "Traffic is already roaring by the time you wake.",
+      "from": 1960
+    },
+    {
+      "text": "You wake before your alarm, heart pounding from a dream you can't remember.",
+      "from": 1930
+    },
+    {
+      "text": "You wake to the smell of coffee. {servant} is pretending not to have made it.",
+      "conditions": {
+        "hasServant": true
+      }
+    },
+    {
+      "text": "Rain on the window. You lie still for a minute, counting the days left.",
+      "weight": 1
+    },
+    {
+      "text": "The sky turns from black to grey to a washed-out blue."
+    },
+    {
+      "text": "Birds start up outside before the sun is properly up."
+    },
+    {
+      "text": "You wake stiff and sore, and lie still for a moment, listening."
+    },
+    {
+      "text": "Somewhere down the street, someone is already sweeping their front step."
+    },
+    {
+      "text": "The air is cold and clean this morning, the kind of morning that feels like a fresh start."
+    },
+    {
+      "text": "A bell rings somewhere far off, counting the hour."
+    },
+    {
+      "text": "You wake with the Command Seals itching on your hand."
+    },
+    {
+      "text": "Pale sunlight crawls across the floor toward you."
+    },
+    {
+      "text": "The city wakes the way it always does, as if nothing happened in the night."
+    },
+    {
+      "text": "Mist hangs over the rooftops, slowly burning away."
+    },
+    {
+      "text": "{servant} is already awake, watching the street from the window.",
+      "conditions": {
+        "hasServant": true
+      }
+    },
+    {
+      "text": "You find {servant} asleep in a chair by the door, and let them be for a few more minutes.",
+      "conditions": {
+        "hasServant": true
+      }
+    },
+    {
+      "text": "\"Good morning,\" {servant} says, as if it's an ordinary day. You almost believe it.",
+      "conditions": {
+        "hasServant": true
+      }
     }
   ],
   "dusk": [
@@ -33,6 +156,83 @@
     },
     {
       "text": "Lamps come on one by one as darkness settles over {place}."
+    },
+    {
+      "text": "Gas lamps flicker to life along the street.",
+      "to": 1925
+    },
+    {
+      "text": "Neon signs buzz on, one after another, as the light fails.",
+      "from": 1930
+    },
+    {
+      "text": "The evening bells of {place} fade, and with them the last of the day.",
+      "conditions": {
+        "places": [
+          "kyoto",
+          "prague"
+        ]
+      }
+    },
+    {
+      "text": "Music starts up in the bars as the sun goes down.",
+      "conditions": {
+        "places": [
+          "new_orleans",
+          "buenos_aires"
+        ]
+      }
+    },
+    {
+      "text": "{servant} checks the windows one last time, then turns to you. \"Ready?\"",
+      "conditions": {
+        "hasServant": true
+      }
+    },
+    {
+      "text": "The last light goes red over the rooftops, and the city holds its breath."
+    },
+    {
+      "text": "Shadows stretch long across the street, then swallow it."
+    },
+    {
+      "text": "The day's noise fades to a murmur, then to nothing."
+    },
+    {
+      "text": "You eat a quick, cold supper and check your Command Seals one more time."
+    },
+    {
+      "text": "The first stars come out, and with them, the war."
+    },
+    {
+      "text": "Windows go dark one by one across the city."
+    },
+    {
+      "text": "A cold wind picks up as the sun goes down."
+    },
+    {
+      "text": "Somewhere a dog barks, then thinks better of it."
+    },
+    {
+      "text": "The city exhales, and the night begins."
+    },
+    {
+      "text": "Clouds roll in, hiding the moon."
+    },
+    {
+      "text": "The streetlights come on, small islands in the dark."
+    },
+    {
+      "text": "{servant} straightens up as the light fades, every inch a warrior again.",
+      "conditions": {
+        "hasServant": true
+      }
+    },
+    {
+      "text": "\"Let's see what tonight brings,\" {servant} says quietly.",
+      "conditions": {
+        "hasServant": true
+      }
     }
   ],
   "dayActions": [
@@ -58,6 +258,18 @@
           "conditions": {
             "hasServant": false
           }
+        },
+        {
+          "text": "You sleep most of the day away. When you wake, {servant} is sitting by the window, keeping watch.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You force yourself to do nothing at all, which turns out to be very hard."
+        },
+        {
+          "text": "A quiet day of tea, mending and sleep. You'd forgotten what that felt like."
         }
       ]
     },
@@ -77,6 +289,24 @@
           "conditions": {
             "hasServant": true
           }
+        },
+        {
+          "text": "{servant} drills you on footwork until you can move without thinking.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You practice working magic while {servant} attacks you with a broom. It helps more than you'd like to admit.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "{servant} teaches you how to fall without getting hurt, which is most of fighting, apparently.",
+          "conditions": {
+            "hasServant": true
+          }
         }
       ]
     },
@@ -90,6 +320,16 @@
         },
         {
           "text": "You check on your contacts and go through the local news for anything strange."
+        },
+        {
+          "text": "You walk the districts where strange things happened, looking for traces of magic."
+        },
+        {
+          "text": "You read every newspaper you can find, looking between the lines.",
+          "from": 1900
+        },
+        {
+          "text": "You sit in a café near the river all day, watching who comes and goes."
         }
       ],
       "rumors": [
@@ -114,6 +354,30 @@
         },
         {
           "text": "A grainy video online shows a flash of light over the river. It already has thousands of views.",
+          "from": 2006
+        },
+        {
+          "text": "A taxi driver swears a woman stepped out in front of his car last night, and the car bent around her.",
+          "from": 1910
+        },
+        {
+          "text": "Someone has been buying up every candle in the old quarter."
+        },
+        {
+          "text": "A bartender mentions a foreign gentleman who pays in very old coins."
+        },
+        {
+          "text": "Dogs all over the east side howled at the same moment last night."
+        },
+        {
+          "text": "Three windows on one street shattered at midnight. No stones were found."
+        },
+        {
+          "text": "A radio station went silent for ten minutes last night, and nobody can say why.",
+          "from": 1925
+        },
+        {
+          "text": "Someone posted a photo of a scorched wall online, and it was deleted within the hour.",
           "from": 2006
         }
       ],
@@ -152,6 +416,37 @@
             "isMage": false,
             "hasServant": false
           }
+        },
+        {
+          "text": "You spend the day drawing circles in chalk and blood under the floorboards, and sealing them.",
+          "conditions": {
+            "isMage": true
+          }
+        },
+        {
+          "text": "You rig the stairs so they creak in a pattern only you know.",
+          "conditions": {
+            "isMage": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "label": "Earn some money",
+      "hint": "Odd jobs and favors. You'll need the money",
+      "texts": [
+        {
+          "text": "You pick up a day's work wherever you can find it."
+        },
+        {
+          "text": "You do a favor for one of your contacts, and they pay well."
+        },
+        {
+          "text": "You sell a few things you can do without."
+        },
+        {
+          "text": "You take a day's work in a warehouse, keeping your head down."
         }
       ]
     },
@@ -172,6 +467,31 @@
       "refused": [
         {
           "text": "{label} refuses. You get the impression they would rather see you dead."
+        }
+      ]
+    },
+    {
+      "id": "spend",
+      "label": "Spend the day with {servant}",
+      "hint": "Time together. Bond +1, and they may share something",
+      "texts": [
+        {
+          "text": "You set the war aside for a day and spend it with {servant}.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "No plans, no scouting. Just a day with {servant}.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You let {servant} decide how to spend the day.",
+          "conditions": {
+            "hasServant": true
+          }
         }
       ]
     },
@@ -204,6 +524,15 @@
           "conditions": {
             "hasServant": false
           }
+        },
+        {
+          "text": "You walk the waterfront with {servant}, listening for anything wrong.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You cross the city by back streets and rooftops, one district at a time."
         }
       ],
       "quiet": [
@@ -212,6 +541,19 @@
         },
         {
           "text": "You see nothing but a stray dog and a few late drinkers heading home."
+        },
+        {
+          "text": "Nothing tonight. Just the city, breathing in its sleep."
+        },
+        {
+          "text": "A cat follows you for a while, then loses interest."
+        },
+        {
+          "text": "You find traces of a fight from nights ago: scorch marks, a cracked wall. Nothing new."
+        },
+        {
+          "text": "Somewhere far off, a siren wails and fades.",
+          "from": 1920
         }
       ]
     },
@@ -274,6 +616,15 @@
         },
         {
           "text": "You lie low for the night. Far away, you hear something like thunder on a clear night."
+        },
+        {
+          "text": "You sit in the dark with {servant}, talking quietly until you fall asleep.",
+          "conditions": {
+            "hasServant": true
+          }
+        },
+        {
+          "text": "You stay in, every light off, every ward up, and listen to the city."
         }
       ]
     }

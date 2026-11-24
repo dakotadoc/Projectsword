@@ -107,7 +107,8 @@
   },
   "servantless": {
     "train": "Without a Servant there is no one to train with.",
-    "talk": "There is no one left to talk to."
+    "talk": "There is no one left to talk to.",
+    "spend": "There is no one left to spend the day with."
   },
   "youLines": {
     "support": "You pour mana into {target}, sharpening every strike.",

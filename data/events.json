@@ -639,5 +639,3109 @@
         }
       }
     ]
+  },
+  {
+    "id": "kyoto_gion_old",
+    "phase": "life",
+    "weight": 2,
+    "text": "The whole city gathers for the Gion festival. Towering floats are hauled through the streets, and the air rings with flutes and bells.",
+    "to": 1942,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Help pull a float",
+        "text": "You haul on the ropes with a hundred strangers until your hands are raw.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "charisma": 1
+          }
+        }
+      },
+      {
+        "label": "Watch from a rooftop",
+        "text": "You see the whole procession wind through the city like a dragon.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "kyoto_gion",
+    "phase": "life",
+    "weight": 2,
+    "text": "The Gion festival fills the city. Towering floats are hauled through the streets, and the air rings with flutes and bells.",
+    "from": 1947,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Help pull a float",
+        "text": "You haul on the ropes with a hundred strangers until your hands are raw.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "charisma": 1
+          }
+        }
+      },
+      {
+        "label": "Watch from a rooftop",
+        "text": "You see the whole procession wind through the city like a dragon.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "kyoto_wartime",
+    "phase": "life",
+    "weight": 5,
+    "text": "Food is rationed and school is half air-raid drills. The grown-ups whisper that Kyoto will be spared the bombs, but nobody knows why, or whether it's true.",
+    "from": 1942,
+    "to": 1945,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Share your rations with a neighbor",
+        "text": "They never forget it.",
+        "effects": {
+          "contacts": 1,
+          "stats": {
+            "body": -1
+          }
+        }
+      },
+      {
+        "label": "Learn to forage",
+        "text": "You learn which plants in the hills are good to eat.",
+        "effects": {
+          "stats": {
+            "body": 2,
+            "mind": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "kyoto_occupation",
+    "phase": "life",
+    "weight": 4,
+    "text": "Foreign soldiers walk the streets of Kyoto now, handing out chocolate and taking photographs of the temples.",
+    "from": 1945,
+    "to": 1952,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Practice your English on them",
+        "text": "You come away with a few new words and a few new friends.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          },
+          "contacts": 1
+        }
+      },
+      {
+        "label": "Keep your distance",
+        "text": "You watch them carefully, and learn a lot about how strangers behave.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "kyoto_olympics",
+    "phase": "life",
+    "weight": 4,
+    "text": "The whole neighborhood crowds around a television to watch the Olympics in Tokyo. For two weeks, nobody talks about anything else.",
+    "from": 1964,
+    "to": 1964,
+    "minAge": 5,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1,
+        "body": 1
+      }
+    }
+  },
+  {
+    "id": "kyoto_temple_cat",
+    "phase": "life",
+    "weight": 2,
+    "text": "An old monk at a small temple lets you sweep the courtyard in exchange for stories about the city's ghosts.",
+    "minAge": 7,
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 2,
+        "magecraft": 1
+      }
+    }
+  },
+  {
+    "id": "london_queen_funeral",
+    "phase": "life",
+    "weight": 5,
+    "text": "Black crepe hangs in every window: the old Queen has died. You watch the funeral procession from your father's shoulders.",
+    "from": 1901,
+    "to": 1901,
+    "maxAge": 12,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "london_smog",
+    "phase": "life",
+    "weight": 5,
+    "text": "For five days a yellow smog smothers the city. You can't see your own hand in front of your face, and people are dying of it.",
+    "from": 1952,
+    "to": 1952,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Stay inside",
+        "text": "You wait it out, coughing, by the fire.",
+        "effects": {
+          "stats": {
+            "body": -1,
+            "mind": 1
+          }
+        }
+      },
+      {
+        "label": "Guide lost neighbors home",
+        "check": {
+          "stat": "body",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "You lead three neighbors home through the murk by memory alone.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "You get lost yourself and spend a frightening night in a doorway.",
+          "effects": {
+            "stats": {
+              "body": -2
+            }
+          }
+        },
+        "shows": [
+          "mercy",
+          "courage"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "london_coronation",
+    "phase": "life",
+    "weight": 5,
+    "text": "The whole street pools its money to rent a television, and everyone crowds in to watch the new Queen crowned.",
+    "from": 1953,
+    "to": 1953,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1
+      },
+      "contacts": 1
+    }
+  },
+  {
+    "id": "london_swinging",
+    "phase": "life",
+    "weight": 4,
+    "text": "The city is suddenly the center of the world: music, fashion, and nights that don't end until dawn.",
+    "from": 1964,
+    "to": 1969,
+    "minAge": 14,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Throw yourself into it",
+        "text": "You make a lot of friends and a few enemies.",
+        "effects": {
+          "stats": {
+            "charisma": 3
+          },
+          "contacts": 1
+        }
+      },
+      {
+        "label": "Watch from the edges",
+        "text": "You learn a great deal about people by watching them have fun.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "london_millennium",
+    "phase": "life",
+    "weight": 5,
+    "text": "On the last night of the millennium, the river explodes with fireworks and the whole city counts down together.",
+    "from": 1999,
+    "to": 1999,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1
+      }
+    }
+  },
+  {
+    "id": "prague_1918",
+    "phase": "life",
+    "weight": 5,
+    "text": "The city goes wild: Bohemia is free of the empire. Flags appear in every window, and strangers kiss in the streets.",
+    "from": 1918,
+    "to": 1918,
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1,
+        "mind": 1
+      }
+    }
+  },
+  {
+    "id": "prague_1968",
+    "phase": "life",
+    "weight": 5,
+    "text": "One August morning you wake to the sound of tanks in the streets. The hopeful spring is over.",
+    "from": 1968,
+    "to": 1968,
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Join the crowds arguing with the soldiers",
+        "text": "You will never forget their faces, or how young they were.",
+        "effects": {
+          "stats": {
+            "charisma": 2,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      },
+      {
+        "label": "Stay home as your parents beg",
+        "text": "You hear it all through the window, and it stays with you just the same.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "prague_1989",
+    "phase": "life",
+    "weight": 5,
+    "text": "In the cold of November, the whole city fills the squares and shakes its keys like bells. Within weeks, the government falls.",
+    "from": 1989,
+    "to": 1989,
+    "minAge": 5,
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 2
+      },
+      "contacts": 1
+    }
+  },
+  {
+    "id": "prague_clock",
+    "phase": "life",
+    "weight": 2,
+    "text": "A clockmaker near the old square tells you the legend of the astronomical clock, and lets you watch him oil the gears.",
+    "minAge": 7,
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 2
+      }
+    }
+  },
+  {
+    "id": "nola_mardi_gras_old",
+    "phase": "life",
+    "weight": 2,
+    "text": "Carnival comes to the city. Masked riders, torches and brass bands fill the streets for days.",
+    "to": 1917,
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Follow a parade",
+        "text": "You follow it all night, and come home with a fistful of beads and stories.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        }
+      },
+      {
+        "label": "Slip away to the old cemetery",
+        "text": "Among the white tombs, you could swear you hear someone whispering your name.",
+        "effects": {
+          "stats": {
+            "magecraft": 2
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nola_mardi_gras",
+    "phase": "life",
+    "weight": 2,
+    "text": "Mardi Gras comes to the city. Floats, masks and brass bands fill the streets for days.",
+    "from": 1946,
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Follow a parade",
+        "text": "You follow it all night, and come home with a fistful of beads and stories.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        }
+      },
+      {
+        "label": "Slip away to the old cemetery",
+        "text": "Among the white tombs, you could swear you hear someone whispering your name.",
+        "effects": {
+          "stats": {
+            "magecraft": 2
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nola_jazz",
+    "phase": "life",
+    "weight": 2,
+    "text": "Music pours out of every doorway. You spend nights listening outside the dance halls until someone finally lets you in.",
+    "from": 1910,
+    "to": 1935,
+    "minAge": 10,
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 2
+      },
+      "contacts": 1
+    }
+  },
+  {
+    "id": "nola_betsy",
+    "phase": "life",
+    "weight": 5,
+    "text": "A hurricane slams into the city. The water rises in the streets, and for a week you live on the second floor.",
+    "from": 1965,
+    "to": 1965,
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Help ferry neighbors by boat",
+        "check": {
+          "stat": "body",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "You and a borrowed rowboat bring four families to dry ground.",
+          "effects": {
+            "stats": {
+              "body": 2
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "The current takes the boat. You barely make it back.",
+          "effects": {
+            "stats": {
+              "body": -2
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "mercy"
+        ]
+      },
+      {
+        "label": "Keep your family together",
+        "text": "You keep everyone calm until the water goes down.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nola_katrina",
+    "phase": "life",
+    "weight": 5,
+    "text": "The storm comes, and then the levees fail. The city you grew up in is underwater, and for months nothing is the same.",
+    "from": 2005,
+    "to": 2005,
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Stay and help rebuild",
+        "text": "You gut houses and haul debris for months beside strangers who become friends.",
+        "effects": {
+          "stats": {
+            "body": 2
+          },
+          "contacts": 2
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Look after your family",
+        "text": "You keep them together through the worst of it.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ba_centenary",
+    "phase": "life",
+    "weight": 5,
+    "text": "The city celebrates a hundred years since the revolution with parades, lights and new grand buildings.",
+    "from": 1910,
+    "to": 1910,
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1
+      }
+    }
+  },
+  {
+    "id": "ba_coup",
+    "phase": "life",
+    "weight": 5,
+    "text": "Soldiers march into the Plaza de Mayo, and the president is gone by evening. Your parents talk about it in low voices for weeks.",
+    "from": 1930,
+    "to": 1930,
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 2
+      }
+    }
+  },
+  {
+    "id": "ba_tango",
+    "phase": "life",
+    "weight": 2,
+    "text": "An old couple in a dance hall decide you will learn the tango properly, whether you like it or not.",
+    "from": 1910,
+    "to": 1960,
+    "minAge": 14,
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Learn it",
+        "text": "You learn to move as if you've always known how.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "charisma": 2
+          }
+        }
+      },
+      {
+        "label": "Make your excuses",
+        "text": "They laugh, and teach your friend instead.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "ba_world_cup_1978",
+    "phase": "life",
+    "weight": 5,
+    "text": "The World Cup comes to Buenos Aires, and Argentina wins it. The whole city is in the streets.",
+    "from": 1978,
+    "to": 1978,
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 2
+      }
+    }
+  },
+  {
+    "id": "ba_world_cup_1986",
+    "phase": "life",
+    "weight": 5,
+    "text": "Argentina wins the World Cup in Mexico. You have never heard a city make a noise like that.",
+    "from": 1986,
+    "to": 1986,
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "charisma": 1
+      },
+      "contacts": 1
+    }
+  },
+  {
+    "id": "life_river_dare",
+    "phase": "life",
+    "weight": 2,
+    "text": "The older children dare you to swim across the river where it runs fastest.",
+    "minAge": 8,
+    "maxAge": 14,
+    "choices": [
+      {
+        "label": "Take the dare",
+        "check": {
+          "stat": "body",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "You make it across, gasping, to cheers from the bank.",
+          "effects": {
+            "stats": {
+              "body": 2,
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "The current drags you downstream. A fisherman hauls you out, and you never hear the end of it.",
+          "effects": {
+            "stats": {
+              "body": -1,
+              "charisma": -1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Refuse",
+        "text": "They call you a coward. You decide you can live with that.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_exam",
+    "phase": "life",
+    "weight": 2,
+    "text": "The most important exam of your school years arrives.",
+    "minAge": 11,
+    "maxAge": 18,
+    "choices": [
+      {
+        "label": "Study all night",
+        "check": {
+          "stat": "mind",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "You pass near the top of your class.",
+          "effects": {
+            "stats": {
+              "mind": 3
+            }
+          }
+        },
+        "failure": {
+          "text": "You fall asleep in the middle of the paper.",
+          "effects": {
+            "stats": {
+              "mind": 1
+            }
+          }
+        }
+      },
+      {
+        "label": "Trust yourself and sleep",
+        "text": "You do well enough, and feel rested for once.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_wallet",
+    "phase": "life",
+    "weight": 2,
+    "text": "You find a fat wallet in the gutter. There is an address inside.",
+    "minAge": 8,
+    "choices": [
+      {
+        "label": "Return it",
+        "text": "The owner insists on rewarding you, and becomes a friend of the family.",
+        "effects": {
+          "contacts": 1,
+          "money": 10
+        },
+        "shows": [
+          "honesty"
+        ]
+      },
+      {
+        "label": "Keep the money",
+        "text": "Nobody ever finds out. You try not to think about it.",
+        "effects": {
+          "money": 40
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_forbidden_book",
+    "phase": "life",
+    "weight": 2,
+    "text": "You find a grimoire in the family library that you were told never to open.",
+    "minAge": 11,
+    "conditions": {
+      "isMage": true
+    },
+    "choices": [
+      {
+        "label": "Read it anyway",
+        "check": {
+          "stat": "magecraft",
+          "difficulty": 25
+        },
+        "success": {
+          "text": "The spells are dangerous, but you understand them.",
+          "effects": {
+            "stats": {
+              "magecraft": 4
+            }
+          }
+        },
+        "failure": {
+          "text": "Something in the book bites back. You are sick for a week.",
+          "effects": {
+            "stats": {
+              "body": -2,
+              "magecraft": 1
+            }
+          }
+        },
+        "shows": [
+          "curiosity",
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Put it back",
+        "text": "Some doors are better left closed. For now.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_protect",
+    "phase": "life",
+    "weight": 2,
+    "text": "Some older thugs are cornering a smaller kid in an alley.",
+    "minAge": 12,
+    "choices": [
+      {
+        "label": "Step in",
+        "check": {
+          "stat": "body",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "They decide you're not worth the trouble. The kid follows you around for a month.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "You take a beating, but the kid gets away.",
+          "effects": {
+            "stats": {
+              "body": -1,
+              "charisma": 1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "mercy"
+        ]
+      },
+      {
+        "label": "Talk them down",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "You talk until they get bored and leave.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "They laugh at you, then take your money too.",
+          "effects": {
+            "money": -10
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      },
+      {
+        "label": "Walk away",
+        "text": "You tell yourself it wasn't your business.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_haunted_house",
+    "phase": "life",
+    "weight": 2,
+    "text": "There is a house on your street that everyone swears is haunted. You are dared to spend the night inside.",
+    "minAge": 8,
+    "maxAge": 15,
+    "choices": [
+      {
+        "label": "Spend the night",
+        "check": {
+          "stat": "mind",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "Something does walk the halls at night. You stay calm, and it lets you be.",
+          "effects": {
+            "stats": {
+              "magecraft": 2,
+              "mind": 1
+            }
+          }
+        },
+        "failure": {
+          "text": "You run screaming at midnight. Everyone hears about it.",
+          "effects": {
+            "stats": {
+              "charisma": -1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Decline",
+        "text": "Sensible. Boring, but sensible.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_family_feud",
+    "phase": "life",
+    "weight": 2,
+    "text": "At a gathering, the heir of a rival mage family insults your family to your face.",
+    "minAge": 13,
+    "conditions": {
+      "isMage": true
+    },
+    "choices": [
+      {
+        "label": "Challenge them to a duel of magic",
+        "check": {
+          "stat": "magecraft",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "You win, and the room goes quiet. Your family is very proud.",
+          "effects": {
+            "stats": {
+              "magecraft": 2,
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "You lose, badly, in front of everyone.",
+          "effects": {
+            "stats": {
+              "charisma": -2
+            }
+          }
+        },
+        "shows": [
+          "pride",
+          "courage"
+        ]
+      },
+      {
+        "label": "Smile and let it pass",
+        "text": "You file it away for later.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_injured_dog",
+    "phase": "life",
+    "weight": 2,
+    "text": "You find an injured dog hiding under a cart.",
+    "maxAge": 14,
+    "choices": [
+      {
+        "label": "Nurse it back to health",
+        "text": "It follows you everywhere for years afterward.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Leave it be",
+        "text": "You think about it more than you'd like to admit."
+      }
+    ]
+  },
+  {
+    "id": "life_friend_moves",
+    "phase": "life",
+    "weight": 2,
+    "text": "Your closest friend's family moves away to another country.",
+    "minAge": 8,
+    "maxAge": 17,
+    "effects": {
+      "stats": {
+        "mind": 1
+      }
+    },
+    "choices": [
+      {
+        "label": "Promise to write",
+        "text": "You write for years. It matters more than you expected.",
+        "effects": {
+          "contacts": 1
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Let them go",
+        "text": "Some friendships are for a season.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "life_sickly_winter",
+    "phase": "life",
+    "weight": 3,
+    "text": "A long illness keeps you in bed all winter. Someone brings you a stack of books.",
+    "maxAge": 15,
+    "conditions": {
+      "traits": [
+        "sickly"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 3,
+        "body": -1
+      }
+    }
+  },
+  {
+    "id": "life_lucky_find",
+    "phase": "life",
+    "weight": 3,
+    "text": "You trip over a loose cobblestone and find a purse of old coins underneath it. Of course you do.",
+    "conditions": {
+      "traits": [
+        "lucky"
+      ]
+    },
+    "effects": {
+      "money": 40
+    }
+  },
+  {
+    "id": "life_black_sheep_runaway",
+    "phase": "life",
+    "weight": 3,
+    "text": "After one argument too many, you run away from home for a week.",
+    "minAge": 12,
+    "conditions": {
+      "traits": [
+        "black_sheep"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Go back",
+        "text": "Nobody apologizes. But something has shifted.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        }
+      },
+      {
+        "label": "Stay away as long as you can",
+        "text": "You learn to look after yourself, and come back harder.",
+        "effects": {
+          "stats": {
+            "body": 2
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "recklessness"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_prodigy_noticed",
+    "phase": "life",
+    "weight": 3,
+    "text": "A visiting scholar notices you and takes an interest in your education.",
+    "minAge": 9,
+    "conditions": {
+      "traits": [
+        "prodigy"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 2
+      },
+      "contacts": 1
+    }
+  },
+  {
+    "id": "life_silver_tongue_trouble",
+    "phase": "life",
+    "weight": 3,
+    "text": "You are caught somewhere you very much shouldn't be.",
+    "minAge": 10,
+    "conditions": {
+      "traits": [
+        "silver_tongue"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Talk your way out",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "By the end, they're apologizing to you.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "For once, it doesn't work. You're in trouble for a month.",
+          "effects": {
+            "money": -10
+          }
+        }
+      },
+      {
+        "label": "Confess",
+        "text": "Honesty surprises them so much that you get off lightly.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "honesty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_iron_accident",
+    "phase": "life",
+    "weight": 3,
+    "text": "A cart overturns on you in the street. You climb out from under it without a scratch, and people stare.",
+    "conditions": {
+      "traits": [
+        "iron_constitution"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "body": 2,
+        "charisma": 1
+      }
+    }
+  },
+  {
+    "id": "life_creditors",
+    "phase": "life",
+    "weight": 3,
+    "text": "Men in good coats come to the door about your family's debts.",
+    "minAge": 10,
+    "conditions": {
+      "families": [
+        "fallen_lineage"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Hand over your savings",
+        "text": "It isn't enough, but it buys time.",
+        "effects": {
+          "money": -30,
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Bluff them",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "They leave, convinced your family is richer than it looks.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            }
+          }
+        },
+        "failure": {
+          "text": "They see straight through you. Things get worse.",
+          "effects": {
+            "money": -20
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "life_heir_duties",
+    "phase": "life",
+    "weight": 3,
+    "text": "The head of the family summons you: as a possible heir, you are expected to take on duties at the family's gatherings.",
+    "minAge": 12,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Accept the duties",
+        "text": "Tedious, but you meet everyone who matters.",
+        "effects": {
+          "contacts": 2,
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Refuse politely",
+        "text": "The family is displeased. You get your time back.",
+        "effects": {
+          "stats": {
+            "magecraft": 2
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_shopkeeper",
+    "phase": "war",
+    "weight": 2,
+    "text": "At the market, a shopkeeper stares at {servant} a moment too long. \"You're not from around here,\" she says.",
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Spin a convincing story",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "She laughs and throws in an extra loaf for free.",
+          "effects": {
+            "stats": {
+              "charisma": 1
+            }
+          }
+        },
+        "failure": {
+          "text": "She doesn't believe a word, and you see her talking to someone after you leave.",
+          "effects": {}
+        },
+        "shows": [
+          "cunning"
+        ]
+      },
+      {
+        "label": "Tell her the truth, sort of",
+        "text": "\"A distant relative, visiting.\" It isn't a lie, exactly.",
+        "shows": [
+          "honesty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_police",
+    "phase": "war",
+    "weight": 2,
+    "text": "A police officer knocks on your door, asking whether you heard anything strange last night.",
+    "choices": [
+      {
+        "label": "Act natural",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "He thanks you for your time and moves on.",
+          "effects": {}
+        },
+        "failure": {
+          "text": "He writes your name down. You'll have to be more careful.",
+          "effects": {
+            "stats": {
+              "charisma": -1
+            }
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      },
+      {
+        "label": "Say nothing at all",
+        "text": "He leaves, frowning.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_child",
+    "phase": "war",
+    "weight": 2,
+    "text": "A small child has been following {servant} around the neighborhood, convinced they're a hero from a storybook.",
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Let them tag along for an hour",
+        "text": "The child goes home glowing, and {servant} looks oddly pleased.",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "mercy",
+          "generosity"
+        ]
+      },
+      {
+        "label": "Send them home, gently",
+        "text": "It's not safe to be near you. Not now.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_injured_stranger",
+    "phase": "war",
+    "weight": 2,
+    "text": "You find a stranger in an alley, hurt and confused, babbling about lights in the sky last night.",
+    "choices": [
+      {
+        "label": "Get them to a doctor",
+        "text": "It costs you the morning, but they'll live.",
+        "effects": {
+          "money": -10,
+          "intel": 1
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Leave them",
+        "text": "Someone else will find them. Probably.",
+        "shows": [
+          "caution",
+          "cruelty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_rain",
+    "phase": "war",
+    "weight": 2,
+    "text": "Rain hammers the city all morning. The streets are empty, and for a few hours the war feels very far away.",
+    "repeatable": true,
+    "effects": {
+      "mana": 10
+    }
+  },
+  {
+    "id": "war_rent",
+    "phase": "war",
+    "weight": 2,
+    "text": "Your landlord wants the rent, and they want it today.",
+    "choices": [
+      {
+        "label": "Pay up",
+        "text": "Painful, but it keeps a roof over your head.",
+        "effects": {
+          "money": -20
+        }
+      },
+      {
+        "label": "Talk them into waiting",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "They grumble, but give you another week.",
+          "effects": {}
+        },
+        "failure": {
+          "text": "They're not having it, and add a late fee.",
+          "effects": {
+            "money": -30
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_holy_water",
+    "phase": "war",
+    "weight": 2,
+    "text": "An old priest presses a small bottle into your hand on the street. \"For whatever you're fighting,\" he says, and walks away.",
+    "conditions": {
+      "places": [
+        "london",
+        "prague",
+        "new_orleans",
+        "buenos_aires"
+      ]
+    },
+    "effects": {
+      "mana": 20
+    }
+  },
+  {
+    "id": "war_monk_warning",
+    "phase": "war",
+    "weight": 2,
+    "text": "A monk sweeping a temple step stops you as you pass. \"Something old is walking in this city,\" he says. \"More than one. Be careful which you trust.\"",
+    "conditions": {
+      "places": [
+        "kyoto"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 1
+      },
+      "intel": 1
+    }
+  },
+  {
+    "id": "war_pub_gossip",
+    "phase": "war",
+    "weight": 2,
+    "text": "In a pub, a man who has had too much to drink swears he saw a woman in armor fighting a man with a spear on the bridge last night.",
+    "from": 1880,
+    "conditions": {
+      "places": [
+        "london"
+      ]
+    },
+    "effects": {
+      "intel": 1
+    }
+  },
+  {
+    "id": "war_clockmaker",
+    "phase": "war",
+    "weight": 2,
+    "text": "The old clockmaker near the square tells you his clocks all stopped at the same moment last night. \"Twice,\" he says. \"That has never happened.\"",
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "effects": {
+      "stats": {
+        "mind": 1
+      },
+      "intel": 1
+    }
+  },
+  {
+    "id": "war_reader",
+    "phase": "war",
+    "weight": 2,
+    "text": "A woman with a deck of worn cards stops you in the street. \"You're in a war,\" she says. \"Want to know how it ends?\"",
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Let her read the cards",
+        "text": "She turns over the cards and goes very quiet. \"You'll have a choice to make,\" is all she'll say.",
+        "effects": {
+          "money": -5,
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Walk on",
+        "text": "She calls after you: \"Trust the one who stays!\"",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_cafe_gossip",
+    "phase": "war",
+    "weight": 2,
+    "text": "In a café full of smoke, the old men are arguing about the strange fires on the other side of the city. One of them saw more than he's telling.",
+    "conditions": {
+      "places": [
+        "buenos_aires"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Buy him a coffee and listen",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "After the second cup, he tells you everything.",
+          "effects": {
+            "money": -5,
+            "intel": 1
+          }
+        },
+        "failure": {
+          "text": "He clams up and leaves.",
+          "effects": {
+            "money": -5
+          }
+        }
+      },
+      {
+        "label": "Mind your own business",
+        "text": "You finish your coffee and go."
+      }
+    ]
+  },
+  {
+    "id": "war_newspaper_photo",
+    "phase": "war",
+    "weight": 2,
+    "text": "A grainy photograph on the front page of the morning paper shows a figure on a rooftop, blurred by speed. It could be anyone. It could be you.",
+    "to": 2005,
+    "choices": [
+      {
+        "label": "Buy every copy you can find",
+        "text": "It's pointless, but it makes you feel better.",
+        "effects": {
+          "money": -5
+        }
+      },
+      {
+        "label": "Study it closely",
+        "text": "It isn't you. It's someone else's Servant.",
+        "effects": {
+          "intel": 1
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ],
+    "from": 1900
+  },
+  {
+    "id": "war_video_online",
+    "phase": "war",
+    "weight": 2,
+    "text": "A shaky video online shows a flash of light and two figures moving faster than anything human. The comments are full of theories.",
+    "from": 2006,
+    "effects": {
+      "intel": 1
+    }
+  },
+  {
+    "id": "war_storm",
+    "phase": "war",
+    "weight": 1,
+    "text": "A storm rolls in off the water and the power flickers all day.",
+    "repeatable": true,
+    "from": 1900,
+    "effects": {}
+  },
+  {
+    "id": "war_letter",
+    "phase": "war",
+    "weight": 2,
+    "text": "An unsigned letter is pushed under your door: \"I know who you are. I know what you are doing. I'm not your enemy. Yet.\"",
+    "minDay": 4,
+    "effects": {
+      "intel": 1
+    }
+  },
+  {
+    "id": "night_rooftop",
+    "phase": "night",
+    "weight": 2,
+    "text": "On a rooftop above the city, {servant} stops to look at the lights spread out below.",
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Stop and look with them",
+        "text": "For a while, neither of you says anything. It doesn't need saying.",
+        "effects": {
+          "bond": 2
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Keep moving",
+        "text": "{servant} follows without a word, but glances back once.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "night_police_patrol",
+    "phase": "night",
+    "weight": 2,
+    "text": "A police patrol rounds the corner just as you climb down from a wall.",
+    "choices": [
+      {
+        "label": "Talk your way out",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "They let you go with a warning.",
+          "effects": {}
+        },
+        "failure": {
+          "text": "They take you to the station for questions. You get out at dawn, exhausted.",
+          "effects": {
+            "mana": -10
+          }
+        }
+      },
+      {
+        "label": "Run",
+        "check": {
+          "stat": "body",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "You lose them in the back streets.",
+          "effects": {
+            "stats": {
+              "body": 1
+            }
+          }
+        },
+        "failure": {
+          "text": "They chase you for blocks before you shake them.",
+          "effects": {
+            "mana": -10
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "night_fire",
+    "phase": "night",
+    "weight": 2,
+    "text": "A building is on fire, and someone is screaming on the third floor. The fire brigade is nowhere in sight.",
+    "choices": [
+      {
+        "label": "Go in after them",
+        "check": {
+          "stat": "body",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "You get them out, singed and coughing. A crowd cheers.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "The smoke drives you back. Someone else gets them out. You'll be coughing for days.",
+          "effects": {
+            "stats": {
+              "body": -1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "mercy"
+        ]
+      },
+      {
+        "label": "Keep your cover and walk on",
+        "text": "You can't afford the attention. It still hurts.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "night_drunk_mage",
+    "phase": "night",
+    "weight": 2,
+    "text": "A drunk mage, staggering out of a bar, recognizes the Command Seals on your hand and starts loudly offering advice.",
+    "choices": [
+      {
+        "label": "Listen",
+        "text": "Most of it is nonsense. Not all of it.",
+        "effects": {
+          "intel": 1
+        }
+      },
+      {
+        "label": "Get him home before he gets himself killed",
+        "text": "He thanks you, and swears he'll remember the favor.",
+        "effects": {
+          "contacts": 1
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "night_cemetery",
+    "phase": "night",
+    "weight": 2,
+    "text": "The above-ground tombs of an old cemetery glow white in the moonlight. Someone has left fresh offerings on one of them, and the air hums with power.",
+    "conditions": {
+      "places": [
+        "new_orleans"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Leave an offering too",
+        "text": "The humming softens. You feel lighter.",
+        "effects": {
+          "mana": 20
+        },
+        "shows": [
+          "faith"
+        ]
+      },
+      {
+        "label": "Take what was left",
+        "text": "It's powerful. It's also not yours.",
+        "effects": {
+          "mana": 30
+        },
+        "shows": [
+          "cruelty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "night_bridge_statues",
+    "phase": "night",
+    "weight": 2,
+    "text": "On the old stone bridge, the statues of saints seem to turn their heads as you pass.",
+    "conditions": {
+      "places": [
+        "prague"
+      ]
+    },
+    "choices": [
+      {
+        "label": "Bow to them",
+        "text": "It feels right, somehow.",
+        "effects": {
+          "mana": 15
+        },
+        "shows": [
+          "faith"
+        ]
+      },
+      {
+        "label": "Keep walking",
+        "text": "When you look back, they're facing the other way."
+      }
+    ]
+  },
+  {
+    "id": "night_music",
+    "phase": "night",
+    "weight": 1,
+    "text": "Somewhere nearby, someone is playing a lonely tune. When you follow it, the street is empty.",
+    "repeatable": true,
+    "effects": {}
+  },
+  {
+    "id": "night_fog",
+    "phase": "night",
+    "weight": 2,
+    "text": "A fog rolls in so thick that you can barely see {servant} beside you.",
+    "conditions": {
+      "places": [
+        "london"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Hold on to {servant}'s arm",
+        "text": "{servant} doesn't pull away.",
+        "effects": {
+          "bond": 1
+        }
+      },
+      {
+        "label": "Trust them to stay close",
+        "text": "They do."
+      }
+    ]
+  },
+  {
+    "id": "sv_city_walk",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} wants to see the city: not the battlefield, but the city itself.",
+    "servantRemark": true,
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Show them the oldest streets",
+        "text": "You walk the old quarter for hours. {servant} touches the old stones like an old friend.",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Show them the newest things",
+        "text": "{servant} is fascinated and appalled in equal measure.",
+        "effects": {
+          "bond": 1,
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Keep it short and safe",
+        "text": "You stick to quiet streets and get home before noon.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_food",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} has never eaten the food of this place, and announces that today, that changes.",
+    "servantRemark": true,
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Take them to the best place you can afford",
+        "text": "A feast. {servant} has opinions about every dish.",
+        "effects": {
+          "money": -15,
+          "bond": 2
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Cook something yourself",
+        "text": "It isn't very good. {servant} eats every bite anyway.",
+        "effects": {
+          "bond": 2,
+          "stats": {
+            "charisma": 1
+          }
+        }
+      },
+      {
+        "label": "Street food from a stall",
+        "text": "Cheap, hot, and surprisingly perfect.",
+        "effects": {
+          "money": -3,
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "sv_clothes",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} can't walk around in armor forever. It's time for clothes from this century.",
+    "servantRemark": true,
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Buy them something fine",
+        "text": "{servant} admires themself in the shop mirror for longer than they'd ever admit.",
+        "effects": {
+          "money": -25,
+          "bond": 2
+        },
+        "shows": [
+          "generosity",
+          "pride"
+        ]
+      },
+      {
+        "label": "Something plain and practical",
+        "text": "It fits. It's fine. They wear it anyway.",
+        "effects": {
+          "money": -8,
+          "bond": 1
+        },
+        "shows": [
+          "caution"
+        ]
+      },
+      {
+        "label": "Let them choose",
+        "text": "The result is... memorable.",
+        "effects": {
+          "money": -15,
+          "bond": 2,
+          "stats": {
+            "charisma": -1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "sv_spar",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} offers to spar with you, to see what you can do.",
+    "servantRemark": true,
+    "conditions": {
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Give it everything",
+        "check": {
+          "stat": "body",
+          "difficulty": 45
+        },
+        "success": {
+          "text": "You land a hit. Just one. {servant} looks genuinely impressed.",
+          "effects": {
+            "stats": {
+              "body": 2
+            },
+            "bond": 1
+          }
+        },
+        "failure": {
+          "text": "You spend most of the morning on the ground. {servant} helps you up every time.",
+          "effects": {
+            "stats": {
+              "body": 1
+            }
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      },
+      {
+        "label": "Ask them to teach you instead",
+        "text": "Slow, patient lessons. You learn more than you expected.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 1
+          },
+          "bond": 1
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_disagreement",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} thinks your plan for the war is wrong, and says so.",
+    "servantRemark": true,
+    "conditions": {
+      "minBond": 15,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Hear them out",
+        "text": "They make some good points. You change the plan.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          },
+          "bond": 2
+        },
+        "shows": [
+          "honesty"
+        ]
+      },
+      {
+        "label": "Remind them who the Master is",
+        "text": "They fall silent. The silence lasts a while.",
+        "effects": {
+          "bond": -2
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Argue it out properly",
+        "text": "It gets loud. By the end, you both understand each other better.",
+        "effects": {
+          "bond": 1,
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "courage",
+          "honesty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_memory",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Out of nowhere, {servant} starts telling you about a day from their life, long ago.",
+    "servantRemark": true,
+    "conditions": {
+      "minBond": 30,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Listen without interrupting",
+        "text": "When they finish, they look lighter.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Ask what they'd change",
+        "text": "They think about it for a long time before answering.",
+        "effects": {
+          "bond": 2
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_wish_question",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} asks what you would wish for, if the Grail were yours.",
+    "servantRemark": true,
+    "conditions": {
+      "minBond": 35,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Something for yourself",
+        "text": "{servant} nods slowly. \"Honest, at least.\"",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "ambition",
+          "honesty"
+        ]
+      },
+      {
+        "label": "Something for others",
+        "text": "{servant} looks at you for a long moment.",
+        "effects": {
+          "bond": 2
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "You don't know yet",
+        "text": "\"Good,\" {servant} says. \"Those who are sure frighten me.\"",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_night_sky",
+    "phase": "servant",
+    "weight": 2,
+    "text": "You find {servant} on the roof, looking at the stars. \"They haven't changed,\" {servant} says. \"Everything else has.\"",
+    "servantRemark": true,
+    "conditions": {
+      "minBond": 45,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Sit beside them",
+        "text": "You stay up there until dawn.",
+        "effects": {
+          "bond": 3
+        }
+      },
+      {
+        "label": "Ask what they see",
+        "text": "{servant} names the stars the way people did in their time.",
+        "effects": {
+          "bond": 2,
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sv_romantic_evening",
+    "phase": "servant",
+    "weight": 2,
+    "text": "An evening with nothing to do. {servant} catches your hand on the way back from the market, and doesn't let go.",
+    "servantRemark": true,
+    "conditions": {
+      "path": "romantic",
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Walk the long way home",
+        "text": "Neither of you is in any hurry.",
+        "effects": {
+          "bond": 3
+        }
+      },
+      {
+        "label": "Stop and kiss them",
+        "text": "The city goes quiet around you for a moment.",
+        "effects": {
+          "bond": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "sv_platonic_laugh",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Something completely ridiculous happens at the market, and you and {servant} laugh until you can't breathe.",
+    "servantRemark": true,
+    "conditions": {
+      "path": "platonic",
+      "hasServant": true
+    },
+    "effects": {
+      "bond": 3
+    }
+  },
+  {
+    "id": "sv_injured_care",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} is still hurt from the last fight, and trying very hard to hide it.",
+    "servantRemark": true,
+    "conditions": {
+      "minBond": 20,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Tend the wounds yourself",
+        "text": "{servant} grumbles the whole time, and doesn't pull away.",
+        "effects": {
+          "bond": 2,
+          "servantHp": 10
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Let them keep their pride",
+        "text": "You pretend not to notice. They notice that you noticed.",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ar_museum",
+    "phase": "servant",
+    "weight": 2,
+    "text": "In a museum, {servant} stops dead in front of a painting labeled \"King Arthur\": a bearded man in shining armor. She starts laughing and can't stop.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "arthur"
+      ],
+      "hasServant": true
+    },
+    "from": 1900,
+    "choices": [
+      {
+        "label": "Laugh with her",
+        "text": "\"He's very handsome,\" she says, wiping her eyes. \"I wasn't.\"",
+        "effects": {
+          "bond": 2
+        }
+      },
+      {
+        "label": "Ask what she really looked like",
+        "text": "She tells you. Muddy, mostly. Tired. Surrounded by friends.",
+        "effects": {
+          "bond": 2
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ar_horses",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} spots horses being exercised in a park and goes very quiet.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "arthur"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Talk the owner into letting her ride",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 35
+        },
+        "success": {
+          "text": "She gallops across the field, laughing like a girl. You've never seen her like this.",
+          "effects": {
+            "bond": 3
+          }
+        },
+        "failure": {
+          "text": "The owner refuses. She shrugs, but watches them a long time.",
+          "effects": {
+            "bond": 1
+          }
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Let her watch",
+        "text": "She tells you the names of every horse she ever had.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "ar_mordred",
+    "phase": "servant",
+    "weight": 2,
+    "text": "You wake in the night to {servant} talking in her sleep, saying one name over and over: Mordred.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "arthur"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Wake her gently",
+        "text": "She clings to your hand for a moment before she remembers who she is.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Ask her about him in the morning",
+        "text": "She tells you about her son. All of it.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "honesty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "is_jewelry",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} stops in front of a jeweler's window and doesn't move.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "ishtar"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Buy her something",
+        "text": "She wears it every day and pretends it isn't important to her.",
+        "effects": {
+          "money": -30,
+          "bond": 3
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Tell her you can't afford it",
+        "text": "She sulks for an hour, then forgives you, magnanimously.",
+        "effects": {
+          "bond": -1
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "is_shrine",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} declares that a goddess requires a shrine, and that your base will do.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "ishtar"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Build her one",
+        "text": "Candles, flowers, a little lapis. She is absurdly delighted.",
+        "effects": {
+          "money": -10,
+          "bond": 3,
+          "mana": 10
+        },
+        "shows": [
+          "faith",
+          "generosity"
+        ]
+      },
+      {
+        "label": "Make her a joke shrine",
+        "text": "She's furious for exactly one minute, then laughs harder than you've ever heard.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "is_sister",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Late at night, {servant} mentions her sister, Ereshkigal, queen of the underworld, and then goes silent.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "ishtar"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Ask about her",
+        "text": "\"I went down to take her throne,\" she says. \"I never asked if she was lonely down there.\"",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Just stay with her",
+        "text": "She leans against you, which she has never done before.",
+        "effects": {
+          "bond": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "so_garden",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} finds a small public garden and sits among the birds for hours.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "solomon"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Sit with him",
+        "text": "The birds tell him things. He tells you some of them.",
+        "effects": {
+          "bond": 2,
+          "intel": 1
+        }
+      },
+      {
+        "label": "Leave him in peace",
+        "text": "When he comes home, he thanks you for the quiet.",
+        "effects": {
+          "bond": 1
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "so_judgment",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Two merchants are shouting over a disputed debt in the market. {servant} steps in to judge between them.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "solomon"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Let him",
+        "text": "His judgment is so clever that both of them walk away happy.",
+        "effects": {
+          "bond": 2,
+          "contacts": 1
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Pull him away before anyone notices",
+        "text": "\"Wise,\" he says, a little sadly.",
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "so_ring",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} takes off his ring and puts it in your palm. It is warm, and heavier than it looks.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "solomon"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Give it back at once",
+        "text": "\"You understand,\" he says. \"Good.\"",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "honesty"
+        ]
+      },
+      {
+        "label": "Ask him why",
+        "text": "\"So you know I trust you,\" he says.",
+        "effects": {
+          "bond": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "sa_honey",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} smells honey at the market and won't leave until you buy some. Then he poses you a riddle.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "samson"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Solve the riddle",
+        "check": {
+          "stat": "mind",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "He roars with laughter and claps you on the back hard enough to bruise.",
+          "effects": {
+            "bond": 3,
+            "money": -3
+          }
+        },
+        "failure": {
+          "text": "He tells you the answer and laughs anyway.",
+          "effects": {
+            "bond": 1,
+            "money": -3
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sa_barber",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Passing a barbershop, {servant} hears the snip of scissors and freezes.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "samson"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Take his arm and walk him past",
+        "text": "His hand grips yours until you're well down the street.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Make a joke of it",
+        "text": "He doesn't laugh. Then, a street later, he does.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "sa_delilah",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} says a name you've never heard him say before: Delilah. \"I loved her,\" he says. \"I still don't know if she ever...\"",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "samson"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Tell him he deserved better",
+        "text": "He's quiet for a long time. \"Maybe,\" he says.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Just listen",
+        "text": "He talks more than you've ever heard him talk.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "he_children",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Children in the street are playing at soldiers with sticks. {servant} watches, then joins in and lets them win.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "hector"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Join in too",
+        "text": "You lose. Badly. The children are delighted.",
+        "effects": {
+          "bond": 2,
+          "stats": {
+            "charisma": 1
+          }
+        }
+      },
+      {
+        "label": "Watch from a bench",
+        "text": "He comes back grinning, with a stick-sword he refuses to throw away.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "he_cooking",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} decides you're too thin and takes over your kitchen.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "hector"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Let him",
+        "text": "You eat better than you have in weeks.",
+        "effects": {
+          "bond": 2,
+          "masterHp": 10
+        }
+      },
+      {
+        "label": "Cook together",
+        "text": "It's chaos. It's wonderful.",
+        "effects": {
+          "bond": 3
+        }
+      }
+    ]
+  },
+  {
+    "id": "he_andromache",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} sees a mother carrying her baby across the square, and has to sit down.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "hector"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Sit with him",
+        "text": "He tells you about Andromache, and Astyanax, and the last time he saw them.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      },
+      {
+        "label": "Give him time alone",
+        "text": "He finds you later and thanks you.",
+        "effects": {
+          "bond": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "cl_library",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} finds the city library and refuses to leave.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "cleopatra"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Study with her",
+        "text": "She teaches you more in a day than school did in a year.",
+        "effects": {
+          "bond": 2,
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Leave her there and come back later",
+        "text": "She has read half a shelf by the time you return.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "cl_cats",
+    "phase": "servant",
+    "weight": 2,
+    "text": "A stray cat follows {servant} home. Then another. By evening there are five.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "cleopatra"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Let them stay",
+        "text": "She names every one of them after a Roman she disliked.",
+        "effects": {
+          "bond": 2,
+          "money": -5
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Shoo them out",
+        "text": "She sighs dramatically, and smuggles one back in anyway.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "cl_caesarion",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} goes quiet at a playground, watching a boy of about twelve.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "cleopatra"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Ask about her son",
+        "text": "\"Caesarion,\" she says. \"He would have been a better ruler than any of them.\"",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Take her hand",
+        "text": "She lets you, for a while.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "co_church",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} wants to visit a church and pray.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "constantine"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Pray with him",
+        "text": "Whatever you believe, the quiet does you both good.",
+        "effects": {
+          "bond": 2,
+          "mana": 10
+        },
+        "shows": [
+          "faith"
+        ]
+      },
+      {
+        "label": "Wait outside",
+        "text": "He comes out lighter, and thanks you for waiting.",
+        "effects": {
+          "bond": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "co_maps",
+    "phase": "servant",
+    "weight": 2,
+    "text": "{servant} finds an old map shop and spends the afternoon tracing the borders of a world that no longer exists.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "constantine"
+      ],
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Ask him to show you his city",
+        "text": "He traces the walls of Constantinople from memory, every gate and tower.",
+        "effects": {
+          "bond": 2,
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Buy him the map",
+        "text": "He holds it as if it might break.",
+        "effects": {
+          "money": -15,
+          "bond": 3
+        },
+        "shows": [
+          "generosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "co_last_day",
+    "phase": "servant",
+    "weight": 2,
+    "text": "Unprompted, {servant} begins to tell you about the last day of his city.",
+    "servantRemark": true,
+    "conditions": {
+      "servants": [
+        "constantine"
+      ],
+      "minBond": 55,
+      "hasServant": true
+    },
+    "choices": [
+      {
+        "label": "Listen to all of it",
+        "text": "When he's done, neither of you speaks for a long time.",
+        "effects": {
+          "bond": 3
+        },
+        "shows": [
+          "mercy",
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Ask if he would do it again",
+        "text": "\"Every time,\" he says, without hesitating.",
+        "effects": {
+          "bond": 2
+        },
+        "shows": [
+          "courage"
+        ]
+      }
+    ]
   }
 ]

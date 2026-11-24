@@ -21,7 +21,7 @@ import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData, findById } from './data.js';
 import { randInt, chance, pick, weightedPick } from './rng.js';
-import { makeContext, fits, pickText, fillText, rollEvent, applyEffects } from './events.js';
+import { makeContext, fits, pickText, fillText, rollEvent, applyEffects, resolveChoice, choiceHint } from './events.js';
 import { openChat } from './chat.js';
 import { sayRemark, nextBondMilestone, needsPathChoice, showPathChoice } from './bond.js';
 import { generateRivals, activeRivals, ensureRivalCombatStats } from './rivals.js';
@@ -112,7 +112,7 @@ async function advance(state, nav) {
         break;
       case 'dusk':
         ui.log('Night', 'heading');
-        ui.log(pickText(getData('war').dusk, warContext(state)));
+        ui.log(pickText(getData('war').dusk, warContext(state), used(state)));
         war.stage = 'night';
         break;
       case 'night':
@@ -210,7 +210,7 @@ function startDay(state) {
   war.history.push({ day: war.day, events: [], dayAction: null, nightAction: null, nightEvent: null });
 
   ui.log(`Day ${war.day} of ${r.days}`, 'heading');
-  ui.log(pickText(getData('war').dawn, ctx));
+  ui.log(pickText(getData('war').dawn, ctx, used(state)));
 
   // Natural recovery overnight.
   const m = state.master;
@@ -264,7 +264,20 @@ function startDay(state) {
     picked.push(e.id);
     if (!e.repeatable) war.seenEvents.push(e.id);
   }
+  // Sometimes the Servant brings a moment of their own.
+  if (hasServant(state) && chance(getData('rules').servantEventAtDawn)) {
+    const sev = rollEvent('servant', ctx, war.seenEvents, picked);
+    if (sev) {
+      picked.push(sev.id);
+      war.seenEvents.push(sev.id);
+    }
+  }
   war.eventQueue = picked;
+}
+
+// Lines of text already shown this war (so they aren't repeated).
+function used(state) {
+  return (state.war.usedTexts ??= []);
 }
 
 // Logs an event. Returns true if it waits for a choice.
@@ -295,12 +308,18 @@ function showEventChoices(state, event, nav) {
   const choices = (event.choices || []).filter((c) => fits(c, ctx));
   ui.setChoices(choices.map((choice) => ({
     label: fillText(choice.label, ctx),
+    hint: choiceHint(state, choice),
     onSelect: async () => {
       const war = state.war;
-      ui.log(`You chose: ${fillText(choice.label, ctx)}`, 'system');
-      if (choice.text) ui.log(fillText(choice.text, ctx));
-      const lines = applyEffects(state, choice.effects, ctx);
+      const label = fillText(choice.label, ctx);
+      ui.log(`You chose: ${label}`, 'system');
+      const { texts, lines } = resolveChoice(state, choice, ctx);
+      for (const t of texts) ui.log(t.text, t.kind);
       logOutcome(lines);
+      // The Servant has something to say about their own moments.
+      if (event.servantRemark && hasServant(state)) {
+        await sayRemark(state, 'event', `${firstSentence(fillText(event.text, ctx))} You chose: ${label}`);
+      }
       war.stage = war.eventReturn;
       war.eventId = null;
       war.eventReturn = null;
@@ -346,7 +365,7 @@ function showDayActions(state, nav) {
       }
     }
     if (action.id === 'talk') choice.style = 'primary';
-    if ((action.id === 'train' || action.id === 'talk') && !hasServant(state)) {
+    if ((action.id === 'train' || action.id === 'talk' || action.id === 'spend') && !hasServant(state)) {
       choice.disabled = true;
       choice.style = undefined;
       choice.hint = getData('combat').servantless[action.id];
@@ -367,8 +386,27 @@ async function doDayAction(state, action, nav) {
     await openChat(nav.goTo, { returnTo: 'war', occasion: `day ${war.day}` });
     return;
   }
+  if (action.id === 'spend') {
+    // A day with the Servant: one of their moments, with choices.
+    const event = rollEvent('servant', ctx, war.seenEvents);
+    if (action.texts) ui.log(pickText(action.texts, ctx, used(state)));
+    logOutcome(applyEffects(state, { bond: getData('rules').spendTimeBond }, ctx));
+    if (event) {
+      war.seenEvents.push(event.id);
+      const waiting = showEvent(state, event, 'dusk');
+      if (waiting) {
+        showEventChoices(state, event, nav);
+        await nav.autosave();
+        return;
+      }
+      await flushRemarks(state);
+    }
+    war.stage = 'dusk';
+    await advance(state, nav);
+    return;
+  }
 
-  if (action.texts) ui.log(pickText(action.texts, ctx));
+  if (action.texts) ui.log(pickText(action.texts, ctx, used(state)));
   let effects = {};
   if (action.id === 'rest') {
     effects = {
@@ -399,6 +437,8 @@ async function doDayAction(state, action, nav) {
         ui.log(pickText(action.nothing, ctx));
       }
     }
+  } else if (action.id === 'work') {
+    effects = { money: randInt(...getData('rules').warWork) };
   } else if (action.id === 'workshop') {
     const cost = r.workshop.cost[war.workshop];
     effects = { money: -cost };
@@ -502,7 +542,7 @@ async function doNightAction(state, action, nav, target = null) {
   const ctx = warContext(state);
   today(state).nightAction = action.id;
   if (target) today(state).nightTarget = target.id;
-  ui.log(target ? targetText(action.texts, ctx, target) : pickText(action.texts, ctx));
+  ui.log(target ? targetText(action.texts, ctx, target) : pickText(action.texts, ctx, used(state)));
 
   if (action.id === 'patrol') {
     // A patrol may run into a rival (a battle), or into something stranger.
@@ -523,7 +563,7 @@ async function doNightAction(state, action, nav, target = null) {
         return;
       }
     } else {
-      ui.log(pickText(action.quiet, ctx));
+      ui.log(pickText(action.quiet, ctx, used(state)));
     }
   } else if (action.id === 'scout') {
     const spotted = scout(state, action, target, ctx);

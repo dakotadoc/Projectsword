@@ -5,7 +5,17 @@
 //   "from"/"to"         in-game years (see period.js)
 //   "minAge"/"maxAge"   the Master's age
 //   "minDay"/"maxDay"   the war day (war events)
-//   "conditions": { isMage, places, families, traits, sex, minMoney, minContacts, hasServant }
+//   "conditions": { isMage, places, families, traits, sex, minMoney, minContacts, hasServant,
+//                   servants, minBond, maxBond, path, seen, notSeen }
+//     servants: only with these Servants; minBond/maxBond/path: the player's
+//     Bond and relationship path; seen/notSeen: event ids (for event chains).
+//
+// A choice may be a skill check instead of a fixed result:
+//   { "label", "check": { "stat": "body", "difficulty": 40 },
+//     "success": { "text", "effects" }, "failure": { "text", "effects" } }
+// and may say what it shows about the Master: "shows": ["courage", …].
+// The Servant approves of choices that show what they value, and disapproves
+// of what they scorn (servants.json "values"/"scorns"), changing Bond.
 //
 // Effects look like:
 //   { "stats": { "body": 2 }, "money": -50, "contacts": 1, "catalyst": true,
@@ -14,7 +24,7 @@
 // texts come back on the returned array as `.intel`, to be logged as story.
 
 import { getData, findById } from './data.js';
-import { weightedPick } from './rng.js';
+import { weightedPick, chance } from './rng.js';
 import { fitsYear } from './period.js';
 import { findCatalyst } from './catalysts.js';
 import { gainRandomIntel } from './intel.js';
@@ -39,6 +49,10 @@ export function makeContext(state, { age, year, day = null }) {
     traitId: state.master.traitId,
     sex: state.master.sex,
     money: state.master.money,
+    servantId: state.servant && state.servant.status !== 'lost' ? state.servant.id : null,
+    bond: state.servant?.bond ?? 0,
+    path: state.servant?.path ?? null,
+    seen: [...(state.life?.seenEvents || []), ...(state.war?.seenEvents || [])],
   };
 }
 
@@ -58,14 +72,77 @@ export function fits(entry, ctx) {
   if (Number.isFinite(c.minMoney) && ctx.money < c.minMoney) return false;
   if (Number.isFinite(c.minContacts) && ctx.contacts < c.minContacts) return false;
   if (typeof c.hasServant === 'boolean' && c.hasServant !== Boolean(ctx.hasServant)) return false;
+  if (c.servants && !c.servants.includes(ctx.servantId)) return false;
+  if (Number.isFinite(c.minBond) && !(ctx.servantId && ctx.bond >= c.minBond)) return false;
+  if (Number.isFinite(c.maxBond) && ctx.bond > c.maxBond) return false;
+  if (c.path && c.path !== ctx.path) return false;
+  if (c.seen && !c.seen.every((id) => ctx.seen?.includes(id))) return false;
+  if (c.notSeen && c.notSeen.some((id) => ctx.seen?.includes(id))) return false;
   return true;
 }
 
 // Pick one fitting text variant from a list of { text, ...restrictions }.
-export function pickText(variants, ctx) {
+// With `used` (an array kept in state), lines already shown this run are
+// avoided while fresh ones remain, and the chosen line is recorded.
+export function pickText(variants, ctx, used = null) {
   const ok = variants.filter((v) => fits(v, ctx));
   if (!ok.length) return null;
-  return fillText(weightedPick(ok).text, ctx);
+  const fresh = used ? ok.filter((v) => !used.includes(v.text)) : ok;
+  const chosen = weightedPick(fresh.length ? fresh : ok);
+  if (used) {
+    used.push(chosen.text);
+    if (used.length > 400) used.splice(0, used.length - 400);
+  }
+  return fillText(chosen.text, ctx);
+}
+
+// ---- Choices: skill checks and the Servant's values ----
+
+export function checkChance(state, check) {
+  const r = getData('rules').checks;
+  const stat = state.master.stats[check.stat] ?? 0;
+  return clamp(r.base + (stat - check.difficulty) * r.perPoint, r.min, r.max);
+}
+
+// The hint shown on a choice button.
+export function choiceHint(state, choice) {
+  if (!choice.check) return choice.hint || '';
+  return `${STAT_NAMES[choice.check.stat]} check, about ${Math.round(checkChance(state, choice.check) * 100)}%`;
+}
+
+// Resolve a chosen option. Returns { texts: [...story lines], lines: effect
+// lines (with .intel) } and applies everything to state.
+export function resolveChoice(state, choice, ctx) {
+  let outcome = choice;
+  const texts = [];
+  if (choice.check) {
+    const ok = chance(checkChance(state, choice.check));
+    outcome = ok ? choice.success : choice.failure;
+    texts.push({ text: ok ? 'Success.' : 'Failure.', kind: 'effect' });
+  }
+  if (outcome.text) texts.push({ text: fillText(outcome.text, ctx), kind: 'narration' });
+  const lines = applyEffects(state, outcome.effects, ctx);
+  const reaction = servantReaction(state, choice.shows);
+  if (reaction) {
+    const before = state.servant.bond;
+    state.servant.bond = clamp(state.servant.bond + reaction.delta, 0, 100);
+    const name = findById('servants', state.servant.id).name;
+    lines.push(`${name} ${reaction.delta > 0 ? 'approves' : 'disapproves'} · Bond ${signed(state.servant.bond - before)} (${state.servant.bond})`);
+  }
+  return { texts, lines };
+}
+
+// How the Servant feels about what a choice shows about the Master.
+function servantReaction(state, shows) {
+  if (!shows?.length || !state.servant || state.servant.status === 'lost') return null;
+  const s = findById('servants', state.servant.id);
+  const step = getData('rules').checks.valueBond;
+  let delta = 0;
+  for (const v of shows) {
+    if (s.values?.includes(v)) delta += step;
+    if (s.scorns?.includes(v)) delta -= step;
+  }
+  return delta ? { delta: clamp(delta, -step * 2, step * 2) } : null;
 }
 
 // Replace {place}, {year}, {age}, {servant} in data text.

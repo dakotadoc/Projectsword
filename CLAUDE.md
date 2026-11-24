@@ -227,7 +227,7 @@ Keep the AI rule-based and readable. No complex simulation.
 9. **Rival AI.** Daily actions, off-screen fights, news. *(Done, with alliances, raids, and the day-14 finale. The victory epilogue is a placeholder until milestone 11.)*
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines. *(Done, with the platonic/romantic path at Bond 60.)*
 11. **Endgame and run summary.** *(Done.)*
-12. **Polish.** Balance pass, more events, more Servants, tune chat prompts.
+12. **Polish.** Balance pass, more events, more Servants, tune chat prompts. *(In progress. Done so far: the immersion pass, below.)*
 
 ---
 
@@ -323,6 +323,14 @@ Keep the AI rule-based and readable. No complex simulation.
   - **Defeats** (the Church, killed fleeing, killed in battle) show their short epilogue.
   - **Every ending closes with a run summary** (`summary.js`): the Master's life (birth, family, trait, childhood highlights, final stats), the Servant (final Bond, relationship, when lost), the war (days survived, battles fought and won, Command Seals used, true names learned), the ending and wish, and **every rival revealed** (their Master, their Servant's true name, and their fate). Revealing everything is fine now: the war is over.
   - `state.ending` = `{ type, stage, talked, wishKind, wishText }`; every stage is saved, so a reload resumes the ending exactly.
+- **Immersion pass (milestone 12):** the goal is a world that feels alive and choices that aren't on rails.
+  - **Skill checks:** an event choice can be `{ "check": { "stat", "difficulty" }, "success": {…}, "failure": {…} }`. Chance = `rules.checks` base + (stat − difficulty) × perPoint, clamped; the button shows the stat and the odds.
+  - **The Servant's values:** each Servant has `values` and `scorns` (`servants.json`), from a fixed list (courage, mercy, honesty, cunning, ambition, caution, pride, faith, loyalty, cruelty, generosity, curiosity, recklessness). A choice can say what it `shows`; the Servant visibly approves or disapproves (±2 Bond per matching value, capped at ±4). The same choice lands differently with different Servants.
+  - **More conditions:** `servants`, `minBond`, `maxBond`, `path`, and `seen`/`notSeen` (event ids, for chains).
+  - **Servant moments** (phase `"servant"`): shared everyday scenes (walks, food, clothes, sparring, disagreements, memories, the wish question, the night sky, path-specific moments) and three personal stories per Servant, the deepest gated at Bond 55. They come from the new Day action **Spend the day with {servant}** (Bond +1 plus a moment) and sometimes at dawn (`rules.servantEventAtDawn`). After a moment the Servant speaks up (AI-written, or rotating prepared lines offline).
+  - **Work:** a life action (money per year of the turn) and a war Day action ("Earn some money"), so money has a source.
+  - **Much more content:** about 63 life events (including city-and-year-specific history: Gion Matsuri, the 1952 London smog, the Prague Spring, Hurricane Betsy, the 1978 World Cup, …, plus family- and trait-specific events), 26 dawn events, 13 night encounters (several city-specific), 32 Servant moments, and many more text variants for life actions, war actions, dawns, dusks, rumors and quiet nights.
+  - **No repeated lines:** `pickText(variants, ctx, used)` avoids lines already shown this run (`state.life.usedTexts`, `state.war.usedTexts`) while fresh ones remain.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

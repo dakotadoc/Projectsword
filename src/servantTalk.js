@@ -105,7 +105,15 @@ export function greetingLine(state) {
 // Returns { text, mode }. Never throws: falls back to a prepared line.
 export async function getServantRemark(state, moment, { detail = '', onText } = {}) {
   const servant = currentServant(state);
-  const fallback = () => getData('dialogue').servants[servant.id].remarks[moment] || cannedLine(state, 'replies');
+  // Offline, event remarks rotate through the Servant's prepared lines so
+  // the same one doesn't follow every moment.
+  const fallback = () => {
+    const lines = getData('dialogue').servants[servant.id];
+    if (moment !== 'event') return lines.remarks[moment] || cannedLine(state, 'replies');
+    const pool = [lines.remarks.event, ...lines.replies];
+    state.servant.remarkCount = (state.servant.remarkCount || 0) + 1;
+    return pool[state.servant.remarkCount % pool.length];
+  };
   const situation = (getData('dialogue').moments[moment] || moment).replace('{detail}', detail.replace(/[.!?]+$/, ''));
   const prompt = [
     buildContext(state),
@@ -288,7 +296,7 @@ function warSummary(state) {
 }
 
 // The last few days, as the Master experienced them (only what they saw).
-const DAY_ACTIONS = { ally: 'negotiated an alliance with a rival', rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
+const DAY_ACTIONS = { work: 'worked to earn money', spend: 'spent the day together', ally: 'negotiated an alliance with a rival', rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
 const BATTLE_OUTCOMES = { won: 'you won; they are out of the war', enemyFled: 'they got away', retreated: 'you retreated', lostRetreated: 'you were beaten and barely escaped', draw: 'neither side won', servantLost: 'you lost' };
 const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted a rival', ambush: 'set an ambush for a rival, which ended in a standoff' };
 
@@ -301,7 +309,7 @@ function recentWarDays(state) {
     .replace(/[.!?]$/, '');
   const days = state.war.history.slice(-3).map((h) => {
     const parts = [];
-    for (const id of h.events) parts.push(`news: ${firstSentence(id)}`);
+    for (const id of h.events) parts.push(`${findById('events', id).phase === 'servant' ? 'a moment together' : 'news'}: ${firstSentence(id)}`);
     if (h.dayAction) parts.push(`by day you and your Master ${DAY_ACTIONS[h.dayAction]}`);
     if (h.nightAction) {
       const rival = h.nightTarget && (state.rivals || []).find((r) => r.id === h.nightTarget);

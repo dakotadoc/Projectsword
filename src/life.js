@@ -17,7 +17,7 @@ import { getState } from './state.js';
 import { getData, findById } from './data.js';
 import { randInt, chance, shuffle } from './rng.js';
 import {
-  makeContext, fits, pickText, fillText, rollEvent, applyEffects,
+  makeContext, fits, pickText, fillText, rollEvent, applyEffects, resolveChoice, choiceHint,
 } from './events.js';
 import { relicSearchChance, findCatalyst } from './catalysts.js';
 
@@ -115,6 +115,7 @@ function showActions(state, nav) {
     study_world: `Mind ${m.stats.mind}`,
     socialize: `Charisma ${m.stats.charisma} · Contacts ${m.contacts}`,
     search_relics: `About ${Math.round(relicSearchChance(state, years) * 100)}% chance · Found ${m.catalysts.length}`,
+    work: `Money ${m.money}`,
   };
   ui.setChoices(getData('life').actions.map((action) => ({
     label: action.label,
@@ -130,21 +131,28 @@ async function doAction(state, action, nav) {
   const lines = [];
   state.life.history.push({ age: ctx.age, year: ctx.year, action: action.id, eventId: null, choice: null });
 
+  const used = (state.life.usedTexts ??= []);
   if (action.id === 'search_relics') {
-    ui.log(pickText(action.texts, ctx));
+    ui.log(pickText(action.texts, ctx, used));
     if (chance(relicSearchChance(state, years))) {
       const found = findCatalyst(state, ctx);
       if (found) {
         ui.log(fillText(found.findText, ctx));
         lines.push(`Catalyst found: ${found.name}`);
       } else {
-        ui.log(pickText(action.failTexts, ctx));
+        ui.log(pickText(action.failTexts, ctx, used));
       }
     } else {
-      ui.log(pickText(action.failTexts, ctx));
+      ui.log(pickText(action.failTexts, ctx, used));
     }
+  } else if (action.id === 'work') {
+    // Odd jobs and errands: money, scaled by the years in the turn.
+    ui.log(pickText(action.texts, ctx, used));
+    let pay = 0;
+    for (let y = 0; y < years; y++) pay += randInt(...rules.lifeWorkPerYear);
+    lines.push(...applyEffects(state, { money: pay }, ctx));
   } else {
-    ui.log(pickText(action.texts, ctx));
+    ui.log(pickText(action.texts, ctx, used));
     let gain = 0;
     for (let y = 0; y < years; y++) gain += randInt(...rules.lifeGainPerYear);
     if (action.stat === 'magecraft') {
@@ -193,12 +201,14 @@ function showEventChoices(state, event, nav) {
   const ctx = turnContext(state);
   const choices = (event.choices || []).filter((c) => fits(c, ctx));
   ui.setChoices(choices.map((choice) => ({
-    label: choice.label,
+    label: fillText(choice.label, ctx),
+    hint: choiceHint(state, choice),
     onSelect: async () => {
-      ui.log(`You chose: ${choice.label}`, 'system');
+      ui.log(`You chose: ${fillText(choice.label, ctx)}`, 'system');
       lastHistory(state).choice = choice.label;
-      if (choice.text) ui.log(fillText(choice.text, ctx));
-      logEffects(applyEffects(state, choice.effects, ctx));
+      const { texts, lines } = resolveChoice(state, choice, ctx);
+      for (const t of texts) ui.log(t.text, t.kind);
+      logEffects(lines);
       await finishTurn(state, nav);
     },
   })));

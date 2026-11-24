@@ -9,7 +9,9 @@ import { availableIn } from './period.js';
 
 const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat', 'endings'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
-const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant'];
+// What a choice can show about the Master; Servants value or scorn these.
+const VALUES = ['courage', 'mercy', 'honesty', 'cunning', 'ambition', 'caution', 'pride', 'faith', 'loyalty', 'cruelty', 'generosity', 'curiosity', 'recklessness'];
+const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant', 'servants', 'minBond', 'maxBond', 'path', 'seen', 'notSeen'];
 const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel', 'masterHp'];
 
 const data = {};
@@ -145,7 +147,7 @@ function validate() {
   // events.json
   for (const e of data.events) {
     const where = `events.json ${e.id}`;
-    need(['life', 'war', 'night'].includes(e.phase), `${where}: phase must be "life", "war" or "night"`);
+    need(['life', 'war', 'night', 'servant'].includes(e.phase), `${where}: phase must be "life", "war", "night" or "servant"`);
     checkRestrictions(e, where);
     checkEffects(e.effects, where);
     if (e.choices !== undefined) {
@@ -155,6 +157,13 @@ function validate() {
         need(typeof c.label === 'string' && c.label, `${cw}: needs a label`);
         checkRestrictions(c, cw);
         checkEffects(c.effects, cw);
+        if (c.check) {
+          need(STATS.includes(c.check.stat) && Number.isFinite(c.check.difficulty), `${cw}: check needs a stat and a difficulty`);
+          need(c.success && c.failure, `${cw}: a check needs both "success" and "failure"`);
+          checkEffects(c.success?.effects, `${cw} success`);
+          checkEffects(c.failure?.effects, `${cw} failure`);
+        }
+        for (const v of c.shows || []) need(VALUES.includes(v), `${cw}: unknown value "${v}" in shows (use ${VALUES.join(', ')})`);
       });
       need((e.choices || []).some((c) => !c.conditions), `${where}: at least one choice must have no conditions, so the player is never stuck`);
     }
@@ -218,7 +227,7 @@ function validate() {
   // war.json and rules.war
   const war = data.war || {};
   for (const key of ['intro', 'dawn', 'dusk', 'end']) checkTexts(war[key], `war.json ${key}`);
-  const dayIds = ['rest', 'train', 'intel', 'workshop', 'ally', 'talk'];
+  const dayIds = ['rest', 'train', 'intel', 'workshop', 'work', 'ally', 'spend', 'talk'];
   const nightIds = ['patrol', 'scout', 'ambush', 'hide'];
   for (const [key, ids] of [['dayActions', dayIds], ['nightActions', nightIds]]) {
     const list = war[key] || [];
@@ -271,6 +280,7 @@ function validate() {
     need(data.classes.some((c) => c.id === sv.class), `classes.json: no entry for class ${sv.class} (${sv.id})`);
     sv.skills.forEach((sk, i) => need(SKILL_TYPES.includes(sk.combat?.type), `servants.json ${sv.id} skill #${i + 1}: combat.type must be one of ${SKILL_TYPES.join(', ')}`));
     need(sv.noblePhantasm.combat && typeof sv.noblePhantasm.combat.text === 'string', `servants.json ${sv.id}: noblePhantasm.combat is missing`);
+    for (const k of ['values', 'scorns']) need(Array.isArray(sv[k]) && sv[k].every((v) => VALUES.includes(v)), `servants.json ${sv.id}: ${k} must list values from: ${VALUES.join(', ')}`);
     need(Number.isInteger(sv.betrayalBond), `servants.json ${sv.id}: betrayalBond must be a whole number (Bond change when the player betrays an ally)`);
   }
   for (const c of data.classes) need(Array.isArray(c.attackVerbs) && c.attackVerbs.length, `classes.json ${c.id}: needs attackVerbs`);
