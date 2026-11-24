@@ -14,6 +14,21 @@
       {
         "text": "Turning a corner, you walk straight into {label}. Nobody backs down."
       }
+    ],
+    "raid": [
+      {
+        "text": "Your wards scream. {label} has broken into your base, and their Servant is already through the door."
+      }
+    ],
+    "final": [
+      {
+        "text": "The last night of the war. {label} is waiting for you, and this time neither of you will walk away."
+      }
+    ],
+    "betrayal": [
+      {
+        "text": "You spring the ambush on your own ally. {label} looks at you with something worse than surprise."
+      }
     ]
   },
   "atTheirBase": "You are fighting on their ground. Their workshop is level {level}.",
@@ -46,7 +61,8 @@
     "enemyRetreat": "{label} pulls back and disappears into the night.",
     "enemyRetreatFail": "{label} tries to pull back, but you don't let them.",
     "timeout": "Dawn is coming. Both sides break off before anyone sees.",
-    "noTarget": "{actor} has no one to attack."
+    "noTarget": "{actor} has no one to attack.",
+    "allyBroken": "Your alliance with {label} is over."
   },
   "results": {
     "enemyServantDown": "{servant} falls.",
@@ -81,6 +97,11 @@
       {
         "text": "Your war ends here, in the dark streets of {place}. Somewhere, the Grail waits for someone else."
       }
+    ],
+    "victory": [
+      {
+        "text": "The last enemy falls, and the city goes quiet. Somewhere beneath {place}, something vast and golden begins to wake. The Grail is yours."
+      }
     ]
   },
   "servantless": {
@@ -95,5 +116,7 @@
     "noMana": "You reach for magic, but there isn't enough mana left.",
     "observe": "You study the enemy carefully.",
     "observeFail": "You study the enemy, but learn nothing new."
-  }
+  },
+  "atYourBase": "You are fighting on your own ground. Your workshop is level {level}.",
+  "finalRules": "This is the final battle. There is no running from it."
 }

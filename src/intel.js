@@ -50,9 +50,10 @@ export function gainIntel(state, rival, track, { max = MAX_LEVEL } = {}) {
 
 // Learn one new thing about some rival (gathering, contacts, events).
 // Prefers rivals the player knows least about. Returns text or null.
-export function gainRandomIntel(state, { max = 2 } = {}) {
+export function gainRandomIntel(state, { max = 2, exclude = [] } = {}) {
   const options = [];
   for (const rival of activeRivals(state)) {
+    if (exclude.includes(rival.id)) continue;
     for (const track of ['master', 'servant']) {
       if (rival.intel[track] < max) {
         const known = rival.intel.master + rival.intel.servant;
@@ -94,7 +95,8 @@ export function knownView(rival) {
   return {
     id: rival.id,
     title: rivalTitle(rival),
-    status: rival.status,
+    // The player only knows a rival is out if they could tell who it was.
+    status: rival.status === 'eliminated' && (rival.eliminated?.by === 'player' || rival.eliminated?.knownToPlayer) ? 'eliminated' : 'active',
     master: {
       level: k.master,
       description: k.master >= 1 ? m.description : null,

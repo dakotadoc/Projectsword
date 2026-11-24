@@ -34,6 +34,9 @@ function progressSection(state) {
     rows.push(['Turn', `${life.turn + 1} of ${life.turns.length}`]);
   }
   if (state.war) {
+    rows.push(['Masters left', `${(state.rivals || []).filter((r) => r.status === 'active').length + 1} (counting you)`]);
+    const ally = state.war.ally && state.rivals.find((r) => r.id === state.war.ally);
+    if (ally) rows.push(['Ally', knownView(ally).title]);
     const days = getData('rules').war.days;
     rows.push(['Day', `${Math.min(state.war.day, days)} of ${days}`], ['Time', timeOfDay(state)]);
   }
@@ -121,7 +124,7 @@ function rivalsSection(state) {
     ]);
   }
   const known = rivals.filter((r) => r.intel.master || r.intel.servant).length;
-  const cards = rivals.map((r) => rivalCard(knownView(r)));
+  const cards = rivals.map((r) => rivalCard({ ...knownView(r), ally: state.war?.ally === r.id }));
   return section('Other Masters and Servants', [
     para(`${rivals.length} rival Masters. You know something about ${known} of them.`, 'status-note'),
     ...cards,
@@ -133,7 +136,8 @@ const or = (v) => (v === null || v === undefined ? UNKNOWN : String(v));
 
 function rivalCard(v) {
   const card = el('div', 'rival-card');
-  card.append(el('h3', 'rival-title', v.status === 'eliminated' ? `${v.title} · out of the war` : v.title));
+  const tag = v.status === 'eliminated' ? ' · out of the war' : v.ally ? ' · your ally' : '';
+  card.append(el('h3', 'rival-title', v.title + tag));
   const m = v.master;
   card.append(
     el('h4', 'status-subheading', `Master · intel ${m.level}/3`),

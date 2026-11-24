@@ -36,7 +36,8 @@ export function startBattle(state, rival, trigger) {
   state.battle = {
     rivalId: rival.id,
     trigger,
-    location: trigger === 'ambush' ? 'theirBase' : 'street',
+    location: trigger === 'ambush' || trigger === 'betrayal' ? 'theirBase' : trigger === 'raid' ? 'yourBase' : 'street',
+    final: trigger === 'final', // no retreat, no escape, fought to the end
     round: 1,
     step: 'servant',
     pending: null,
@@ -54,6 +55,13 @@ export function startBattle(state, rival, trigger) {
   if (state.battle.location === 'theirBase' && rival.master.workshop) {
     lines.push({ text: T().atTheirBase.replace('{level}', rival.master.workshop), kind: 'system' });
   }
+  if (state.battle.location === 'yourBase' && state.war?.workshop) {
+    lines.push({ text: T().atYourBase.replace('{level}', state.war.workshop), kind: 'system' });
+  }
+  if (state.battle.final) lines.push({ text: T().finalRules, kind: 'system' });
+  // Fighting someone teaches them who you are and roughly where you go.
+  rival.knows ??= {};
+  rival.knows.player = Math.max(rival.knows.player || 0, trigger === 'raid' ? 2 : 1);
   if (!hasServant(state)) lines.push({ text: T().noServantStart, kind: 'system' });
   return lines;
 }
@@ -90,7 +98,7 @@ function sideOf(state, side) {
       side, rival,
       servant: alive ? { data, hp: state.servant.hp, cls: classOf(data), name: data.name } : null,
       master: { hp: state.master.hp, mana: state.master.mana, stats: state.master.stats, name: 'you', isPlayer: true },
-      workshop: 0, // the player's own base (rival raids arrive in milestone 9)
+      workshop: state.battle.location === 'yourBase' ? (state.war?.workshop || 0) : 0,
     };
   }
   const alive = rival.servant.hp.current > 0;
@@ -152,7 +160,7 @@ export function servantOptions(state) {
     hint: b.npUsed.you ? 'Already used this battle' : money ? `Costs ${money} money. Reveals your Servant's true name` : `Costs ${cost} mana. Reveals your Servant's true name`,
     disabled: !npOk,
   });
-  opts.push({ type: 'retreat', label: 'Retreat', hint: `About ${Math.round(retreatChance(state, 'you') * 100)}% chance` });
+  if (!b.final) opts.push({ type: 'retreat', label: 'Retreat', hint: `About ${Math.round(retreatChance(state, 'you') * 100)}% chance` });
   return opts;
 }
 
@@ -171,7 +179,7 @@ export function masterOptions(state) {
   if (serv && state.master.commandSeals > 0) {
     opts.push({ type: 'seal', label: `Use a Command Seal (${state.master.commandSeals} left)`, hint: 'Costs Bond' });
   }
-  if (!serv) opts.push({ type: 'retreat', label: 'Run', hint: `About ${Math.round(retreatChance(state, 'you') * 100)}% chance` });
+  if (!serv && !state.battle.final) opts.push({ type: 'retreat', label: 'Run', hint: `About ${Math.round(retreatChance(state, 'you') * 100)}% chance` });
   opts.push({ type: 'none', label: serv ? 'Stay back' : 'Brace yourself', hint: 'Do nothing this round' });
   return opts;
 }
@@ -214,7 +222,7 @@ function enemyChoice(state) {
   const sp = R().masterSpell;
 
   // Flee with a Command Seal when nearly beaten (careful Masters only).
-  if (hpFrac < 0.15 && m.commandSeals > 0 && aggr < 50) {
+  if (!b.final && hpFrac < 0.15 && m.commandSeals > 0 && aggr < 50) {
     choice.seal = 'escape';
     return choice;
   }
@@ -223,7 +231,7 @@ function enemyChoice(state) {
   const readySkills = s.skills.map((_, i) => i).filter((i) => !(b.cooldowns.enemy[i] > 0));
   const theirHpFrac = them.servant ? them.servant.hp.current / them.servant.hp.max : 0;
 
-  if (hpFrac < 0.25 && aggr < 60 && chance(0.6)) choice.servant = { type: 'retreat' };
+  if (!b.final && hpFrac < 0.25 && aggr < 60 && chance(0.6)) choice.servant = { type: 'retreat' };
   else if (!b.npUsed.enemy && m.mana.current >= npCost && (theirHpFrac < 0.6 || m.personalityId === 'reckless' || (b.round >= 3 && chance(0.35)))) choice.servant = { type: 'np' };
   else if (readySkills.length && chance(0.35)) choice.servant = { type: 'skill', index: pick(readySkills) };
   else if (m.hp.current / m.hp.max < 0.4 && chance(0.4)) choice.servant = { type: 'defend' };
@@ -330,7 +338,16 @@ export function resolveRound(state, you) {
   const ended = checkEnd(state);
   if (ended) return endBattle(state, lines, ended);
   b.round += 1;
-  if (b.round > R().maxRounds) {
+  if (b.final && b.round > R().finalMaxRounds) {
+    // The last night has to end with someone falling: the more battered one.
+    const mine = hasServant(state) ? state.servant.hp.current / state.servant.hp.max : 0;
+    const theirs = battleRival(state).servant.hp.current / battleRival(state).servant.hp.max;
+    if (mine >= theirs) battleRival(state).servant.hp.current = 0;
+    else if (hasServant(state)) state.servant.hp.current = 0;
+    else state.master.hp.current = 0;
+    return endBattle(state, lines, checkEnd(state));
+  }
+  if (!b.final && b.round > R().maxRounds) {
     say(T().lines.timeout);
     return endBattle(state, lines, { outcome: 'draw' });
   }
@@ -708,7 +725,7 @@ function endBattle(state, lines, result) {
   if (result.outcome === 'servantsDown') {
     if (result.enemyDown) {
       say(res.enemyServantDown.replace('{servant}', cap(sideOf(state, 'enemy').servant?.name || enemyServantName(rival))));
-      if (chance(escapeSave(findById('servants', rival.servant.id)))) {
+      if (!b.final && chance(escapeSave(findById('servants', rival.servant.id)))) {
         rival.servant.hp.current = 1;
         say(res.enemyServantEscaped);
         final.outcome = 'enemyFled';
@@ -720,7 +737,7 @@ function endBattle(state, lines, result) {
     }
     if (result.youDown) {
       const name = findById('servants', state.servant.id).name;
-      if (chance(escapeSave(findById('servants', state.servant.id)))) {
+      if (!b.final && chance(escapeSave(findById('servants', state.servant.id)))) {
         state.servant.hp.current = 1;
         say(res.yourServantEscaped.replaceAll('{servant}', name));
         if (final.outcome !== 'won') final.outcome = 'lostRetreated';

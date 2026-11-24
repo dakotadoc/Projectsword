@@ -156,6 +156,26 @@
       ]
     },
     {
+      "id": "ally",
+      "label": "Propose an alliance",
+      "hint": "Needs a rival whose name and base you know",
+      "texts": [
+        {
+          "text": "You send word to {label}, proposing that you stop fighting each other for now."
+        }
+      ],
+      "accepted": [
+        {
+          "text": "After a tense meeting on neutral ground, {label} agrees. For now, you are allies."
+        }
+      ],
+      "refused": [
+        {
+          "text": "{label} refuses. You get the impression they would rather see you dead."
+        }
+      ]
+    },
+    {
       "id": "talk",
       "label": "Talk with {servant}",
       "hint": "Spend the day talking"
@@ -260,12 +280,32 @@
   ],
   "end": [
     {
-      "text": "The fourteenth night ends. The war is not over, but this is as far as the story goes for now: the endgame is still being built."
+      "text": "The war is over."
     }
   ],
   "contactTip": [
     {
       "text": "A message arrives from one of your contacts, with something they thought you should know."
+    }
+  ],
+  "finalNight": [
+    {
+      "text": "The fourteenth night falls. The war cannot last past dawn: tonight, the Grail will choose."
+    }
+  ],
+  "rivalsDecide": [
+    {
+      "text": "Across the city, the last Masters throw everything they have at each other."
+    }
+  ],
+  "lastRival": [
+    {
+      "text": "When the dust settles, only one rival is left standing: {label}."
+    }
+  ],
+  "allEliminated": [
+    {
+      "text": "There is no one left to fight. You are the last Master standing."
     }
   ]
 }

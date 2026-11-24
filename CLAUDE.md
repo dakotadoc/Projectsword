@@ -77,7 +77,8 @@ style.css
   battle.js      // the battle screen
   ending.js      // game-over epilogue screen
   intel.js       // hidden info system
-  rivals.js      // rival Master AI
+  rivals.js      // rival generation and combat stats
+  rivalAI.js     // rival Master AI: nightly actions, off-screen fights, alliances, finale
   events.js      // random event engine
   servantTalk.js // conversation system (builds context, applies bond changes)
   chat.js        // the conversation screen (text box, streaming replies)
@@ -220,7 +221,7 @@ Keep the AI rule-based and readable. No complex simulation.
 6. **War loop.** Day/night slots, war events, chat available in Day slots. *(Done. Scouting and ambushes are locked until intel exists (milestone 7); patrols find encounters but no battles until milestone 8; after day 14 there is an endgame placeholder until milestone 11.)*
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel. *(Done. Ambushes end in a standoff until combat exists (milestone 8).)*
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat. *(Done. Rivals raiding the player's own base come with the rival AI (milestone 9); the epilogue screen is a placeholder until milestone 11.)*
-9. **Rival AI.** Daily actions, off-screen fights, news.
+9. **Rival AI.** Daily actions, off-screen fights, news. *(Done, with alliances, raids, and the day-14 finale. The victory epilogue is a placeholder until milestone 11.)*
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines.
 11. **Endgame and run summary.**
 12. **Polish.** Balance pass, more events, more Servants, tune chat prompts.
@@ -299,13 +300,19 @@ Keep the AI rule-based and readable. No complex simulation.
   - Text that mentions `{servant}` carries `"conditions": { "hasServant": true }` and has a servant-less variant where needed.
   - During a battle, an HP summary is pinned above the order buttons. Enemy exact HP shows only with enough intel (servant level 2, Master level 3); otherwise "wounded", "badly hurt" etc.
   - Balance (sensible-play simulation, 2,800 battles): every class beats its opponent 29–58% of the time. Masters die in about 1 battle in 10 if the player never defends or retreats. Revisit in the balance pass.
+- **Rival AI (milestone 9):**
+  - Every night, after the player's action, each active rival picks hunt / scout / fortify / ally / hide by weighted rules (`rivals.json` `ai`): aggression drives hunting, low HP drives hiding, personality drives alliances, and class biases the choice (Casters fortify, Berserkers hunt, Assassins scout). Rule-based and readable; no simulation beyond that.
+  - What rivals know: `rival.knows = { player: 0–2, rId: 0–2 }` (1 = can find them, 2 = knows their base). They learn by scouting (scouting the player can fail; each workshop level makes the player's base harder to find), by fighting, and through alliances.
+  - Rival vs rival fights are resolved off-screen by `autoBattle()` using the same stats as combat (class attack stat, Endurance, workshops at home). The loser's Servant makes an escape saving throw; otherwise that rival is out. Results arrive at dawn as news (`state.war.news`), naming only what the player's intel allows. The church announces how many Masters remain.
+  - Raids: a rival who knows the player's base and hunts them while the player **stays hidden** attacks the base: a battle at the player's base, where the player's workshop helps them. If the player is out that night, the base is ransacked (workshop −1). A rival scouting the player may be noticed (Mind check, which also reveals a little about them).
+  - **The war ends as soon as no rivals remain** (victory). **Day 14 is a hard stop:** on the last night all alliances end; if more than one rival is left they fight each other until one remains (`finalShowdown`), and the survivor faces the player in a **final battle**: no retreat, no Escape seal, no escape saving throws, fought until someone falls. Losing your Servant there still offers Flee to the Church or fighting on alone (a new Master-only final battle).
+  - **Alliances:** rivals ally with each other (`state.alliances`), ending at random or once few remain. **The player can ally too** (Day action "Propose an alliance", needs a rival's name and base; Charisma, personality and aggression set the odds; one ally at a time). An ally won't hunt the player, may share intel at dawn, and appears in Status and the Servant's context. A scheming ally may betray the player (and come for their base). The player can betray an ally by ambushing them; each Servant reacts by its own `betrayalBond` (Arthur −5, Hector and Constantine −4, Samson −3, Solomon −1, Ishtar 0, Cleopatra +1).
+  - The player only learns which rival is out if they could identify it (intel ≥ 1) or did it themselves; otherwise only the church's count changes.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
 ## 12. Open questions (decide before or during the build)
 
-- War length: 14 days for now (`rules.war.days`). Should it also end early when only one pair remains? (Decide with the rival AI, milestone 9.)
 - Can the player die in the life phase, or is it always safe?
-- Can the player ally with a rival (and betray them)?
 - Permadeath, or save-anywhere?
 - Should the Servant ever start a conversation on its own (e.g. after a big battle)?

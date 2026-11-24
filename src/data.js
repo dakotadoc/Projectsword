@@ -198,14 +198,14 @@ function validate() {
   // war.json and rules.war
   const war = data.war || {};
   for (const key of ['intro', 'dawn', 'dusk', 'end']) checkTexts(war[key], `war.json ${key}`);
-  const dayIds = ['rest', 'train', 'intel', 'workshop', 'talk'];
+  const dayIds = ['rest', 'train', 'intel', 'workshop', 'ally', 'talk'];
   const nightIds = ['patrol', 'scout', 'ambush', 'hide'];
   for (const [key, ids] of [['dayActions', dayIds], ['nightActions', nightIds]]) {
     const list = war[key] || [];
     need(ids.every((id) => list.some((a) => a.id === id)), `war.json ${key}: needs actions ${ids.join(', ')}`);
     for (const a of list) {
       need(typeof a.label === 'string' && typeof a.hint === 'string', `war.json ${key} ${a.id}: needs label and hint`);
-      if (!['talk', 'scout', 'ambush'].includes(a.id)) checkTexts(a.texts, `war.json ${key} ${a.id} texts`);
+      if (!['talk', 'ambush'].includes(a.id)) checkTexts(a.texts, `war.json ${key} ${a.id} texts`);
     }
   }
   const intelAction = (war.dayActions || []).find((a) => a.id === 'intel') || {};
@@ -231,6 +231,9 @@ function validate() {
     need(typeof rv.personalityNotes?.[p.id] === 'string', `rivals.json: personalityNotes.${p.id} is missing`);
   }
   checkTexts(rv.bases, 'rivals.json bases');
+  need(rv.ai && rv.ai.weights, 'rivals.json: ai.weights is missing');
+  for (const k of ['clash', 'clashDetailKnown', 'clashDetailUnknown', 'eliminated', 'eliminatedKnown', 'alliance', 'watched', 'ransacked', 'allyIntel', 'allyBetrays', 'allianceEnds']) checkTexts(rv.news?.[k], `rivals.json news.${k}`);
+  for (const k of ['finalNight', 'rivalsDecide', 'lastRival', 'allEliminated']) checkTexts(data.war?.[k], `war.json ${k}`);
   for (const key of ['master1', 'master2', 'master3', 'servant1', 'servant2', 'servant3']) checkTexts(rv.intelTexts?.[key], `rivals.json intelTexts.${key}`);
   for (const p of data.places) {
     need(Array.isArray(p.districts) && p.districts.length >= 1, `places.json ${p.id}: needs districts`);
@@ -248,11 +251,12 @@ function validate() {
     need(data.classes.some((c) => c.id === sv.class), `classes.json: no entry for class ${sv.class} (${sv.id})`);
     sv.skills.forEach((sk, i) => need(SKILL_TYPES.includes(sk.combat?.type), `servants.json ${sv.id} skill #${i + 1}: combat.type must be one of ${SKILL_TYPES.join(', ')}`));
     need(sv.noblePhantasm.combat && typeof sv.noblePhantasm.combat.text === 'string', `servants.json ${sv.id}: noblePhantasm.combat is missing`);
+    need(Number.isInteger(sv.betrayalBond), `servants.json ${sv.id}: betrayalBond must be a whole number (Bond change when the player betrays an ally)`);
   }
   for (const c of data.classes) need(Array.isArray(c.attackVerbs) && c.attackVerbs.length, `classes.json ${c.id}: needs attackVerbs`);
   const cb = data.combat || {};
-  for (const k of ['ambush', 'spotted', 'patrol']) checkTexts(cb.start?.[k], `combat.json start.${k}`);
-  for (const k of ['church', 'churchKilled', 'masterDied']) checkTexts(cb.epilogues?.[k], `combat.json epilogues.${k}`);
+  for (const k of ['ambush', 'spotted', 'patrol', 'raid', 'final', 'betrayal']) checkTexts(cb.start?.[k], `combat.json start.${k}`);
+  for (const k of ['church', 'churchKilled', 'masterDied', 'victory']) checkTexts(cb.epilogues?.[k], `combat.json epilogues.${k}`);
   need(cb.lines && cb.results && cb.afterLoss && cb.youLines, 'combat.json: needs lines, youLines, results and afterLoss');
   need(r.combat && Number.isInteger(r.combat.maxRounds), 'rules.combat is missing or incomplete');
 

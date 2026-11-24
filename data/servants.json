@@ -108,7 +108,8 @@
       "name": "Elen",
       "revealAtBond": 80,
       "description": "Her birth name, which she has not spoken since the day she took the sword. She tells it only to a Master she trusts completely."
-    }
+    },
+    "betrayalBond": -5
   },
   {
     "id": "ishtar",
@@ -216,7 +217,8 @@
       "families": {
         "old_lineage": 3
       }
-    }
+    },
+    "betrayalBond": 0
   },
   {
     "id": "solomon",
@@ -323,7 +325,8 @@
         "old_lineage": 2,
         "minor_lineage": 3
       }
-    }
+    },
+    "betrayalBond": -1
   },
   {
     "id": "samson",
@@ -432,7 +435,8 @@
         "non_mage": 3,
         "fallen_lineage": 3
       }
-    }
+    },
+    "betrayalBond": -3
   },
   {
     "id": "hector",
@@ -539,7 +543,8 @@
         "minor_lineage": 3,
         "fallen_lineage": 2
       }
-    }
+    },
+    "betrayalBond": -4
   },
   {
     "id": "cleopatra",
@@ -651,7 +656,8 @@
         "old_lineage": 3,
         "fallen_lineage": 3
       }
-    }
+    },
+    "betrayalBond": 1
   },
   {
     "id": "constantine",
@@ -758,6 +764,7 @@
         "fallen_lineage": 8,
         "minor_lineage": 2
       }
-    }
+    },
+    "betrayalBond": -4
   }
 ]

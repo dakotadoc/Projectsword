@@ -240,5 +240,121 @@
       1
     ],
     "casterBonus": 1
+  },
+  "ai": {
+    "weights": {
+      "hunt": 3,
+      "scout": 1.5,
+      "fortify": 2,
+      "hide": 0.5,
+      "ally": 1
+    },
+    "lowHp": 0.4,
+    "lowHpHuntFactor": 0.2,
+    "lowHpHide": 2,
+    "allyWillingness": {
+      "schemer": 1.5,
+      "honorable": 1,
+      "cautious": 0.8,
+      "aggressive": 0.2,
+      "reckless": 0.3
+    },
+    "classBias": {
+      "Caster": {
+        "fortify": 1.5,
+        "hunt": -0.5
+      },
+      "Assassin": {
+        "scout": 1
+      },
+      "Rider": {
+        "hunt": 0.5
+      },
+      "Berserker": {
+        "hunt": 1,
+        "hide": -0.3
+      },
+      "Archer": {
+        "scout": 0.5
+      }
+    },
+    "hideRegen": 0.15,
+    "alliancesEndAtActive": 3,
+    "allianceBreakChance": 0.05,
+    "schemerBetrayChance": 0.06,
+    "playerNoticeScout": {
+      "base": 0.3,
+      "perMind": 0.005
+    },
+    "battleRounds": 8,
+    "masterKillChance": 0.1,
+    "scoutPlayer": {
+      "base": 0.6,
+      "perWorkshop": 0.15
+    },
+    "playerTargetWeight": 0.5
+  },
+  "news": {
+    "clash": [
+      {
+        "text": "A massive explosion was reported in {district} last night. {detail}"
+      },
+      {
+        "text": "Something tore up a street in {district} overnight. {detail}"
+      },
+      {
+        "text": "People in {district} were woken by what sounded like thunder on a clear night. {detail}"
+      }
+    ],
+    "clashDetailKnown": [
+      {
+        "text": "Witnesses describe {who}."
+      }
+    ],
+    "clashDetailUnknown": [
+      {
+        "text": "Nobody who saw it can describe it clearly."
+      }
+    ],
+    "eliminated": [
+      {
+        "text": "By morning, word comes from the church: a Master has withdrawn from the war. {remaining} remain, counting you."
+      }
+    ],
+    "eliminatedKnown": [
+      {
+        "text": "From what you know, it was {who}."
+      }
+    ],
+    "alliance": [
+      {
+        "text": "Rumors say two of the other Masters have been seen together, and not fighting."
+      }
+    ],
+    "watched": [
+      {
+        "text": "Last night you felt someone watching your base. By the time you looked, they were gone."
+      }
+    ],
+    "ransacked": [
+      {
+        "text": "You come home to find your base broken into. Wards torn down, doors forced. Someone knows where you live."
+      }
+    ],
+    "allyIntel": [
+      {
+        "text": "A message from your ally {ally}: they have learned something they think you should know."
+      }
+    ],
+    "allyBetrays": [
+      {
+        "text": "Your ally {ally} has turned on you."
+      }
+    ],
+    "allianceEnds": [
+      {
+        "text": "Your alliance with {ally} has quietly fallen apart."
+      }
+    ]
   }
 }

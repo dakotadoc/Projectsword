@@ -196,11 +196,16 @@ function warSummary(state) {
   }
   // Rivals: ONLY what the player knows (intel.js).
   lines.push(...knownSummaryLines(state));
+  if (war) {
+    lines.push(`Masters still in the war, counting yours: ${(state.rivals || []).filter((r) => r.status === 'active').length + 1}.`);
+    const ally = war.ally && state.rivals.find((r) => r.id === war.ally);
+    if (ally) lines.push(`Your Master is currently allied with ${rivalLabel(ally)}.`);
+  }
   return lines;
 }
 
 // The last few days, as the Master experienced them (only what they saw).
-const DAY_ACTIONS = { rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
+const DAY_ACTIONS = { ally: 'negotiated an alliance with a rival', rest: 'rested', train: 'trained together', intel: 'gathered intel in the city', workshop: 'worked on the workshop', talk: 'talked together' };
 const BATTLE_OUTCOMES = { won: 'you won; they are out of the war', enemyFled: 'they got away', retreated: 'you retreated', lostRetreated: 'you were beaten and barely escaped', draw: 'neither side won', servantLost: 'you lost' };
 const NIGHT_ACTIONS = { patrol: 'patrolled the city', hide: 'stayed hidden', scout: 'scouted a rival', ambush: 'set an ambush for a rival, which ended in a standoff' };
 

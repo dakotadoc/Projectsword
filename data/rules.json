@@ -37,6 +37,7 @@
 
   "combat": {
     "maxRounds": 12,
+    "finalMaxRounds": 40,
     "masterHp": { "base": 40, "perBody": 0.8 },
     "masterRegen": { "dawn": 0.2, "rest": 1.0 },
     "attack": { "base": 8, "perStrength": 4, "random": 6 },
@@ -47,7 +48,7 @@
     "critMultiplier": 1.5,
     "skillCooldown": 3,
     "defendReduction": 0.5,
-    "interceptChance": 0.65,
+    "interceptChance": 0.75,
     "interceptDamage": 0.7,
     "weaknessBonus": 0.15,
     "workshopDefensePerLevel": 0.05,
@@ -63,6 +64,8 @@
     "rivalRegen": { "servantHp": 0.1, "masterHp": 0.2, "mana": 0.25 },
     "masterOnly": { "boltBonus": 0 }
   },
+
+  "alliance": { "base": 0.3, "perCharisma": 0.004, "perAggression": -0.002, "personality": { "honorable": 0.2, "schemer": 0.15, "cautious": 0.05, "aggressive": -0.15, "reckless": -0.05 }, "allyIntelChance": 0.5 },
 
   "chat": {
     "maxPlayerMessages": 8,

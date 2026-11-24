@@ -1,13 +1,13 @@
 // Game over: a short epilogue. state.ending = { type } where type is
 // 'church' (fled and made it), 'churchKilled' (fled and didn't) or
-// 'masterDied'. Milestone 11 adds the full ending and run summary.
+// 'masterDied', or 'victory' (the last Master standing). Milestone 11 adds the full ending and run summary.
 
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData } from './data.js';
 import { makeContext, pickText } from './events.js';
 
-const HEADINGS = { church: 'Sanctuary', churchKilled: 'So Close', masterDied: 'The End' };
+const HEADINGS = { church: 'Sanctuary', churchKilled: 'So Close', masterDied: 'The End', victory: 'The Grail' };
 
 export async function endingScreen({ resumed = false }) {
   const state = getState();

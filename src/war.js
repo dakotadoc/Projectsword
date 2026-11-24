@@ -26,6 +26,9 @@ import { openChat } from './chat.js';
 import { generateRivals, activeRivals, ensureRivalCombatStats } from './rivals.js';
 import { gainIntel, gainRandomIntel, gatherChance, contactTip, rivalLabel } from './intel.js';
 import { startBattle, ensureMasterHp, hasServant } from './combat.js';
+import {
+  ensureRivalAI, rivalsAct, finalShowdown, allyShares, alliedWith, allianceChance, proposeAlliance,
+} from './rivalAI.js';
 
 export async function warScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -43,6 +46,7 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
   if (!state.rivals) generateRivals(state);
   ensureRivalCombatStats(state); // saves from before combat existed
   ensureMasterHp(state);
+  ensureRivalAI(state);
   void resumed; // stages make re-entry safe; nothing is logged twice
   await advance(state, nav);
 }
@@ -95,21 +99,62 @@ async function advance(state, nav) {
       case 'night':
         showNightActions(state, nav);
         return finish(state, nav, { choicesShown: true });
-      case 'endNight':
-        war.day += 1;
-        war.stage = war.day > rules().days ? 'over' : 'dawn';
-        if (war.stage === 'over') {
-          ui.log('The End of the War', 'heading');
-          ui.log(pickText(getData('war').end, warContext(state)));
+      case 'endNight': {
+        // The rivals act once per night, after the player.
+        if (!war.rivalsActed) {
+          war.rivalsActed = true;
+          const h = today(state);
+          const raid = rivalsAct(state, { playerAtHome: h.nightAction === 'hide', playerFought: Boolean(h.battle) });
+          if (raid) {
+            await toBattle(state, nav, raid, 'raid');
+            return;
+          }
         }
+        war.rivalsActed = false;
+        // The war ends the moment no rivals are left.
+        if (!activeRivals(state).length) {
+          war.stage = 'victory';
+          break;
+        }
+        war.day += 1;
+        war.stage = war.day > rules().days ? 'finale' : 'dawn';
         break;
+      }
+      case 'finale': {
+        // Day 14 is over: the war must end tonight.
+        const ctx = warContext(state);
+        ui.log('The Last Night', 'heading');
+        ui.log(pickText(getData('war').finalNight, ctx));
+        state.war.ally = null; // only one can win
+        state.alliances = [];
+        if (activeRivals(state).length > 1) {
+          ui.log(pickText(getData('war').rivalsDecide, ctx));
+          finalShowdown(state);
+          for (const n of war.news) ui.log(n.text, n.kind);
+          war.news = [];
+        }
+        const last = activeRivals(state)[0];
+        if (!last) {
+          war.stage = 'victory';
+          break;
+        }
+        ui.log(pickText(getData('war').lastRival, ctx).replaceAll('{label}', rivalLabel(last)));
+        await toBattle(state, nav, last, 'final');
+        return;
+      }
+      case 'victory':
+        ui.log(pickText(getData('war').allEliminated, warContext(state)));
+        state.ending = { type: 'victory' };
+        await nav.goTo('ending');
+        return;
       case 'battle':
         // A battle is in progress (e.g. after a reload): go back to it.
         await nav.goTo('battle');
         return;
       case 'over':
-        showEndChoices(state, nav);
-        return finish(state, nav, { choicesShown: true });
+        // Saves from before the finale existed.
+        war.stage = 'finale';
+        break;
       default:
         throw new Error(`Unknown war stage: ${war.stage}`);
     }
@@ -153,6 +198,17 @@ function startDay(state) {
     heal(rival.servant.hp, rr.servantHp);
     heal(rival.master.hp, rr.masterHp);
     heal(rival.master.mana, rr.mana);
+  }
+
+  // News of what the rivals did last night.
+  for (const n of war.news || []) ui.log(n.text, n.kind);
+  war.news = [];
+
+  // An ally may pass on something they learned.
+  const shared = allyShares(state);
+  if (shared) {
+    ui.log(pickText(getData('rivals').news.allyIntel, ctx).replaceAll('{ally}', rivalLabel(shared.ally)));
+    logOutcome(Object.assign([], { intel: [shared.text] }));
   }
 
   // A contact may bring a tip.
@@ -236,6 +292,18 @@ function showDayActions(state, nav) {
         choice.hint = `Costs ${cost} money (you have ${state.master.money})`;
       } else {
         choice.hint = `Level ${war.workshop} → ${war.workshop + 1}. Costs ${cost} money`;
+      }
+    }
+    if (action.id === 'ally') {
+      const allyNow = state.war.ally && state.rivals.find((rv) => rv.id === state.war.ally);
+      if (allyNow) {
+        choice.disabled = true;
+        choice.hint = `You are allied with ${rivalLabel(allyNow)}`;
+      } else if (!allyCandidates(state).length) {
+        choice.disabled = true;
+        choice.hint = "You need to know a rival Master's name and base first";
+      } else {
+        choice.onSelect = () => showAllyTargets(state, action, nav);
       }
     }
     if (action.id === 'talk') choice.style = 'primary';
@@ -327,6 +395,33 @@ function showNightActions(state, nav) {
   }));
 }
 
+// ---- Alliances ----
+
+function allyCandidates(state) {
+  return activeRivals(state).filter((rv) => rv.intel.master >= 2 && state.war.ally !== rv.id);
+}
+
+function showAllyTargets(state, action, nav) {
+  const choices = allyCandidates(state).map((rival) => ({
+    label: capitalize(rivalLabel(rival)),
+    hint: `About ${Math.round(allianceChance(state, rival) * 100)}% chance they agree`,
+    onSelect: () => doAlly(state, action, nav, rival),
+  }));
+  choices.push({ label: 'Back', onSelect: () => showDayActions(state, nav) });
+  ui.setChoices(choices);
+}
+
+async function doAlly(state, action, nav, rival) {
+  const ctx = warContext(state);
+  today(state).dayAction = 'ally';
+  ui.log(targetText(action.texts, ctx, rival));
+  const ok = proposeAlliance(state, rival);
+  ui.log(targetText(ok ? action.accepted : action.refused, ctx, rival));
+  if (ok) ui.log(`Allied with ${rivalLabel(rival)}. They won't hunt you, and may share what they learn.`, 'effect');
+  state.war.stage = 'dusk';
+  await advance(state, nav);
+}
+
 // Scouting needs a rival's rough location (Master intel 1); an ambush needs
 // their base (Master intel 2).
 function targetsFor(state, requirement) {
@@ -342,7 +437,7 @@ function requirementMet(state, requirement) {
 // the night's main choices.)
 function showTargets(state, action, nav) {
   const choices = targetsFor(state, action.requires).map((rival) => ({
-    label: capitalize(rivalLabel(rival)),
+    label: capitalize(rivalLabel(rival)) + (state.war.ally === rival.id ? (action.id === 'ambush' ? ' (betray your ally)' : ' (your ally)') : ''),
     hint: action.requires === 'knownMaster' ? `Base: ${rival.master.base}, ${rival.master.district}` : `Seen around ${rival.master.district}`,
     onSelect: () => doNightAction(state, action, nav, rival),
   }));
@@ -374,8 +469,9 @@ async function doNightAction(state, action, nav, target = null) {
     // A patrol may run into a rival (a battle), or into something stranger.
     const cr = getData('rules').combat;
     const rivals = activeRivals(state);
-    if (rivals.length && chance(cr.patrolBattleChance)) {
-      await toBattle(state, nav, pick(rivals), 'patrol');
+    const foes = rivals.filter((rv) => !alliedWith(state, 'player', rv.id));
+    if (foes.length && chance(cr.patrolBattleChance)) {
+      await toBattle(state, nav, pick(foes), 'patrol');
       return;
     }
     const event = chance(r.patrolEncounterChance) ? rollEvent('night', ctx, war.seenEvents) : null;
@@ -397,6 +493,16 @@ async function doNightAction(state, action, nav, target = null) {
       return;
     }
   } else if (action.id === 'ambush') {
+    if (state.war.ally === target.id) {
+      // Betrayal: the alliance ends, and the Servant reacts in their own way
+      // (servants.json "betrayalBond": Arthur hates it, Cleopatra approves).
+      state.war.ally = null;
+      ui.log(getData('combat').lines.allyBroken.replaceAll('{label}', rivalLabel(target)), 'system');
+      const reaction = hasServant(state) ? findById('servants', state.servant.id).betrayalBond || 0 : 0;
+      if (reaction) logOutcome(applyEffects(state, { bond: reaction }, ctx));
+      await toBattle(state, nav, target, 'betrayal');
+      return;
+    }
     await toBattle(state, nav, target, 'ambush');
     return;
   } else if (action.id === 'hide') {

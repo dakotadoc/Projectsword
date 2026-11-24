@@ -11,7 +11,7 @@ import { getData, findById } from './data.js';
 import { chance } from './rng.js';
 import {
   servantOptions, masterOptions, SEAL_OPTIONS, resolveRound, hasServant,
-  battleRival, churchSave,
+  battleRival, churchSave, startBattle,
 } from './combat.js';
 
 export async function battleScreen({ goTo, autosave }) {
@@ -75,7 +75,7 @@ function showMasterActions(state, nav, { canGoBack }) {
 
 function showSeals(state, nav, sealOption) {
   ui.setChoices([
-    ...SEAL_OPTIONS.map((s) => ({ label: s.label, hint: s.hint, onSelect: () => resolve(state, nav, sealOption, s.kind) })),
+    ...SEAL_OPTIONS.filter((s) => !(state.battle.final && s.kind === 'escape')).map((s) => ({ label: s.label, hint: s.hint, onSelect: () => resolve(state, nav, sealOption, s.kind) })),
     { label: 'Back', onSelect: () => showMasterActions(state, nav, { canGoBack: hasServant(state) && state.servant.hp.current > 0 }) },
   ], { header: statusCard(state) });
 }
@@ -156,6 +156,14 @@ function showAfter(state, nav) {
         hint: t.aloneHint,
         onSelect: async () => {
           state.battle.lossHandled = true;
+          if (state.battle.final) {
+            // The last night: keep fighting, alone, right now.
+            const rival = battleRival(state);
+            for (const line of startBattle(state, rival, 'final')) ui.log(line.text, line.kind);
+            render(state, nav);
+            await nav.autosave();
+            return;
+          }
           await finish(state, nav);
         },
       },
@@ -168,6 +176,12 @@ function showAfter(state, nav) {
 // Record the battle in today's history and go back to the war.
 async function finish(state, nav) {
   const b = state.battle;
+  if (b.final && b.result.outcome === 'won') {
+    state.battle = null;
+    state.ending = { type: 'victory' };
+    await nav.goTo('ending');
+    return;
+  }
   const today = state.war.history[state.war.history.length - 1];
   today.battle = { rivalId: b.rivalId, outcome: b.result.outcome };
   state.battle = null;
