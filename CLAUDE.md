@@ -52,6 +52,8 @@ style.css
   state.js       // state shape, save/load/export
   storage.js     // where saves are kept (localStorage now, artifact db later)
   rng.js         // seeded random
+  data.js        // loads and checks /data/*.json at startup
+  ranks.js       // E–A/EX rank letters and their numeric values
   birth.js       // phase 1
   life.js        // phase 2
   summon.js      // phase 3
@@ -64,7 +66,8 @@ style.css
   ai.js          // the only place AI is called; real + stub modes
   ui.js          // log, buttons, panels
 /data
-  places.json  eras.json  families.json
+  rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
+  places.json  eras.json  families.json  traits.json
   catalysts.json  servants.json
   events.json  rivals.json  dialogue.json
 ```
@@ -184,7 +187,7 @@ Keep the AI rule-based and readable. No complex simulation.
 ## 9. Build order (one milestone at a time; play-test and commit after each)
 
 1. **Skeleton.** Screens, text log, buttons, state object, save/load/export, seeded RNG. *(Done. Includes a temporary "Skeleton test" screen in `main.js` that milestone 2 replaces with the birth screen.)*
-2. **Birth.** Data files for places, eras, and families; the birth screen.
+2. **Birth.** Data files for places, eras, and families; the birth screen. *(Done. Life phase is a placeholder screen until milestone 3.)*
 3. **Life phase.** Turn loop, stat actions, life events, catalyst finding.
 4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback.
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work.
@@ -213,6 +216,10 @@ Keep the AI rule-based and readable. No complex simulation.
 - **Era range:** modern only (1900s–2000s) for v1.
 - **War location:** the war takes place in the player's birthplace. `places.json` entries serve as both birthplace and war city.
 - **Life phase:** the first life turn begins at age 5.
+- **War age:** rolled at birth (18–25, `rules.json`). The era picks the war year; birth year = war year − war age. Life turns (milestone 3) stretch so the last one ends at the war age. Because the war year is in the era, births can fall slightly before 1900.
+- **Names:** the Master's name is rolled from the birthplace's name lists.
+- **Traits** live in `traits.json`. `effects` applies stat/money/contact changes at birth; traits with no effects (e.g. Lucky) are checked by id in later systems.
+- **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
 ## 12. Open questions (decide before or during the build)

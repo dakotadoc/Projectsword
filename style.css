@@ -185,3 +185,15 @@ button:disabled { opacity: 0.45; cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .log { scroll-behavior: auto; }
 }
+
+/* Multi-line block in the log, e.g. the birth certificate. First line is its title. */
+.entry-card {
+  white-space: pre-line;
+  font: 15px/1.7 var(--sans);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.entry-card::first-line { font: 600 18px/2 var(--serif); color: var(--gold); }

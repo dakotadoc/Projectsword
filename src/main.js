@@ -11,19 +11,22 @@ import {
   exportSave, importSave,
 } from './state.js';
 import { storage } from './storage.js';
-import { randInt } from './rng.js';
+import { loadData } from './data.js';
+import { birthScreen } from './birth.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
-// choices. Later milestones add: birth, life, summon, war, combat, ending.
+// choices. It receives { resumed, goTo }.
+// Later milestones add: summon, war, combat, ending.
 const screens = {
-  sandbox: sandboxScreen,
+  birth: birthScreen,
+  life: lifePlaceholderScreen,
 };
 
-export async function goTo(name) {
+async function goTo(name) {
   const state = getState();
   if (!screens[name]) throw new Error(`Unknown screen: ${name}`);
   state.screen = name;
-  await screens[name]();
+  await screens[name]({ resumed: false, goTo });
   await autosave();
 }
 
@@ -35,8 +38,12 @@ async function resume() {
   ui.setSeedLabel(state.rng.seed);
   ui.setGameButtonsEnabled(true);
   ui.log('— Game loaded —', 'system');
-  const screen = screens[state.screen] || sandboxScreen;
-  await screen({ resumed: true });
+  const screen = screens[state.screen];
+  if (!screen) {
+    ui.log(`This save stopped on a screen this version doesn't have ("${state.screen}").`, 'system');
+    return;
+  }
+  await screen({ resumed: true, goTo });
 }
 
 async function autosave() {
@@ -96,8 +103,7 @@ async function startNewGame(seed) {
   ui.clearLog();
   ui.setSeedLabel(state.rng.seed);
   ui.setGameButtonsEnabled(true);
-  // Milestone 2 replaces this with the birth screen.
-  await goTo('sandbox');
+  await goTo('birth');
 }
 
 function askForSeed() {
@@ -212,35 +218,11 @@ async function returnToTitle() {
   await showTitle();
 }
 
-// ---- Temporary test screen (milestone 1 only) ----
-// Exercises the log, choices, seeded RNG and saving. Replaced by the birth
-// screen in milestone 2.
+// ---- Placeholder until milestone 3 ----
 
-async function sandboxScreen({ resumed = false } = {}) {
-  const state = getState();
-  if (!resumed) {
-    ui.log('Skeleton test', 'heading');
-    ui.log('This screen only exists to test the skeleton: rolls come from the seeded RNG, and every action autosaves.', 'system');
-  }
-  ui.setChoices([
-    { label: 'Roll a d100', style: 'primary', onSelect: () => roll(() => `d100: ${randInt(1, 100)}`) },
-    { label: 'Roll 3d6', onSelect: () => roll(() => {
-      const dice = [randInt(1, 6), randInt(1, 6), randInt(1, 6)];
-      return `3d6: ${dice.join(' + ')} = ${dice[0] + dice[1] + dice[2]}`;
-    }) },
-    { label: 'Replay this seed', hint: 'Restart with the same rolls', onSelect: async () => {
-      const ok = await ui.confirmDialog('Replay this seed?', `Restarts the run with seed ${state.rng.seed}. Your rolls should repeat exactly.`, 'Replay');
-      if (!ok) return;
-      newState(state.rng.seed);
-      ui.clearLog();
-      await goTo('sandbox');
-    } },
-  ]);
-}
-
-async function roll(makeText) {
-  ui.log(makeText(), 'roll');
-  await autosave();
+async function lifePlaceholderScreen({ resumed = false } = {}) {
+  if (!resumed) ui.log('The life phase is not built yet (milestone 3). Your character is saved.', 'system');
+  ui.setChoices([{ label: 'Return to title', onSelect: returnToTitle }]);
 }
 
 // ---- Boot ----
@@ -251,7 +233,18 @@ function boot() {
   document.getElementById('btn-title').addEventListener('click', returnToTitle);
   window.addEventListener('error', (e) => ui.setStatus(`Error: ${e.message}`, 'error'));
   window.addEventListener('unhandledrejection', (e) => ui.setStatus(`Error: ${e.reason?.message || e.reason}`, 'error'));
-  showTitle();
+  loadData().then(showTitle, showDataError);
+}
+
+// Data files are broken or missing: say exactly what, and stop.
+function showDataError(err) {
+  ui.clearLog();
+  ui.setChoices([]);
+  const p = document.createElement('p');
+  p.className = 'entry entry-card';
+  p.textContent = `The game couldn't start.\n${err.message}`;
+  document.getElementById('log').append(p);
+  ui.setStatus('Data error', 'error');
 }
 
 boot();

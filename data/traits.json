@@ -1,0 +1,44 @@
+[
+  {
+    "id": "lucky",
+    "name": "Lucky",
+    "weight": 2,
+    "description": "Things have a habit of working out for you, often at the last possible second.",
+    "effects": {}
+  },
+  {
+    "id": "sickly",
+    "name": "Sickly",
+    "weight": 2,
+    "description": "You spend more of your childhood in bed than out of it. Your body is frail, but you read a great deal.",
+    "effects": { "stats": { "body": -8, "mind": 5 } }
+  },
+  {
+    "id": "prodigy",
+    "name": "Prodigy",
+    "weight": 1,
+    "description": "You pick things up frighteningly fast. Adults talk about you when they think you can't hear.",
+    "effects": { "stats": { "magecraft": 5, "mind": 5 } }
+  },
+  {
+    "id": "black_sheep",
+    "name": "Black sheep",
+    "weight": 2,
+    "description": "From the start you never quite fit in with your family, and they make sure you know it.",
+    "effects": { "stats": { "charisma": 3 }, "money": -30, "contacts": -1 }
+  },
+  {
+    "id": "silver_tongue",
+    "name": "Silver tongue",
+    "weight": 2,
+    "description": "You could talk a cat out of a tree, and you talked your way out of trouble before you could ride a bike.",
+    "effects": { "stats": { "charisma": 8 } }
+  },
+  {
+    "id": "iron_constitution",
+    "name": "Iron constitution",
+    "weight": 2,
+    "description": "You never catch colds, heal quickly, and once fell off a roof without a scratch.",
+    "effects": { "stats": { "body": 8 } }
+  }
+]

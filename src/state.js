@@ -6,7 +6,7 @@
 import { bindRng, createRngState, makeSeed } from './rng.js';
 import { storage } from './storage.js';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2;
 const SAVE_KEY = 'hgws.save';
 const LOG_LIMIT = 300; // keep the saved log from growing forever
 
@@ -24,7 +24,9 @@ export function newState(seed = makeSeed()) {
     rng: createRngState(seed),
     screen: null, // current in-run screen name (see main.js)
     log: [], // [{ text, kind }] — the narration shown on screen
-    // Later milestones add: master, servant, life, war, rivals, intel, chat...
+    world: null, // { placeId, eraId, warYear } — set at birth (birth.js)
+    master: null, // the player character — set at birth (birth.js)
+    // Later milestones add: life, servant, war, rivals, intel, chat...
   };
   bindRng(state.rng);
   return state;
@@ -97,7 +99,11 @@ function parseSave(text) {
   if (data.version > SAVE_VERSION) {
     throw new Error('That save is from a newer version of the game.');
   }
-  // Older versions would be migrated here once SAVE_VERSION goes up.
+  if (data.version < 2) {
+    // Version 1 saves came from the skeleton test build and hold no character.
+    throw new Error('That save is from the early test build and has no character in it. Start a new game.');
+  }
+  // Future shape changes: migrate older versions here.
   const ok =
     data.rng && typeof data.rng.s === 'number' && typeof data.rng.seed === 'string' &&
     Array.isArray(data.log) &&

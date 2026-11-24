@@ -1,0 +1,50 @@
+[
+  {
+    "id": "old_lineage",
+    "name": "Old mage lineage",
+    "weight": 1,
+    "isMage": true,
+    "birthText": "Your family's name is spoken carefully in the mage world. The crest on your crib is older than the house it hangs in.",
+    "description": "Generations of refined Magic Crests, wealth, and enemies. Much is expected of you.",
+    "stats": { "body": [5, 15], "magecraft": [15, 25], "mind": [10, 20], "charisma": [5, 15] },
+    "money": [150, 250],
+    "contacts": [2, 3],
+    "circuitWeights": { "E": 0, "D": 1, "C": 4, "B": 5, "A": 3, "EX": 0.3 }
+  },
+  {
+    "id": "minor_lineage",
+    "name": "Minor mage family",
+    "weight": 2,
+    "isMage": true,
+    "birthText": "Your parents are mages of modest standing: respected enough to be invited, not enough to be listened to.",
+    "description": "A few generations of craft and a respectable workshop. You will have to earn the rest.",
+    "stats": { "body": [5, 15], "magecraft": [8, 16], "mind": [8, 16], "charisma": [5, 15] },
+    "money": [80, 140],
+    "contacts": [1, 2],
+    "circuitWeights": { "E": 1, "D": 3, "C": 5, "B": 3, "A": 1, "EX": 0.1 }
+  },
+  {
+    "id": "fallen_lineage",
+    "name": "Fallen mage family",
+    "weight": 2,
+    "isMage": true,
+    "birthText": "Your family once mattered. Now there is a mortgage on the ancestral house and a locked room nobody talks about.",
+    "description": "The blood remains strong, but the money, the reputation and most of the secrets are gone.",
+    "stats": { "body": [8, 18], "magecraft": [5, 12], "mind": [8, 18], "charisma": [3, 10] },
+    "money": [10, 50],
+    "contacts": [0, 1],
+    "circuitWeights": { "E": 1, "D": 3, "C": 4, "B": 3, "A": 2, "EX": 0.2 }
+  },
+  {
+    "id": "non_mage",
+    "name": "Non-mage family",
+    "weight": 5,
+    "isMage": false,
+    "birthText": "Your parents are ordinary people. As far as they know, magic is something from storybooks.",
+    "description": "No crest, no workshop, no teacher. Whatever you learn about magic, you will have to find yourself.",
+    "stats": { "body": [8, 20], "magecraft": [0, 3], "mind": [8, 18], "charisma": [8, 18] },
+    "money": [40, 100],
+    "contacts": [0, 2],
+    "circuitWeights": { "E": 5, "D": 4, "C": 2, "B": 1, "A": 0.3, "EX": 0.05 }
+  }
+]

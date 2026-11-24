@@ -1,0 +1,52 @@
+[
+  {
+    "id": "kyoto",
+    "name": "Kyoto",
+    "country": "Japan",
+    "weight": 3,
+    "birthText": "Temple bells carry over the rooftops of the old capital on the night you are born.",
+    "description": "An old city of shrines and quiet back streets, where some families have kept the same secrets for a thousand years.",
+    "givenNames": ["Haruto", "Ren", "Aoi", "Sora", "Yui", "Kaito", "Hina", "Itsuki", "Mio", "Shun"],
+    "familyNames": ["Tachibana", "Kujo", "Mibu", "Asakura", "Hoshino", "Takeda", "Fujiwara", "Sakai"]
+  },
+  {
+    "id": "london",
+    "name": "London",
+    "country": "England",
+    "weight": 3,
+    "birthText": "Fog presses against the hospital windows as you take your first breath.",
+    "description": "A sprawling capital of fog and stone, home to more mage lineages than anyone outside them suspects.",
+    "givenNames": ["Arthur", "Eleanor", "Thomas", "Margaret", "Edmund", "Clara", "Henry", "Beatrice", "Oliver", "Rose"],
+    "familyNames": ["Ashworth", "Blackwood", "Fairfax", "Holloway", "Pemberton", "Thorne", "Whitlock", "Grey"]
+  },
+  {
+    "id": "prague",
+    "name": "Prague",
+    "country": "Bohemia",
+    "weight": 2,
+    "birthText": "Snow falls on the hundred spires of the city the night you arrive in the world.",
+    "description": "A city of alchemists' lanes and astronomical clocks, where old magic soaks into the stones.",
+    "givenNames": ["Jan", "Eliška", "Tomáš", "Anežka", "Vojtěch", "Lucie", "Matěj", "Klára", "Ondřej", "Zdenka"],
+    "familyNames": ["Novák", "Dvořák", "Kepler", "Horák", "Černý", "Rožmberk", "Veselý", "Kolář"]
+  },
+  {
+    "id": "new_orleans",
+    "name": "New Orleans",
+    "country": "United States",
+    "weight": 2,
+    "birthText": "A brass band is playing somewhere down the street when you are born.",
+    "description": "A humid river city of music, cemeteries above the ground, and a living folk magic that the mage world tends to underestimate.",
+    "givenNames": ["Louis", "Celeste", "Marcel", "Josephine", "Jules", "Odile", "Remy", "Claudette", "August", "Delphine"],
+    "familyNames": ["Broussard", "Laveau", "Thibodeaux", "Fontenot", "Marchand", "Delacroix", "Guidry", "Boudreaux"]
+  },
+  {
+    "id": "buenos_aires",
+    "name": "Buenos Aires",
+    "country": "Argentina",
+    "weight": 2,
+    "birthText": "The river wind rattles the shutters of your family's house on the night of your birth.",
+    "description": "A grand port city of wide avenues and old money, built by people from every corner of the world, each bringing their own traditions.",
+    "givenNames": ["Mateo", "Valentina", "Santiago", "Lucía", "Tomás", "Catalina", "Joaquín", "Florencia", "Ignacio", "Martina"],
+    "familyNames": ["Ferreyra", "Aldana", "Quiroga", "Ibarra", "Montenegro", "Sosa", "Villalba", "Echeverría"]
+  }
+]
