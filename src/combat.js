@@ -566,7 +566,7 @@ function useNoblePhantasm(state, side, lines, { free }) {
   b.npUsed[side] = true;
   // The NP reveals who the Servant is.
   if (side === 'you') battleRival(state).knowsPlayerServant = true;
-  lines.push({ text: fillLine(T().lines.np, { actor: cap(me.servant.name), np: np.name }), kind: 'roll' });
+  lines.push({ text: fillLine(T().lines.np, { actor: cap(me.servant.name), np: np.name }), kind: 'np', scene: { name: np.name, cls: me.servant.data.class, enemy: side === 'enemy' } });
   lines.push({ text: c.text.replaceAll('{name}', cap(me.servant.name)), kind: 'narration' });
   if (side === 'enemy') {
     const rival = battleRival(state);

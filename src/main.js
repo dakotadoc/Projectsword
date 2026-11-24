@@ -20,6 +20,8 @@ import { warScreen } from './war.js';
 import { battleScreen } from './battle.js';
 import { endingScreen } from './ending.js';
 import { renderStatus } from './status.js';
+import { updateChrome } from './hud.js';
+import { icon, medallion, summoningCircle, CLASSES } from './emblems.js';
 
 // In-run screens. Each is an async function that writes to the log and sets
 // choices. It receives { resumed, goTo, autosave }.
@@ -40,6 +42,7 @@ async function goTo(name, { resumed = false } = {}) {
   const state = getState();
   if (!screens[name]) throw new Error(`Unknown screen: ${name}`);
   state.screen = name;
+  updateChrome(state);
   await screens[name]({ resumed, goTo, autosave });
   await autosave();
 }
@@ -49,6 +52,7 @@ async function goTo(name, { resumed = false } = {}) {
 async function resume() {
   const state = getState();
   ui.showTab('text');
+  updateChrome(state);
   ui.renderLog(state.log);
   ui.setSeedLabel(state.rng.seed);
   ui.setGameButtonsEnabled(true);
@@ -62,6 +66,7 @@ async function resume() {
 }
 
 async function autosave() {
+  updateChrome(getState());
   const persisted = await saveGame();
   if (persisted) ui.setStatus('Saved');
   else ui.setStatus('Saving only lasts until you close this page. Use Export to keep your game.', 'warn');
@@ -77,13 +82,8 @@ async function showTitle() {
   ui.setGameButtonsEnabled(false);
   ui.setStatus(storage.persistent ? '' : 'This browser blocks saving. Use Export/Import to keep games.', storage.persistent ? '' : 'warn');
 
-  const title = document.createElement('p');
-  title.className = 'entry entry-heading';
-  title.textContent = 'Holy Grail War Simulator';
-  const sub = document.createElement('p');
-  sub.className = 'entry entry-system';
-  sub.textContent = 'A parody fan game. Not affiliated with any official work.';
-  document.getElementById('log').append(title, sub);
+  updateChrome(null);
+  document.getElementById('log').append(titleHero());
 
   const saved = await hasSave();
   const choices = [];
@@ -243,7 +243,39 @@ function boot() {
   window.addEventListener('error', (e) => ui.setStatus(`Error: ${e.message}`, 'error'));
   window.addEventListener('unhandledrejection', (e) => ui.setStatus(`Error: ${e.reason?.message || e.reason}`, 'error'));
   ui.setupTabs((panel) => renderStatus(panel, getState()));
+  const brand = document.getElementById('topbar-title');
+  const brandName = document.createElement('span');
+  brandName.className = 'topbar-name';
+  brandName.textContent = brand.textContent;
+  brand.replaceChildren(icon('seal', { size: 22 }), brandName);
   loadData().then(showTitle, showDataError);
+}
+
+// The title screen's picture: a slowly turning summoning circle ringed by
+// the seven class emblems, with the Command Seal at its heart.
+function titleHero() {
+  const hero = document.createElement('div');
+  hero.className = 'title-hero';
+  const art = document.createElement('div');
+  art.className = 'title-art';
+  const ring = document.createElement('div');
+  ring.className = 'title-ring';
+  CLASSES.forEach((c, i) => {
+    const a = (i / CLASSES.length) * Math.PI * 2 - Math.PI / 2;
+    const m = medallion(c, { size: 38 });
+    m.style.left = `${50 + Math.cos(a) * 44}%`;
+    m.style.top = `${50 + Math.sin(a) * 44}%`;
+    ring.append(m);
+  });
+  art.append(summoningCircle({ size: 290 }), icon('seal', { size: 92, className: 'title-seal' }), ring);
+  const name = document.createElement('h1');
+  name.className = 'title-name';
+  name.textContent = 'Holy Grail War Simulator';
+  const tag = document.createElement('p');
+  tag.className = 'title-tag';
+  tag.textContent = 'Be born. Grow up. Summon a hero. Survive the war. A parody fan game, not affiliated with any official work.';
+  hero.append(art, name, tag);
+  return hero;
 }
 
 // Data files are broken or missing: say exactly what, and stop.

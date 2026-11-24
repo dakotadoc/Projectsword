@@ -20,6 +20,7 @@ import {
   makeContext, fits, pickText, fillText, rollEvent, applyEffects, resolveChoice, choiceHint,
 } from './events.js';
 import { relicSearchChance, findCatalyst } from './catalysts.js';
+import { playScene } from './fx.js';
 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 
@@ -217,7 +218,7 @@ function showEventChoices(state, event, nav) {
 async function finishTurn(state, nav) {
   state.life.turn += 1;
   if (state.life.turn >= state.life.turns.length) {
-    endLife(state, nav);
+    await endLife(state, nav);
   } else {
     startTurn(state, nav);
   }
@@ -226,7 +227,7 @@ async function finishTurn(state, nav) {
 
 // ---- End of the life phase ----
 
-function endLife(state, nav) {
+async function endLife(state, nav) {
   const m = state.master;
   const s = m.stats;
   state.life.stage = 'done';
@@ -243,6 +244,8 @@ function endLife(state, nav) {
   ].join('\n'), 'card');
 
   ui.log(pickText(getData('life').warAnnouncement, ctx));
+  await ui.afterTyping();
+  await playScene('seals');
   m.commandSeals = 3;
   logEffects(['Command Seals: 3']);
   showEndChoices(nav);

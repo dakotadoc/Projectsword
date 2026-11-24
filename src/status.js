@@ -8,6 +8,7 @@ import { bondBand } from './servantTalk.js';
 import { timeOfDay } from './war.js';
 import { knownView } from './intel.js';
 import { pathLabel } from './bond.js';
+import { medallion } from './emblems.js';
 
 const PHASES = { birth: 'Birth', life: 'Life', summon: 'Summoning', chat: 'Talking with your Servant', war: 'The war', battle: 'In battle', ending: 'Game over' };
 const SERVANT_STAT_NAMES = {
@@ -90,7 +91,7 @@ function servantSection(state) {
   const sv = state.servant;
   if (!sv) return section('Servant', [para('Not yet summoned.')]);
   const s = findById('servants', sv.id);
-  if (sv.status === 'lost') return section(`${s.class}: ${s.name}`, [para('Lost. You fight on alone.')]);
+  if (sv.status === 'lost') return section(`${s.class}: ${s.name}`, [para('Lost. You fight on alone.')], s.class);
   const band = bondBand(sv.bond, sv.path);
   const np = s.noblePhantasm;
   return section(`${s.class}: ${s.name}`, [
@@ -113,7 +114,7 @@ function servantSection(state) {
     list([[`${np.name} (${np.rank}, ${np.type})`, np.description]]),
     subheading('Weakness'),
     para(s.weakness),
-  ]);
+  ], s.class);
 }
 
 // Rival Masters and Servants: only what the player has learned, through
@@ -139,7 +140,9 @@ const or = (v) => (v === null || v === undefined ? UNKNOWN : String(v));
 function rivalCard(v) {
   const card = el('div', 'rival-card');
   const tag = v.status === 'eliminated' ? ' · out of the war' : v.ally ? ' · your ally' : '';
-  card.append(el('h3', 'rival-title', v.title + tag));
+  const h = el('h3', 'rival-title');
+  h.append(medallion(v.servant.class || 'Unknown', { size: 32 }), document.createTextNode(v.title + tag));
+  card.append(h);
   const m = v.master;
   card.append(
     el('h4', 'status-subheading', `Master · intel ${m.level}/3`),
@@ -210,9 +213,12 @@ function el(tag, className, text) {
   return node;
 }
 
-function section(title, children) {
+function section(title, children, emblem = null) {
   const s = el('section', 'status-section');
-  s.append(el('h2', 'status-heading', title), ...children);
+  const h = el('h2', 'status-heading');
+  if (emblem) h.append(medallion(emblem, { size: 40 }));
+  h.append(document.createTextNode(title));
+  s.append(h, ...children);
   return s;
 }
 

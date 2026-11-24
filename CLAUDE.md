@@ -88,6 +88,9 @@ style.css
   ui.js          // log, buttons, tabs, dialogs, chat input
   typer.js       // typewriter effect for new text
   status.js      // the Status tab
+  emblems.js     // line-art SVG class emblems, medallions, the summoning circle
+  fx.js          // full-screen animated scenes and day/night banners
+  hud.js         // the war HUD strip and the page theme (phase, day/night)
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json
@@ -227,7 +230,7 @@ Keep the AI rule-based and readable. No complex simulation.
 9. **Rival AI.** Daily actions, off-screen fights, news. *(Done, with alliances, raids, and the day-14 finale. The victory epilogue is a placeholder until milestone 11.)*
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines. *(Done, with the platonic/romantic path at Bond 60.)*
 11. **Endgame and run summary.** *(Done.)*
-12. **Polish.** Balance pass, more events, more Servants, tune chat prompts. *(In progress. Done so far: the immersion pass, below.)*
+12. **Polish.** Balance pass, more events, more Servants, tune chat prompts. *(In progress. Done so far: the immersion pass and the UI overhaul, below.)*
 
 ---
 
@@ -331,6 +334,13 @@ Keep the AI rule-based and readable. No complex simulation.
   - **Work:** a life action (money per year of the turn) and a war Day action ("Earn some money"), so money has a source.
   - **Much more content:** about 63 life events (including city-and-year-specific history: Gion Matsuri, the 1952 London smog, the Prague Spring, Hurricane Betsy, the 1978 World Cup, …, plus family- and trait-specific events), 26 dawn events, 13 night encounters (several city-specific), 32 Servant moments, and many more text variants for life actions, war actions, dawns, dusks, rumors and quiet nights.
   - **No repeated lines:** `pickText(variants, ctx, used)` avoids lines already shown this run (`state.life.usedTexts`, `state.war.usedTexts`) while fresh ones remain.
+- **UI overhaul (milestone 12):** from a plain shell to a finished-looking app.
+  - **Look:** night-indigo background with gold and Command-Seal crimson; Cormorant Garamond for story text and headings, Inter for interface (Google Fonts, with system fallbacks). The background shifts with the phase (`body[data-phase]`) and, in the war, with day or night (`body[data-time]`).
+  - **Class emblems** (`emblems.js`): every class has its own line-art emblem and colour (Saber blue, Archer gold, Lancer green, Rider copper, Caster violet, Assassin slate, Berserker red; unknown is grey). Medallions appear on the title screen, the Servant's profile card and speech, Status (the Servant and each rival: their class if known, otherwise unknown) and the HUD. No Fate artwork or symbols.
+  - **Animated scenes** (`fx.js`, `playScene(name, data)`): full-screen, 3–6 seconds, skippable by tapping or Space/Enter/Escape, and skipped entirely with reduce motion. Scenes: birth (year and city at dawn), Command Seals, summoning (the circle draws itself, flash, class and true name revealed), the war begins (seven emblems in a ring), battle start (your emblem vs theirs, or unknown), a Noble Phantasm, the path choice, the Grail, losing your Servant, and a defeat. A scene starts only after the text above it has finished typing (`ui.afterTyping()`), so story and animation don't overlap. Scenes are never saved: a reload continues after them.
+  - **Day and Night banners** slide in below the HUD at dawn and dusk without blocking play.
+  - **War HUD** (`hud.js`): under the top bar during the war, battles and chats: day and time, the Servant's emblem and HP, the Master's HP, mana and Bond as small coloured bars. Rebuilt on every autosave.
+  - **Log entry kinds:** `heading`, `system`, `effect`, `roll`, `np`, `card` (profile cards), `document` (the parchment birth certificate), `speech` and `player`. `ui.log(text, kind, { emblem })` adds a class medallion to an entry.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

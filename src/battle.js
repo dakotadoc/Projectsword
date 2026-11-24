@@ -14,6 +14,7 @@ import {
   battleRival, churchSave, startBattle,
 } from './combat.js';
 import { sayRemark } from './bond.js';
+import { playScene } from './fx.js';
 
 export async function battleScreen({ goTo, autosave }) {
   const state = getState();
@@ -84,7 +85,15 @@ function showSeals(state, nav, sealOption) {
 async function resolve(state, nav, masterOpt, seal) {
   const b = state.battle;
   const lines = resolveRound(state, { servant: b.pending, master: masterOpt, seal });
-  for (const line of lines) ui.log(line.text, line.kind);
+  ui.setChoices([]);
+  for (const line of lines) {
+    if (line.scene) {
+      // A Noble Phantasm gets its own moment.
+      await ui.afterTyping();
+      await playScene('np', line.scene);
+    }
+    ui.log(line.text, line.kind);
+  }
   b.pending = null;
   if (b.step !== 'over') b.step = hasServant(state) && state.servant.hp.current > 0 ? 'servant' : 'master';
   await nav.autosave();
@@ -139,6 +148,13 @@ function showAfter(state, nav) {
     return;
   }
   if (result.outcome === 'servantLost' && !state.battle.lossHandled) {
+    if (!state.battle.lossShown) {
+      state.battle.lossShown = true;
+      const s = findById('servants', state.servant.id);
+      ui.setChoices([]);
+      ui.afterTyping().then(() => playScene('servantLost', { cls: s.class, name: s.name })).then(() => showAfter(state, nav));
+      return;
+    }
     const t = getData('combat').afterLoss;
     ui.log(t.prompt, 'system');
     const rival = battleRival(state);

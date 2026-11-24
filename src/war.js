@@ -24,6 +24,7 @@ import { randInt, chance, pick, weightedPick } from './rng.js';
 import { makeContext, fits, pickText, fillText, rollEvent, applyEffects, resolveChoice, choiceHint } from './events.js';
 import { openChat } from './chat.js';
 import { sayRemark, nextBondMilestone, needsPathChoice, showPathChoice } from './bond.js';
+import { playScene, banner } from './fx.js';
 import { generateRivals, activeRivals, ensureRivalCombatStats } from './rivals.js';
 import { gainIntel, gainRandomIntel, gatherChance, contactTip, rivalLabel } from './intel.js';
 import { startBattle, ensureMasterHp, hasServant } from './combat.js';
@@ -42,6 +43,8 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
       day: 1, stage: 'dawn', eventQueue: [], eventId: null, eventReturn: null,
       seenEvents: [], seenRumors: [], workshop: 0, history: [],
     };
+    const place = findById('places', state.world.placeId).name;
+    await playScene('warStart', { place, year: state.world.warYear });
     ui.log('The Holy Grail War', 'heading');
     ui.log(pickText(getData('war').intro, warContext(state)));
   }
@@ -112,6 +115,7 @@ async function advance(state, nav) {
         break;
       case 'dusk':
         ui.log('Night', 'heading');
+        banner('night', 'Night');
         ui.log(pickText(getData('war').dusk, warContext(state), used(state)));
         war.stage = 'night';
         break;
@@ -210,6 +214,7 @@ function startDay(state) {
   war.history.push({ day: war.day, events: [], dayAction: null, nightAction: null, nightEvent: null });
 
   ui.log(`Day ${war.day} of ${r.days}`, 'heading');
+  banner('day', `Day ${war.day}`);
   ui.log(pickText(getData('war').dawn, ctx, used(state)));
 
   // Natural recovery overnight.
@@ -602,6 +607,14 @@ async function toBattle(state, nav, rival, trigger) {
   today(state).nightTarget = rival.id;
   for (const line of startBattle(state, rival, trigger)) ui.log(line.text, line.kind);
   state.war.stage = 'battle';
+  await nav.autosave();
+  await ui.afterTyping();
+  const LABELS = { ambush: 'Ambush', spotted: 'Spotted', patrol: 'Encounter', raid: 'Raid', final: 'The Final Battle', betrayal: 'Betrayal' };
+  await playScene('battle', {
+    yourClass: hasServant(state) ? findById('servants', state.servant.id).class : 'Unknown',
+    enemyClass: rival.intel.servant >= 1 ? findById('servants', rival.servant.id).class : 'Unknown',
+    label: LABELS[trigger] || 'Battle',
+  });
   await nav.goTo('battle');
 }
 

@@ -7,6 +7,7 @@
 
 import { addLogEntry } from './state.js';
 import * as typer from './typer.js';
+import { medallion } from './emblems.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -23,12 +24,14 @@ const $ = (id) => document.getElementById(id);
 let batchStart = null; // first entry of the current batch
 let newBatch = true; // the next logged entry starts a new batch
 
-export function log(text, kind = 'narration') {
-  addLogEntry(text, kind);
-  const entry = makeEntry({ text: '', kind });
+// meta (optional): { emblem: 'Saber' } shows that class's emblem beside the
+// entry (a speaking Servant, a profile card).
+export function log(text, kind = 'narration', meta = null) {
+  addLogEntry(text, kind, meta);
+  const entry = makeEntry({ text: '', kind, meta });
   $('log').append(entry);
   markBatch(entry);
-  typer.type(entry, text, kind);
+  typer.type(entry.textNode || entry, text, kind);
 }
 
 export function renderLog(entries) {
@@ -50,12 +53,12 @@ export function clearLog() {
 // A log entry whose text arrives bit by bit (a streamed AI reply).
 // Shows a placeholder, update(text) gives the text so far, and
 // commit(text) gives the final text and saves it to the log in state.
-export function beginEntry(kind, placeholder = '…') {
-  const entry = makeEntry({ text: placeholder, kind });
+export function beginEntry(kind, placeholder = '…', meta = null) {
+  const entry = makeEntry({ text: placeholder, kind, meta });
   entry.classList.add('entry-pending');
   $('log').append(entry);
   markBatch(entry);
-  const job = typer.type(entry, '', kind, { open: true });
+  const job = typer.type(entry.textNode || entry, '', kind, { open: true });
   follow(entry);
   return {
     update(text) {
@@ -63,9 +66,14 @@ export function beginEntry(kind, placeholder = '…') {
     },
     commit(text) {
       job.close(text);
-      addLogEntry(text, kind);
+      addLogEntry(text, kind, meta);
     },
   };
+}
+
+// Resolves once all pending text has finished typing (scenes wait for it).
+export function afterTyping() {
+  return new Promise((resolve) => typer.whenIdle(resolve));
 }
 
 // Show all text that is still being typed.
@@ -101,10 +109,20 @@ function followLast() {
 
 typer.setFollow(follow);
 
-function makeEntry({ text, kind }) {
+function makeEntry({ text, kind, meta }) {
   const p = document.createElement('p');
   p.className = `entry entry-${kind || 'narration'}`;
-  p.textContent = text;
+  if (meta?.emblem) {
+    // Emblem beside the text; the text itself lives in its own span so the
+    // typewriter can write into it without removing the emblem.
+    p.classList.add('has-emblem');
+    const span = document.createElement('span');
+    span.textContent = text;
+    p.append(medallion(meta.emblem, { size: kind === 'card' ? 52 : 34 }), span);
+    p.textNode = span;
+  } else {
+    p.textContent = text;
+  }
   return p;
 }
 

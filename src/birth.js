@@ -8,6 +8,7 @@ import { getData, findById } from './data.js';
 import { randInt, pick, weightedPick } from './rng.js';
 import { RANKS, rankValue } from './ranks.js';
 import { availableIn, entryName } from './period.js';
+import { playScene } from './fx.js';
 
 export const SEXES = { male: 'Boy', female: 'Girl' };
 
@@ -77,6 +78,8 @@ export async function birthScreen({ resumed = false, goTo, autosave }) {
       label: `Born a ${label.toLowerCase()}`,
       onSelect: async () => {
         rollBirth(state, sex);
+        const place = findById('places', state.world.placeId);
+        await playScene('birth', { year: state.master.birthYear, place: `${place.name}, ${place.country}` });
         showBirth(state);
         showBirthChoices(goTo);
         await autosave();
@@ -115,5 +118,5 @@ function showBirth(state) {
     `Trait: ${trait.name}. ${trait.description}`,
     `Body ${s.body} · Magecraft ${s.magecraft} · Mind ${s.mind} · Charisma ${s.charisma}`,
     `Mana ${master.mana.max} · Money ${master.money} · Contacts ${master.contacts}`,
-  ].join('\n'), 'card');
+  ].join('\n'), 'document');
 }

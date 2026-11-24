@@ -14,6 +14,7 @@ import { weightedPick } from './rng.js';
 import { makeContext, pickText } from './events.js';
 import { STAT_LABELS } from './ranks.js';
 import { openChat } from './chat.js';
+import { playScene } from './fx.js';
 
 export async function summonScreen({ resumed = false, goTo, autosave }) {
   const state = getState();
@@ -74,10 +75,12 @@ async function doSummon(state, catalyst, { goTo, autosave }) {
     talkedAfterSummon: false,
   };
 
+  await ui.afterTyping();
+  await playScene('summon', { cls: servant.class, name: servant.trueName });
   ui.log(servant.summonText);
   if (!catalyst) ui.log(pickText(texts.compatibilityNote, ctx), 'system');
-  ui.log(profileText(state.servant, servant), 'card');
-  ui.log(`“${servant.firstLine}”`, 'speech');
+  ui.log(profileText(state.servant, servant), 'card', { emblem: servant.class });
+  ui.log(`“${servant.firstLine}”`, 'speech', { emblem: servant.class });
   showContinue(goTo);
   await autosave();
 }

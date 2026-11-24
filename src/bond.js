@@ -11,6 +11,7 @@
 import * as ui from './ui.js';
 import { getData } from './data.js';
 import { getServantRemark, currentServant } from './servantTalk.js';
+import { playScene } from './fx.js';
 
 function servantHere(state) {
   return Boolean(state.servant) && state.servant.status !== 'lost';
@@ -19,8 +20,9 @@ function servantHere(state) {
 // Show a Servant's line, streaming in, labeled with their name.
 export async function sayRemark(state, moment, detail = '') {
   if (!servantHere(state)) return;
-  const name = currentServant(state).name;
-  const entry = ui.beginEntry('speech');
+  const servant = currentServant(state);
+  const name = servant.name;
+  const entry = ui.beginEntry('speech', '…', { emblem: servant.class });
   const { text } = await getServantRemark(state, moment, {
     detail,
     onText: (t) => entry.update(`${name}: “${t}”`),
@@ -52,6 +54,8 @@ export function showPathChoice(state, onDone) {
   const choose = async (path, label) => {
     state.servant.path = path;
     ui.log(`You chose: ${label}`, 'system');
+    await ui.afterTyping();
+    await playScene('path', { path, name });
     await sayRemark(state, path === 'romantic' ? 'pathRomantic' : 'pathPlatonic');
     ui.log(path === 'romantic' ? `You and ${name} are in love.` : `${name} is your closest comrade.`, 'effect');
     await onDone();

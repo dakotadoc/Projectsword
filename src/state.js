@@ -40,9 +40,10 @@ export function clearState() {
   bindRng(null);
 }
 
-export function addLogEntry(text, kind) {
+// meta (optional): { emblem: 'Saber' } shows a class emblem beside the entry.
+export function addLogEntry(text, kind, meta) {
   if (!state) return;
-  state.log.push({ text, kind });
+  state.log.push(meta ? { text, kind, meta } : { text, kind });
   if (state.log.length > LOG_LIMIT) state.log.splice(0, state.log.length - LOG_LIMIT);
 }
 

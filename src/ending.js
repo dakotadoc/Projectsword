@@ -18,6 +18,7 @@ import { makeContext, pickText, fillText } from './events.js';
 import { getEpilogue } from './servantTalk.js';
 import { openChat } from './chat.js';
 import { buildSummary } from './summary.js';
+import { playScene } from './fx.js';
 
 const HEADINGS = { church: 'Sanctuary', churchKilled: 'So Close', masterDied: 'The End', victory: 'The Grail' };
 
@@ -42,6 +43,8 @@ async function advance(state, nav) {
   for (let guard = 0; guard < 10; guard++) {
     switch (e.stage) {
       case 'grail':
+        ui.setChoices([]);
+        await playScene('grail');
         ui.log('The Grail', 'heading');
         ui.log(pickText(getData('endings').grailAppears, ctxOf(state)));
         ui.log(getData('endings').wishPrompt, 'system');
@@ -57,6 +60,9 @@ async function advance(state, nav) {
         await nav.autosave();
         break;
       case 'epilogue': {
+        ui.setChoices([]);
+        await ui.afterTyping();
+        await playScene('defeat', { line: e.type === 'church' ? 'You survived. The war goes on without you.' : 'Your war is over.' });
         ui.log('Epilogue', 'heading');
         ui.log(HEADINGS[e.type] || '', 'system');
         ui.log(pickText(getData('combat').epilogues[e.type], ctxOf(state)));

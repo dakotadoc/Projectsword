@@ -30,7 +30,7 @@ export async function chatScreen({ resumed = false, goTo, autosave }) {
     ui.log(`You sit down to talk with ${servant.name}.`, 'system');
     const greeting = greetingLine(state);
     chat.messages.push({ role: 'servant', text: greeting });
-    ui.log(`“${greeting}”`, 'speech');
+    ui.log(`“${greeting}”`, 'speech', { emblem: servant.class });
   }
 
   const left = () => rules.maxPlayerMessages - chat.messages.filter((m) => m.role === 'master').length;
@@ -45,7 +45,7 @@ export async function chatScreen({ resumed = false, goTo, autosave }) {
     onSend: async (text) => {
       chat.messages.push({ role: 'master', text });
       ui.log(text, 'player');
-      const entry = ui.beginEntry('speech');
+      const entry = ui.beginEntry('speech', '…', { emblem: servant.class });
       const reply = await getServantReply(state, chat.messages, {
         onText: (t) => entry.update(`“${t}”`),
       });

@@ -26,7 +26,10 @@ export function setFollow(fn) {
 // growing (job.setTarget) until job.close(finalText) — for streamed replies;
 // until the first text arrives, the node keeps its placeholder.
 export function type(node, text, kind, { open = false } = {}) {
-  const job = { node, target: text, shown: 0, kind, open };
+  // `node` receives the text; `box` is the whole log entry (they differ when
+  // the entry has an emblem beside its text).
+  const box = node.closest?.('.entry') || node;
+  const job = { node, box, target: text, shown: 0, kind, open };
   job.setTarget = (t) => {
     job.target = t;
     wake();
@@ -37,7 +40,7 @@ export function type(node, text, kind, { open = false } = {}) {
     wake();
   };
   // Lines wait, hidden, until the ones before them are done.
-  node.classList.add('typing', 'queued');
+  box.classList.add('typing', 'queued');
   queue.push(job);
   if (reducedMotion()) skip();
   else wake();
@@ -63,7 +66,7 @@ export function skip() {
   const last = queue[queue.length - 1];
   queue = queue.filter((job) => job.open);
   queue.forEach(render);
-  if (last) followNode(last.node);
+  if (last) followNode(last.box);
   if (!queue.length) fireIdle();
 }
 
@@ -93,7 +96,7 @@ function tick(now) {
   while (queue.length && budget > 0) {
     const job = queue[0];
     current = job;
-    job.node.classList.remove('queued');
+    job.box.classList.remove('queued');
     const behind = job.target.length - job.shown;
     // Catch up when a stream has raced ahead, or a block is very long.
     const speed = (KIND_SPEED[job.kind] || 1) * (behind > 400 ? 2.5 : behind > 150 ? 1.5 : 1);
@@ -109,7 +112,7 @@ function tick(now) {
       render(job);
     }
   }
-  if (current) followNode(current.node);
+  if (current) followNode(current.box);
 
   if (queue.length) {
     requestAnimationFrame(tick);
@@ -120,12 +123,12 @@ function tick(now) {
 }
 
 function render(job) {
-  job.node.classList.remove('queued');
+  job.box.classList.remove('queued');
   const done = !job.open && job.shown >= job.target.length;
   if (job.target.length === 0 && job.open) return; // keep the placeholder
   job.node.textContent = done ? job.target : job.target.slice(0, Math.floor(job.shown));
-  if (done) job.node.classList.remove('typing', 'entry-pending');
-  else if (job.shown > 0) job.node.classList.remove('entry-pending');
+  if (done) job.box.classList.remove('typing', 'entry-pending');
+  else if (job.shown > 0) job.box.classList.remove('entry-pending');
 }
 
 function fireIdle() {

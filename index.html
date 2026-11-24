@@ -4,17 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Holy Grail War Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-phase="title">
+  <div class="sky" aria-hidden="true"></div>
+
   <header class="topbar">
-    <span class="topbar-title">Holy Grail War</span>
+    <span class="topbar-title" id="topbar-title">Holy Grail War</span>
     <nav class="topbar-actions" aria-label="Game">
       <button type="button" id="btn-export" disabled>Export</button>
       <button type="button" id="btn-import">Import</button>
       <button type="button" id="btn-title" disabled>Title</button>
     </nav>
   </header>
+
+  <div id="hud" class="hud" hidden></div>
 
   <main id="panel-text" class="play" role="tabpanel" aria-labelledby="tab-text">
     <section id="log" class="log" aria-live="polite" aria-label="Story"></section>
@@ -34,6 +41,7 @@
   </nav>
 
   <div id="dialog-root"></div>
+  <div id="fx-root" aria-live="polite"></div>
 
   <noscript><p class="noscript">This game needs JavaScript.</p></noscript>
   <script type="module" src="src/main.js"></script>
