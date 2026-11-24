@@ -75,7 +75,8 @@ style.css
   war.js         // phase 4 day loop
   combat.js      // battle engine (rules, no UI)
   battle.js      // the battle screen
-  ending.js      // game-over epilogue screen
+  ending.js      // the end of a run: the Grail, the wish, epilogues
+  summary.js     // the run summary (reveals every rival)
   intel.js       // hidden info system
   rivals.js      // rival generation and combat stats
   rivalAI.js     // rival Master AI: nightly actions, off-screen fights, alliances, finale
@@ -95,7 +96,8 @@ style.css
   war.json     // war intro, dawn/dusk texts, Day and Night actions, rumors
   events.json  rivals.json  dialogue.json   // rivals.json: personalities, bases, intel texts, rival Master stats
   classes.json // how each class fights
-  combat.json  // battle text, results, after-loss choices, epilogues
+  combat.json  // battle text, results, after-loss choices, defeat epilogues
+  endings.json // the Grail, wish choices, fallback epilogues, summary labels
 ```
 
 ---
@@ -224,7 +226,7 @@ Keep the AI rule-based and readable. No complex simulation.
 8. **Combat.** Basic attack/defend, then skills, Noble Phantasms, Command Seals, retreat. *(Done. Rivals raiding the player's own base come with the rival AI (milestone 9); the epilogue screen is a placeholder until milestone 11.)*
 9. **Rival AI.** Daily actions, off-screen fights, news. *(Done, with alliances, raids, and the day-14 finale. The victory epilogue is a placeholder until milestone 11.)*
 10. **Bond effects.** Bond bonuses in combat, AI-written Servant event dialogue, fallback lines. *(Done, with the platonic/romantic path at Bond 60.)*
-11. **Endgame and run summary.**
+11. **Endgame and run summary.** *(Done.)*
 12. **Polish.** Balance pass, more events, more Servants, tune chat prompts.
 
 ---
@@ -315,6 +317,12 @@ Keep the AI rule-based and readable. No complex simulation.
   - **The path choice at Bond 60** (`rules.bond.pathAt`): the next morning, the player chooses how they see their Servant: **"As my closest comrade"** (platonic) or **"As someone I love"** (romantic). Stored as `state.servant.path`; shown in Status. Each Servant has a `friendshipStyle` and a `romanceStyle` (`servants.json` personality) that the AI follows. Romance is affectionate and in character, kept tender and never explicit; on the platonic path the Servant answers flirting warmly, as a friend. Both paths give the same combat bonuses.
   - **The Servant speaks up on their own** after big moments, in one to three AI-written sentences (`getServantRemark`, using the full chat context), shown as "Name: “…”": after winning a battle, a narrow escape, the Master nearly dying, betraying an ally, being betrayed, reaching Bond 40 and 80, the path choice, and war events marked `"servantRemark": true`. Every moment has a prepared fallback line per Servant (`dialogue.json` `remarks`), used offline.
   - Bond milestones remarked on are recorded in `state.servant.bondMilestones`.
+- **Endgame (milestone 11):**
+  - **Victory** (the last Master standing, early or after the final battle): the Grail appears; the player may **talk with their Servant one last time** (a free chat), then chooses a wish: **their own wish** (typed in their own words, up to 200 characters), **their Servant's wish**, **wish for their Servant to stay** (unlocked on the romantic path, or the platonic path at Bond 80+), or **destroy the Grail**. Winning without a Servant offers only their own wish or destroying the Grail.
+  - The epilogue is AI-written (`getEpilogue`, `default` tier: a once-per-game call, worth the richer writing): second person, 2–4 paragraphs, honest about what the wish does (never a cheap trick), with the Servant's farewell or future warmer the higher the Bond, romance shown tenderly and never explicitly, and nothing that didn't exist in the war year. Prepared fallbacks in `endings.json` vary by Bond (low/high/none) and path; they avoid gendered subject pronouns and use `{their}`/`{them}`, filled from the Servant's sex.
+  - **Defeats** (the Church, killed fleeing, killed in battle) show their short epilogue.
+  - **Every ending closes with a run summary** (`summary.js`): the Master's life (birth, family, trait, childhood highlights, final stats), the Servant (final Bond, relationship, when lost), the war (days survived, battles fought and won, Command Seals used, true names learned), the ending and wish, and **every rival revealed** (their Master, their Servant's true name, and their fate). Revealing everything is fine now: the war is over.
+  - `state.ending` = `{ type, stage, talked, wishKind, wishText }`; every stage is saved, so a reload resumes the ending exactly.
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

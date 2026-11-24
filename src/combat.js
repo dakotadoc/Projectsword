@@ -761,6 +761,7 @@ function endBattle(state, lines, result) {
       } else {
         say(res.yourServantLost.replaceAll('{servant}', name));
         state.servant.status = 'lost';
+        state.servant.lostDay = state.war?.day ?? null;
         state.servant.hp.current = 0;
         final.outcome = 'servantLost';
       }
@@ -786,6 +787,7 @@ function endBattle(state, lines, result) {
   if (hasServant(state) && state.master.commandSeals === 0 && b.sealsUsed && state.servant.bond < cs.desertBond && chance(cs.desertChance)) {
     say(res.servantDeserts.replaceAll('{servant}', findById('servants', state.servant.id).name));
     state.servant.status = 'lost';
+    state.servant.lostDay = state.war?.day ?? null;
     state.servant.hp.current = 0;
     final.outcome = 'servantLost';
   }

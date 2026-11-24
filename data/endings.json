@@ -1,0 +1,86 @@
+{
+  "grailAppears": [
+    {
+      "text": "Beneath {place}, the air turns gold. Something vast takes shape in the dark: not a cup, exactly, but the idea of one, overflowing with light. The Grail has chosen you."
+    }
+  ],
+  "wishPrompt": "The Grail waits. Whatever you ask for now, it will give.",
+  "choices": {
+    "talk": "Talk with {servant} one last time",
+    "talkHint": "Before the wish, while there is still time",
+    "own": "Make your own wish",
+    "ownHint": "Say it in your own words",
+    "servant": "Grant {servant}'s wish",
+    "servantHint": "Give your wish to the one who fought beside you",
+    "stay": "Wish for {servant} to stay",
+    "stayHintRomantic": "Keep the one you love in this world",
+    "stayHintPlatonic": "Keep your closest comrade in this world",
+    "destroy": "Destroy the Grail",
+    "destroyHint": "No one should have this power. Not even you",
+    "ownPlaceholder": "Speak your wish…"
+  },
+  "fallback": {
+    "own": [
+      {
+        "bond": "low",
+        "text": "You speak your wish, and the light swallows the words. When it fades, the world is different in the way you asked, and in a few ways you didn't. {servant} is already fading, and spares you only a nod before vanishing. For the rest of your life you wonder whether {servant} approved."
+      },
+      {
+        "bond": "high",
+        "text": "You speak your wish, and the light swallows the words. When it fades, the world is different in the way you asked. {servant} is fading, but reaches out to put a hand on your shoulder one last time. \"Good,\" {servant} says. \"That was a good wish.\" Then there is only the morning, and the city waking up around you."
+      },
+      {
+        "bond": "none",
+        "text": "You speak your wish into the empty dark, and the light swallows the words. When it fades, you are alone, and the world is different in the way you asked. Nobody will ever know what it cost you to get here."
+      }
+    ],
+    "servant": [
+      {
+        "bond": "low",
+        "text": "You give the wish to {servant}, who looks at you for a long moment, as if trying to understand you, then turns to the light. Whatever {servant} asks for is asked quietly. When the light fades, {servant} is gone, and you will never know if the wish came true. You hope it did."
+      },
+      {
+        "bond": "high",
+        "text": "You give the wish to {servant}. For once, {servant} has nothing to say, only holds your hand very tightly and steps into the light. You catch a glimpse of the wish in {their} face, and it tells you everything. Then {servant} is gone, smiling, and the morning comes up over {place}."
+      }
+    ],
+    "stay": [
+      {
+        "path": "romantic",
+        "text": "You wish for {servant} to stay. The Grail hesitates, as if it has never been asked for anything so small, and then the light pours into {them}. When it fades, {servant} is still there: flesh and blood now, blinking in the dawn, holding your hand as if afraid to let go. The war is over. Your life together is just beginning."
+      },
+      {
+        "path": "platonic",
+        "text": "You wish for {servant} to stay. The light pours into {them}, and when it fades {servant} is still there, flesh and blood, laughing at how cold the morning air is. \"Well,\" {servant} says, \"I suppose you're stuck with me now.\" You can't think of anyone you'd rather be stuck with."
+      }
+    ],
+    "destroy": [
+      {
+        "bond": "low",
+        "text": "You give the order. {servant} hesitates, then raises {their} Noble Phantasm one last time, and the Grail shatters into a rain of golden ash. {servant} is gone with it. You walk home alone through a city that will never know how close it came."
+      },
+      {
+        "bond": "high",
+        "text": "You give the order, and {servant} understands. \"No one should have this,\" {servant} agrees, raising {their} Noble Phantasm one last time. The Grail shatters into golden ash. In the last moment before fading, {servant} looks back at you, prouder than you have ever seen."
+      },
+      {
+        "bond": "none",
+        "text": "With the last of your strength and magic, you break the Grail yourself. It shatters into golden ash that falls on {place} like snow. No one will ever wish on it again."
+      }
+    ]
+  },
+  "summary": {
+    "titles": {
+      "victory": "Victory",
+      "church": "Survived the war, but lost it",
+      "churchKilled": "Killed while fleeing",
+      "masterDied": "Fell in battle"
+    },
+    "wishLabels": {
+      "own": "Your own wish",
+      "servant": "Your Servant's wish",
+      "stay": "Your Servant stayed",
+      "destroy": "Destroyed the Grail"
+    }
+  }
+}

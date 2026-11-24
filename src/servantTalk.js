@@ -122,6 +122,43 @@ export async function getServantRemark(state, moment, { detail = '', onText } = 
   }
 }
 
+// ---- Epilogue (milestone 11) ----
+
+// The ending after the Master's wish, written by the AI in a few short
+// paragraphs. kind: 'own' (wishText is the player's words), 'servant',
+// 'stay' or 'destroy'. fallback() gives the prepared text.
+export async function getEpilogue(state, { kind, wishText = '', fallback, onText }) {
+  const hasServant = Boolean(state.servant) && state.servant.status !== 'lost';
+  const place = findById('places', state.world.placeId).name;
+  const servant = hasServant ? currentServant(state) : null;
+  const what = {
+    own: `The Master's own wish, in their words: "${wishText}"`,
+    servant: servant ? `The Master gave the wish to ${servant.name}, whose wish is: ${servant.personality.wish}` : '',
+    stay: servant ? `The Master wished for ${servant.name} to stay in this world with them, ${state.servant.path === 'romantic' ? 'as the one they love' : 'as their closest comrade'}.` : '',
+    destroy: 'The Master chose to destroy the Grail rather than use it.',
+  }[kind];
+  const lines = [
+    'You are the narrator of an interactive story about a Holy Grail War, writing its ending.',
+    `The Master, ${state.master.name}, has won the war in ${place} in ${state.world.warYear}. The Grail grants one wish.`,
+    what,
+    servant
+      ? `Their Servant is ${servant.trueName} ("${servant.name}"). Bond ${state.servant.bond}/100. Relationship: ${state.servant.path || 'not decided'}. ${servant.personality.speechStyle}`
+      : 'The Master lost their Servant during the war and won alone.',
+    '',
+    'Write the epilogue in the second person ("you"), 2 to 4 short paragraphs of plain text, no headings or lists.',
+    '- Show what the wish does, honestly: the Grail grants it, and the result may be wonderful, strange or bittersweet, but never a cheap trick or a joke on the Master.',
+    servant ? `- Include ${servant.name}'s farewell (or, if they stay, what comes next), in character. The higher the Bond, the warmer it is. If the relationship is romantic, let that show, tenderly and never explicitly.` : '',
+    `- Nothing may exist that did not exist in ${state.world.warYear}.`,
+    '- End on a single quiet image.',
+  ].filter(Boolean);
+  try {
+    const { text } = await askText(lines.join('\n'), { onText, modelTier: 'default', stub: fallback });
+    return text.trim();
+  } catch {
+    return fallback();
+  }
+}
+
 // ---- Context ----
 
 // How the relationship should show in the Servant's words.

@@ -7,7 +7,7 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat', 'endings'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
 const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant'];
 const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel', 'masterHp'];
@@ -202,6 +202,14 @@ function validate() {
   }
   need(dlg.pathChoice && dlg.pathChoice.prompt, 'dialogue.json: pathChoice is missing');
   need(Array.isArray(r.bond?.tiers) && Number.isFinite(r.bond?.pathAt), 'rules.bond is missing or incomplete');
+
+  // endings.json (milestone 11)
+  const en = data.endings || {};
+  checkTexts(en.grailAppears, 'endings.json grailAppears');
+  for (const k of ['own', 'servant', 'stay', 'destroy']) need(Array.isArray(en.fallback?.[k]) && en.fallback[k].length, `endings.json: fallback.${k} is missing`);
+  need((en.fallback?.stay || []).some((x) => x.path === 'romantic') && (en.fallback?.stay || []).some((x) => x.path === 'platonic'), 'endings.json: fallback.stay needs a romantic and a platonic version');
+  for (const k of ['own', 'destroy']) need((en.fallback?.[k] || []).some((x) => x.bond === 'none'), `endings.json: fallback.${k} needs a version for winning without a Servant (bond "none")`);
+  for (const k of ['victory', 'church', 'churchKilled', 'masterDied']) need(typeof en.summary?.titles?.[k] === 'string', `endings.json: summary.titles.${k} is missing`);
 
   const c = r.chat || {};
   need(['maxPlayerMessages', 'maxMessageLength', 'historyMessages', 'memoriesInContext', 'maxMemories'].every((k) => Number.isInteger(c[k]) && c[k] > 0), 'rules.chat needs positive whole numbers for its limits');
