@@ -22,6 +22,7 @@ export const MAX_LEVEL = 3;
 // The name the player uses for a rival right now.
 export function rivalLabel(rival) {
   const k = rival.intel;
+  if (rival.sibling) return `your ${siblingWord(rival)} ${rival.master.name.split(' ')[0]}`;
   if (k.servant >= 1) return `the ${findById('servants', rival.servant.id).class}'s Master`;
   if (k.master >= 2) return rival.master.name;
   if (k.master >= 1) return `the Master in ${rival.master.district}`;
@@ -32,8 +33,13 @@ export function rivalLabel(rival) {
 export function rivalTitle(rival) {
   const k = rival.intel;
   const servant = k.servant >= 1 ? findById('servants', rival.servant.id).class : 'Unknown Servant';
-  const master = k.master >= 2 ? rival.master.name : k.master >= 1 ? `Master in ${rival.master.district}` : 'Unknown Master';
+  const master = rival.sibling ? `${rival.master.name}, your ${siblingWord(rival)}`
+    : k.master >= 2 ? rival.master.name : k.master >= 1 ? `Master in ${rival.master.district}` : 'Unknown Master';
   return `${servant} · ${master}`;
+}
+
+function siblingWord(rival) {
+  return rival.master.sex === 'female' ? 'sister' : 'brother';
 }
 
 // Raise one track by one level (up to `max`). Returns the reveal text, or
@@ -95,6 +101,7 @@ export function knownView(rival) {
   return {
     id: rival.id,
     title: rivalTitle(rival),
+    sibling: rival.sibling ? siblingWord(rival) : null, // the player's own brother or sister
     // The player only knows a rival is out if they could tell who it was.
     status: rival.status === 'eliminated' && (rival.eliminated?.by === 'player' || rival.eliminated?.knownToPlayer) ? 'eliminated' : 'active',
     master: {
@@ -134,6 +141,7 @@ export function knownSummaryLines(state) {
     if (v.servant.class) parts.push(`Servant class: ${v.servant.class}`);
     if (v.servant.stats) parts.push(`Servant parameters: ${Object.entries(v.servant.stats).map(([k, x]) => `${k} ${x}`).join(', ')}`);
     if (v.servant.trueName) parts.push(`Servant's true name: ${v.servant.trueName}; Noble Phantasm: ${v.servant.noblePhantasm.name}; weakness: ${v.servant.weakness}`);
+    if (v.sibling) parts.push(`this Master is your Master's own ${v.sibling}, who received the family's catalyst instead of your Master`);
     if (v.master.name) parts.push(`Master's name: ${v.master.name}`);
     if (v.master.district) parts.push(`seen around ${v.master.district}`);
     if (v.master.base) parts.push(`base: ${v.master.base}`);

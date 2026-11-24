@@ -7,12 +7,12 @@
 import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat', 'endings'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon', 'dialogue', 'war', 'rivals', 'classes', 'combat', 'endings', 'family'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
 // What a choice can show about the Master; Servants value or scorn these.
 const VALUES = ['courage', 'mercy', 'honesty', 'cunning', 'ambition', 'caution', 'pride', 'faith', 'loyalty', 'cruelty', 'generosity', 'curiosity', 'recklessness'];
-const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant', 'servants', 'minBond', 'maxBond', 'path', 'seen', 'notSeen'];
-const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel', 'masterHp'];
+const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney', 'minContacts', 'hasServant', 'servants', 'minBond', 'maxBond', 'path', 'seen', 'notSeen', 'standing', 'hasSibling', 'siblingRival', 'heir'];
+const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance', 'bond', 'servantHp', 'mana', 'intel', 'masterHp', 'prep'];
 
 const data = {};
 
@@ -125,6 +125,19 @@ function validate() {
     need(Object.keys(w).every((k) => RANKS.includes(k)), `families.json ${f.id}: circuitWeights keys must be E, D, C, B, A, EX`);
     need(Object.values(w).some((v) => v > 0), `families.json ${f.id}: circuitWeights needs a weight above 0`);
   }
+  // family.json: a reaction for every family and circuit standing (family.js).
+  for (const f of data.families) {
+    for (const st of ['low', 'below', 'mid', 'high', 'exceptional']) {
+      need(data.family.reactions?.[f.id]?.[st]?.length > 0, `family.json: reactions.${f.id}.${st} needs at least one text`);
+    }
+  }
+  for (const k of ['siblingBirth', 'siblingDescriptions', 'warIntro', 'battle', 'eliminated']) {
+    need(Array.isArray(data.family[k]) && data.family[k].length, `family.json: ${k} needs at least one entry`);
+  }
+  for (const k of ['chosen', 'gift', 'siblingAccepts', 'passedOver', 'passedOverSibling', 'siblingWillFight']) {
+    need(data.family.heir?.[k]?.length > 0, `family.json: heir.${k} needs at least one text`);
+  }
+  need(r.family && Array.isArray(r.family.standingCuts) && r.family.standingCuts.length === 4, 'rules.family.standingCuts needs four numbers');
 
   for (const r2 of ['lifeTurns', 'lifeGainPerYear']) need(isRange(r[r2]), `rules.${r2} must be [min, max]`);
   for (const k of ['socializeContactChance', 'relicSearch']) need(r[k] && typeof r[k] === 'object', `rules.${k} is missing`);

@@ -17,6 +17,7 @@
 // Every transition is saved, so Continue (or coming back from a talk) picks
 // up exactly where the day was, without repeating any text.
 
+import { siblingLine, applyPrep } from './family.js';
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData, findById } from './data.js';
@@ -47,6 +48,14 @@ export async function warScreen({ resumed = false, goTo, autosave }) {
     await playScene('warStart', { place, year: state.world.warYear }, { gate: false });
     ui.log('The Holy Grail War', 'heading');
     ui.log(pickText(getData('war').intro, warContext(state)));
+    // The family's part: a sibling among the rivals, and the preparations
+    // made during the life phase (family.js).
+    generateRivals(state);
+    const sib = siblingLine(state, 'warIntro');
+    if (sib) ui.log(sib);
+    const prep = applyPrep(state);
+    if (prep.lines.length) ui.log(prep.lines.join(' · '), 'effect');
+    for (const t of prep.intel) ui.log(t);
   }
   // Rivals are created once per war (also for saves that began the war
   // before rivals existed).
@@ -606,6 +615,7 @@ async function doNightAction(state, action, nav, target = null) {
 async function toBattle(state, nav, rival, trigger) {
   today(state).nightTarget = rival.id;
   for (const line of startBattle(state, rival, trigger)) ui.log(line.text, line.kind);
+  if (rival.sibling) ui.log(siblingLine(state, 'battle'));
   state.war.stage = 'battle';
   await nav.autosave();
   await ui.afterTyping();

@@ -1,0 +1,152 @@
+{
+  "_comment": "Family flavor (family.js). reactions: what the family makes of the newborn's Magic Circuits, by family and standing (low, below, mid, high, exceptional; see rules.family.standingCuts). Texts are shown in every year, so they stay period-neutral. {sibling} is the brother or sister's given name, {siblingRelation} is 'brother' or 'sister'.",
+
+  "reactions": {
+    "old_lineage": {
+      "low": [
+        { "text": "The family's elder lays a hand on your chest to read your circuits, and the room goes very quiet. Nobody says the word 'failure'. Nobody has to. The celebration planned for the evening is quietly called off." },
+        { "text": "Your circuits are read on your first night, as is the custom. Your parent looks at the result for a long time, then closes the ledger without writing it down." }
+      ],
+      "below": [
+        { "text": "The reading of your circuits is met with polite, careful smiles. 'There is time,' someone says. 'Effort can make up for a great deal.' It sounds rehearsed." },
+        { "text": "The elders read your circuits and exchange a look. Adequate. In this house, adequate is something people apologise for." }
+      ],
+      "mid": [
+        { "text": "Your circuits are read and found sound: nothing to boast about, nothing to hide. The family records the result in the ledger with a neat, satisfied hand." },
+        { "text": "The elders read your circuits and nod. A worthy child of the line. The crest will not be ashamed to pass to you." }
+      ],
+      "high": [
+        { "text": "When the elder reads your circuits, a slow smile spreads across that stern old face. The family's oldest wine is opened that night, and your name is written in the ledger in gold ink." },
+        { "text": "Your circuits are read, and your parent laughs out loud for the first time in years. Letters go out to the other great houses before morning." }
+      ],
+      "exceptional": [
+        { "text": "The elder who reads your circuits drops the reading-stone. It shatters on the floor. For a moment nobody moves; then the whole house erupts. Bells are rung. Rivals are informed. You are, everyone agrees, the finest child the line has produced in a century." },
+        { "text": "Candles flare blue around your crib as your circuits are read. Your family weeps openly. Generations of careful marriages and patient refinement have finally produced you." }
+      ]
+    },
+    "minor_lineage": {
+      "low": [
+        { "text": "Your parents read your circuits by themselves, late at night. In the morning they are cheerful and loving and talk a great deal about how there are other paths in life." },
+        { "text": "The reading of your circuits ends with your parent sitting alone in the workshop until dawn. Whatever plans they had for you, they put them away." }
+      ],
+      "below": [
+        { "text": "Your circuits are thin, but present. Your parents decide, without saying so, that you will simply have to work twice as hard. They will help however they can." },
+        { "text": "Your parents read your circuits and are kind about it. 'It's in the blood,' your parent says, 'and blood can be trained.'" }
+      ],
+      "mid": [
+        { "text": "Your circuits are read, and they are just what your parents hoped for: a solid foundation for the family's modest craft." },
+        { "text": "Your parents read your circuits and share a relieved smile. The workshop will have an heir worth teaching." }
+      ],
+      "high": [
+        { "text": "Your parents read your circuits twice, to be sure. Then they hold each other and cry. A child like you could raise this family's name higher than it has ever been." },
+        { "text": "Your circuits are strong, far stronger than either parent's. Your mother's old teacher is sent for, just to confirm it. The teacher confirms it." }
+      ],
+      "exceptional": [
+        { "text": "Your circuits are so strong that the reading-candle melts. Your parents do not sleep for two days, and when the great houses hear of you, letters start to arrive. Some offer patronage. Some feel more like threats." },
+        { "text": "Your parents are modest mages, and they know at once that you will never be modest. They are proud, and they are a little afraid." }
+      ]
+    },
+    "fallen_lineage": {
+      "low": [
+        { "text": "Your family read your circuits in the cold front room, where the portraits of better days hang. Nobody looks at the portraits afterwards. The last hope of restoring the name, it seems, will not come from you." },
+        { "text": "Your circuits are read and found wanting. Your grandparent sighs and says it is no matter: the family has been declining for a long time, and one more generation will not change much." }
+      ],
+      "below": [
+        { "text": "Your circuits are weak, like the family's fortunes. Your parents hold you a little tighter anyway." },
+        { "text": "The reading is disappointing, but nobody in this house expected much. 'At least the blood is still there,' someone says." }
+      ],
+      "mid": [
+        { "text": "Your circuits are read and found healthy. For a family that has lost almost everything, healthy is something to celebrate." },
+        { "text": "Your circuits are sound. Your grandparent pats the locked door upstairs and says, 'Perhaps one day you'll open this.'" }
+      ],
+      "high": [
+        { "text": "Your circuits are strong, stronger than anyone's in three generations. Your family looks at you the way drowning people look at a rope." },
+        { "text": "When your circuits are read, your grandparent unlocks the forbidden room for the first time in years, just to stand in the doorway and weep." }
+      ],
+      "exceptional": [
+        { "text": "Your circuits are extraordinary. Your family sells the last of the silver to pay for a proper reading, just to be certain. The reader confirms it, and then asks, very carefully, whether the family has any enemies left. It does." },
+        { "text": "The old house shudders when your circuits are read. Dust falls from the ceiling. Your family, who have lost everything, suddenly believe they might get it all back through you." }
+      ]
+    },
+    "non_mage": {
+      "low": [
+        { "text": "You are a quiet, ordinary baby, and your parents could not be happier." },
+        { "text": "Nothing strange ever happens around your crib. Your parents count themselves lucky, and never know why." }
+      ],
+      "below": [
+        { "text": "Now and then, when you cry, the candle flames lean towards you. Your parents blame the draught." },
+        { "text": "Your grandmother swears the milk never sours when you are in the room. Nobody believes her." }
+      ],
+      "mid": [
+        { "text": "Strange little things happen around you: lost keys turn up in your crib, the cat refuses to enter your room. Your parents laugh it off." },
+        { "text": "The neighbourhood's dogs bark every time you are carried past. Your father jokes that you must smell of something only they can sense." }
+      ],
+      "high": [
+        { "text": "When you scream, glass cracks. Twice. Your parents tell nobody, and lie awake wondering what kind of child they have." },
+        { "text": "The house is always warm around you, even in the coldest winter, and your mother sometimes catches you staring at things that aren't there." }
+      ],
+      "exceptional": [
+        { "text": "On your first night home, every light in the street dies at once and comes back brighter. A stranger in a dark coat stands outside the house the next morning, staring at your window, and then walks away. Your parents never see the stranger again." },
+        { "text": "Birds gather on the roof the day you are born and do not leave for a week. Your mother, who is not superstitious, starts to pray." }
+      ]
+    }
+  },
+
+  "siblingBirth": [
+    { "older": true, "text": "Your older {siblingRelation}, {sibling}, is brought to see you. {sibling} studies you with deep suspicion, then offers you a finger to hold." },
+    { "older": true, "text": "Your older {siblingRelation}, {sibling}, has been told to be gentle with you. {sibling} pokes your cheek once, very carefully, to see if you are real." },
+    { "older": true, "conditions": { "families": ["old_lineage"] }, "text": "Your older {siblingRelation}, {sibling}, was the family's only heir until tonight. {sibling} watches the fuss over your crib from the doorway and says nothing at all." },
+    { "older": false, "text": "A few years later your family grows again: a younger {siblingRelation}, {sibling}, who follows you everywhere as soon as they can walk." },
+    { "older": false, "conditions": { "families": ["old_lineage"] }, "text": "A few years later a younger {siblingRelation} is born: {sibling}. The elders read {sibling}'s circuits too, and compare the two of you in the ledger, side by side." }
+  ],
+
+  "heir": {
+    "chosen": [
+      { "text": "The elders summon you to the oldest room in the house. The family has watched you all your life and measured every step. They are satisfied. You will carry the family's name into the war." },
+      { "text": "Your parent meets you at the workshop door and, for the first time in your life, bows to you. You are the family's champion now." }
+    ],
+    "gift": [
+      { "text": "From a vault beneath the house, the elders bring out the family's most precious possession: the {catalyst}. It has waited generations for a war like this one. Now it is yours." },
+      { "text": "Wrapped in old silk, the {catalyst} is placed in your hands. 'Your ancestors paid in blood for this,' the elder says. 'Do not waste it.'" }
+    ],
+    "siblingAccepts": [
+      { "text": "{sibling} is there when the decision is announced. Your {siblingRelation} meets your eyes, nods once, and wishes you luck. It sounds almost sincere." },
+      { "text": "Later that night {sibling} finds you on the stairs and sits beside you for a while. 'Come back alive,' your {siblingRelation} says. 'I'd hate to have to inherit everything.'" }
+    ],
+    "passedOver": [
+      { "text": "The elders summon you to the oldest room in the house and tell you, kindly and finally, that you have not met the family's expectations. The family's catalyst stays in its vault. Whatever you do in this war, you will do without their blessing." },
+      { "text": "Your family has watched you all your life and measured every step. They have decided you are not the one. The vault beneath the house stays shut." }
+    ],
+    "passedOverSibling": [
+      { "text": "The elders summon both of you to the oldest room in the house. They have watched you both and measured every step. The {catalyst}, the family's most precious relic, is placed in {sibling}'s hands, not yours." },
+      { "text": "You learn the decision from a servant, not your parents: the family has chosen {sibling}. Your {siblingRelation} is given the {catalyst} and the family's blessing. You are given nothing." }
+    ],
+    "siblingWillFight": [
+      { "text": "Then you see it: on the back of {sibling}'s hand, three red marks, the same as yours. The Grail has chosen you both. Your {siblingRelation} sees your hand at the same moment, and neither of you says a word." },
+      { "text": "That night {sibling} shows you the back of one hand: Command Seals, the same as yours. 'Stay out of my way,' your {siblingRelation} says quietly. 'Please.'" }
+    ]
+  },
+
+  "siblingDescriptions": [
+    "Your {siblingRelation}: raised to be perfect, and never once allowed to forget it.",
+    "Your {siblingRelation}: the family's chosen heir, carrying the family's relic and the family's hopes.",
+    "Your {siblingRelation}: the one who grew up beside you, and now stands against you."
+  ],
+  "siblingBase": "the family estate",
+
+  "warIntro": [
+    { "text": "Somewhere across {place}, your {siblingRelation} {sibling} is summoning a Servant with the family's relic. Of the six Masters who are now your enemies, you already know one of them by heart." },
+    { "text": "You cannot stop thinking about {sibling}. Your {siblingRelation} knows where you sleep, what you fear, and how you think. In this war, that makes {sibling} the most dangerous Master in {place}." }
+  ],
+
+  "battle": [
+    { "text": "{sibling} stands across from you, the family relic's Servant at their side. For a moment you are children again, squabbling in the garden. Then the moment passes." },
+    { "text": "'I hoped it wouldn't be you,' {sibling} says. 'I hoped someone else would find you first.'" },
+    { "text": "Your {siblingRelation} won't meet your eyes. {sibling}'s Servant has no such trouble." }
+  ],
+
+  "eliminated": [
+    { "text": "Your {siblingRelation}, {sibling}, is out of the war. Whatever happens now, the family's champion will not be the one to take the Grail." },
+    { "text": "{sibling} is out of the war. You feel it before you understand it: a hollow place where a rival used to be, and a {siblingRelation} still is." }
+  ]
+}

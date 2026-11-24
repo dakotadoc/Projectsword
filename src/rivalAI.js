@@ -16,6 +16,7 @@
 // Alliances between rivals: state.alliances = [[idA, idB], …].
 // The player's ally (at most one): state.war.ally = rivalId | null.
 
+import { siblingLine } from './family.js';
 import { getData, findById } from './data.js';
 import { chance, pick, shuffle, weightedPick, random } from './rng.js';
 import { rankValue } from './ranks.js';
@@ -257,6 +258,7 @@ export function autoBattle(state, a, b, { defenderAtHome = false, final = false 
       };
       news(state, 'eliminated', { remaining: mastersRemaining(state) });
       if (loser.eliminated.knownToPlayer) news(state, 'eliminatedKnown', { who: rivalLabel(loser) });
+      if (loser.sibling) state.war.news.push({ text: siblingLine(state, 'eliminated'), kind: 'narration' });
     }
   }
   // Whoever fought learns where the other lives.

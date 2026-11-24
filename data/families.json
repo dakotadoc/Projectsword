@@ -1,6 +1,8 @@
 [
   {
     "id": "old_lineage",
+    "siblingChance": 1,
+    "heirCatalyst": true,
     "relicChance": 0.1,
     "name": "Old mage lineage",
     "weight": 1,
@@ -14,6 +16,7 @@
   },
   {
     "id": "minor_lineage",
+    "siblingChance": 0.5,
     "relicChance": 0.05,
     "name": "Minor mage family",
     "weight": 2,
@@ -27,6 +30,7 @@
   },
   {
     "id": "fallen_lineage",
+    "siblingChance": 0.5,
     "relicChance": 0.05,
     "name": "Fallen mage family",
     "weight": 2,
@@ -40,6 +44,7 @@
   },
   {
     "id": "non_mage",
+    "siblingChance": 0.5,
     "relicChance": 0,
     "name": "Non-mage family",
     "weight": 5,

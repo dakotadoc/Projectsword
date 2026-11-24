@@ -23,6 +23,7 @@
 // "intel": n learns n new things about rivals (up to level 2). The reveal
 // texts come back on the returned array as `.intel`, to be logged as story.
 
+import { addPrep } from './family.js';
 import { getData, findById } from './data.js';
 import { weightedPick, chance } from './rng.js';
 import { fitsYear } from './period.js';
@@ -53,6 +54,13 @@ export function makeContext(state, { age, year, day = null }) {
     bond: state.servant?.bond ?? 0,
     path: state.servant?.path ?? null,
     seen: [...(state.life?.seenEvents || []), ...(state.war?.seenEvents || [])],
+    // The family (family.js); absent in saves from before it existed.
+    standing: state.master.family?.standing ?? null,
+    hasSibling: Boolean(state.master.family?.sibling),
+    siblingRival: Boolean(state.master.family?.sibling?.rival),
+    heir: state.master.family?.heir ?? null,
+    siblingName: state.master.family?.sibling?.given ?? '',
+    siblingRelation: state.master.family?.sibling ? (state.master.family.sibling.sex === 'female' ? 'sister' : 'brother') : '',
   };
 }
 
@@ -78,6 +86,10 @@ export function fits(entry, ctx) {
   if (c.path && c.path !== ctx.path) return false;
   if (c.seen && !c.seen.every((id) => ctx.seen?.includes(id))) return false;
   if (c.notSeen && c.notSeen.some((id) => ctx.seen?.includes(id))) return false;
+  if (c.standing && !c.standing.includes(ctx.standing)) return false;
+  if (typeof c.hasSibling === 'boolean' && c.hasSibling !== Boolean(ctx.hasSibling)) return false;
+  if (typeof c.siblingRival === 'boolean' && c.siblingRival !== Boolean(ctx.siblingRival)) return false;
+  if (typeof c.heir === 'boolean' && c.heir !== ctx.heir) return false;
   return true;
 }
 
@@ -151,7 +163,9 @@ export function fillText(text, ctx) {
     .replaceAll('{servant}', ctx.servantName || 'your Servant')
     .replaceAll('{place}', ctx.placeName)
     .replaceAll('{year}', String(ctx.year))
-    .replaceAll('{age}', String(ctx.age));
+    .replaceAll('{age}', String(ctx.age))
+    .replaceAll('{sibling}', ctx.siblingName || 'your sibling')
+    .replaceAll('{siblingRelation}', ctx.siblingRelation || 'sibling');
 }
 
 // Roll one event for this phase that fits the moment and hasn't been seen
@@ -212,6 +226,7 @@ export function applyEffects(state, effects, ctx) {
     const found = findCatalyst(state, ctx);
     if (found) lines.push(`Catalyst found: ${found.name}`);
   }
+  if (effects.prep) lines.push(...addPrep(state, effects.prep));
   lines.intel = [];
   for (let i = 0; i < (effects.intel || 0) && state.rivals; i++) {
     const text = gainRandomIntel(state, { max: 2 });

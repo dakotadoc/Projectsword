@@ -20,10 +20,16 @@ import { getData, findById } from './data.js';
 import { randInt, chance, pick, shuffle, weightedPick } from './rng.js';
 import { availableIn, entryName } from './period.js';
 import { fits, makeContext } from './events.js';
+import { rivalSibling, siblingServantId, siblingRivalMaster } from './family.js';
 
 export function generateRivals(state) {
   const cfg = getData('rivals');
-  const others = shuffle(getData('servants').filter((s) => s.id !== state.servant.id));
+  let others = shuffle(getData('servants').filter((s) => s.id !== state.servant.id));
+  // A sibling who took the family's catalyst is the first rival, with the
+  // Servant that catalyst calls (family.js).
+  const sibling = rivalSibling(state);
+  const sibServant = siblingServantId(state);
+  if (sibServant) others = [others.find((s) => s.id === sibServant), ...others.filter((s) => s.id !== sibServant)];
   const ctx = makeContext(state, { age: state.master.warAge, year: state.world.warYear });
   const places = getData('places');
   const warPlace = findById('places', state.world.placeId);
@@ -56,7 +62,7 @@ export function generateRivals(state) {
     const base = weightedPick(freshBases.length ? freshBases : fitting).text;
     usedBases.push(base);
 
-    return {
+    const rival = {
       id: `r${i + 1}`,
       master: {
         name, sex, age, originPlaceId: origin.id, familyId,
@@ -69,6 +75,15 @@ export function generateRivals(state) {
       intel: { master: 0, servant: 0 }, // what the player knows (intel.js)
       status: 'active',
     };
+    if (sibling && i === 0) {
+      // The player knows their own sibling, and which relic they hold (so
+      // the class); the sibling knows where the player lives.
+      rival.master = siblingRivalMaster(state, rival.master, ctx);
+      rival.sibling = true;
+      rival.intel = { master: 3, servant: 1 };
+      rival.knows = { player: 2 };
+    }
+    return rival;
   });
   ensureRivalCombatStats(state);
 }

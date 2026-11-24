@@ -9,6 +9,8 @@ import { randInt, pick, weightedPick } from './rng.js';
 import { RANKS, rankValue } from './ranks.js';
 import { availableIn, entryName } from './period.js';
 import { playScene } from './fx.js';
+import { rollFamily, birthReaction, siblingIntro, familyOf, relation } from './family.js';
+import { makeContext } from './events.js';
 
 export const SEXES = { male: 'Boy', female: 'Girl' };
 
@@ -46,10 +48,11 @@ export function rollBirth(state, sex) {
   const birthYear = warYear - warAge;
   // Only names that were in use in the birth year (see period.js).
   const givenName = entryName(pick(availableIn(place.givenNames[sex], birthYear)));
+  const familyName = pick(place.familyNames);
 
   state.world = { placeId: place.id, eraId: era.id, warYear };
   state.master = {
-    name: `${givenName} ${entryName(pick(place.familyNames), sex)}`,
+    name: `${givenName} ${entryName(familyName, sex)}`,
     sex,
     birthYear,
     warAge,
@@ -63,6 +66,7 @@ export function rollBirth(state, sex) {
     commandSeals: 0, // the three seals appear when the war is announced
     catalysts: [], // catalyst ids found during the life phase
   };
+  rollFamily(state, place, familyName);
 }
 
 // The birth screen. First asks boy or girl, then rolls and shows the
@@ -104,8 +108,15 @@ function showBirth(state) {
   const trait = findById('traits', master.traitId);
   const s = master.stats;
 
+  const ctx = makeContext(state, { age: 0, year: master.birthYear });
   ui.log(place.birthText);
   ui.log(family.birthText);
+  const reaction = birthReaction(state, ctx);
+  if (reaction.text) ui.log(reaction.text);
+  if (reaction.lines.length) ui.log(reaction.lines.join(' · '), 'effect');
+  const sibText = siblingIntro(state, ctx);
+  if (sibText) ui.log(sibText);
+  const sib = familyOf(state)?.sibling;
   ui.log(era.description);
   ui.log([
     'Certificate of birth',
@@ -114,6 +125,7 @@ function showBirth(state) {
     `Sex: ${SEXES[master.sex]}`,
     `Era: ${era.name}`,
     `Family: ${family.name}`,
+    ...(sib?.older ? [`Older ${relation(sib)}: ${sib.name}`] : []),
     `Magic Circuits: quantity ${master.circuits.quantity}, quality ${master.circuits.quality}`,
     `Trait: ${trait.name}. ${trait.description}`,
     `Body ${s.body} · Magecraft ${s.magecraft} · Mind ${s.mind} · Charisma ${s.charisma}`,

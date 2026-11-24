@@ -3375,6 +3375,1051 @@
     ]
   },
   {
+    "id": "fam_old_ledger",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 7,
+    "maxAge": 15,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ],
+      "hasSibling": true
+    },
+    "text": "Every year the elders write your progress in the family ledger, beside {sibling}'s. This year they read both entries aloud at dinner.",
+    "choices": [
+      {
+        "label": "Vow to beat {sibling} next year",
+        "text": "You train until your hands shake. Next year, the ledger tells a different story.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "ambition",
+          "pride"
+        ]
+      },
+      {
+        "label": "Refuse to compete with {sibling}",
+        "text": "After dinner you find {sibling} in the garden and sit together in silence. Some things matter more than the ledger.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_chronicle",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 10,
+    "maxAge": 18,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ]
+    },
+    "text": "The elders unlock the family chronicle and show you the pages about the last Holy Grail War. An ancestor of yours fought in it, and did not come back.",
+    "choices": [
+      {
+        "label": "Study how your ancestor lost",
+        "text": "Every mistake is written down in that careful old hand. You learn them all by heart.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        },
+        "shows": [
+          "caution",
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Ask the elders to start watching the other houses",
+        "text": "The elders look at each other, then at you. Quietly, the family begins to gather names, so that when the next war comes, you will not go in blind.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          },
+          "prep": {
+            "intel": 1
+          }
+        },
+        "shows": [
+          "ambition",
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_drills",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ]
+    },
+    "text": "An old retainer who has served the family for forty years takes you into the courtyard before dawn. 'The war will not wait for you to be ready,' the retainer says. 'So we will make you ready.'",
+    "choices": [
+      {
+        "label": "Endure the training",
+        "check": {
+          "stat": "magecraft",
+          "difficulty": 45
+        },
+        "success": {
+          "text": "By winter you can hold a spell steady while running, bleeding and exhausted. The retainer allows a small, proud nod.",
+          "effects": {
+            "stats": {
+              "magecraft": 3
+            },
+            "prep": {
+              "manaMax": 15
+            }
+          }
+        },
+        "failure": {
+          "text": "The training breaks you more than once. You get up every time, which is what the retainer was really testing.",
+          "effects": {
+            "stats": {
+              "magecraft": 1,
+              "body": 1
+            },
+            "prep": {
+              "manaMax": 5
+            }
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      },
+      {
+        "label": "Ask for strategy, not drills",
+        "text": "The retainer teaches you how wars between Masters are really won: by knowing where the enemy sleeps.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          },
+          "prep": {
+            "intel": 1
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_workshop_wing",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 16,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ]
+    },
+    "text": "The family grants you a wing of the ancestral workshop, with its old wards and older secrets, to prepare as you see fit.",
+    "choices": [
+      {
+        "label": "Fortify it for the war",
+        "text": "You spend the year laying bounded fields, alarms and traps. When the war comes, you will have somewhere to stand.",
+        "effects": {
+          "stats": {
+            "magecraft": 1
+          },
+          "prep": {
+            "workshop": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      },
+      {
+        "label": "Use it for research",
+        "text": "You fill it with books and experiments. The family approves of the results, if not the smell.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_overheard_heir",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 18,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ],
+      "hasSibling": true,
+      "standing": [
+        "low",
+        "below"
+      ]
+    },
+    "text": "Late one night you overhear the elders in the library. They are discussing whether {sibling} should be named heir in your place.",
+    "choices": [
+      {
+        "label": "Walk in and argue your case",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "The elders are startled, then grudgingly impressed. 'The child has a spine,' one mutters. Nothing is decided, which is a victory of sorts.",
+          "effects": {
+            "stats": {
+              "charisma": 3
+            }
+          }
+        },
+        "failure": {
+          "text": "You stammer and lose your temper. The elders exchange a look that says they have their answer.",
+          "effects": {
+            "stats": {
+              "charisma": 1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "pride"
+        ]
+      },
+      {
+        "label": "Train in secret every night",
+        "text": "You stop sleeping much. Your circuits ache, and your skill grows.",
+        "effects": {
+          "stats": {
+            "magecraft": 4,
+            "body": -1
+          }
+        },
+        "shows": [
+          "ambition"
+        ]
+      },
+      {
+        "label": "Go and tell {sibling}",
+        "text": "{sibling} listens, then hugs you hard. 'I never asked for this,' your {siblingRelation} says. You believe it.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "honesty",
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_branch_child",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 18,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ],
+      "hasSibling": false,
+      "standing": [
+        "low",
+        "below"
+      ]
+    },
+    "text": "A gifted child from a distant branch of the family comes to stay. The elders spend a great deal of time with this child, and very little with you.",
+    "choices": [
+      {
+        "label": "Befriend the newcomer",
+        "text": "The child is lonely too. You become allies against the elders' expectations.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Prove you are the better heir",
+        "text": "You train like someone possessed. The elders start, slowly, to look your way again.",
+        "effects": {
+          "stats": {
+            "magecraft": 3,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "ambition",
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_prodigy_pressure",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 16,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ],
+      "standing": [
+        "high",
+        "exceptional"
+      ]
+    },
+    "text": "Since the day your circuits were read, your life has been lessons, tests and lessons. You have never once been allowed to be bored.",
+    "choices": [
+      {
+        "label": "Run away for one whole day",
+        "text": "You spend it at the river doing absolutely nothing. You are punished for a week, and it was worth it.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "body": 2
+          }
+        },
+        "shows": [
+          "recklessness"
+        ]
+      },
+      {
+        "label": "Do everything they ask",
+        "text": "You become exactly what they wanted. Sometimes you wonder what else you might have been.",
+        "effects": {
+          "stats": {
+            "magecraft": 3,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_old_betrothal",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 16,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ]
+    },
+    "text": "The elders propose a match with the heir of another great house, to strengthen the family before the coming war.",
+    "choices": [
+      {
+        "label": "Agree to meet them",
+        "text": "The meeting is stiff and formal, but the other heir has a dry sense of humour. Whatever comes of it, the two houses are friendlier now.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          },
+          "contacts": 2
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Refuse outright",
+        "text": "The elders are furious. You do not care. Your life, at least, is going to be your own.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_minor_patron",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 13,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "minor_lineage"
+      ]
+    },
+    "text": "One of the great mage houses notices you and offers your family its patronage, for a price nobody will name.",
+    "choices": [
+      {
+        "label": "Accept the patronage",
+        "text": "Doors open that were always shut. You also start to notice who is watching you.",
+        "effects": {
+          "contacts": 1,
+          "money": 40
+        },
+        "shows": [
+          "ambition"
+        ]
+      },
+      {
+        "label": "Decline politely",
+        "text": "Your parents are relieved. Patronage, they say, is a leash with a velvet lining.",
+        "effects": {
+          "stats": {
+            "magecraft": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "pride",
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_minor_war_savings",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 15,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "minor_lineage"
+      ]
+    },
+    "text": "Your parents sense the war coming before anyone tells them. They spend their savings to prepare you for it.",
+    "choices": [
+      {
+        "label": "Learn to fight with magecraft",
+        "text": "A hired teacher drills you until your mana runs deeper than it ever has.",
+        "effects": {
+          "stats": {
+            "magecraft": 1
+          },
+          "prep": {
+            "manaMax": 10
+          }
+        },
+        "shows": [
+          "courage"
+        ]
+      },
+      {
+        "label": "Build a proper workshop",
+        "text": "Your parents help you set up a workshop of your own, warded and hidden.",
+        "effects": {
+          "prep": {
+            "workshop": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_minor_other_paths",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 16,
+    "conditions": {
+      "families": [
+        "minor_lineage"
+      ],
+      "standing": [
+        "low",
+        "below"
+      ]
+    },
+    "text": "Your parents start putting money aside for an ordinary education for you, just in case magecraft doesn't work out.",
+    "choices": [
+      {
+        "label": "Insist on magecraft lessons",
+        "text": "You beg until they give in. Every lesson is a struggle, but you never miss one.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      },
+      {
+        "label": "Take the ordinary schooling",
+        "text": "It turns out you are good at ordinary things too.",
+        "effects": {
+          "stats": {
+            "mind": 3
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_minor_summer_house",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 17,
+    "conditions": {
+      "families": [
+        "minor_lineage"
+      ],
+      "standing": [
+        "high",
+        "exceptional"
+      ]
+    },
+    "text": "Your parents arrange for you to spend a summer training with a great house, a rare honour for a family like yours.",
+    "choices": [
+      {
+        "label": "Make the most of it",
+        "text": "You come home with new skills, new friends and the uneasy sense that the great houses play by different rules.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          },
+          "contacts": 1
+        },
+        "shows": [
+          "ambition"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_fallen_locked_room",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 12,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "fallen_lineage"
+      ]
+    },
+    "text": "Your grandparent finally gives you the key to the locked room upstairs. Inside: dust, old maps, and the notes of an ancestor who fought in a Holy Grail War.",
+    "choices": [
+      {
+        "label": "Search the room properly",
+        "check": {
+          "stat": "mind",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "Behind a loose panel you find something wrapped in oilcloth, old and heavy with presence. Your ancestor hid it well.",
+          "effects": {
+            "stats": {
+              "mind": 1
+            },
+            "catalyst": true
+          }
+        },
+        "failure": {
+          "text": "You find nothing but the notes. They are still worth something.",
+          "effects": {
+            "stats": {
+              "mind": 2
+            }
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Study the notes about the war",
+        "text": "Your ancestor wrote down how the other Masters were found. The methods still work.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          },
+          "prep": {
+            "intel": 1
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_fallen_last_heirloom",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 8,
+    "maxAge": 18,
+    "conditions": {
+      "families": [
+        "fallen_lineage"
+      ],
+      "standing": [
+        "high",
+        "exceptional"
+      ]
+    },
+    "text": "Your family sells the last heirloom they have, a ring older than the house, to pay a real teacher for you.",
+    "choices": [
+      {
+        "label": "Accept and work hard",
+        "text": "You never forget what that lesson cost. You make sure every one is worth it.",
+        "effects": {
+          "stats": {
+            "magecraft": 4
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Refuse and teach yourself",
+        "text": "You find the buyer and get the ring back with your own savings. You teach yourself, badly but proudly.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "pride",
+          "generosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_fallen_freedom",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 9,
+    "maxAge": 18,
+    "conditions": {
+      "families": [
+        "fallen_lineage"
+      ],
+      "standing": [
+        "low",
+        "below"
+      ]
+    },
+    "text": "Your family quietly stops talking about restoring the family name. Nobody says it is because of you. Nobody has to.",
+    "choices": [
+      {
+        "label": "Prove them wrong",
+        "text": "You take the old books down from the shelf yourself.",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "pride",
+          "ambition"
+        ]
+      },
+      {
+        "label": "Enjoy the freedom",
+        "text": "With nobody expecting anything, you find out who you actually are.",
+        "effects": {
+          "stats": {
+            "charisma": 2,
+            "body": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "fam_fallen_debt",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 14,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "fallen_lineage"
+      ]
+    },
+    "text": "A cold, well-dressed agent of an old rival house arrives to collect a debt your grandparents ran up decades ago.",
+    "choices": [
+      {
+        "label": "Pay what you can",
+        "text": "The agent counts the money twice and leaves. The family breathes again.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          },
+          "money": -40
+        },
+        "shows": [
+          "honesty"
+        ],
+        "conditions": {
+          "minMoney": 40
+        }
+      },
+      {
+        "label": "Bargain",
+        "check": {
+          "stat": "charisma",
+          "difficulty": 45
+        },
+        "success": {
+          "text": "You talk the debt down to almost nothing. The agent leaves looking slightly impressed.",
+          "effects": {
+            "stats": {
+              "charisma": 2
+            },
+            "contacts": 1
+          }
+        },
+        "failure": {
+          "text": "The agent is not impressed. The family's last good furniture leaves with them.",
+          "effects": {
+            "stats": {
+              "charisma": 1
+            }
+          }
+        },
+        "shows": [
+          "cunning"
+        ]
+      },
+      {
+        "label": "Show them the door",
+        "text": "The agent smiles thinly. 'Your family always did have more pride than sense.' You make an enemy, but keep your home.",
+        "effects": {
+          "stats": {
+            "body": 1
+          }
+        },
+        "shows": [
+          "pride",
+          "courage"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_non_strange_child",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 6,
+    "maxAge": 14,
+    "conditions": {
+      "families": [
+        "non_mage"
+      ],
+      "standing": [
+        "high",
+        "exceptional"
+      ]
+    },
+    "text": "Your parents, worried by the strange things that happen around you, take you to a doctor, then a priest, then an old woman at the edge of the city.",
+    "choices": [
+      {
+        "label": "Tell the old woman the truth",
+        "text": "She listens, nods, and teaches you one small trick to keep it hidden. 'You are not ill,' she says. 'You are just early.'",
+        "effects": {
+          "stats": {
+            "magecraft": 3
+          }
+        },
+        "shows": [
+          "honesty"
+        ]
+      },
+      {
+        "label": "Hide what you can do",
+        "text": "You learn to make the strange things stop, mostly. Your parents relax, and you feel very alone.",
+        "effects": {
+          "stats": {
+            "mind": 2
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_non_ancestor",
+    "phase": "life",
+    "weight": 1,
+    "minAge": 12,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "non_mage"
+      ]
+    },
+    "text": "Your grandparent, very ill, takes your hand and whispers that there was a witch in the family once, long ago, and that you have her eyes.",
+    "choices": [
+      {
+        "label": "Ask everything about her",
+        "text": "You get a name, a village and a story. Later, you find her grave, and something left on it.",
+        "effects": {
+          "stats": {
+            "magecraft": 2,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      },
+      {
+        "label": "Just stay with your grandparent",
+        "text": "You sit together until morning. The story can wait. It does.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "mercy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_non_ordinary_joy",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 5,
+    "maxAge": 12,
+    "conditions": {
+      "families": [
+        "non_mage"
+      ],
+      "standing": [
+        "low",
+        "below",
+        "mid"
+      ]
+    },
+    "text": "Your family takes a holiday by the sea. Nothing remarkable happens at all, and it is perfect.",
+    "effects": {
+      "stats": {
+        "charisma": 1,
+        "body": 1
+      }
+    }
+  },
+  {
+    "id": "fam_sib_hideout",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 6,
+    "maxAge": 13,
+    "conditions": {
+      "hasSibling": true
+    },
+    "text": "You and {sibling} build a secret hideout and swear never to tell anyone where it is.",
+    "choices": [
+      {
+        "label": "Keep the oath forever",
+        "text": "Years later, you still have never told. Neither has {sibling}.",
+        "effects": {
+          "stats": {
+            "charisma": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Fill it with treasures",
+        "text": "Stones, keys, a dead beetle, a lost ring. Your {siblingRelation} declares you the best explorer in the city.",
+        "effects": {
+          "stats": {
+            "body": 1,
+            "mind": 1
+          }
+        },
+        "shows": [
+          "curiosity"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_sib_bullies",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 7,
+    "maxAge": 15,
+    "conditions": {
+      "hasSibling": true
+    },
+    "text": "Some older children corner {sibling} in an alley.",
+    "choices": [
+      {
+        "label": "Wade in",
+        "check": {
+          "stat": "body",
+          "difficulty": 30
+        },
+        "success": {
+          "text": "They scatter. {sibling} looks at you like you are the strongest person in the world.",
+          "effects": {
+            "stats": {
+              "body": 2,
+              "charisma": 1
+            }
+          }
+        },
+        "failure": {
+          "text": "You both get a beating, side by side. You walk home together, bloody and laughing.",
+          "effects": {
+            "stats": {
+              "body": 1,
+              "charisma": 1
+            }
+          }
+        },
+        "shows": [
+          "courage",
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Run for help",
+        "text": "You come back with an adult in time. {sibling} is shaken, but fine.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_sib_quarrel",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 12,
+    "maxAge": 20,
+    "conditions": {
+      "hasSibling": true
+    },
+    "text": "You and {sibling} have the worst fight of your lives, over something neither of you can remember a week later.",
+    "choices": [
+      {
+        "label": "Apologise first",
+        "text": "It costs you something to say it. {sibling} cries, then laughs, then apologises too.",
+        "effects": {
+          "stats": {
+            "charisma": 2
+          }
+        },
+        "shows": [
+          "generosity"
+        ]
+      },
+      {
+        "label": "Wait for {sibling} to apologise",
+        "text": "You don't speak for a month. When you finally do, something has changed between you.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fam_sib_promise",
+    "phase": "life",
+    "weight": 2,
+    "minAge": 15,
+    "maxAge": 25,
+    "conditions": {
+      "families": [
+        "old_lineage"
+      ],
+      "hasSibling": true
+    },
+    "text": "One night, {sibling} asks you to promise something: whatever the family decides about the heir, the two of you will never become enemies.",
+    "choices": [
+      {
+        "label": "Promise",
+        "text": "You link fingers, like children. 'Never,' you both say.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "loyalty"
+        ]
+      },
+      {
+        "label": "Say you can't promise that",
+        "text": "{sibling} looks hurt, then nods slowly. 'At least you're honest,' your {siblingRelation} says.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "honesty"
+        ]
+      }
+    ]
+  },
+  {
     "id": "war_shopkeeper",
     "phase": "war",
     "weight": 2,
@@ -3742,6 +4787,140 @@
     "minDay": 4,
     "effects": {
       "intel": 1
+    }
+  },
+  {
+    "id": "war_sib_letter",
+    "phase": "war",
+    "weight": 2,
+    "minDay": 1,
+    "maxDay": 6,
+    "servantRemark": true,
+    "conditions": {
+      "siblingRival": true
+    },
+    "text": "A letter is slipped under your door, in handwriting you would know anywhere: {sibling}'s. It says only: 'Leave the city. I don't want to find you.'",
+    "choices": [
+      {
+        "label": "Write back",
+        "text": "You leave a reply where only {sibling} would think to look. Whether your {siblingRelation} reads it, you never learn.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "loyalty",
+          "mercy"
+        ]
+      },
+      {
+        "label": "Burn it",
+        "text": "The paper curls and blackens. Whatever {sibling} wanted, this is a war.",
+        "effects": {
+          "stats": {
+            "mind": 1
+          }
+        },
+        "shows": [
+          "pride"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_sib_glimpse",
+    "phase": "war",
+    "weight": 2,
+    "minDay": 2,
+    "conditions": {
+      "siblingRival": true
+    },
+    "text": "Across a crowded street you see {sibling}, and beside your {siblingRelation}, a stranger whose presence makes the air feel heavy. Your eyes meet. Neither of you moves.",
+    "choices": [
+      {
+        "label": "Follow at a distance",
+        "check": {
+          "stat": "mind",
+          "difficulty": 40
+        },
+        "success": {
+          "text": "You trail them for an hour and learn how {sibling}'s Servant moves and fights.",
+          "effects": {
+            "stats": {
+              "mind": 1
+            }
+          }
+        },
+        "failure": {
+          "text": "They lose you within minutes. {sibling} always was better at hide and seek.",
+          "effects": {}
+        },
+        "shows": [
+          "cunning",
+          "courage"
+        ]
+      },
+      {
+        "label": "Let them go",
+        "text": "{sibling} disappears into the crowd. You breathe out for what feels like the first time all day.",
+        "effects": {
+          "stats": {
+            "charisma": 1
+          }
+        },
+        "shows": [
+          "mercy",
+          "caution"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "war_sib_promise_kept",
+    "phase": "war",
+    "weight": 2,
+    "minDay": 3,
+    "servantRemark": true,
+    "conditions": {
+      "siblingRival": true,
+      "seen": [
+        "fam_sib_promise"
+      ]
+    },
+    "text": "A child delivers a pressed flower from the garden at home. There is no note. You know exactly who sent it, and what it means: {sibling} remembers the promise.",
+    "effects": {}
+  },
+  {
+    "id": "war_heir_supplies",
+    "phase": "war",
+    "weight": 2,
+    "minDay": 2,
+    "maxDay": 8,
+    "conditions": {
+      "heir": true
+    },
+    "text": "A family retainer arrives at dawn with a heavy case: money, medicine, and a letter from the elders reminding you whose name you carry.",
+    "effects": {
+      "money": 60,
+      "mana": 20
+    }
+  },
+  {
+    "id": "war_passed_over_letter",
+    "phase": "war",
+    "weight": 2,
+    "minDay": 2,
+    "servantRemark": true,
+    "conditions": {
+      "heir": false,
+      "siblingRival": false
+    },
+    "text": "A letter arrives from your family. It is short and stiff, but at the end, in a smaller hand, someone has added: 'Come home alive.'",
+    "effects": {
+      "stats": {
+        "charisma": 1
+      }
     }
   },
   {

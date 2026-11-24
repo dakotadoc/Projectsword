@@ -91,6 +91,7 @@ style.css
   emblems.js     // line-art SVG class emblems, medallions, the summoning circle
   fx.js          // full-screen animated scenes and day/night banners
   hud.js         // the war HUD strip and the page theme (phase, day/night)
+  family.js      // circuit reactions, siblings, the heir decision, war preparations
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json
@@ -101,6 +102,7 @@ style.css
   classes.json // how each class fights
   combat.json  // battle text, results, after-loss choices, defeat epilogues
   endings.json // the Grail, wish choices, fallback epilogues, summary labels
+  family.json  // circuit reactions, sibling texts, the heir decision, the rival sibling
 ```
 
 ---
@@ -341,6 +343,14 @@ Keep the AI rule-based and readable. No complex simulation.
   - **Day and Night banners** slide in below the HUD at dawn and dusk without blocking play.
   - **War HUD** (`hud.js`): under the top bar during the war, battles and chats: day and time, the Servant's emblem and HP, the Master's HP, mana and Bond as small coloured bars. Rebuilt on every autosave.
   - **Log entry kinds:** `heading`, `system`, `effect`, `roll`, `np`, `card` (profile cards), `document` (the parchment birth certificate), `speech` and `player`. `ui.log(text, kind, { emblem })` adds a class medallion to an entry.
+- **Family (milestone 12):** the family is more than a starting stat block (`family.js`, `data/family.json`).
+  - **`state.master.family`** = `{ standing, sibling, heir, prep }`. Saves from before it have none, and every helper copes.
+  - **Circuit standing:** at birth, the average of circuit quantity and quality (E=1 … EX=6) sorts the child into five bands (`rules.family.standingCuts`): low, below, mid, high, exceptional. Each family reacts in its own way (a text per family and band). Mage families invest accordingly (`rules.family.reactionEffects`): a disappointment costs a little money and a contact; an exceptional child brings money, a contact and Magecraft +3. Non-mage families can't sense circuits; strong ones show as strange omens around the crib, with no effect.
+  - **Siblings:** old lineages always have a brother or sister; other families 50% (`families.json` `siblingChance`). Older or younger by 1–4 years, never too young to fight. Their name comes from the birthplace's lists, with the family name in the right form for their sex. Only an older sibling is on the birth certificate.
+  - **The heir decision** (old lineages, `heirCatalyst`), right after the Command Seals appear: the Master meets the family's expectations if their standing is high or exceptional **or** their Magecraft is at least `rules.family.heir.magecraft` (55). The heir is given a family catalyst. Otherwise the catalyst goes to the sibling, who also receives Command Seals and becomes **one of the six rival Masters**, with the Servant that catalyst calls (never the player's own). The player knows their sibling fully (Master intel 3, Servant intel 1: the family knows what the relic calls), and the sibling knows the player's base. The sibling has their own descriptions, base ("the family estate"), war-intro line, battle line and elimination line, and is marked as the player's brother or sister in Status, news, the Servant's context and the run summary.
+  - **New event conditions:** `standing` (list of bands), `hasSibling`, `siblingRival`, `heir` (true/false). `{sibling}` and `{siblingRelation}` fill in the sibling's given name and "brother"/"sister".
+  - **War preparations:** effect `"prep": { "workshop", "intel", "manaMax" }` in family events. When the war begins, the workshop starts at that level, the family's intelligence reveals something about that many rivals, and max mana rises.
+  - **Family events:** 23 life events (old lineage: ledger comparisons, the war chronicle, war drills, a workshop wing, the overheard heir talk, a betrothal; minor: a patron, war savings; fallen: the locked room, the last heirloom, an old debt; non-mage: a strange child, a witch ancestor; siblings: hideout, bullies, a quarrel, a promise), plus 5 war events (a letter from the rival sibling, a glimpse in the street, the remembered promise, supplies for the heir, a letter for the passed-over Master).
 - **Circuit ranks** are rolled from each family's `circuitWeights`, which form a bell curve: C is the most common rank, and each step away from it is rarer (overall about E 7%, D 21%, C 47%, B 18%, A 6%, EX 1%). The family only shifts the curve a little (old lineages toward B, non-mages toward D). Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 

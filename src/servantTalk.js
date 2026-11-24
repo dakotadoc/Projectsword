@@ -233,6 +233,7 @@ export function buildContext(state) {
     'YOUR MASTER (in the notes below, "you" means your Master, not you)',
     `${master.name}, ${master.sex === 'female' ? 'a woman' : 'a man'} of ${master.warAge}, born in ${place.name} in ${master.birthYear}.`,
     `Family: ${family.name}. ${family.description}`,
+    ...familyNotes(master, family),
     `Trait: ${trait.name}. ${trait.description}`,
     `Abilities (0–100): Body ${master.stats.body}, Magecraft ${master.stats.magecraft}, Mind ${master.stats.mind}, Charisma ${master.stats.charisma}. Magic Circuits: quantity ${master.circuits.quantity}, quality ${master.circuits.quality}.`,
     `Command Seals left: ${master.commandSeals} of 3.`,
@@ -381,4 +382,29 @@ function cleanText(value, max) {
   if (typeof value !== 'string') return '';
   const t = value.replace(/\s+/g, ' ').trim();
   return t.length > max ? `${t.slice(0, max - 3)}...` : t;
+}
+
+// The family's view of the Master and any brother or sister (family.js).
+function familyNotes(master, family) {
+  const f = master.family;
+  if (!f) return [];
+  const notes = [];
+  const views = {
+    low: 'They were bitterly disappointed by your Master\'s weak Magic Circuits.',
+    below: 'They thought your Master\'s Magic Circuits were mediocre.',
+    mid: 'They thought your Master\'s Magic Circuits were sound.',
+    high: 'They were proud of your Master\'s strong Magic Circuits.',
+    exceptional: 'They saw your Master\'s extraordinary Magic Circuits as the family\'s great hope.',
+  };
+  if (family.isMage) notes.push(views[f.standing]);
+  if (f.heir === true) notes.push('The family chose your Master as its heir and champion for this war.');
+  if (f.heir === false) notes.push('The family judged that your Master did not meet its expectations and passed them over as heir.');
+  if (f.sibling) {
+    const s = f.sibling;
+    const rel = s.sex === 'female' ? 'sister' : 'brother';
+    notes.push(s.rival
+      ? `Your Master's ${s.older ? 'older' : 'younger'} ${rel}, ${s.name}, received the family's catalyst instead and is one of the rival Masters in this war.`
+      : `Your Master has an ${s.older ? 'older' : 'younger'} ${rel}, ${s.name}, who is not part of the war.`);
+  }
+  return notes;
 }

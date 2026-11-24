@@ -12,6 +12,7 @@
 //                             // later used for run summary and AI context
 // }
 
+import { decideHeir } from './family.js';
 import * as ui from './ui.js';
 import { getState } from './state.js';
 import { getData, findById } from './data.js';
@@ -248,6 +249,13 @@ async function endLife(state, nav) {
   await playScene('seals');
   m.commandSeals = 3;
   logEffects(['Command Seals: 3']);
+  // Old lineages decide who carries the family's catalyst (family.js).
+  const heir = decideHeir(state, ctx);
+  if (heir) {
+    ui.log('The heir', 'heading');
+    for (const t of heir.texts) ui.log(t);
+    logEffects(heir.lines);
+  }
   showEndChoices(nav);
 }
 

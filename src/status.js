@@ -63,6 +63,7 @@ function masterSection(state) {
       ['Year', String(m.birthYear + age)],
       ['Era', era.name],
       ['Family', family.name],
+      ...familyRows(m, family),
       ['Trait', trait.name],
       ['Magic Circuits', `Quantity ${m.circuits.quantity} · Quality ${m.circuits.quality}`],
     ]),
@@ -275,4 +276,26 @@ function list(items) {
 
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+// How the family sees the Master, and their brother or sister (family.js).
+const STANDING_LABELS = {
+  low: 'A disappointment to them', below: 'Tolerated', mid: 'A worthy child',
+  high: "The family's pride", exceptional: "The family's great hope",
+};
+
+function familyRows(m, family) {
+  const f = m.family;
+  if (!f) return [];
+  const rows = [];
+  if (family.isMage) {
+    const heir = f.heir === true ? ' · Chosen heir' : f.heir === false ? ' · Passed over' : '';
+    rows.push(['Standing', STANDING_LABELS[f.standing] + heir]);
+  }
+  if (f.sibling) {
+    const s = f.sibling;
+    const rel = s.sex === 'female' ? 'sister' : 'brother';
+    rows.push([`${s.older ? 'Older' : 'Younger'} ${rel}`, s.rival ? `${s.name} (a rival Master)` : s.name]);
+  }
+  return rows;
 }

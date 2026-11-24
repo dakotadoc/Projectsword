@@ -19,6 +19,7 @@
 //   result: null | { outcome, ... }               // set when the battle ends
 // }
 
+import { siblingLine } from './family.js';
 import { getData, findById } from './data.js';
 import { random, randInt, chance, pick } from './rng.js';
 import { rankValue } from './ranks.js';
@@ -737,6 +738,7 @@ function endBattle(state, lines, result) {
   if (result.outcome === 'enemyMasterKilled') {
     say(res.enemyMasterKilled.replaceAll('{label}', cap(rivalLabel(rival))));
     eliminate(state, rival, 'masterKilled');
+    if (rival.sibling) say(siblingLine(state, 'eliminated'));
     final.outcome = 'won';
   }
   if (result.outcome === 'servantsDown') {
@@ -749,6 +751,7 @@ function endBattle(state, lines, result) {
       } else {
         say(res.enemyServantDestroyed.replaceAll('{label}', cap(rivalLabel(rival))));
         eliminate(state, rival, 'servantDestroyed');
+        if (rival.sibling) say(siblingLine(state, 'eliminated'));
         final.outcome = 'won';
       }
     }
