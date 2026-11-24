@@ -254,7 +254,7 @@ Keep the AI rule-based and readable. No complex simulation.
 - **Sex:** the player picks boy or girl before the birth roll. It is not rolled.
 - **Traits** live in `traits.json`. `effects` applies stat/money/contact changes at birth; traits with no effects (e.g. Lucky) are checked by id in later systems.
 - **Life turns:** 12–16 turns of 1–2 years (mostly 1), planned at the start so they end exactly at the war age (`rules.lifeTurns`). Every turn has one action and one life event; events never repeat in a run. The life phase is safe: no death.
-- **Stat gains:** each action gives `rules.lifeGainPerYear` (3–6) per year of the turn; Magecraft gains are multiplied by circuit quality (`rules.magecraftQualityMultiplier`). Socializing may add a contact.
+- **Stat gains:** each action gives `rules.lifeGainPerYear` (4–7, raised from 3–6) per year of the turn; Magecraft gains are multiplied by circuit quality (`rules.magecraftQualityMultiplier`). Socializing may add a contact.
 - **Catalysts:** `catalysts.json`, each with optional `placeWeights`/`familyWeights`. Search chance comes from `rules.relicSearch` plus contacts, Mind, a family's `relicChance` and a trait's `effects.relicChance` (Lucky). Some events can also give one. Milestone 4 maps each catalyst to its Servant(s).
 - **Life history:** `state.life.history` records each turn's age, year, action, event and choice, for the run summary and the Servant's knowledge of the Master's past.
 - **Servant roster (v1):** Saber Arthur Pendragon, Archer Ishtar, Lancer Hector, Rider Constantine XI Palaiologos, Caster Solomon, Assassin Cleopatra VII, Berserker Samson. The pool will be widened after all milestones are done; the code must not assume one Servant per class.
@@ -341,7 +341,7 @@ Keep the AI rule-based and readable. No complex simulation.
   - **Day and Night banners** slide in below the HUD at dawn and dusk without blocking play.
   - **War HUD** (`hud.js`): under the top bar during the war, battles and chats: day and time, the Servant's emblem and HP, the Master's HP, mana and Bond as small coloured bars. Rebuilt on every autosave.
   - **Log entry kinds:** `heading`, `system`, `effect`, `roll`, `np`, `card` (profile cards), `document` (the parchment birth certificate), `speech` and `player`. `ui.log(text, kind, { emblem })` adds a class medallion to an entry.
-- **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
+- **Circuit ranks** are rolled from each family's `circuitWeights`, which form a bell curve: C is the most common rank, and each step away from it is rarer (overall about E 7%, D 21%, C 47%, B 18%, A 6%, EX 1%). The family only shifts the curve a little (old lineages toward B, non-mages toward D). Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
 ## 12. Open questions (decide before or during the build)

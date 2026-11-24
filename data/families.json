@@ -10,7 +10,7 @@
     "stats": { "body": [5, 15], "magecraft": [15, 25], "mind": [10, 20], "charisma": [5, 15] },
     "money": [150, 250],
     "contacts": [2, 3],
-    "circuitWeights": { "E": 0, "D": 1, "C": 4, "B": 5, "A": 3, "EX": 0.3 }
+    "circuitWeights": { "E": 2, "D": 12, "C": 45, "B": 28, "A": 11, "EX": 2 }
   },
   {
     "id": "minor_lineage",
@@ -23,7 +23,7 @@
     "stats": { "body": [5, 15], "magecraft": [8, 16], "mind": [8, 16], "charisma": [5, 15] },
     "money": [80, 140],
     "contacts": [1, 2],
-    "circuitWeights": { "E": 1, "D": 3, "C": 5, "B": 3, "A": 1, "EX": 0.1 }
+    "circuitWeights": { "E": 5, "D": 20, "C": 50, "B": 18, "A": 6, "EX": 1 }
   },
   {
     "id": "fallen_lineage",
@@ -36,7 +36,7 @@
     "stats": { "body": [8, 18], "magecraft": [5, 12], "mind": [8, 18], "charisma": [3, 10] },
     "money": [10, 50],
     "contacts": [0, 1],
-    "circuitWeights": { "E": 1, "D": 3, "C": 4, "B": 3, "A": 2, "EX": 0.2 }
+    "circuitWeights": { "E": 5, "D": 18, "C": 48, "B": 19, "A": 9, "EX": 1 }
   },
   {
     "id": "non_mage",
@@ -49,6 +49,6 @@
     "stats": { "body": [8, 20], "magecraft": [0, 3], "mind": [8, 18], "charisma": [8, 18] },
     "money": [40, 100],
     "contacts": [0, 2],
-    "circuitWeights": { "E": 5, "D": 4, "C": 2, "B": 1, "A": 0.3, "EX": 0.05 }
+    "circuitWeights": { "E": 10, "D": 25, "C": 45, "B": 15, "A": 4.5, "EX": 0.5 }
   }
 ]
