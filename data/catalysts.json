@@ -1,42 +1,65 @@
 [
   {
-    "id": "temple_bell_shard",
-    "name": "Shard of a temple bell",
+    "id": "round_table_splinter",
+    "name": "Splinter of the Round Table",
+    "servants": ["arthur"],
     "weight": 1,
-    "placeWeights": { "kyoto": 5 },
-    "description": "A curved piece of bronze, green with age. When struck, it still rings with a sound that makes dogs howl.",
-    "findText": "In the grounds of a ruined mountain temple, you find a curved shard of ancient bronze. When your fingers touch it, you hear a bell toll that nobody else can hear."
+    "placeWeights": { "london": 4 },
+    "description": "A long splinter of black, ancient oak, carved on one side with part of a name nobody can read.",
+    "findText": "Inside a battered chest at an estate sale, wrapped in a knight's faded surcoat, you find a long splinter of black oak. When you hold it, you hear, very faintly, a crowd of people laughing around a table."
   },
   {
-    "id": "rusted_hilt",
-    "name": "Rusted sword hilt",
+    "id": "lapis_cylinder_seal",
+    "name": "Lapis cylinder seal",
+    "servants": ["ishtar"],
     "weight": 1,
-    "placeWeights": { "london": 4, "prague": 1.5 },
-    "description": "The hilt of a sword whose blade was lost long ago, wrapped in leather that should have rotted centuries ago.",
-    "findText": "At the bottom of a box of junk at an estate sale, you find the hilt of a sword with no blade. Its grip is warm, as if someone has only just let go of it."
+    "placeWeights": { "london": 2, "buenos_aires": 1.5 },
+    "description": "A small cylinder of deep blue lapis lazuli, carved with an eight-pointed star and a woman with a bow. Rolled on clay, it leaves a picture of a bull falling from the sky.",
+    "findText": "A dealer in antiquities is so eager to be rid of a small blue cylinder of stone that he nearly gives it away. Since it came into his shop, he says, he has been having dreams of a woman laughing at him."
   },
   {
-    "id": "cracked_vial",
-    "name": "Alchemist's cracked vial",
+    "id": "solomon_signet",
+    "name": "Brass signet ring",
+    "servants": ["solomon"],
     "weight": 1,
     "placeWeights": { "prague": 5 },
-    "description": "A small glass vial with a hairline crack. A drop of silver liquid inside never evaporates.",
-    "findText": "Behind a loose brick in an old cellar, you find a cracked glass vial. A single drop of quicksilver inside moves to follow your finger."
+    "description": "A heavy brass ring engraved with a star of two interlocking triangles. Candles lean toward it.",
+    "findText": "In the attic of a house in an old quarter, under a loose board, you find a brass ring engraved with a six-pointed star. The moment you pick it up, every bird on the roof falls silent."
   },
   {
-    "id": "ivory_die",
-    "name": "Gambler's ivory die",
+    "id": "donkey_jawbone",
+    "name": "Ancient jawbone",
+    "servants": ["samson"],
     "weight": 1,
-    "placeWeights": { "new_orleans": 5, "buenos_aires": 1.5 },
-    "description": "A yellowed ivory die. Whenever someone holding it is in danger, it lands on six.",
-    "findText": "A card dealer on a riverboat loses a bet to you and pays with an ivory die. You roll it a hundred times that night. It never lands on anything but six."
+    "placeWeights": { "new_orleans": 3, "buenos_aires": 1.5 },
+    "description": "The jawbone of a donkey, yellow with age and worn smooth along one edge, as if it was once gripped very hard.",
+    "findText": "In a curiosity shop full of skulls and saints, the owner sells you an old donkey's jawbone for almost nothing. Holding it, you feel absurdly, terribly strong, just for a moment."
   },
   {
-    "id": "obsidian_arrowhead",
-    "name": "Black stone arrowhead",
+    "id": "trojan_spearhead",
+    "name": "Bronze spearhead from Troy",
+    "servants": ["hector"],
     "weight": 1,
-    "placeWeights": { "buenos_aires": 4, "new_orleans": 1.5 },
-    "description": "A finely worked arrowhead of black volcanic glass, still sharp enough to draw blood.",
-    "findText": "In a dusty museum storeroom, a tired curator lets you take a box marked for disposal. Inside, wrapped in newspaper, is an arrowhead of black glass that cuts your thumb the moment you touch it."
+    "placeWeights": { "london": 1.5, "prague": 1.5 },
+    "description": "A leaf-shaped bronze spearhead, green with age, from a dig on the plain where Troy once stood. It still smells faintly of smoke.",
+    "findText": "A retired archaeologist, clearing out his study, presses a bronze spearhead into your hands. 'From the plain of Troy,' he says. 'I never wanted it on my wall. It always felt like it was guarding the door.'"
+  },
+  {
+    "id": "cleopatra_pearl",
+    "name": "Pearl earring",
+    "servants": ["cleopatra"],
+    "weight": 1,
+    "placeWeights": { "new_orleans": 2, "buenos_aires": 2 },
+    "description": "One of a pair of enormous pearl earrings. The other was lost long ago. It smells faintly of myrrh.",
+    "findText": "At an auction of a ruined family's belongings, you win a single huge pearl earring that nobody else bids on. The catalog says it is one of a pair, and that its twin was 'dissolved in a wager'."
+  },
+  {
+    "id": "theodosian_stone",
+    "name": "Stone from the walls of Constantinople",
+    "servants": ["constantine"],
+    "weight": 1,
+    "placeWeights": { "prague": 2, "buenos_aires": 1.5 },
+    "description": "A block of pale stone, scarred by cannon fire on one face and carved with a small cross on the other.",
+    "findText": "An old priest asks you to help him clear out a church storeroom. Behind the broken pews is a pale block of stone, scarred by cannon shot, with a cross carved into it. He tells you to take it: 'It belongs with someone who will not give up.'"
   }
 ]

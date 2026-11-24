@@ -4,10 +4,10 @@
 // Use getData('places') etc. after loadData() has finished, and
 // findById('places', id) to look up something a save refers to.
 
-import { RANKS } from './ranks.js';
+import { RANKS, STAT_LABELS } from './ranks.js';
 import { availableIn } from './period.js';
 
-const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts'];
+const FILES = ['rules', 'places', 'eras', 'families', 'traits', 'life', 'events', 'catalysts', 'servants', 'summon'];
 const STATS = ['body', 'magecraft', 'mind', 'charisma'];
 const CONDITION_KEYS = ['isMage', 'places', 'families', 'traits', 'sex', 'minMoney'];
 const EFFECT_KEYS = ['stats', 'money', 'contacts', 'catalyst', 'relicChance'];
@@ -63,6 +63,7 @@ function validate() {
     traits: ['name', 'description'],
     events: ['phase', 'text'],
     catalysts: ['name', 'description', 'findText'],
+    servants: ['trueName', 'class', 'title', 'sex', 'origin', 'appearance', 'weakness', 'summonText', 'firstLine'],
   };
   for (const [file, fields] of Object.entries(lists)) {
     const list = data[file];
@@ -159,7 +160,33 @@ function validate() {
     }
   }
 
+  // servants.json: everything the profile, combat and AI chat will need.
+  const servantIds = new Set(data.servants.map((s) => s.id));
+  for (const s of data.servants) {
+    const where = `servants.json ${s.id}`;
+    need(['male', 'female'].includes(s.sex), `${where}: sex must be "male" or "female"`);
+    need(Number.isFinite(s.hp) && s.hp > 0, `${where}: hp must be a positive number`);
+    for (const k of Object.keys(STAT_LABELS)) need(RANKS.includes(s.stats?.[k]), `${where}: stats.${k} must be a rank (E, D, C, B, A, EX)`);
+    need(Array.isArray(s.skills) && s.skills.length >= 2 && s.skills.length <= 3, `${where}: needs 2–3 skills`);
+    (s.skills || []).forEach((sk, i) => need(sk.name && RANKS.includes(sk.rank) && sk.description, `${where} skill #${i + 1}: needs name, rank and description`));
+    const np = s.noblePhantasm || {};
+    need(np.name && RANKS.includes(np.rank) && np.type && np.description, `${where}: noblePhantasm needs name, rank, type and description`);
+    const p = s.personality || {};
+    for (const k of ['speechStyle', 'backstory', 'wish']) need(typeof p[k] === 'string' && p[k], `${where}: personality.${k} is missing`);
+    for (const k of ['tags', 'likes', 'dislikes']) need(Array.isArray(p[k]) && p[k].length, `${where}: personality.${k} must be a non-empty list`);
+    const c = s.compatibility || {};
+    for (const k of Object.keys(c.stats || {})) need(STATS.includes(k), `${where}: compatibility.stats.${k} is not a Master stat`);
+    for (const k of Object.keys(c.traits || {})) need(data.traits.some((t) => t.id === k), `${where}: compatibility.traits.${k} is not a trait id`);
+    for (const k of Object.keys(c.families || {})) need(data.families.some((f) => f.id === k), `${where}: compatibility.families.${k} is not a family id`);
+  }
+
+  const summon = data.summon || {};
+  for (const key of ['intro', 'withCatalyst', 'withoutCatalyst', 'compatibilityNote']) checkTexts(summon[key], `summon.json ${key}`);
+  need(Number.isFinite(r.summon?.startingBond) && Number.isFinite(r.summon?.compatibilityTemperature), 'rules.summon needs startingBond and compatibilityTemperature');
+
   for (const c of data.catalysts) {
+    need(Array.isArray(c.servants) && c.servants.length, `catalysts.json ${c.id}: needs a "servants" list`);
+    for (const id of c.servants || []) need(servantIds.has(id), `catalysts.json ${c.id}: unknown servant "${id}"`);
     for (const k of ['placeWeights', 'familyWeights']) {
       need(c[k] === undefined || Object.values(c[k]).every(Number.isFinite), `catalysts.json ${c.id}: ${k} values must be numbers`);
     }

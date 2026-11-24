@@ -187,6 +187,14 @@ button:disabled { opacity: 0.45; cursor: default; }
   .log { scroll-behavior: auto; }
 }
 
+/* A character speaking (e.g. the Servant's first words). */
+.entry-speech {
+  font-style: italic;
+  font-size: 1.05em;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
+
 /* Stat changes etc. after an action or event. */
 .entry-effect { font: 600 14px/1.5 var(--sans); color: var(--gold); margin-top: -0.4em; }
 

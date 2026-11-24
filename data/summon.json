@@ -1,0 +1,21 @@
+{
+  "intro": [
+    {
+      "text": "On the night chosen for the ritual, you draw the summoning circle with your own blood and quicksilver, exactly as your family's books describe. The Command Seals on your hand burn as you work.",
+      "conditions": { "isMage": true }
+    },
+    {
+      "text": "On the night chosen for the ritual, you draw the summoning circle from the stranger's instructions, checking every line three times. The Command Seals on your hand burn as you work, as if guiding your hand.",
+      "conditions": { "isMage": false }
+    }
+  ],
+  "withCatalyst": [
+    { "text": "You place the {catalyst} at the center of the circle, and begin to speak." }
+  ],
+  "withoutCatalyst": [
+    { "text": "You have no catalyst. You stand at the edge of the empty circle and begin to speak, hoping that whatever answers will be drawn to you." }
+  ],
+  "compatibilityNote": [
+    { "text": "With no catalyst to guide it, the Grail chose a hero whose nature echoes your own." }
+  ]
+}

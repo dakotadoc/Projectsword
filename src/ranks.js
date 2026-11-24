@@ -8,3 +8,13 @@ export function rankValue(rank) {
   if (i === -1) throw new Error(`Unknown rank: ${rank}`);
   return i + 1;
 }
+
+// Servant stat keys, in display order, with their short labels.
+export const STAT_LABELS = {
+  strength: 'STR',
+  endurance: 'END',
+  agility: 'AGI',
+  mana: 'MANA',
+  luck: 'LUCK',
+  noblePhantasm: 'NP',
+};

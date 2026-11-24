@@ -81,7 +81,7 @@ style.css
 /data
   rules.json   // tuning numbers (life start age, war age range, mana per circuit rank)
   places.json  eras.json  families.json  traits.json
-  catalysts.json  servants.json
+  catalysts.json  servants.json  summon.json
   life.json    // life-phase actions, their text variants, intro, war announcement
   events.json  rivals.json  dialogue.json
 ```
@@ -203,7 +203,7 @@ Keep the AI rule-based and readable. No complex simulation.
 1. **Skeleton.** Screens, text log, buttons, state object, save/load/export, seeded RNG. *(Done. Includes a temporary "Skeleton test" screen in `main.js` that milestone 2 replaces with the birth screen.)*
 2. **Birth.** Data files for places, eras, and families; the birth screen. *(Done. Life phase is a placeholder screen until milestone 3.)*
 3. **Life phase.** Turn loop, stat actions, life events, catalyst finding. *(Done. Summoning is a placeholder screen until milestone 4.)*
-4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback.
+4. **Summoning.** 7 Servants (one per class) with full personality profiles for AI chat, 5 catalysts, compatibility fallback. *(Done, with 7 catalysts, one per Servant. The war is a placeholder screen until milestone 6.)*
 5. **Servant chat.** Chat screen, `ai.js` with stub mode, context building, bond verdicts, conversation memories. Publish a test build as a Claude artifact to confirm real AI replies work.
 6. **War loop.** Day/night slots, war events, chat available in Day slots.
 7. **Intel system.** Rival generation, intel levels, "???" display. Make sure chat context respects intel.
@@ -238,6 +238,12 @@ Keep the AI rule-based and readable. No complex simulation.
 - **Stat gains:** each action gives `rules.lifeGainPerYear` (3–6) per year of the turn; Magecraft gains are multiplied by circuit quality (`rules.magecraftQualityMultiplier`). Socializing may add a contact.
 - **Catalysts:** `catalysts.json`, each with optional `placeWeights`/`familyWeights`. Search chance comes from `rules.relicSearch` plus contacts, Mind, a family's `relicChance` and a trait's `effects.relicChance` (Lucky). Some events can also give one. Milestone 4 maps each catalyst to its Servant(s).
 - **Life history:** `state.life.history` records each turn's age, year, action, event and choice, for the run summary and the Servant's knowledge of the Master's past.
+- **Servant roster (v1):** Saber Arthur Pendragon, Archer Ishtar, Lancer Hector, Rider Constantine XI Palaiologos, Caster Solomon, Assassin Cleopatra VII, Berserker Samson. The pool will be widened after all milestones are done; the code must not assume one Servant per class.
+- **How Servants are written:** take a real legend or historical figure and give it a deliberate twist, choosing the class to fit (the way Fate approaches its Servants). But every Servant is our own character: no Fate-specific names (e.g. "Artoria"), designs, Noble Phantasm names, personalities, plot details or lines. Example: our Arthur is a woman who ruled openly under the name Arthur and was rewritten as a man by later chroniclers; her birth name is a secret she shares only at high Bond.
+- **Servant data** (`servants.json`): true name, class, title, sex, origin, appearance, six stat ranks, hp, 2–3 skills, one Noble Phantasm (name, rank, type, description), weakness, personality (tags, speechStyle, backstory, wish, likes, dislikes), summonText, firstLine, and compatibility weights. Optional extras (like Arthur's `secretName`) are fine; the AI chat context uses them.
+- **Catalysts** each list the `servants` they can call. With several, compatibility picks among them.
+- **Compatibility summon:** score = weighted average of the Master stats a Servant cares about (`compatibility.stats`) + trait bonus + family bonus. The pick strongly favors the best score but isn't certain (`rules.summon.compatibilityTemperature`). A compatibility summon starts with +5 Bond.
+- **`state.servant`** = `{ id, catalystId, method, hp: { current, max }, bond, memories: [] }`. Starting Bond is `rules.summon.startingBond` (10).
 - **Circuit ranks** are rolled from each family's `circuitWeights`. Max mana = quantity rank value × `manaPerCircuitRank`.
 - **Published build:** the game is published as a private Claude artifact (Holy Grail War Simulator, https://claude.ai/artifact/4YZpAUQVQsMQJrANufHYYK). Republish its files after each milestone, including any new `/data` files.
 
@@ -245,7 +251,6 @@ Keep the AI rule-based and readable. No complex simulation.
 
 - War length: fixed at 14 days, or end when only one pair remains?
 - Can the player die in the life phase, or is it always safe?
-- Which 7 Servants for version 1?
 - Can the player ally with a rival (and betray them)?
 - Permadeath, or save-anywhere?
 - Should the Servant ever start a conversation on its own (e.g. after a big battle)?

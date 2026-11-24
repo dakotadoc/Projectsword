@@ -7,5 +7,7 @@
   "lifeGainPerYear": [3, 6],
   "magecraftQualityMultiplier": { "E": 0.6, "D": 0.8, "C": 1, "B": 1.2, "A": 1.4, "EX": 1.7 },
   "socializeContactChance": { "base": 0.25, "perCharisma": 0.004, "max": 0.7 },
-  "relicSearch": { "base": 0.12, "perExtraYear": 0.08, "perContact": 0.03, "perMind": 0.002, "max": 0.6 }
+  "relicSearch": { "base": 0.12, "perExtraYear": 0.08, "perContact": 0.03, "perMind": 0.002, "max": 0.6 },
+
+  "summon": { "startingBond": 10, "compatibilityBondBonus": 5, "compatibilityTemperature": 8 }
 }

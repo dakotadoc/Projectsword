@@ -6,7 +6,7 @@
 import { bindRng, createRngState, makeSeed } from './rng.js';
 import { storage } from './storage.js';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 // Saves older than this are from test builds and can't be continued.
 const OLDEST_SUPPORTED_VERSION = 3;
 const SAVE_KEY = 'hgws.save';
@@ -28,6 +28,7 @@ export function newState(seed = makeSeed()) {
     log: [], // [{ text, kind }] — the narration shown on screen
     world: null, // { placeId, eraId, warYear } — set at birth (birth.js)
     master: null, // the player character — set at birth (birth.js)
+    servant: null, // the summoned Servant — set at summoning (summon.js)
     // Later milestones add: life, servant, war, rivals, intel, chat...
   };
   bindRng(state.rng);
@@ -83,6 +84,25 @@ export function importSave(text) {
   return state;
 }
 
+// Upgrade an older save to the current shape, one version at a time.
+function migrate(data) {
+  if (data.version === 3) {
+    // Milestone 4 replaced the placeholder catalysts with one per Servant.
+    const renamed = {
+      rusted_hilt: 'round_table_splinter',
+      temple_bell_shard: 'lapis_cylinder_seal',
+      cracked_vial: 'solomon_signet',
+      ivory_die: 'cleopatra_pearl',
+      obsidian_arrowhead: 'donkey_jawbone',
+    };
+    if (Array.isArray(data.master?.catalysts)) {
+      data.master.catalysts = data.master.catalysts.map((id) => renamed[id] ?? id);
+    }
+    data.servant ??= null;
+    data.version = 4;
+  }
+}
+
 function useState(next) {
   state = next;
   bindRng(state.rng);
@@ -104,7 +124,7 @@ function parseSave(text) {
   if (data.version < OLDEST_SUPPORTED_VERSION) {
     throw new Error('That save is from an older test build of the game and can no longer be continued. Please start a new game.');
   }
-  // Future shape changes: migrate older versions here.
+  migrate(data);
   const ok =
     data.rng && typeof data.rng.s === 'number' && typeof data.rng.seed === 'string' &&
     Array.isArray(data.log) &&
