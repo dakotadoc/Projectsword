@@ -150,7 +150,7 @@ export async function getEpilogue(state, { kind, wishText = '', fallback, onText
     `The Master, ${state.master.name}, has won the war in ${place} in ${state.world.warYear}. The Grail grants one wish.`,
     what,
     servant
-      ? `Their Servant is ${servant.trueName} ("${servant.name}"). Bond ${state.servant.bond}/100. Relationship: ${state.servant.path || 'not decided'}. ${servant.personality.speechStyle}`
+      ? `Their Servant is ${servant.trueName} ("${servant.name}"). Bond ${state.servant.bond}/100. Relationship: ${state.servant.path || 'not decided'}. ${servant.personality.speechStyle}${servant.personality.voice ? ` Their voice: ${servant.personality.voice.register}` : ''}`
       : 'The Master lost their Servant during the war and won alone.',
     '',
     'Write the epilogue in the second person ("you"), 2 to 4 short paragraphs of plain text, no headings or lists.',
@@ -204,13 +204,22 @@ export function buildContext(state) {
     '- Knowledge limits still apply: you know nothing about the other Masters and Servants except what is listed under "What you know about the war". Never invent their names, classes or identities. If your Master tells you something about them, treat it as what your Master believes, not as something you know.',
     `- It is ${year}, in ${place.name}, ${place.country}. The Grail gave you knowledge of the world up to ${year} and nothing after. Never mention anything that did not exist yet in ${year}.`,
     '- Reply in 1 to 4 short paragraphs of plain text: no markdown, no lists, no headings. You may describe a small action in plain words.',
-    '- Match your speech style below. Do not narrate the Master\'s actions or feelings for them.',
+    '- Do not narrate the Master\'s actions or feelings for them.',
+    '',
+    'HOW TO SOUND ALIVE',
+    '- Speak in your own voice (see YOUR VOICE below) in every line: your word choice, rhythm and attitude should make it obvious who is talking even without your name.',
+    '- React first to the specific thing your Master just said or did, the way a person would: amused, irritated, curious, touched, wary. Then answer.',
+    '- Vary your replies. Sometimes a single line is right; sometimes a story. Do not end every reply with a question, do not repeat your Master\'s words back to them, and never sound like an assistant ("I understand", "Great question", "How can I help", "I\'m here for you").',
+    '- Let moods carry over within a talk: if you were annoyed or moved a moment ago, it lingers.',
+    '- Let your past, your tastes and your memories of earlier talks color what you say when it fits, in passing. Never recite your backstory.',
+    '- Have opinions of your own and voice them in character (a dry remark, a warning, a boast), while still going along with what your Master wants.',
     '',
     'WHO YOU ARE (written about you in the third person)',
     `True name: ${servant.trueName} ("${name}"). Class: ${servant.class}. Title: ${servant.title}.`,
     `Origin: ${servant.origin}. Appearance: ${servant.appearance}`,
     `Personality: ${p.tags.join(', ')}.`,
     `Speech style: ${p.speechStyle}`,
+    ...voiceLines(p.voice),
     `Your story: ${p.backstory}`,
     `Your wish for the Grail: ${p.wish}`,
     `You like: ${p.likes.join(', ')}. You dislike: ${p.dislikes.join(', ')}.`,
@@ -407,4 +416,20 @@ function familyNotes(master, family) {
       : `Your Master has an ${s.older ? 'older' : 'younger'} ${rel}, ${s.name}, who is not part of the war.`);
   }
   return notes;
+}
+
+// The Servant's voice (servants.json personality.voice): tone, speech
+// habits, what they never sound like, and sample lines for tone only.
+function voiceLines(voice) {
+  if (!voice) return [];
+  return [
+    '',
+    'YOUR VOICE',
+    `Tone: ${voice.register}`,
+    ...voice.habits.map((h) => `- ${h}`),
+    `You never sound like this: ${voice.never.join('; ')}.`,
+    'Lines in your voice, to show the tone (never repeat them word for word, and do not copy their structure every time):',
+    ...voice.samples.map((x) => `  (${x.mood}) "${x.line}"`),
+    '',
+  ];
 }

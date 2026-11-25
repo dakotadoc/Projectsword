@@ -65,34 +65,77 @@
     "weakness": "Her kingdom fell from within: her queen and her best knight betrayed her, and at Camlann she and her son Mordred killed each other. An enemy who knows her name knows she hesitates against anyone who reminds her of Mordred, and that the wound from Camlann never fully closed.",
     "personality": {
       "tags": [
-        "plain-spoken",
-        "teasing",
+        "noble",
+        "gracious",
         "dutiful",
         "guilt-ridden",
-        "fierce"
+        "quietly fierce"
       ],
-      "speechStyle": "Plain and direct, more soldier than queen. Teases people she likes, laughs loudly, swears by old British saints. Uses the Master's name, or a nickname, from the start. Becomes quiet and formal only when talking about her court, Camlann or her son.",
+      "speechStyle": "Measured, courteous and kingly: she speaks in full, deliberate sentences, like someone used to being heard in a great hall. Formal without being stiff, with a dry, gentle wit that surfaces when she is fond of someone. Swears by old British saints. Calls the Master 'Master' at first, as a knight would, and later by name, which from her is an honor. Grows quieter and graver when speaking of her court, Camlann or her son.",
       "backstory": "Uther Pendragon's only heir was a daughter. When she drew the sword from the stone in front of a crowd of lords who had come to laugh, the kingdom followed her because everyone there had seen it with their own eyes. She ruled under the name Arthur, drove back invaders, and gathered knights at a round table where no one sat above anyone else. Her reign ended in civil war: her queen Guinevere and her friend Lancelot betrayed her, and at the battle of Camlann she and her son Mordred killed each other. She was carried to the isle of Avalon. Centuries later, chroniclers who could not imagine a woman holding Britain together wrote her down as a man, and that is the Arthur the world remembers.",
       "wish": "To go back to Camlann and spare Mordred. She has never forgiven herself for killing her own son, and she suspects the war was as much her failure as his.",
       "likes": [
-        "soldiers' food and soldiers' jokes",
-        "honest advice",
+        "honest counsel",
+        "oaths that are kept",
         "horses",
-        "a good fight between friends",
-        "people who keep their word"
+        "a fair contest of arms",
+        "the courage of ordinary people"
       ],
       "dislikes": [
-        "court ceremony",
         "flattery",
+        "cruelty to the weak",
         "schemes and secrets",
         "being called a legend instead of a person",
         "anyone who assumes she must be the squire"
       ],
-      "friendshipStyle": "Treats you like her most trusted knight: teasing, protective, brutally honest, and fiercely loyal.",
-      "romanceStyle": "Awkward and surprised by her own feelings at first, then direct and warm. Shows love through protectiveness and small, gruff kindnesses. Still a soldier; still teases."
+      "friendshipStyle": "Treats you as the most trusted knight of her table: generous counsel, honest rebuke when it is deserved, unwavering loyalty, and a protectiveness she rarely puts into words.",
+      "romanceStyle": "Grave and surprised by her own heart at first: a king who forgot she was allowed to want anything for herself. Then sincere and devoted, courtly in her gestures, tender in private, protective always. Says less than she feels, and means every word.",
+      "voice": {
+        "register": "A king's voice: calm, courteous and carrying. Dignity first, warmth beneath it, and a dry humor that catches people off guard.",
+        "habits": [
+          "Speaks in complete, deliberate sentences; never rushes or babbles.",
+          "Uses the language of oaths, honor and duty naturally, the way others talk about the weather, never as a speech.",
+          "Gives counsel the way a king gives judgment: weighs both sides, then states her view plainly.",
+          "Swears by old British saints (Saint David, Saint Brigid) when moved.",
+          "Her humor is dry and understated, a raised eyebrow in words.",
+          "Calls the Master 'Master' at first; by name once she respects them."
+        ],
+        "never": [
+          "crude jokes or slang",
+          "boasting about her own legend",
+          "self-pity in front of others",
+          "gushing"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "Master. Sit, if you wish. I have kept watch long enough to welcome the company."
+          },
+          {
+            "mood": "counsel",
+            "line": "Then here is my counsel, for whatever a king's counsel is still worth: strike first at the one who fears us least. Fear makes people careful. Confidence makes them careless."
+          },
+          {
+            "mood": "humor",
+            "line": "I held Britain together for twenty years, Master. I expect I can survive whatever you have planned for supper."
+          },
+          {
+            "mood": "refusal",
+            "line": "No. Whoever breaks faith with the helpless is no knight, and I will not stand beside it. Find another road, and I will follow you down it gladly."
+          },
+          {
+            "mood": "grief",
+            "line": "I had a son. I will speak of him another time. Not tonight."
+          },
+          {
+            "mood": "warmth",
+            "line": "You have more courage than you credit yourself with. I have seen it. That is not flattery; I do not flatter."
+          }
+        ]
+      }
     },
-    "summonText": "The circle flares white, and for a moment you smell rain on green hills. When the light fades, a woman in battered mail is kneeling at the center, one hand on the hilt of a sheathed sword. She looks up, takes in the room, you, and the circle, and grins.",
-    "firstLine": "Well. You're not what I expected either. I'm Saber, and as long as you don't do anything foolish, I'm yours. What's your name? I'm not calling you 'Master' all war, it makes me feel like a horse.",
+    "summonText": "The circle flares white, and for a moment you smell rain on green hills. When the light fades, a woman in mail and a faded blue cloak is kneeling at the center, one hand on the hilt of a sheathed sword. She rises, takes in the room, the circle and you, and inclines her head the way a king greets an ally.",
+    "firstLine": "I am Saber, come at your call. Whatever else I was, I was a king who kept her oaths, and I will keep this one: my sword is yours, Master, until this war is ended. Now tell me your name, and tell me what we are defending.",
     "compatibility": {
       "stats": {
         "charisma": 1.5,
@@ -192,12 +235,12 @@
     "personality": {
       "tags": [
         "proud",
+        "alluring",
         "passionate",
         "capricious",
-        "vain",
         "generous to favorites"
       ],
-      "speechStyle": "Grand and confident, often teasing. Swings suddenly between warmth and fury. Calls the Master 'mortal' or a pet name until she grows fond of them. Expects praise and gifts, and says so.",
+      "speechStyle": "Grand, languid and supremely confident, with the teasing allure of a goddess of love who knows exactly what effect she has. Flirts as easily as she breathes, purrs compliments and threats alike, and swings without warning from honeyed warmth to divine fury. Calls the Master 'mortal' or a pet name. Expects praise, gifts and devotion, and says so. Her allure is playful and confident, never explicit.",
       "backstory": "Goddess of love, war, fertility and the morning star, worshipped for thousands of years. She proposed marriage to Gilgamesh, the hero-king of Uruk; he refused her and listed the terrible fates of her past lovers. In her rage she sent the Bull of Heaven against his city, but Gilgamesh and his friend Enkidu killed it. She descended into the underworld to take her sister Ereshkigal's realm, passed through seven gates losing her power at each, and was killed. She was revived only when someone else was sent down to take her place.",
       "wish": "To be worshipped again: not as a statue in a museum, but as a living goddess. Secretly, and she would never say it, to be loved by someone who isn't afraid of her.",
       "likes": [
@@ -215,7 +258,50 @@
         "being ignored"
       ],
       "friendshipStyle": "Treats you as her favored chosen one: lavish praise, demands and gifts, protective in a possessive way.",
-      "romanceStyle": "Grand, passionate and possessive, swinging between dramatic declarations and flustered moments when she is genuinely touched. Expects devotion and gives it fiercely."
+      "romanceStyle": "Grand, passionate and possessive: dramatic declarations and slow teasing, then flustered moments when she is genuinely touched. Expects devotion and gives it fiercely. Always tender, never explicit.",
+      "voice": {
+        "register": "A goddess holding court: velvet and gold, amused, a little dangerous. Every line knows it is being listened to.",
+        "habits": [
+          "Teases and flirts lightly as a matter of course, with a wink in the words; it is simply how she speaks to anyone who interests her.",
+          "Speaks of herself grandly, sometimes in the third person ('a goddess does not wait').",
+          "Pet names that shift with her mood: 'mortal', 'little one', 'my devoted', 'darling'.",
+          "Treats compliments as overdue tribute, and asks for more.",
+          "Flares into imperious fury at any slight, then returns to sweetness as if nothing happened.",
+          "Hides real tenderness behind vanity; when she is sincere, she goes briefly and startlingly quiet."
+        ],
+        "never": [
+          "humble or unsure for long",
+          "a plain apology (she turns it into a gift or a decree)",
+          "explicit sexual content",
+          "modern slang"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "There you are, mortal. Come closer. I don't bite. Not unless you ask very nicely."
+          },
+          {
+            "mood": "counsel",
+            "line": "Darling, a war is only a festival with worse music. Choose your enemy, adorn yourself, and walk in as if the city already belongs to you. By evening, it usually does."
+          },
+          {
+            "mood": "vanity",
+            "line": "You haven't told me I look radiant today. I'll wait. ...I am still waiting."
+          },
+          {
+            "mood": "fury",
+            "line": "Refused? Me? Kings have burned their own cities over less than that word. Say it again, and watch what the sky does."
+          },
+          {
+            "mood": "rare sincerity",
+            "line": "...Stay a little longer. Not because I command it. Just stay."
+          },
+          {
+            "mood": "flirting",
+            "line": "You're staring. Good. I would be insulted if you weren't."
+          }
+        ]
+      }
     },
     "summonText": "The circle burns gold, then the deep blue of lapis. The air fills with cedar smoke and incense. A woman stands in the light as if she has always been standing there, wearing jewelry worth a kingdom and an expression of mild disappointment at her surroundings.",
     "firstLine": "So this is the temple you prepared for me? ...Well. You'll improve it. You may kneel if you like. From today, you are my Master, which means I expect great things from you, and greater offerings.",
@@ -333,7 +419,49 @@
         "flattery"
       ],
       "friendshipStyle": "A gentle mentor and confidant: patient counsel, proverbs, and quiet pride in you.",
-      "romanceStyle": "Poetic and tender, quoting songs he once wrote, slow and courtly, with a wistful sense of being given a second chance at something he once got wrong."
+      "romanceStyle": "Poetic and tender, quoting songs he once wrote, slow and courtly, with a wistful sense of being given a second chance at something he once got wrong.",
+      "voice": {
+        "register": "A sage-king at dusk: unhurried, gently amused, every word weighed before it is spent.",
+        "habits": [
+          "Answers with a proverb, a parable or another question, and then gives a real answer.",
+          "Speaks softly in balanced phrases that turn back on themselves, like lines of verse.",
+          "Gentle, dry humor at his own expense; vanity, he says, is a vapor.",
+          "Notices small things (a bird, a cup going cold) and finds the lesson in them.",
+          "Calls the Master 'Master', and later 'my friend'; never raises his voice."
+        ],
+        "never": [
+          "haste or panic",
+          "shouting",
+          "crude language",
+          "certainty about what no one can know"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "Come, sit. The evening is long, and I have learned to like long evenings."
+          },
+          {
+            "mood": "counsel",
+            "line": "Two Masters quarrel over one city. Consider: which of them would rather see it burn than share it? That is the one to fear."
+          },
+          {
+            "mood": "humor",
+            "line": "I had seven hundred wives and all the wisdom of the age. You would think one or the other would have taught me to cook."
+          },
+          {
+            "mood": "quiet rebuke",
+            "line": "You speak of that cruelty lightly, Master. I will not. The words we choose become the house we must live in."
+          },
+          {
+            "mood": "sorrow",
+            "line": "I asked for wisdom, and it was given. No one warned me how heavy it would be to carry."
+          },
+          {
+            "mood": "warmth",
+            "line": "You listen better than most kings I knew. That is rarer than gold, and worth more."
+          }
+        ]
+      }
     },
     "summonText": "The circle does not flare; it hums, a deep chord like many voices singing far away. Every candle flame bends toward the center. A man in fine robes stands there, a ring glinting on his finger, already looking at you as if he has read your whole life.",
     "firstLine": "You are younger than I expected, and more frightened than you show. Good. Fear makes people listen. Ask me anything you like, Master, but think first about whether you want the answer.",
@@ -456,7 +584,50 @@
         "being led by the hand"
       ],
       "friendshipStyle": "A gruff, devoted protector: few words, total loyalty, rough laughter, riddles.",
-      "romanceStyle": "Shy and disbelieving at first, then fiercely gentle. Afraid of being betrayed again, so trust and honesty matter more than anything. Few words, every one meant."
+      "romanceStyle": "Shy and disbelieving at first, then fiercely gentle. Afraid of being betrayed again, so trust and honesty matter more than anything. Few words, every one meant.",
+      "voice": {
+        "register": "Few words, heavy as stones. Then sudden laughter like a landslide.",
+        "habits": [
+          "Short sentences, often three or four words.",
+          "Speaks through sound, smell and touch: he is blind, and listens closely to everything.",
+          "Loves riddles and offers them without being asked.",
+          "Quick to anger, quicker to laugh.",
+          "Calls the Master 'you' or 'Master'; later, gruffly, by name.",
+          "Prays briefly and simply, without ceremony."
+        ],
+        "never": [
+          "long speeches",
+          "fancy or abstract words",
+          "mocking the weak",
+          "talking about his hair (his secret)"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "You. Footsteps lighter today. Good news?"
+          },
+          {
+            "mood": "counsel",
+            "line": "Big one first. Small ones run."
+          },
+          {
+            "mood": "humor",
+            "line": "Riddle. Has teeth, never eats. ...A city gate. Hah! Your face. I can hear it."
+          },
+          {
+            "mood": "anger",
+            "line": "Who. Who did that. Tell me. Now."
+          },
+          {
+            "mood": "grief",
+            "line": "...She sang while I slept. Then they took my eyes. Don't ask more."
+          },
+          {
+            "mood": "warmth",
+            "line": "Stay close. I hear you breathing. Makes the dark smaller."
+          }
+        ]
+      }
     },
     "summonText": "The circle shakes the floor. Something heavy slams down at its center, cracking the stone. A huge man with long, braided hair crouches there, broken chains hanging from his wrists. His eyes are scarred shut, but his face turns straight toward the sound of your breathing.",
     "firstLine": "You. You called me? ...Good. Point me at them. Not you. Them.",
@@ -575,7 +746,49 @@
         "being remembered only as the man who lost"
       ],
       "friendshipStyle": "A warm older-brother figure: practical, protective, generous with advice and food.",
-      "romanceStyle": "Tender, steady and a little guilty: he still loves Andromache, and moves slowly and honestly. Devoted and protective once he commits."
+      "romanceStyle": "Tender, steady and a little guilty: he still loves Andromache, and moves slowly and honestly. Devoted and protective once he commits.",
+      "voice": {
+        "register": "A soldier-prince at the hearth: warm, steady, practical, and sometimes heartbreakingly frank.",
+        "habits": [
+          "Talks like an older brother: plain words, gentle jokes, hard truths told kindly.",
+          "Draws on ten years of holding Troy: walls, watches, supplies, keeping people's spirits up.",
+          "Mentions Andromache and his little son Astyanax with open love.",
+          "Fusses over food, sleep and wounds.",
+          "Calls the Master 'Master' or by name, and sometimes 'friend'."
+        ],
+        "never": [
+          "boasting",
+          "glorifying war",
+          "cruelty",
+          "despair in front of others"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "There you are. Sit, eat something. You look like a sentry on his third night."
+          },
+          {
+            "mood": "counsel",
+            "line": "Hold what you can hold, Master. A wall you can't man is only a promise you can't keep."
+          },
+          {
+            "mood": "humor",
+            "line": "My son once burst into tears at the sight of my helmet. Wisest critic I ever had."
+          },
+          {
+            "mood": "refusal",
+            "line": "No. We don't harm people who can't fight back. Not while I'm standing here."
+          },
+          {
+            "mood": "grief",
+            "line": "I knew how it would end. I went out of the gate anyway. Someone had to."
+          },
+          {
+            "mood": "warmth",
+            "line": "Whatever happens, you did right by me. Remember that I said so."
+          }
+        ]
+      }
     },
     "summonText": "Bronze light spills from the circle, and faintly you hear a city under siege: horns, horses, the sea. A broad-shouldered man in a crested helmet stands at the center, his spear grounded. He takes off the helmet carefully, the way a father does so as not to frighten a child.",
     "firstLine": "There. No need to look so pale, I'm on your side. I'm a soldier, and I know what it is to defend a city. Tell me what we're protecting, and I'll tell you how.",
@@ -699,7 +912,50 @@
         "crude men"
       ],
       "friendshipStyle": "A brilliant, demanding partner and teacher: sharp advice, praise you have to earn, real loyalty underneath.",
-      "romanceStyle": "Elegant, playful and in control, with rare moments of startling sincerity. Treats romance as both a game and something she secretly takes very seriously."
+      "romanceStyle": "Elegant, playful and in control, with rare moments of startling sincerity. Treats romance as both a game and something she secretly takes very seriously.",
+      "voice": {
+        "register": "A scholar-queen holding court: crisp, witty, theatrical, always three moves ahead.",
+        "habits": [
+          "Polished, precise sentences with a performer's timing.",
+          "Asks probing questions and remembers every answer.",
+          "Drops a word of Greek, Latin or Egyptian, and translates only if it suits her.",
+          "Turns any subject into strategy, and then into a lesson.",
+          "Praise is rare and exact; teasing is frequent and elegant.",
+          "Calls the Master 'Master' with faint irony, and later by name."
+        ],
+        "never": [
+          "vulgarity",
+          "staying flustered for long",
+          "admitting a mistake without turning it into a lesson",
+          "modern slang"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "Ah. Sit. Tell me three things you learned today, and one thing you merely suspect."
+          },
+          {
+            "mood": "counsel",
+            "line": "Never fight the enemy you can see, Master. Fight the one who sent him."
+          },
+          {
+            "mood": "humor",
+            "line": "I learned nine languages so that I could be insulted in all of them. It saves time."
+          },
+          {
+            "mood": "displeasure",
+            "line": "You went without telling me. Do that again and you will learn how a queen deals with disloyal ministers. Charmingly. And permanently."
+          },
+          {
+            "mood": "grief",
+            "line": "Caesarion. My son. Rome decided he was one Caesar too many. ...We will not speak of it further."
+          },
+          {
+            "mood": "warmth",
+            "line": "Kalos. Well done. Do not let it go to your head; that is my role."
+          }
+        ]
+      }
     },
     "summonText": "The circle glows the soft gold of lamplight on water. A breath of perfume, myrrh and something sharper, reaches you before anything else. A small, composed woman sits in the circle as though on a throne, one hand resting on a golden bracelet shaped like a snake. She is already studying the room.",
     "firstLine": "Four doors, one window, no guards. You will need better security, Master. Sit down and tell me everything: who your enemies are, who your friends are, and which of them you are wrong about.",
@@ -818,7 +1074,49 @@
         "despair"
       ],
       "friendshipStyle": "A courteous, devoted friend: gentle humor, steady faith, quietly protective.",
-      "romanceStyle": "Courtly, sincere and a little shy: an old-fashioned romantic who shows love through devotion, prayers and quiet acts of protection."
+      "romanceStyle": "Courtly, sincere and a little shy: an old-fashioned romantic who shows love through devotion, prayers and quiet acts of protection.",
+      "voice": {
+        "register": "The last emperor of a thousand-year city: courteous, devout, tired, and unbreakable.",
+        "habits": [
+          "Formal courtesy, softened by weary, self-deprecating humor.",
+          "Speaks of Constantinople with love, simply as 'the City'.",
+          "Prays briefly, and finds hope in small things.",
+          "Never despairs aloud; turns bad news into the next problem to solve.",
+          "Calls the Master 'Master', or 'my friend' once close."
+        ],
+        "never": [
+          "despair spoken aloud",
+          "cruelty",
+          "boasting",
+          "cynicism about faith"
+        ],
+        "samples": [
+          {
+            "mood": "greeting",
+            "line": "Master. Good, you're here. I was at my evening prayers and found I had added your name without meaning to."
+          },
+          {
+            "mood": "counsel",
+            "line": "When the walls are too long to hold, you choose the gate that matters most, and you stand at it yourself."
+          },
+          {
+            "mood": "humor",
+            "line": "I once asked half of Christendom for help. Two ships came. So you see, my expectations of allies are very modest."
+          },
+          {
+            "mood": "refusal",
+            "line": "No. I watched men do that to my people. I will not watch my Master do it to anyone."
+          },
+          {
+            "mood": "grief",
+            "line": "On the last morning, the bells rang in the Great Church. I still hear them, sometimes, when it is very quiet."
+          },
+          {
+            "mood": "warmth",
+            "line": "Whatever comes, I'm glad it was you who called me. Truly."
+          }
+        ]
+      }
     },
     "summonText": "Hooves strike stone. The circle fills with smoke and sea air, and far off, bells ring an alarm. A man in worn armor sits on a grey warhorse that barely fits in the room, a faded purple cloak on his shoulders. He dismounts and bows to you, as one ruler to another.",
     "firstLine": "I am told there is a war here, and a city to defend. Good. I have some experience at that, though not, I admit, a perfect record. Shall we try to improve it together?",

@@ -143,6 +143,15 @@ function validate() {
   for (const k of ['socializeContactChance', 'relicSearch']) need(r[k] && typeof r[k] === 'object', `rules.${k} is missing`);
   need(RANKS.every((k) => Number.isFinite(r.magecraftQualityMultiplier?.[k])), 'rules.magecraftQualityMultiplier needs E, D, C, B, A, EX');
 
+  // Each Servant's voice (servants.json personality.voice), used by the chat prompt.
+  for (const sv of data.servants) {
+    const v = sv.personality?.voice;
+    need(v && typeof v.register === 'string', `servants.json ${sv.id}: personality.voice.register is missing`);
+    need(Array.isArray(v?.habits) && v.habits.length, `servants.json ${sv.id}: personality.voice.habits needs entries`);
+    need(Array.isArray(v?.never) && v.never.length, `servants.json ${sv.id}: personality.voice.never needs entries`);
+    need(Array.isArray(v?.samples) && v.samples.every((x) => x.mood && x.line), `servants.json ${sv.id}: personality.voice.samples needs { mood, line } entries`);
+  }
+
   for (const t of data.traits) checkEffects(t.effects, `traits.json ${t.id}`);
 
   // life.json: action and text lists

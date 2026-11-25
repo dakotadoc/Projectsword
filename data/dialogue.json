@@ -38,61 +38,61 @@
   "servants": {
     "arthur": {
       "greetings": [
-        "Here I am. Talk, then. I've got nowhere better to be until something tries to kill us.",
-        "You look like you've got something on your mind. Out with it.",
-        "Sit. I'll listen. I was a terrible listener as a queen, so you're getting the improved version."
+        "Master. Sit, if you wish. I have kept watch long enough to welcome the company.",
+        "You have something on your mind. Speak it plainly, and I will hear it the same way.",
+        "Come. I was a poor listener as a king, and I have had fifteen centuries to mend it. You shall have the improved version."
       ],
       "replies": [
-        "Hm. That's fair. I've heard worse ideas from better-dressed people.",
-        "I'll think on that. Not everything needs an answer the moment it's asked.",
-        "You remind me of a knight I knew. He also asked hard questions at bad moments. I liked him.",
-        "Saint David's teeth, you don't make anything easy. Good. Easy things are usually traps.",
-        "I'll tell you what I told my knights: say what you mean, and I'll do the same."
+        "A fair point, fairly made. I will weigh it.",
+        "Let me think on that. A hasty answer is a poor gift.",
+        "You remind me of a knight of my table. He also asked hard questions at inconvenient hours. I valued him greatly.",
+        "By Saint David, you do not make anything easy. Good. Easy roads are usually ambushes.",
+        "I will tell you what I told my knights: say what you mean, and I will do the same."
       ],
       "farewells": [
-        "Go on, then. Get some rest. I'll keep watch.",
-        "Good talk. Don't make it the last one."
+        "Rest, Master. I will keep the watch.",
+        "Good counsel tonight. Let it not be our last."
       ],
       "greetingsWarm": [
-        "There you are. I was starting to worry, which is ridiculous, since I'm the one with the sword.",
-        "Sit. Tell me about your day. The real version."
+        "There you are. I confess I had begun to worry, which is absurd, since I am the one with the sword.",
+        "Sit with me. Tell me of your day, and not the version you would give a stranger."
       ],
       "greetingsRomantic": [
-        "You came. Good. I was hoping you would.",
-        "Come here. You look tired, and I've been saving you a seat."
+        "You came. ...I had hoped you would. I find I hope for it more than a king should.",
+        "Come, sit beside me. You look weary, and I have kept the place at my side for you."
       ],
       "remarks": {
-        "won": "That's one. Don't celebrate yet. But you can smile. I'm going to.",
-        "escaped": "We're alive. That's the only part of tonight I care about. Sit down before you fall down.",
-        "betrayal": "I know what it is to be stabbed by someone who smiled at you. I didn't think I'd ever watch my own Master do it.",
-        "betrayed": "They broke their word. Good. Now I don't have to feel bad about what happens next.",
-        "nearDeath": "You nearly died tonight. Don't you dare do that again. I've buried enough people I was meant to protect.",
-        "bondUp": "You know, I think I'd follow you even without those marks on your hand.",
-        "event": "Keep your eyes open. Things like that are never as simple as they look.",
-        "pathPlatonic": "A comrade. Yes. I had a table full of them once. You'd have had a seat.",
-        "pathRomantic": "...Oh. Well. Nobody's said anything like that to me in about fifteen hundred years. Give me a moment. No, don't take it back."
+        "won": "One fewer. Do not celebrate yet, Master. But you may stand a little taller tonight. I intend to.",
+        "escaped": "We live. Tonight, that is victory enough. Sit, before you fall; consider that an order from your knight.",
+        "betrayal": "I know the blade of someone who smiled at me. I did not think to see my own Master wield one. I will stand with you. Do not ask me to call it honorable.",
+        "betrayed": "They broke their oath. Then we are released from ours, and they will learn what that costs.",
+        "nearDeath": "You came within a breath of death tonight. Do not do that again. I have buried enough of those I swore to protect.",
+        "bondUp": "Do you know, I believe I would follow you even without the marks on your hand. Take that as it is meant.",
+        "event": "Keep your eyes open, Master. Such things are rarely as simple as they appear.",
+        "pathPlatonic": "A comrade. Yes. I once had a table full of them. There would have been a seat at it for you.",
+        "pathRomantic": "...Oh. No one has said that to me in fifteen hundred years. Forgive me; give me a moment. No. Do not take it back."
       }
     },
     "ishtar": {
       "greetings": [
         "Oh? You've come to see me. Good. You may begin by telling me how magnificent I look.",
         "I was wondering when you'd remember you have a goddess in the house.",
-        "Speak, mortal. I'm in a generous mood. It won't last."
+        "Speak, mortal. Come closer first; I like to see a face when it worships me. I'm in a generous mood. It won't last."
       ],
       "replies": [
         "Hmph. Interesting. You may continue, but try to be more impressive.",
         "That is the sort of thing a mortal would say. Lucky for you, I find mortals amusing.",
-        "Bring me something shiny and I'll consider it.",
+        "Bring me something shiny, darling, and I'll consider it. Bring it on your knees, and I'll consider it quickly.",
         "You're bolder than you look. I approve, a little.",
         "I've heard prayers more eloquent than that, but not many more sincere."
       ],
       "farewells": [
-        "You may go. Think of me while you're away.",
+        "You may go. Think of me while you're away. You will anyway.",
         "Leave, before I start to like you."
       ],
       "greetingsWarm": [
         "Ah, my favorite mortal. Come, sit with me. Tell me something interesting.",
-        "You're late. I was almost bored. Almost."
+        "You're late, my devoted. I was almost bored. Come here and make it up to me."
       ],
       "greetingsRomantic": [
         "There you are, my love. Come closer. A goddess shouldn't have to wait.",
